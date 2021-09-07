@@ -1,0 +1,18 @@
+{
+  "name": "lune-documentation",
+  "version": "0.0.1",
+  "description": "Learn how to use Lune to make your product or service climate positive",
+  "main": "index.js",
+  "authors": {
+    "name": "Lune",
+    "email": "support@lune.co"
+  },
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
