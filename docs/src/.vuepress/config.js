@@ -4,7 +4,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'Vuepress Docs Boilerplate',
+  title: 'Lune Documentation',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -31,29 +31,43 @@ module.exports = {
     editLinks: false,
     docsDir: '',
     editLinkText: '',
-    lastUpdated: false,
+    lastUpdated: true,
     nav: [
       {
-        text: 'Guide',
-        link: '/guide/',
+        text: 'Guides',
+        link: '/guides/',
       },
       {
-        text: 'Config',
-        link: '/config/'
+        text: 'API Reference',
+        link: '/api-reference/'
       },
-      {
-        text: 'VuePress',
-        link: 'https://v1.vuepress.vuejs.org'
-      }
     ],
     sidebar: {
-      '/guide/': [
+      '/guides/': [
         {
           title: 'Guide',
           collapsable: false,
           children: [
             '',
             'using-vue',
+          ]
+        }
+      ],
+      '/api-reference/': [
+        {
+          title: '🚜   API Reference',
+          collapsable: false,
+          children: [
+            '',
+            'orders',
+            'projects',
+            'accounts',
+            'activity',
+            'bundle-selections',
+            'emission-estimates',
+            'offset-links',
+            'webhooks',
+            'webhook-request',
           ]
         }
       ],
