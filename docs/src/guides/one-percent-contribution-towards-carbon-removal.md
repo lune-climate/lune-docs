@@ -4,6 +4,12 @@
 * Please ensure you have access to [Lune’s dashboard](https://dashboard.lune.co/).
 * Check that you are happy with your [default Bundle Selection](https://dashboard.lune.co/settings/bundle-selection). Orders are going to be placed according to your default Bundle Selection ratios.
 
+## Overview
+Implementing this feature requires the following steps:
+1. On your checkout page, communicate to the user that 1% of the total cost will be devolved to financing carbon removal projects.
+2. Once the checkout process is complete and payment is confirmed, calculate 1% of the total cost and place an order by value.
+3. Implement a webhook receiver to receive order updates. Retiring carbon offsets does not occur immediately. Lune will send a webhook `order.completed` event every time an order is fully retired. The order will now contain the completion [Certificate URL which allows you to download the certificate](/guides/downloading-completion-certificate). The certificate includes projects defails, carbon offset retirements and links to official public ledgers (for verified projects).
+
 <br />
 
 ::: tip Notice
@@ -19,13 +25,6 @@ If you are ready to switch from Test Account to Live Account, you only need to s
 :::
 
 <br />
-
-## Overview
-Implementing this feature requires the following steps:
-1. On your checkout page, communicate to the user that 1% of the total cost will be devolved to financing carbon removal projects.
-2. Once the checkout process is complete and payment is confirmed, calculate 1% of the total cost and place an order by value.
-3. Implement a webhook receiver to receive order updates. Retiring carbon offsets does not occur immediately. Lune will send a webhook `order.completed` event every time an order is fully retired. The order will now contain the completion [Certificate URL which allows you to download the certificate](/guides/downloading-completion-certificate). The certificate includes projects defails, carbon offset retirements and links to official public ledgers (for verified projects).
-
 
 ## Communicate that 1% of the total cost will be devolved to financing carbon removal
 It is recommended that, when you place a message that describes that 1% of the total cost will be devolved to finance carbon removal on the checkout page, you do so in a clean and unintrusive way.
