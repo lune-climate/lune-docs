@@ -1,14 +1,8 @@
 # 1% contribution towards carbon removal
 
-## What are the benefits?
-[should this belong to the guide?]
-
-## Who would benefit from implementing this feature?
-[should this belong to the guide?]
-
 ## Pre-requisites
-* Please ensure have access to [Lune’s dashboard](https://dashboard.lune.co/).
-* Check that you have happy with your [default Bundle Selection](https://dashboard.lune.co/settings/bundle-selection). Orders are going to be placed according to your default Bundle Selection ratios.
+* Please ensure you have access to [Lune’s dashboard](https://dashboard.lune.co/).
+* Check that you are happy with your [default Bundle Selection](https://dashboard.lune.co/settings/bundle-selection). Orders are going to be placed according to your default Bundle Selection ratios.
 
 <br />
 
@@ -19,9 +13,9 @@ The following guide applies to both Test and Live accounts.
 
 It is recommended that you develop this feature using your Test account.
 
-Only once you are happy with your implementation switch to the Live account.
+Only once you are happy with your implementation, switch to the Live account.
 
-If you are ready to switch from Test Account to Live Accounts you only need to swap your [Test API Key with your Live API Key](https://dashboard.lune.co/api-keys).
+If you are ready to switch from Test Account to Live Account, you only need to swap your [Test API Key with your Live API Key](https://dashboard.lune.co/api-keys).
 :::
 
 <br />
@@ -30,7 +24,7 @@ If you are ready to switch from Test Account to Live Accounts you only need to s
 Implementing this feature requires the following steps:
 1. On your checkout page, communicate to the user that 1% of the total cost will be devolved to financing carbon removal projects.
 2. Once the checkout process is complete and payment is confirmed, calculate 1% of the total cost and place an order by value.
-3. Implement a webhook receiver to receive order updates. Retiring carbon offsets does not occur immediately. Lune will send a webhook `order.completed` event every time an order is fully retired. The order will now contain the completion [Certificate URL which can be downloaded](/guides/downloading-completion-certificate). The certificate includes projects defails and carbon offset retirements.
+3. Implement a webhook receiver to receive order updates. Retiring carbon offsets does not occur immediately. Lune will send a webhook `order.completed` event every time an order is fully retired. The order will now contain the completion [Certificate URL which allows you to download the certificate](/guides/downloading-completion-certificate). The certificate includes projects defails, carbon offset retirements and links to official public ledgers (for verified projects).
 
 
 ## Communicate that 1% of the total cost will be devolved to financing carbon removal
@@ -44,7 +38,7 @@ As an example:
 ## Place an order by value
 First, calculate 1% of the checkout’s total cost.
 
-For instance, assuming your account’s currency is GBP, if the total cost were **£145.95**, 1% would equal **£1.46**.
+For instance, assuming your account’s currency is GBP, if the total cost is **£145.95**, 1% would equal **£1.46**.
 
 Now, [place an order by value](/api-reference/orders.html#create-an-order-by-value):
 
@@ -115,11 +109,11 @@ You should get a response looking like:
 }
 ```
 
-Next, Lune will take care of allocating projects to the order and then retire their offsets. This is not immediate.
+Next, Lune will take care of allocating projects to the order and then retire their offsets. This occurs after some time.
 
 ## Get order updates through a webhook receiver
 
-Webhooks are used to automatically receive notifications of events that happen. For example, when an order transitions from `allocated` to `complete`.
+Webhooks are used to automatically receive notifications of events that happen within Lune. For example, when an order transitions from `allocated` to `complete`.
 
 For detailed information regarding implementing a webhook receiver, see [Implement a Webhook receiver](/guides/implement-a-webhook-receiver).
 
