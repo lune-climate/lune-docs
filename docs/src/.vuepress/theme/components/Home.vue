@@ -2,7 +2,6 @@
   <main class="home"
     :aria-labelledby="data.heroText !== null ? 'main-title' : null"
   >
-    <h1>This is a test</h1>
     <header class="hero">
       <img
         v-if="data.heroImage"

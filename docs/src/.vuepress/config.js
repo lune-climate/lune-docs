@@ -28,12 +28,12 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: '',
+    repo: 'https://github.com/lune-climate/lune-docs',
     logo: 'https://assets.lune.co/lune-logo.svg',
-    editLinks: false,
+    editLinks: true,
+    showEditLink: true,
     smoothScroll: true,
     docsDir: '',
-    editLinkText: '',
     lastUpdated: true,
     navbar: true,
     nav: [
@@ -49,11 +49,9 @@ module.exports = {
     sidebar: {
       '/guides/': [
         {
-          title: 'Guides',
+          title: '📕 Guides',
           collapsable: false,
           children: [
-            '',
-            'using-vue',
             'one-percent-contribution-towards-carbon-removal',
           ]
         }
@@ -82,5 +80,6 @@ module.exports = {
   /**
    * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
    */
-  plugins: []
+  plugins: [
+  ]
 }
