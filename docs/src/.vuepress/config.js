@@ -4,7 +4,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'Lune Documentation',
+  title: 'Documentation',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -16,6 +16,7 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/config/#head
    */
   head: [
+    ['link', { rel: 'icon', href: 'https://assets.lune.co/lune-logo-dark.png' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }]
@@ -27,11 +28,14 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: '',
-    editLinks: false,
+    repo: 'https://github.com/lune-climate/lune-docs',
+    logo: 'https://assets.lune.co/lune-logo.svg',
+    editLinks: true,
+    showEditLink: true,
+    smoothScroll: true,
     docsDir: '',
-    editLinkText: '',
     lastUpdated: true,
+    navbar: true,
     nav: [
       {
         text: 'Guides',
@@ -45,11 +49,10 @@ module.exports = {
     sidebar: {
       '/guides/': [
         {
-          title: 'Guide',
+          title: '📒 Guides',
           collapsable: false,
           children: [
-            '',
-            'using-vue',
+            'one-percent-contribution-towards-carbon-removal',
           ]
         }
       ],
@@ -78,7 +81,5 @@ module.exports = {
    * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
    */
   plugins: [
-    '@vuepress/plugin-back-to-top',
-    '@vuepress/plugin-medium-zoom',
   ]
 }
