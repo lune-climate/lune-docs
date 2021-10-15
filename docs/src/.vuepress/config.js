@@ -49,7 +49,7 @@ module.exports = {
     sidebar: {
       '/guides/': [
         {
-          title: '📕 Guides',
+          title: '📒 Guides',
           collapsable: false,
           children: [
             'one-percent-contribution-towards-carbon-removal',

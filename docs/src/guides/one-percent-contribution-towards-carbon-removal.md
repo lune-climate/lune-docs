@@ -2,12 +2,12 @@
 
 ## Pre-requisites
 * Please ensure you have access to [Lune’s dashboard](https://dashboard.lune.co/).
-* Check that you are happy with your [default Bundle Selection](https://dashboard.lune.co/settings/bundle-selection). Orders are going to be placed according to your default Bundle Selection ratios.
+* Ensure that you have selected your desired [default Bundle Selection](https://dashboard.lune.co/settings/bundle-selection). Orders are going to be placed according to your default Bundle Selection ratios.
 
 ## Overview
 Implementing this feature requires the following steps:
-1. On your checkout page, communicate to the user that 1% of the total cost will be devolved to financing carbon removal projects.
-2. Once the checkout process is complete and payment is confirmed, calculate 1% of the total cost and place an order by value.
+1. On your checkout page, communicate to the user that 1% of the total cost will be used to finance carbon removal projects.
+2. Once the checkout process is complete and payment is confirmed, calculate 1% of the total cost and place an order by value with Lune.
 3. Implement a webhook receiver to receive order updates. Retiring carbon offsets does not occur immediately. Lune will send a webhook `order.completed` event every time an order is fully retired. The order will now contain the completion [Certificate URL which allows you to download the certificate](/guides/downloading-completion-certificate). The certificate includes projects defails, carbon offset retirements and links to official public ledgers (for verified projects).
 
 <br />
@@ -19,16 +19,16 @@ The following guide applies to both Test and Live accounts.
 
 It is recommended that you develop this feature using your Test account.
 
-Only once you are happy with your implementation, switch to the Live account.
+Once you are happy with your implementation, switch to the Live account.
 
-If you are ready to switch from Test Account to Live Account, you only need to swap your [Test API Key with your Live API Key](https://dashboard.lune.co/api-keys).
+To switch to your Live Account, simply swap your [Test API Key with your Live API Key](https://dashboard.lune.co/api-keys).
 :::
 
 <br />
 
-## Communicate that 1% of the total cost will be devolved to financing carbon removal
-It is recommended that, when you place a message that describes that 1% of the total cost will be devolved to finance carbon removal on the checkout page, you do so in a clean and unintrusive way.
-It is not our intention to reduce conversions, on the contrary, we believe this feature increases conversions.
+## Communicate that 1% of the total cost will be used to finance carbon removal
+It is recommended that, when you place a message that describes that 1% of the total cost will be used to finance carbon removal on the checkout page, you do so in a clean and unintrusive way.
+This will increase conversions.
 
 As an example:
 
@@ -48,9 +48,9 @@ curl -X POST "https://api.lune.co/v1/orders/by-value" \
 	-d '{ "value": "1.46" }'
 ```
 
-The payload, optionally, takes an `idempotency_key` which you can set to enforce order uniqueness and also allows you to reconcile order updates that you receive through a webhook receiver.
+The payload can optionally take an `idempotency_key` which you can set to enforce order uniqueness and also allows you to reconcile order updates that you receive through a webhook receiver.
 
-You should get a response looking like:
+An example response with some added comments can be seen below:
 
 ```json
 {
@@ -108,9 +108,9 @@ You should get a response looking like:
 }
 ```
 
-Next, Lune will take care of allocating projects to the order and then retire their offsets. This occurs after some time.
+Next, Lune will take care of allocating projects to the order and then retire their offsets. This process can take some time.
 
-## Get order updates through a webhook receiver
+## Real time order updates through a webhook receiver
 
 Webhooks are used to automatically receive notifications of events that happen within Lune. For example, when an order transitions from `allocated` to `complete`.
 
@@ -204,9 +204,4 @@ When the above order completes, you should expect an event as the following:
 }
 ```
 
-Now [download the certificate](/guides/downloading-completion-certificate) and deliver it to your user.
-
-<br />
-<hr />
-
-For support and feedback: [support@lune.co](mailto:support@lune.co).
+You are now able to [download the certificate](/guides/downloading-completion-certificate) and deliver it to your user as you see fit.
