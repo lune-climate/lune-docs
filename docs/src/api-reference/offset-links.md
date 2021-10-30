@@ -1,5 +1,7 @@
 
 
+
+
 # Offset links
 
 Provide your customers with links to fund a bundle of their choice.
@@ -14,34 +16,34 @@ GET /offset-links/{id}
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| id | string | Y | The offset links's unique identifier | 1vE213P96LbXNap56NAqVoM7knOedQg5 |
+| id | string <br />_**required**_ | The offset links's unique identifier | 1vE213P96LbXNap56NAqVoM7knOedQg5 |
 
 
 ### Responses
 
 **200** Offset link fetched successfully.
 
-#### Response Body
+#### Response Body [OffsetLink](OffsetLink):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The offset link identifier |
-| name | string | Y | Offset link name.<br><br>This is a human readable name to recognise and distingish different offset links.<br> |
-| title | string |  | Offset link title<br><br>This is the title that appears on the first screen of the offset links flow.<br> |
-| description | string |  | Offset link description<br><br>This is the description that appears on the first screen of the offset links flow.<br> |
-| logo | string |  | Offset link logo URL<br><br>This is the logo URL that appears on the first screen of the offset links flow.<br> |
-| use_logo | boolean | Y | Whether to include the Offset link logo (defined in Account settings) in the footer.<br> |
-| url | string | Y | The actual offset link URL that can be used to place orders |
-| value | string |  | An amount of money (the fractional part is optional) |
-| currency | string |  | ISO 4217 3 character currency code.<br><br>Note: Lune does not support all currency codes.<br> |
-| emails | array |  | The email addresses of users that are allowed to use the offset link. |
-| bundles | array |  | Bundle objects |
-| created_at | string | Y | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
-| status | string | Y |  |
-| expires_at | string |  | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
-| require_payment | boolean | Y | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The offset link identifier |
+| name | string<br />_**required**_ | Offset link name.<br><br>This is a human readable name to recognise and distingish different offset links.<br> |
+| title | string | Offset link title<br><br>This is the title that appears on the first screen of the offset links flow.<br> |
+| description | string | Offset link description<br><br>This is the description that appears on the first screen of the offset links flow.<br> |
+| logo | string | Offset link logo URL<br><br>This is the logo URL that appears on the first screen of the offset links flow.<br> |
+| use_logo | boolean<br />_**required**_ | Whether to include the Offset link logo (defined in Account settings) in the footer.<br> |
+| url | string<br />_**required**_ | The actual offset link URL that can be used to place orders |
+| value | string | An amount of money (the fractional part is optional) |
+| currency | string | ISO 4217 3 character currency code.<br><br>Note: Lune does not support all currency codes.<br> |
+| emails | array | The email addresses of users that are allowed to use the offset link. |
+| bundles | array of [Bundle](Bundle) | Bundle objects |
+| created_at | string<br />_**required**_ | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
+| status | string<br />_**required**_<br /><br />Enum: <ul><li>`enabled`</li><li>`disabled`</li></ul> |  |
+| expires_at | string | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
+| require_payment | boolean<br />_**required**_ | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
 
 ##### Example
 ```json
@@ -112,13 +114,13 @@ GET /offset-links/{id}
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](Errors):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -149,48 +151,66 @@ PUT /offset-links/{id}
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| id | string | Y | The offset links's unique identifier | 1vE213P96LbXNap56NAqVoM7knOedQg5 |
+| id | string <br />_**required**_ | The offset links's unique identifier | 1vE213P96LbXNap56NAqVoM7knOedQg5 |
 
-#### Request Body
+#### Request Body [OffsetLinkRequest](OffsetLinkRequest):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| name | string | Y | Offset link name.<br><br>This is a human readable name to recognise and distingish different offset links.<br> |
-| title | string |  | Offset link title<br><br>This is the title that appears on the first screen of the offset links flow.<br> |
-| description | string |  | Offset link description<br><br>This is the description that appears on the first screen of the offset links flow.<br> |
-| bundles | array |  | The bundle ids selected for use through the particular offset link. |
-| value | string |  | An amount of money (the fractional part is optional) |
-| emails | array |  | The email addresses of users that are allowed to use the offset link. |
-| expires_at | string |  | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
-| use_logo | boolean | Y | Whether to include the Offset link logo (defined in Account settings) in the footer.<br> |
-| require_payment | boolean |  | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| name | string<br />_**required**_ | Offset link name.<br><br>This is a human readable name to recognise and distingish different offset links.<br> |
+| title | string | Offset link title<br><br>This is the title that appears on the first screen of the offset links flow.<br> |
+| description | string | Offset link description<br><br>This is the description that appears on the first screen of the offset links flow.<br> |
+| bundles | array | The bundle ids selected for use through the particular offset link. |
+| value |  object [Money](Money) |  |
+| emails | array | The email addresses of users that are allowed to use the offset link. |
+| expires_at |  object [Timestamp](Timestamp) |  |
+| use_logo | boolean<br />_**required**_ | Whether to include the Offset link logo (defined in Account settings) in the footer.<br> |
+| require_payment | boolean | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
 
+##### Example
+```json
+{
+    "name": "Marketing Campaign July 2021",
+    "title": "string",
+    "description": "string",
+    "bundles": [
+        "string"
+    ],
+    "value": "3.14",
+    "emails": [
+        "john@doe.com"
+    ],
+    "expires_at": "1985-04-12T23:20:50.52Z",
+    "use_logo": "boolean",
+    "require_payment": "boolean"
+}
+```
 
 ### Responses
 
 **200** The offset link updated successfully.
 
-#### Response Body
+#### Response Body [OffsetLink](OffsetLink):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The offset link identifier |
-| name | string | Y | Offset link name.<br><br>This is a human readable name to recognise and distingish different offset links.<br> |
-| title | string |  | Offset link title<br><br>This is the title that appears on the first screen of the offset links flow.<br> |
-| description | string |  | Offset link description<br><br>This is the description that appears on the first screen of the offset links flow.<br> |
-| logo | string |  | Offset link logo URL<br><br>This is the logo URL that appears on the first screen of the offset links flow.<br> |
-| use_logo | boolean | Y | Whether to include the Offset link logo (defined in Account settings) in the footer.<br> |
-| url | string | Y | The actual offset link URL that can be used to place orders |
-| value | string |  | An amount of money (the fractional part is optional) |
-| currency | string |  | ISO 4217 3 character currency code.<br><br>Note: Lune does not support all currency codes.<br> |
-| emails | array |  | The email addresses of users that are allowed to use the offset link. |
-| bundles | array |  | Bundle objects |
-| created_at | string | Y | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
-| status | string | Y |  |
-| expires_at | string |  | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
-| require_payment | boolean | Y | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The offset link identifier |
+| name | string<br />_**required**_ | Offset link name.<br><br>This is a human readable name to recognise and distingish different offset links.<br> |
+| title | string | Offset link title<br><br>This is the title that appears on the first screen of the offset links flow.<br> |
+| description | string | Offset link description<br><br>This is the description that appears on the first screen of the offset links flow.<br> |
+| logo | string | Offset link logo URL<br><br>This is the logo URL that appears on the first screen of the offset links flow.<br> |
+| use_logo | boolean<br />_**required**_ | Whether to include the Offset link logo (defined in Account settings) in the footer.<br> |
+| url | string<br />_**required**_ | The actual offset link URL that can be used to place orders |
+| value | string | An amount of money (the fractional part is optional) |
+| currency | string | ISO 4217 3 character currency code.<br><br>Note: Lune does not support all currency codes.<br> |
+| emails | array | The email addresses of users that are allowed to use the offset link. |
+| bundles | array of [Bundle](Bundle) | Bundle objects |
+| created_at | string<br />_**required**_ | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
+| status | string<br />_**required**_<br /><br />Enum: <ul><li>`enabled`</li><li>`disabled`</li></ul> |  |
+| expires_at | string | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
+| require_payment | boolean<br />_**required**_ | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
 
 ##### Example
 ```json
@@ -261,13 +281,13 @@ PUT /offset-links/{id}
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](Errors):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -282,13 +302,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](Errors):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -328,12 +348,12 @@ GET /offset-links
 
 **200** Offset links fetched successfully.
 
-#### Response Body
+#### Response Body [PaginatedOffsetLinks](PaginatedOffsetLinks):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| has_more | boolean | Y | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array | Y | Paginated Offset Links |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
+| data | array of [OffsetLink](OffsetLink)<br />_**required**_ | Paginated Offset Links |
 
 ##### Example
 ```json
@@ -409,13 +429,13 @@ GET /offset-links
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](Errors):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -442,44 +462,62 @@ POST /offset-links
 ```
 
 
-#### Request Body
+#### Request Body [OffsetLinkRequest](OffsetLinkRequest):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| name | string | Y | Offset link name.<br><br>This is a human readable name to recognise and distingish different offset links.<br> |
-| title | string |  | Offset link title<br><br>This is the title that appears on the first screen of the offset links flow.<br> |
-| description | string |  | Offset link description<br><br>This is the description that appears on the first screen of the offset links flow.<br> |
-| bundles | array |  | The bundle ids selected for use through the particular offset link. |
-| value | string |  | An amount of money (the fractional part is optional) |
-| emails | array |  | The email addresses of users that are allowed to use the offset link. |
-| expires_at | string |  | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
-| use_logo | boolean | Y | Whether to include the Offset link logo (defined in Account settings) in the footer.<br> |
-| require_payment | boolean |  | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| name | string<br />_**required**_ | Offset link name.<br><br>This is a human readable name to recognise and distingish different offset links.<br> |
+| title | string | Offset link title<br><br>This is the title that appears on the first screen of the offset links flow.<br> |
+| description | string | Offset link description<br><br>This is the description that appears on the first screen of the offset links flow.<br> |
+| bundles | array | The bundle ids selected for use through the particular offset link. |
+| value |  object [Money](Money) |  |
+| emails | array | The email addresses of users that are allowed to use the offset link. |
+| expires_at |  object [Timestamp](Timestamp) |  |
+| use_logo | boolean<br />_**required**_ | Whether to include the Offset link logo (defined in Account settings) in the footer.<br> |
+| require_payment | boolean | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
 
+##### Example
+```json
+{
+    "name": "Marketing Campaign July 2021",
+    "title": "string",
+    "description": "string",
+    "bundles": [
+        "string"
+    ],
+    "value": "3.14",
+    "emails": [
+        "john@doe.com"
+    ],
+    "expires_at": "1985-04-12T23:20:50.52Z",
+    "use_logo": "boolean",
+    "require_payment": "boolean"
+}
+```
 
 ### Responses
 
 **200** The offset link created successfully.
 
-#### Response Body
+#### Response Body [OffsetLink](OffsetLink):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The offset link identifier |
-| name | string | Y | Offset link name.<br><br>This is a human readable name to recognise and distingish different offset links.<br> |
-| title | string |  | Offset link title<br><br>This is the title that appears on the first screen of the offset links flow.<br> |
-| description | string |  | Offset link description<br><br>This is the description that appears on the first screen of the offset links flow.<br> |
-| logo | string |  | Offset link logo URL<br><br>This is the logo URL that appears on the first screen of the offset links flow.<br> |
-| use_logo | boolean | Y | Whether to include the Offset link logo (defined in Account settings) in the footer.<br> |
-| url | string | Y | The actual offset link URL that can be used to place orders |
-| value | string |  | An amount of money (the fractional part is optional) |
-| currency | string |  | ISO 4217 3 character currency code.<br><br>Note: Lune does not support all currency codes.<br> |
-| emails | array |  | The email addresses of users that are allowed to use the offset link. |
-| bundles | array |  | Bundle objects |
-| created_at | string | Y | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
-| status | string | Y |  |
-| expires_at | string |  | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
-| require_payment | boolean | Y | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The offset link identifier |
+| name | string<br />_**required**_ | Offset link name.<br><br>This is a human readable name to recognise and distingish different offset links.<br> |
+| title | string | Offset link title<br><br>This is the title that appears on the first screen of the offset links flow.<br> |
+| description | string | Offset link description<br><br>This is the description that appears on the first screen of the offset links flow.<br> |
+| logo | string | Offset link logo URL<br><br>This is the logo URL that appears on the first screen of the offset links flow.<br> |
+| use_logo | boolean<br />_**required**_ | Whether to include the Offset link logo (defined in Account settings) in the footer.<br> |
+| url | string<br />_**required**_ | The actual offset link URL that can be used to place orders |
+| value | string | An amount of money (the fractional part is optional) |
+| currency | string | ISO 4217 3 character currency code.<br><br>Note: Lune does not support all currency codes.<br> |
+| emails | array | The email addresses of users that are allowed to use the offset link. |
+| bundles | array of [Bundle](Bundle) | Bundle objects |
+| created_at | string<br />_**required**_ | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
+| status | string<br />_**required**_<br /><br />Enum: <ul><li>`enabled`</li><li>`disabled`</li></ul> |  |
+| expires_at | string | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
+| require_payment | boolean<br />_**required**_ | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
 
 ##### Example
 ```json
@@ -550,13 +588,13 @@ POST /offset-links
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](Errors):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -571,13 +609,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](Errors):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -608,23 +646,23 @@ GET /offset-links/{id}/analytics
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| id | string | Y | The offset links's unique identifier | 1vE213P96LbXNap56NAqVoM7knOedQg5 |
+| id | string <br />_**required**_ | The offset links's unique identifier | 1vE213P96LbXNap56NAqVoM7knOedQg5 |
 
 
 ### Responses
 
 **200** Offset link analytics fetched successfully.
 
-#### Response Body
+#### Response Body [OffsetLinkAnalytics](OffsetLinkAnalytics):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The offset link identifier |
-| unique_visitors | integer | Y | The number of unique visitors for the specific offset link |
-| placed_orders | integer | Y | The number of placed orders for the specific offset link |
-| orders | array | Y |  |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The offset link identifier |
+| unique_visitors | integer<br />_**required**_ | The number of unique visitors for the specific offset link |
+| placed_orders | integer<br />_**required**_ | The number of placed orders for the specific offset link |
+| orders | array of [OffsetLinkOrder](OffsetLinkOrder)<br />_**required**_ |  |
 
 ##### Example
 ```json
@@ -653,13 +691,13 @@ GET /offset-links/{id}/analytics
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](Errors):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
