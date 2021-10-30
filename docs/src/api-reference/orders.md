@@ -17,14 +17,14 @@ POST /orders/by-mass
 ```
 
 
-#### Request Body [CreateOrderByQuantityRequest](CreateOrderByQuantityRequest):
+#### Request Body [CreateOrderByQuantityRequest](createorderbyquantityrequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | mass | <br />_**required**_ | Mass of CO2 offsets to purchase |
 | idempotency_key | string | Optional unique identifier provided by the client.<br><br>`idempotency_key` has two purposes:<br>1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.<br>2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.<br> |
-| bundle_selection |  object [BundleSelectionRequest](BundleSelectionRequest) |  |
-| metadata |  object [Metadata](Metadata) |  |
+| bundle_selection |  object [BundleSelectionRequest](bundleselectionrequest.html) |  |
+| metadata |  object [Metadata](metadata.html) |  |
 
 ##### Example
 ```json
@@ -57,7 +57,7 @@ POST /orders/by-mass
 The response returns an Order object.
 
 
-#### Response Body [OrderByQuantity](OrderByQuantity):
+#### Response Body [OrderByQuantity](orderbyquantity.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -71,10 +71,10 @@ The response returns an Order object.
 | commission | string | Represents Lune's fee.<br><br>This field is set when the order is linked to Bundles.<br><br>This field is set the order's status transitions from `received` to `placed`.<br><br>Unit: order currency<br> |
 | quantity | string | Quantity of CO2 offsets purchased in tonnes. |
 | created_at | string<br />_**required**_ | Order creation timestamp |
-| bundles | array of [OrderBundle](OrderBundle) | bundles are set when the order's status is `placed`, `paid`, `allocated` or `complete`.<br><br>Represents the bundles associated with the order including their relative quantity and cost breakdown.<br> |
-| projects | array of [OrderProject](OrderProject) | Projects are set when the order's status is `allocated` or `complete`.<br><br>Represents the projects associated with the order including their relative quantity and cost breakdown.<br><br>Orders are placed against bundles, not projects. Projects in a bundle may change based on supply.<br><br>This field is set as soon as we can guarantee project supply.<br> |
+| bundles | array of [OrderBundle](orderbundle.html) | bundles are set when the order's status is `placed`, `paid`, `allocated` or `complete`.<br><br>Represents the bundles associated with the order including their relative quantity and cost breakdown.<br> |
+| projects | array of [OrderProject](orderproject.html) | Projects are set when the order's status is `allocated` or `complete`.<br><br>Represents the projects associated with the order including their relative quantity and cost breakdown.<br><br>Orders are placed against bundles, not projects. Projects in a bundle may change based on supply.<br><br>This field is set as soon as we can guarantee project supply.<br> |
 | certificate | string | Carbon credits certificate URL.<br><br>This field is set when an order in 'complete' status<br> |
-| metadata |  object [Metadata](Metadata)<br />_**required**_ |  |
+| metadata |  object [Metadata](metadata.html)<br />_**required**_ |  |
 | offset_link_id | string | The offset link identifier, if the order was placed through an offset link |
 | email | string | End-user email.<br><br>This field is currently populated on orders placed through offset links.<br> |
 | requested_quantity | string<br />_**required**_ | Represents the requested quantity of CO2 offsets to purchase in tonnes. |
@@ -136,7 +136,7 @@ The response returns an Order object.
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -157,7 +157,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -183,7 +183,7 @@ Examples:
   2. order idempotency failure: an order with the same idempotency_key has already by created
 
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -220,14 +220,14 @@ POST /orders/by-value
 ```
 
 
-#### Request Body [CreateOrderByValueRequest](CreateOrderByValueRequest):
+#### Request Body [CreateOrderByValueRequest](createorderbyvaluerequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | value | string<br />_**required**_ | Maximum price of CO2 offsets to purchase (in the account's currency) |
 | idempotency_key | string | Optional unique identifier provided by the client.<br><br>`idempotency_key` has two purposes:<br>1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.<br>2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.<br> |
-| bundle_selection |  object [BundleSelectionRequest](BundleSelectionRequest) |  |
-| metadata |  object [Metadata](Metadata) |  |
+| bundle_selection |  object [BundleSelectionRequest](bundleselectionrequest.html) |  |
+| metadata |  object [Metadata](metadata.html) |  |
 
 ##### Example
 ```json
@@ -257,7 +257,7 @@ POST /orders/by-value
 The response returns an Order object.
 
 
-#### Response Body [OrderByValue](OrderByValue):
+#### Response Body [OrderByValue](orderbyvalue.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -271,10 +271,10 @@ The response returns an Order object.
 | commission | string | Represents Lune's fee.<br><br>This field is set when the order is linked to Bundles.<br><br>This field is set the order's status transitions from `received` to `placed`.<br><br>Unit: order currency<br> |
 | quantity | string | Quantity of CO2 offsets purchased in tonnes. |
 | created_at | string<br />_**required**_ | Order creation timestamp |
-| bundles | array of [OrderBundle](OrderBundle) | bundles are set when the order's status is `placed`, `paid`, `allocated` or `complete`.<br><br>Represents the bundles associated with the order including their relative quantity and cost breakdown.<br> |
-| projects | array of [OrderProject](OrderProject) | Projects are set when the order's status is `allocated` or `complete`.<br><br>Represents the projects associated with the order including their relative quantity and cost breakdown.<br><br>Orders are placed against bundles, not projects. Projects in a bundle may change based on supply.<br><br>This field is set as soon as we can guarantee project supply.<br> |
+| bundles | array of [OrderBundle](orderbundle.html) | bundles are set when the order's status is `placed`, `paid`, `allocated` or `complete`.<br><br>Represents the bundles associated with the order including their relative quantity and cost breakdown.<br> |
+| projects | array of [OrderProject](orderproject.html) | Projects are set when the order's status is `allocated` or `complete`.<br><br>Represents the projects associated with the order including their relative quantity and cost breakdown.<br><br>Orders are placed against bundles, not projects. Projects in a bundle may change based on supply.<br><br>This field is set as soon as we can guarantee project supply.<br> |
 | certificate | string | Carbon credits certificate URL.<br><br>This field is set when an order in 'complete' status<br> |
-| metadata |  object [Metadata](Metadata)<br />_**required**_ |  |
+| metadata |  object [Metadata](metadata.html)<br />_**required**_ |  |
 | offset_link_id | string | The offset link identifier, if the order was placed through an offset link |
 | email | string | End-user email.<br><br>This field is currently populated on orders placed through offset links.<br> |
 | requested_value | string<br />_**required**_ | Represents the requested value of CO2 offsets to purchase.<br><br>Unit: order currency<br> |
@@ -336,7 +336,7 @@ The response returns an Order object.
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -357,7 +357,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -383,7 +383,7 @@ Examples:
   2. order idempotency failure: an order with the same idempotency_key has already by created
 
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -429,12 +429,12 @@ GET /orders
 
 **200** The response returns paginated orders
 
-#### Response Body [PaginatedOrders](PaginatedOrders):
+#### Response Body [PaginatedOrders](paginatedorders.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array of [Order](Order)<br />_**required**_ | Paginated Order objects ordered by creation date descending. |
+| data | array of [Order](order.html)<br />_**required**_ | Paginated Order objects ordered by creation date descending. |
 
 ##### Example
 ```json
@@ -498,7 +498,7 @@ GET /orders
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -541,7 +541,7 @@ GET /orders/{id}
 
 **200** The response returns an order
 
-#### Response Body [Order](Order):
+#### Response Body [Order](order.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -660,7 +660,7 @@ GET /orders/by-idempotency-key/{idempotencyKey}
 
 **200** The response returns an order
 
-#### Response Body [Order](Order):
+#### Response Body [Order](order.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -742,12 +742,12 @@ POST /orders/by-mass/quote
 ```
 
 
-#### Request Body [OrderQuoteByQuantityRequest](OrderQuoteByQuantityRequest):
+#### Request Body [OrderQuoteByQuantityRequest](orderquotebyquantityrequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | mass | <br />_**required**_ | Mass of CO2 offsets to purchase |
-| bundle_selection |  object [BundleSelectionRequest](BundleSelectionRequest) |  |
+| bundle_selection |  object [BundleSelectionRequest](bundleselectionrequest.html) |  |
 
 ##### Example
 ```json
@@ -774,7 +774,7 @@ POST /orders/by-mass/quote
 **200** Order quote processed successfully.
 
 
-#### Response Body [OrderQuoteByQuantity](OrderQuoteByQuantity):
+#### Response Body [OrderQuoteByQuantity](orderquotebyquantity.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -783,7 +783,7 @@ POST /orders/by-mass/quote
 | estimated_offset_cost | string<br />_**required**_ | Estimated offset cost<br><br>Unit: order quote currency<br> |
 | estimated_total_cost | string<br />_**required**_ | Estimated total cost inclusive of Lune fees.<br><br>Unit: order quote currency<br> |
 | estimated_commission | string<br />_**required**_ | Estimated commission |
-| bundles | array of [OrderBundle](OrderBundle)<br />_**required**_ | Bundles included in the quote including quantity and cost breakdown.<br> |
+| bundles | array of [OrderBundle](orderbundle.html)<br />_**required**_ | Bundles included in the quote including quantity and cost breakdown.<br> |
 | requested_quantity | string<br />_**required**_ | Requested quantity for the specific bundle (tonnes CO2) |
 
 ##### Example
@@ -811,7 +811,7 @@ POST /orders/by-mass/quote
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -832,7 +832,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -872,12 +872,12 @@ POST /orders/by-value/quote
 ```
 
 
-#### Request Body [OrderQuoteByValueRequest](OrderQuoteByValueRequest):
+#### Request Body [OrderQuoteByValueRequest](orderquotebyvaluerequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | value | string<br />_**required**_ | Maximum price of CO2 offsets to purchase (in the account's currency) |
-| bundle_selection |  object [BundleSelectionRequest](BundleSelectionRequest) |  |
+| bundle_selection |  object [BundleSelectionRequest](bundleselectionrequest.html) |  |
 
 ##### Example
 ```json
@@ -901,7 +901,7 @@ POST /orders/by-value/quote
 **200** Order quote processed successfully.
 
 
-#### Response Body [OrderQuoteByValue](OrderQuoteByValue):
+#### Response Body [OrderQuoteByValue](orderquotebyvalue.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -910,7 +910,7 @@ POST /orders/by-value/quote
 | estimated_offset_cost | string<br />_**required**_ | Estimated offset cost<br><br>Unit: order quote currency<br> |
 | estimated_total_cost | string<br />_**required**_ | Estimated total cost inclusive of Lune fees.<br><br>Unit: order quote currency<br> |
 | estimated_commission | string<br />_**required**_ | Estimated commission |
-| bundles | array of [OrderBundle](OrderBundle)<br />_**required**_ | Bundles included in the quote including quantity and cost breakdown.<br> |
+| bundles | array of [OrderBundle](orderbundle.html)<br />_**required**_ | Bundles included in the quote including quantity and cost breakdown.<br> |
 | requested_value | string<br />_**required**_ | Requested order value inclusive of commission |
 
 ##### Example
@@ -938,7 +938,7 @@ POST /orders/by-value/quote
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -959,7 +959,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |

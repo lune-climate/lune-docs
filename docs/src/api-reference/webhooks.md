@@ -27,7 +27,7 @@ Array of:
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | id | string<br />_**required**_ | The webhook's identifier |
-| url |  object [Url](Url)<br />_**required**_ |  |
+| url |  object [Url](url.html)<br />_**required**_ |  |
 | enabled | boolean<br />_**required**_ | Determines if events should be sent to the webhook or not. |
 | secret | string<br />_**required**_ | The secret key used to generate the webhook payload HMAC. |
 
@@ -46,7 +46,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -79,11 +79,11 @@ POST /webhooks
 ```
 
 
-#### Request Body [CreateWebhookRequest](CreateWebhookRequest):
+#### Request Body [CreateWebhookRequest](createwebhookrequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
-| url |  object [Url](Url)<br />_**required**_ |  |
+| url |  object [Url](url.html)<br />_**required**_ |  |
 
 ##### Example
 ```json
@@ -96,7 +96,7 @@ POST /webhooks
 
 **200** A webhook created successfully
 
-#### Response Body [Webhook](Webhook):
+#### Response Body [Webhook](webhook.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -118,7 +118,7 @@ POST /webhooks
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -139,7 +139,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -181,7 +181,7 @@ GET /webhooks/{id}
 
 **200** Existing webhook fetched successfully
 
-#### Response Body [Webhook](Webhook):
+#### Response Body [Webhook](webhook.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -203,7 +203,7 @@ GET /webhooks/{id}
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -244,11 +244,11 @@ PUT /webhooks/{id}
 | ----- | ---- | -------- | ----------- | ------- |
 | id | string <br />_**required**_ | The webhooks's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
 
-#### Request Body [UpdateWebhookRequest](UpdateWebhookRequest):
+#### Request Body [UpdateWebhookRequest](updatewebhookrequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
-| url |  object [Url](Url) |  |
+| url |  object [Url](url.html) |  |
 | enabled | boolean | Determines if events should be sent to the webhook or not. Defaults to `true` for newly created<br>webhooks. When updating a webhook and the value is not explicitly specified the existing value<br>will be used.<br> |
 
 ##### Example
@@ -263,7 +263,7 @@ PUT /webhooks/{id}
 
 **200** Existing webhook updated successfully
 
-#### Response Body [Webhook](Webhook):
+#### Response Body [Webhook](webhook.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -285,7 +285,7 @@ PUT /webhooks/{id}
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -306,7 +306,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -356,7 +356,7 @@ DELETE /webhooks/{id}
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -404,7 +404,7 @@ PUT /webhooks/{id}/rotate-secret
 
 **200** The secret was rotated successfully
 
-#### Response Body [Webhook](Webhook):
+#### Response Body [Webhook](webhook.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -426,7 +426,7 @@ PUT /webhooks/{id}/rotate-secret
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |

@@ -24,7 +24,7 @@ GET /accounts
 
 **200** The response returns an account
 
-#### Response Body [Account](Account):
+#### Response Body [Account](account.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -52,7 +52,7 @@ GET /accounts
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |

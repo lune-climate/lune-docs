@@ -26,7 +26,7 @@ sidebarDepth: 0
 | results | array | Project results |
 | un_sdg | array | UN Sustainable Development Goals.<br><br>Each number in the array represent one UN Sustainable Development Goal. See https://sdgs.un.org/goals.<br> |
 | disabled | boolean<br />_**required**_ | Disabled projects do not get allocated to orders<br> |
-| bundles | array of [BundleSummary](BundleSummary)<br />_**required**_ | Array of bundles the project is part of |
+| bundles | array of [BundleSummary](bundlesummary.html)<br />_**required**_ | Array of bundles the project is part of |
 
 ##### Example
 ```json

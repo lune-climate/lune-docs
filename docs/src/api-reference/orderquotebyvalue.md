@@ -13,7 +13,7 @@ sidebarDepth: 0
 | estimated_offset_cost | string<br />_**required**_ | Estimated offset cost<br><br>Unit: order quote currency<br> |
 | estimated_total_cost | string<br />_**required**_ | Estimated total cost inclusive of Lune fees.<br><br>Unit: order quote currency<br> |
 | estimated_commission | string<br />_**required**_ | Estimated commission |
-| bundles | array of [OrderBundle](OrderBundle)<br />_**required**_ | Bundles included in the quote including quantity and cost breakdown.<br> |
+| bundles | array of [OrderBundle](orderbundle.html)<br />_**required**_ | Bundles included in the quote including quantity and cost breakdown.<br> |
 | requested_value | string<br />_**required**_ | Requested order value inclusive of commission |
 
 ##### Example

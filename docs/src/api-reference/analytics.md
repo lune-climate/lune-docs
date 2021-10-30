@@ -22,7 +22,7 @@ GET /analytics
 
 **200** The response return account analytics
 
-#### Response Body [Analytics](Analytics):
+#### Response Body [Analytics](analytics.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -30,10 +30,10 @@ GET /analytics
 | total_completed_offset_quantity | string<br />_**required**_ | The total quantity in tCO2 of all completed orders for a given interval. |
 | total_placed_offset_value | string<br />_**required**_ | The total monetary value of all placed orders for a given interval. |
 | total_placed_offset_quantity | string<br />_**required**_ | The total quantity in tCO2 of all placed orders for a given interval. |
-| completed_offset_values | array of [OffsetValueSeriesItem](OffsetValueSeriesItem)<br />_**required**_ | An array of offest values grouped by completion date. |
-| completed_offset_quantities | array of [OffsetQuantitySeriesItem](OffsetQuantitySeriesItem)<br />_**required**_ | An array of offest quantities grouped by completion date. |
-| placed_offset_values | array of [OffsetValueSeriesItem](OffsetValueSeriesItem)<br />_**required**_ | An array of offest values grouped by placed date. |
-| placed_offset_quantities | array of [OffsetQuantitySeriesItem](OffsetQuantitySeriesItem)<br />_**required**_ | An array of offest quantities grouped by placed date. |
+| completed_offset_values | array of [OffsetValueSeriesItem](offsetvalueseriesitem.html)<br />_**required**_ | An array of offest values grouped by completion date. |
+| completed_offset_quantities | array of [OffsetQuantitySeriesItem](offsetquantityseriesitem.html)<br />_**required**_ | An array of offest quantities grouped by completion date. |
+| placed_offset_values | array of [OffsetValueSeriesItem](offsetvalueseriesitem.html)<br />_**required**_ | An array of offest values grouped by placed date. |
+| placed_offset_quantities | array of [OffsetQuantitySeriesItem](offsetquantityseriesitem.html)<br />_**required**_ | An array of offest quantities grouped by placed date. |
 
 ##### Example
 ```json
@@ -72,7 +72,7 @@ GET /analytics
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |

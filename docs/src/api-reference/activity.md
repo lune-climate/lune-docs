@@ -28,12 +28,12 @@ GET /activity
 
 **200** The response returns paginated activity
 
-#### Response Body [PaginatedActivity](PaginatedActivity):
+#### Response Body [PaginatedActivity](paginatedactivity.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array of [Activity](Activity)<br />_**required**_ | Paginated Activity objects |
+| data | array of [Activity](activity.html)<br />_**required**_ | Paginated Activity objects |
 
 ##### Example
 ```json
@@ -68,7 +68,7 @@ GET /activity
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -89,7 +89,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |

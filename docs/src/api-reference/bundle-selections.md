@@ -28,7 +28,7 @@ GET /bundle-selections
 
 **200** The response returns the account's bundle selections
 
-#### Response Body [BundleSelection](BundleSelection):
+#### Response Body [BundleSelection](bundleselection.html):
 Array of:
 
 | Field | Type | Description |
@@ -49,7 +49,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -85,7 +85,7 @@ PUT /bundle-selections
 ```
 
 
-#### Request Body [BundleSelectionRequest](BundleSelectionRequest):
+#### Request Body [BundleSelectionRequest](bundleselectionrequest.html):
 Array of:
 
 | Field | Type | Description |
@@ -105,7 +105,7 @@ Array of:
 
 **200** The response returns the new account's bundle selections
 
-#### Response Body [BundleSelection](BundleSelection):
+#### Response Body [BundleSelection](bundleselection.html):
 Array of:
 
 | Field | Type | Description |
@@ -126,7 +126,7 @@ Array of:
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -147,7 +147,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |

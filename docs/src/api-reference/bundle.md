@@ -17,7 +17,7 @@ sidebarDepth: 0
 | description | string | The bundle's description |
 | disabled | boolean<br />_**required**_ | Disabled bundles do not accept orders<br> |
 | available_quantity | string | Quantity of CO2 offsets available to purchase (in tonnes).<br><br>If available_quantity is not set, assume there is an unlimited amount of offsets to purchase.<br> |
-| projects | array of [ProjectSummary](ProjectSummary)<br />_**required**_ | Array of projects that belong to the bundle |
+| projects | array of [ProjectSummary](projectsummary.html)<br />_**required**_ | Array of projects that belong to the bundle |
 
 ##### Example
 ```json

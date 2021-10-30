@@ -9,7 +9,7 @@ sidebarDepth: 0
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array of [Project](Project)<br />_**required**_ | Paginated Project objects |
+| data | array of [Project](project.html)<br />_**required**_ | Paginated Project objects |
 
 ##### Example
 ```json

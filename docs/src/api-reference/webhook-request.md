@@ -124,11 +124,11 @@ POST /WebhookRequest
 ```
 
 
-#### Request Body [WebhookRequest](WebhookRequest):
+#### Request Body [WebhookRequest](webhookrequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
-| events | array of [WebhookEvent](WebhookEvent)<br />_**required**_ |  |
+| events | array of [WebhookEvent](webhookevent.html)<br />_**required**_ |  |
 
 ##### Example
 ```json

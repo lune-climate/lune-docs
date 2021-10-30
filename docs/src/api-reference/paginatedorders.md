@@ -9,7 +9,7 @@ sidebarDepth: 0
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array of [Order](Order)<br />_**required**_ | Paginated Order objects ordered by creation date descending. |
+| data | array of [Order](order.html)<br />_**required**_ | Paginated Order objects ordered by creation date descending. |
 
 ##### Example
 ```json

@@ -11,7 +11,7 @@ sidebarDepth: 0
 | id | string<br />_**required**_ | The offset link identifier |
 | unique_visitors | integer<br />_**required**_ | The number of unique visitors for the specific offset link |
 | placed_orders | integer<br />_**required**_ | The number of placed orders for the specific offset link |
-| orders | array of [OffsetLinkOrder](OffsetLinkOrder)<br />_**required**_ |  |
+| orders | array of [OffsetLinkOrder](offsetlinkorder.html)<br />_**required**_ |  |
 
 ##### Example
 ```json

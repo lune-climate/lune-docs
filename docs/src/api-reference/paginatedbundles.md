@@ -9,7 +9,7 @@ sidebarDepth: 0
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array of [Bundle](Bundle)<br />_**required**_ | Paginated Bundle objects |
+| data | array of [Bundle](bundle.html)<br />_**required**_ | Paginated Bundle objects |
 
 ##### Example
 ```json

@@ -25,7 +25,7 @@ GET /offset-links/{id}
 
 **200** Offset link fetched successfully.
 
-#### Response Body [OffsetLink](OffsetLink):
+#### Response Body [OffsetLink](offsetlink.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -39,7 +39,7 @@ GET /offset-links/{id}
 | value | string | An amount of money (the fractional part is optional) |
 | currency | string | ISO 4217 3 character currency code.<br><br>Note: Lune does not support all currency codes.<br> |
 | emails | array | The email addresses of users that are allowed to use the offset link. |
-| bundles | array of [Bundle](Bundle) | Bundle objects |
+| bundles | array of [Bundle](bundle.html) | Bundle objects |
 | created_at | string<br />_**required**_ | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
 | status | string<br />_**required**_<br /><br />Enum: <ul><li>`enabled`</li><li>`disabled`</li></ul> |  |
 | expires_at | string | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
@@ -114,7 +114,7 @@ GET /offset-links/{id}
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -155,7 +155,7 @@ PUT /offset-links/{id}
 | ----- | ---- | -------- | ----------- | ------- |
 | id | string <br />_**required**_ | The offset links's unique identifier | 1vE213P96LbXNap56NAqVoM7knOedQg5 |
 
-#### Request Body [OffsetLinkRequest](OffsetLinkRequest):
+#### Request Body [OffsetLinkRequest](offsetlinkrequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -163,9 +163,9 @@ PUT /offset-links/{id}
 | title | string | Offset link title<br><br>This is the title that appears on the first screen of the offset links flow.<br> |
 | description | string | Offset link description<br><br>This is the description that appears on the first screen of the offset links flow.<br> |
 | bundles | array | The bundle ids selected for use through the particular offset link. |
-| value |  object [Money](Money) |  |
+| value |  object [Money](money.html) |  |
 | emails | array | The email addresses of users that are allowed to use the offset link. |
-| expires_at |  object [Timestamp](Timestamp) |  |
+| expires_at |  object [Timestamp](timestamp.html) |  |
 | use_logo | boolean<br />_**required**_ | Whether to include the Offset link logo (defined in Account settings) in the footer.<br> |
 | require_payment | boolean | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
 
@@ -192,7 +192,7 @@ PUT /offset-links/{id}
 
 **200** The offset link updated successfully.
 
-#### Response Body [OffsetLink](OffsetLink):
+#### Response Body [OffsetLink](offsetlink.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -206,7 +206,7 @@ PUT /offset-links/{id}
 | value | string | An amount of money (the fractional part is optional) |
 | currency | string | ISO 4217 3 character currency code.<br><br>Note: Lune does not support all currency codes.<br> |
 | emails | array | The email addresses of users that are allowed to use the offset link. |
-| bundles | array of [Bundle](Bundle) | Bundle objects |
+| bundles | array of [Bundle](bundle.html) | Bundle objects |
 | created_at | string<br />_**required**_ | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
 | status | string<br />_**required**_<br /><br />Enum: <ul><li>`enabled`</li><li>`disabled`</li></ul> |  |
 | expires_at | string | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
@@ -281,7 +281,7 @@ PUT /offset-links/{id}
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -302,7 +302,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -348,12 +348,12 @@ GET /offset-links
 
 **200** Offset links fetched successfully.
 
-#### Response Body [PaginatedOffsetLinks](PaginatedOffsetLinks):
+#### Response Body [PaginatedOffsetLinks](paginatedoffsetlinks.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array of [OffsetLink](OffsetLink)<br />_**required**_ | Paginated Offset Links |
+| data | array of [OffsetLink](offsetlink.html)<br />_**required**_ | Paginated Offset Links |
 
 ##### Example
 ```json
@@ -429,7 +429,7 @@ GET /offset-links
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -462,7 +462,7 @@ POST /offset-links
 ```
 
 
-#### Request Body [OffsetLinkRequest](OffsetLinkRequest):
+#### Request Body [OffsetLinkRequest](offsetlinkrequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -470,9 +470,9 @@ POST /offset-links
 | title | string | Offset link title<br><br>This is the title that appears on the first screen of the offset links flow.<br> |
 | description | string | Offset link description<br><br>This is the description that appears on the first screen of the offset links flow.<br> |
 | bundles | array | The bundle ids selected for use through the particular offset link. |
-| value |  object [Money](Money) |  |
+| value |  object [Money](money.html) |  |
 | emails | array | The email addresses of users that are allowed to use the offset link. |
-| expires_at |  object [Timestamp](Timestamp) |  |
+| expires_at |  object [Timestamp](timestamp.html) |  |
 | use_logo | boolean<br />_**required**_ | Whether to include the Offset link logo (defined in Account settings) in the footer.<br> |
 | require_payment | boolean | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
 
@@ -499,7 +499,7 @@ POST /offset-links
 
 **200** The offset link created successfully.
 
-#### Response Body [OffsetLink](OffsetLink):
+#### Response Body [OffsetLink](offsetlink.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -513,7 +513,7 @@ POST /offset-links
 | value | string | An amount of money (the fractional part is optional) |
 | currency | string | ISO 4217 3 character currency code.<br><br>Note: Lune does not support all currency codes.<br> |
 | emails | array | The email addresses of users that are allowed to use the offset link. |
-| bundles | array of [Bundle](Bundle) | Bundle objects |
+| bundles | array of [Bundle](bundle.html) | Bundle objects |
 | created_at | string<br />_**required**_ | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
 | status | string<br />_**required**_<br /><br />Enum: <ul><li>`enabled`</li><li>`disabled`</li></ul> |  |
 | expires_at | string | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
@@ -588,7 +588,7 @@ POST /offset-links
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -609,7 +609,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -655,14 +655,14 @@ GET /offset-links/{id}/analytics
 
 **200** Offset link analytics fetched successfully.
 
-#### Response Body [OffsetLinkAnalytics](OffsetLinkAnalytics):
+#### Response Body [OffsetLinkAnalytics](offsetlinkanalytics.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | id | string<br />_**required**_ | The offset link identifier |
 | unique_visitors | integer<br />_**required**_ | The number of unique visitors for the specific offset link |
 | placed_orders | integer<br />_**required**_ | The number of placed orders for the specific offset link |
-| orders | array of [OffsetLinkOrder](OffsetLinkOrder)<br />_**required**_ |  |
+| orders | array of [OffsetLinkOrder](offsetlinkorder.html)<br />_**required**_ |  |
 
 ##### Example
 ```json
@@ -691,7 +691,7 @@ GET /offset-links/{id}/analytics
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |

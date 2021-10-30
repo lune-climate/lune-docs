@@ -28,12 +28,12 @@ GET /bundles
 
 **200** The response returns paginated bundles
 
-#### Response Body [PaginatedBundles](PaginatedBundles):
+#### Response Body [PaginatedBundles](paginatedbundles.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array of [Bundle](Bundle)<br />_**required**_ | Paginated Bundle objects |
+| data | array of [Bundle](bundle.html)<br />_**required**_ | Paginated Bundle objects |
 
 ##### Example
 ```json
@@ -89,7 +89,7 @@ GET /bundles
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -110,7 +110,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -157,7 +157,7 @@ GET /bundles/{id}
 
 **200** The response returns a bundle
 
-#### Response Body [Bundle](Bundle):
+#### Response Body [Bundle](bundle.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -170,7 +170,7 @@ GET /bundles/{id}
 | description | string | The bundle's description |
 | disabled | boolean<br />_**required**_ | Disabled bundles do not accept orders<br> |
 | available_quantity | string | Quantity of CO2 offsets available to purchase (in tonnes).<br><br>If available_quantity is not set, assume there is an unlimited amount of offsets to purchase.<br> |
-| projects | array of [ProjectSummary](ProjectSummary)<br />_**required**_ | Array of projects that belong to the bundle |
+| projects | array of [ProjectSummary](projectsummary.html)<br />_**required**_ | Array of projects that belong to the bundle |
 
 ##### Example
 ```json
@@ -247,12 +247,12 @@ GET /projects
 
 **200** The response returns paginated projects
 
-#### Response Body [PaginatedProjects](PaginatedProjects):
+#### Response Body [PaginatedProjects](paginatedprojects.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array of [Project](Project)<br />_**required**_ | Paginated Project objects |
+| data | array of [Project](project.html)<br />_**required**_ | Paginated Project objects |
 
 ##### Example
 ```json
@@ -308,7 +308,7 @@ GET /projects
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -329,7 +329,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -374,7 +374,7 @@ GET /projects/{id}
 
 **200** The response returns a project
 
-#### Response Body [Project](Project):
+#### Response Body [Project](project.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -396,7 +396,7 @@ GET /projects/{id}
 | results | array | Project results |
 | un_sdg | array | UN Sustainable Development Goals.<br><br>Each number in the array represent one UN Sustainable Development Goal. See https://sdgs.un.org/goals.<br> |
 | disabled | boolean<br />_**required**_ | Disabled projects do not get allocated to orders<br> |
-| bundles | array of [BundleSummary](BundleSummary)<br />_**required**_ | Array of bundles the project is part of |
+| bundles | array of [BundleSummary](bundlesummary.html)<br />_**required**_ | Array of bundles the project is part of |
 
 ##### Example
 ```json
@@ -475,7 +475,7 @@ GET /projects/by-slug/{slug}
 
 **200** The response returns a project
 
-#### Response Body [Project](Project):
+#### Response Body [Project](project.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -497,7 +497,7 @@ GET /projects/by-slug/{slug}
 | results | array | Project results |
 | un_sdg | array | UN Sustainable Development Goals.<br><br>Each number in the array represent one UN Sustainable Development Goal. See https://sdgs.un.org/goals.<br> |
 | disabled | boolean<br />_**required**_ | Disabled projects do not get allocated to orders<br> |
-| bundles | array of [BundleSummary](BundleSummary)<br />_**required**_ | Array of bundles the project is part of |
+| bundles | array of [BundleSummary](bundlesummary.html)<br />_**required**_ | Array of bundles the project is part of |
 
 ##### Example
 ```json

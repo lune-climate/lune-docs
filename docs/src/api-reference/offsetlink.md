@@ -18,7 +18,7 @@ sidebarDepth: 0
 | value | string | An amount of money (the fractional part is optional) |
 | currency | string | ISO 4217 3 character currency code.<br><br>Note: Lune does not support all currency codes.<br> |
 | emails | array | The email addresses of users that are allowed to use the offset link. |
-| bundles | array of [Bundle](Bundle) | Bundle objects |
+| bundles | array of [Bundle](bundle.html) | Bundle objects |
 | created_at | string<br />_**required**_ | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
 | status | string<br />_**required**_<br /><br />Enum: <ul><li>`enabled`</li><li>`disabled`</li></ul> |  |
 | expires_at | string | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |

@@ -18,10 +18,10 @@ Order object
 | commission | string | Represents Lune's fee.<br><br>This field is set when the order is linked to Bundles.<br><br>This field is set the order's status transitions from `received` to `placed`.<br><br>Unit: order currency<br> |
 | quantity | string | Quantity of CO2 offsets purchased in tonnes. |
 | created_at | string<br />_**required**_ | Order creation timestamp |
-| bundles | array of [OrderBundle](OrderBundle) | bundles are set when the order's status is `placed`, `paid`, `allocated` or `complete`.<br><br>Represents the bundles associated with the order including their relative quantity and cost breakdown.<br> |
-| projects | array of [OrderProject](OrderProject) | Projects are set when the order's status is `allocated` or `complete`.<br><br>Represents the projects associated with the order including their relative quantity and cost breakdown.<br><br>Orders are placed against bundles, not projects. Projects in a bundle may change based on supply.<br><br>This field is set as soon as we can guarantee project supply.<br> |
+| bundles | array of [OrderBundle](orderbundle.html) | bundles are set when the order's status is `placed`, `paid`, `allocated` or `complete`.<br><br>Represents the bundles associated with the order including their relative quantity and cost breakdown.<br> |
+| projects | array of [OrderProject](orderproject.html) | Projects are set when the order's status is `allocated` or `complete`.<br><br>Represents the projects associated with the order including their relative quantity and cost breakdown.<br><br>Orders are placed against bundles, not projects. Projects in a bundle may change based on supply.<br><br>This field is set as soon as we can guarantee project supply.<br> |
 | certificate | string | Carbon credits certificate URL.<br><br>This field is set when an order in 'complete' status<br> |
-| metadata |  object [Metadata](Metadata)<br />_**required**_ |  |
+| metadata |  object [Metadata](metadata.html)<br />_**required**_ |  |
 | offset_link_id | string | The offset link identifier, if the order was placed through an offset link |
 | email | string | End-user email.<br><br>This field is currently populated on orders placed through offset links.<br> |
 | requested_quantity | string<br />_**required**_ | Represents the requested quantity of CO2 offsets to purchase in tonnes. |

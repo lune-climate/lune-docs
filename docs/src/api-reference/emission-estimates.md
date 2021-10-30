@@ -19,11 +19,11 @@ POST /estimates/electricity
 ```
 
 
-#### Request Body [ElectricityEstimateRequest](ElectricityEstimateRequest):
+#### Request Body [ElectricityEstimateRequest](electricityestimaterequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
-| consumption |  object [ElectricityConsumption](ElectricityConsumption)<br />_**required**_ |  |
+| consumption |  object [ElectricityConsumption](electricityconsumption.html)<br />_**required**_ |  |
 | country_code | string | The three-letter code of the country where the consumption takes place, if applicable.<br><br>Providing this value will improve the estimation process. If the value is not provided<br>the global average will be used.<br> |
 
 ##### Example
@@ -42,7 +42,7 @@ POST /estimates/electricity
 **200** Estimation calculated successfully.
 
 
-#### Response Body [Mass](Mass):
+#### Response Body [Mass](mass.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -60,7 +60,7 @@ POST /estimates/electricity
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -81,7 +81,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -125,12 +125,12 @@ POST /estimates/flight
 ```
 
 
-#### Request Body [FlightEstimateRequest](FlightEstimateRequest):
+#### Request Body [FlightEstimateRequest](flightestimaterequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | route | <br />_**required**_ | Either the flying distance or the start/destination airport code (ICAO or IATA). |
-| cabin_class |  object [CabinClass](CabinClass) |  |
+| cabin_class |  object [CabinClass](cabinclass.html) |  |
 | passengers | number | Number of passengers the calculation should be applied to.<br>This parameter defaults to 1. |
 
 ##### Example
@@ -150,7 +150,7 @@ POST /estimates/flight
 **200** Estimation calculated successfully.
 
 
-#### Response Body [Mass](Mass):
+#### Response Body [Mass](mass.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -168,7 +168,7 @@ POST /estimates/flight
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -189,7 +189,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -304,13 +304,13 @@ POST /estimates/shipping
 ```
 
 
-#### Request Body [ShippingEstimateRequest](ShippingEstimateRequest):
+#### Request Body [ShippingEstimateRequest](shippingestimaterequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
-| shipment |  object [Shipment](Shipment)<br />_**required**_ |  |
+| shipment |  object [Shipment](shipment.html)<br />_**required**_ |  |
 | route | <br />_**required**_ | Either the shipping distance or the start/destination address pair. |
-| method |  object [ShippingMethod](ShippingMethod)<br />_**required**_ |  |
+| method |  object [ShippingMethod](shippingmethod.html)<br />_**required**_ |  |
 | country_code | string | The three-letter code of the country where the shipping takes place, if applicable.<br><br>Providing this value will improve the estimation process. If the shipping spans<br>multiple countries you can either make multiple per-country estimations or choose<br>the country with the largest share of the route.<br> |
 
 ##### Example
@@ -336,7 +336,7 @@ POST /estimates/shipping
 **200** Estimation calculated successfully.
 
 
-#### Response Body [Mass](Mass):
+#### Response Body [Mass](mass.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -354,7 +354,7 @@ POST /estimates/shipping
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -375,7 +375,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -425,13 +425,13 @@ POST /estimates/transactions
 ```
 
 
-#### Request Body [TransactionEstimateRequest](TransactionEstimateRequest):
+#### Request Body [TransactionEstimateRequest](transactionestimaterequest.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
-| value |  object [MonetaryAmount](MonetaryAmount)<br />_**required**_ |  |
-| merchant |  object [Merchant](Merchant)<br />_**required**_ |  |
-| diet |  object [Diet](Diet) |  |
+| value |  object [MonetaryAmount](monetaryamount.html)<br />_**required**_ |  |
+| merchant |  object [Merchant](merchant.html)<br />_**required**_ |  |
+| diet |  object [Diet](diet.html) |  |
 
 ##### Example
 ```json
@@ -454,7 +454,7 @@ POST /estimates/transactions
 **200** Estimation calculated successfully.
 
 
-#### Response Body [Mass](Mass):
+#### Response Body [Mass](mass.html):
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
@@ -472,7 +472,7 @@ POST /estimates/transactions
 
 **400** Bad Request
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |
@@ -493,7 +493,7 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body [Errors](Errors):
+#### Response Body [Errors](errors.html):
 Array of:
 
 | Field | Type | Description |

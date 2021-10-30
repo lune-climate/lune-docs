@@ -8,7 +8,7 @@ sidebarDepth: 0
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
-| events | array of [WebhookEvent](WebhookEvent)<br />_**required**_ |  |
+| events | array of [WebhookEvent](webhookevent.html)<br />_**required**_ |  |
 
 ##### Example
 ```json
