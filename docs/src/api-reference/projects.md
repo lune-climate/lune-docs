@@ -1,5 +1,7 @@
 
 
+
+
 # Projects
 
 Get projects and bundles
@@ -26,12 +28,12 @@ GET /bundles
 
 **200** The response returns paginated bundles
 
-#### Response Body
+#### Response Body [PaginatedBundles](paginatedbundles.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| has_more | boolean | Y | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array | Y | Paginated Bundle objects |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
+| data | array of [Bundle](bundle.html)<br />_**required**_ | Paginated Bundle objects |
 
 ##### Example
 ```json
@@ -87,13 +89,13 @@ GET /bundles
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -108,13 +110,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -146,29 +148,29 @@ GET /bundles/{id}
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| id | string | Y | The bundle's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
+| id | string <br />_**required**_ | The bundle's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
 
 
 ### Responses
 
 **200** The response returns a bundle
 
-#### Response Body
+#### Response Body [Bundle](bundle.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The bundle's unique identifier |
-| name | string | Y | The bundle's name |
-| unit_price | string | Y | Bundle unit price per tonne CO2<br> |
-| currency | string | Y | Currency code |
-| primary_image | string |  | A bundle's image URL |
-| primary_image_hires | string |  | A bundle's high resolution image URL |
-| description | string |  | The bundle's description |
-| disabled | boolean | Y | Disabled bundles do not accept orders<br> |
-| available_quantity | string |  | Quantity of CO2 offsets available to purchase (in tonnes).<br><br>If available_quantity is not set, assume there is an unlimited amount of offsets to purchase.<br> |
-| projects | array | Y | Array of projects that belong to the bundle |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The bundle's unique identifier |
+| name | string<br />_**required**_ | The bundle's name |
+| unit_price | string<br />_**required**_ | Bundle unit price per tonne CO2<br> |
+| currency | string<br />_**required**_ | Currency code |
+| primary_image | string | A bundle's image URL |
+| primary_image_hires | string | A bundle's high resolution image URL |
+| description | string | The bundle's description |
+| disabled | boolean<br />_**required**_ | Disabled bundles do not accept orders<br> |
+| available_quantity | string | Quantity of CO2 offsets available to purchase (in tonnes).<br><br>If available_quantity is not set, assume there is an unlimited amount of offsets to purchase.<br> |
+| projects | array of [ProjectSummary](projectsummary.html)<br />_**required**_ | Array of projects that belong to the bundle |
 
 ##### Example
 ```json
@@ -245,12 +247,12 @@ GET /projects
 
 **200** The response returns paginated projects
 
-#### Response Body
+#### Response Body [PaginatedProjects](paginatedprojects.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| has_more | boolean | Y | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array | Y | Paginated Project objects |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
+| data | array of [Project](project.html)<br />_**required**_ | Paginated Project objects |
 
 ##### Example
 ```json
@@ -306,13 +308,13 @@ GET /projects
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -327,13 +329,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -363,38 +365,38 @@ GET /projects/{id}
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| id | string | Y | The project's unique identifier | 1vE213P96LbXNap56NAqVoM7knOedQg4 |
+| id | string <br />_**required**_ | The project's unique identifier | 1vE213P96LbXNap56NAqVoM7knOedQg4 |
 
 
 ### Responses
 
 **200** The response returns a project
 
-#### Response Body
+#### Response Body [Project](project.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The projects's unique identifier |
-| name | string | Y | The project's name |
-| short_name | string | Y | The project's short name. May coincide with name. |
-| slug | string | Y | Project slug |
-| description | string | Y | Project description |
-| project_type | string | Y | The project's offset type, eg Forest conservation, Afforestation, Direct Air Capture |
-| registry_name | string | Y | The project's Verification Standard Entity name or equivalent organization. |
-| registry_link | string |  | A link to the registry's project details page. |
-| latitude | number | Y | Latitude |
-| longitude | number | Y | Logitude |
-| country_name | string | Y | The project's country |
-| country_code | string | Y | The project's 3 character country code |
-| region | string |  | The project's region |
-| primary_image | string |  | A project image URL |
-| thumbnail_image | string |  | A project thumbnail image URL |
-| results | array |  | Project results |
-| un_sdg | array |  | UN Sustainable Development Goals.<br><br>Each number in the array represent one UN Sustainable Development Goal. See https://sdgs.un.org/goals.<br> |
-| disabled | boolean | Y | Disabled projects do not get allocated to orders<br> |
-| bundles | array | Y | Array of bundles the project is part of |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The projects's unique identifier |
+| name | string<br />_**required**_ | The project's name |
+| short_name | string<br />_**required**_ | The project's short name. May coincide with name. |
+| slug | string<br />_**required**_ | Project slug |
+| description | string<br />_**required**_ | Project description |
+| project_type | string<br />_**required**_ | The project's offset type, eg Forest conservation, Afforestation, Direct Air Capture |
+| registry_name | string<br />_**required**_ | The project's Verification Standard Entity name or equivalent organization. |
+| registry_link | string | A link to the registry's project details page. |
+| latitude | number<br />_**required**_ | Latitude |
+| longitude | number<br />_**required**_ | Logitude |
+| country_name | string<br />_**required**_ | The project's country |
+| country_code | string<br />_**required**_ | The project's 3 character country code |
+| region | string | The project's region |
+| primary_image | string | A project image URL |
+| thumbnail_image | string | A project thumbnail image URL |
+| results | array | Project results |
+| un_sdg | array | UN Sustainable Development Goals.<br><br>Each number in the array represent one UN Sustainable Development Goal. See https://sdgs.un.org/goals.<br> |
+| disabled | boolean<br />_**required**_ | Disabled projects do not get allocated to orders<br> |
+| bundles | array of [BundleSummary](bundlesummary.html)<br />_**required**_ | Array of bundles the project is part of |
 
 ##### Example
 ```json
@@ -464,38 +466,38 @@ GET /projects/by-slug/{slug}
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| slug | string | Y | The project's unique slug | alto-mayo |
+| slug | string <br />_**required**_ | The project's unique slug | alto-mayo |
 
 
 ### Responses
 
 **200** The response returns a project
 
-#### Response Body
+#### Response Body [Project](project.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The projects's unique identifier |
-| name | string | Y | The project's name |
-| short_name | string | Y | The project's short name. May coincide with name. |
-| slug | string | Y | Project slug |
-| description | string | Y | Project description |
-| project_type | string | Y | The project's offset type, eg Forest conservation, Afforestation, Direct Air Capture |
-| registry_name | string | Y | The project's Verification Standard Entity name or equivalent organization. |
-| registry_link | string |  | A link to the registry's project details page. |
-| latitude | number | Y | Latitude |
-| longitude | number | Y | Logitude |
-| country_name | string | Y | The project's country |
-| country_code | string | Y | The project's 3 character country code |
-| region | string |  | The project's region |
-| primary_image | string |  | A project image URL |
-| thumbnail_image | string |  | A project thumbnail image URL |
-| results | array |  | Project results |
-| un_sdg | array |  | UN Sustainable Development Goals.<br><br>Each number in the array represent one UN Sustainable Development Goal. See https://sdgs.un.org/goals.<br> |
-| disabled | boolean | Y | Disabled projects do not get allocated to orders<br> |
-| bundles | array | Y | Array of bundles the project is part of |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The projects's unique identifier |
+| name | string<br />_**required**_ | The project's name |
+| short_name | string<br />_**required**_ | The project's short name. May coincide with name. |
+| slug | string<br />_**required**_ | Project slug |
+| description | string<br />_**required**_ | Project description |
+| project_type | string<br />_**required**_ | The project's offset type, eg Forest conservation, Afforestation, Direct Air Capture |
+| registry_name | string<br />_**required**_ | The project's Verification Standard Entity name or equivalent organization. |
+| registry_link | string | A link to the registry's project details page. |
+| latitude | number<br />_**required**_ | Latitude |
+| longitude | number<br />_**required**_ | Logitude |
+| country_name | string<br />_**required**_ | The project's country |
+| country_code | string<br />_**required**_ | The project's 3 character country code |
+| region | string | The project's region |
+| primary_image | string | A project image URL |
+| thumbnail_image | string | A project thumbnail image URL |
+| results | array | Project results |
+| un_sdg | array | UN Sustainable Development Goals.<br><br>Each number in the array represent one UN Sustainable Development Goal. See https://sdgs.un.org/goals.<br> |
+| disabled | boolean<br />_**required**_ | Disabled projects do not get allocated to orders<br> |
+| bundles | array of [BundleSummary](bundlesummary.html)<br />_**required**_ | Array of bundles the project is part of |
 
 ##### Example
 ```json

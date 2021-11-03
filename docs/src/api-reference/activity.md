@@ -1,8 +1,10 @@
 
 
+
+
 # Activity
 
-Get account activity
+
 
 
 ## Get account activity
@@ -26,12 +28,12 @@ GET /activity
 
 **200** The response returns paginated activity
 
-#### Response Body
+#### Response Body [PaginatedActivity](paginatedactivity.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| has_more | boolean | Y | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array | Y | Paginated Activity objects |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
+| data | array of [Activity](activity.html)<br />_**required**_ | Paginated Activity objects |
 
 ##### Example
 ```json
@@ -66,13 +68,13 @@ GET /activity
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -87,13 +89,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json

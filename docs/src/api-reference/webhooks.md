@@ -1,5 +1,7 @@
 
 
+
+
 # Webhooks
 
 A way to get notified about order state changes.
@@ -19,15 +21,15 @@ GET /webhooks
 
 **200** Existing webhooks fetched successfully
 
-#### Response Body
+#### Response Body:
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The webhook's identifier |
-| url | string | Y | An HTTPS URL |
-| enabled | boolean | Y | Determines if events should be sent to the webhook or not. |
-| secret | string | Y | The secret key used to generate the webhook payload HMAC. |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The webhook's identifier |
+| url |  object [Url](url.html)<br />_**required**_ |  |
+| enabled | boolean<br />_**required**_ | Determines if events should be sent to the webhook or not. |
+| secret | string<br />_**required**_ | The secret key used to generate the webhook payload HMAC. |
 
 ##### Example
 ```json
@@ -44,13 +46,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -77,25 +79,31 @@ POST /webhooks
 ```
 
 
-#### Request Body
+#### Request Body [CreateWebhookRequest](createwebhookrequest.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| url | string | Y | An HTTPS URL |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| url |  object [Url](url.html)<br />_**required**_ |  |
 
+##### Example
+```json
+{
+    "url": "string"
+}
+```
 
 ### Responses
 
 **200** A webhook created successfully
 
-#### Response Body
+#### Response Body [Webhook](webhook.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The webhook's identifier |
-| url | string | Y | An HTTPS URL |
-| enabled | boolean | Y | Determines if events should be sent to the webhook or not. |
-| secret | string | Y | The secret key used to generate the webhook payload HMAC. |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The webhook's identifier |
+| url | string<br />_**required**_ | An HTTPS URL |
+| enabled | boolean<br />_**required**_ | Determines if events should be sent to the webhook or not. |
+| secret | string<br />_**required**_ | The secret key used to generate the webhook payload HMAC. |
 
 ##### Example
 ```json
@@ -110,13 +118,13 @@ POST /webhooks
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -131,13 +139,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -164,23 +172,23 @@ GET /webhooks/{id}
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| id | string | Y | The webhooks's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
+| id | string <br />_**required**_ | The webhooks's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
 
 
 ### Responses
 
 **200** Existing webhook fetched successfully
 
-#### Response Body
+#### Response Body [Webhook](webhook.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The webhook's identifier |
-| url | string | Y | An HTTPS URL |
-| enabled | boolean | Y | Determines if events should be sent to the webhook or not. |
-| secret | string | Y | The secret key used to generate the webhook payload HMAC. |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The webhook's identifier |
+| url | string<br />_**required**_ | An HTTPS URL |
+| enabled | boolean<br />_**required**_ | Determines if events should be sent to the webhook or not. |
+| secret | string<br />_**required**_ | The secret key used to generate the webhook payload HMAC. |
 
 ##### Example
 ```json
@@ -195,13 +203,13 @@ GET /webhooks/{id}
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -232,30 +240,37 @@ PUT /webhooks/{id}
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| id | string | Y | The webhooks's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
+| id | string <br />_**required**_ | The webhooks's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
 
-#### Request Body
+#### Request Body [UpdateWebhookRequest](updatewebhookrequest.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| url | string |  | An HTTPS URL |
-| enabled | boolean |  | Determines if events should be sent to the webhook or not. Defaults to `true` for newly created<br>webhooks. When updating a webhook and the value is not explicitly specified the existing value<br>will be used.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| url |  object [Url](url.html) |  |
+| enabled | boolean | Determines if events should be sent to the webhook or not. Defaults to `true` for newly created<br>webhooks. When updating a webhook and the value is not explicitly specified the existing value<br>will be used.<br> |
 
+##### Example
+```json
+{
+    "url": "string",
+    "enabled": "boolean"
+}
+```
 
 ### Responses
 
 **200** Existing webhook updated successfully
 
-#### Response Body
+#### Response Body [Webhook](webhook.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The webhook's identifier |
-| url | string | Y | An HTTPS URL |
-| enabled | boolean | Y | Determines if events should be sent to the webhook or not. |
-| secret | string | Y | The secret key used to generate the webhook payload HMAC. |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The webhook's identifier |
+| url | string<br />_**required**_ | An HTTPS URL |
+| enabled | boolean<br />_**required**_ | Determines if events should be sent to the webhook or not. |
+| secret | string<br />_**required**_ | The secret key used to generate the webhook payload HMAC. |
 
 ##### Example
 ```json
@@ -270,13 +285,13 @@ PUT /webhooks/{id}
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -291,13 +306,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -328,9 +343,9 @@ DELETE /webhooks/{id}
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| id | string | Y | The webhooks's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
+| id | string <br />_**required**_ | The webhooks's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
 
 
 ### Responses
@@ -341,13 +356,13 @@ DELETE /webhooks/{id}
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -380,23 +395,23 @@ PUT /webhooks/{id}/rotate-secret
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| id | string | Y | The webhooks's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
+| id | string <br />_**required**_ | The webhooks's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
 
 
 ### Responses
 
 **200** The secret was rotated successfully
 
-#### Response Body
+#### Response Body [Webhook](webhook.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The webhook's identifier |
-| url | string | Y | An HTTPS URL |
-| enabled | boolean | Y | Determines if events should be sent to the webhook or not. |
-| secret | string | Y | The secret key used to generate the webhook payload HMAC. |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The webhook's identifier |
+| url | string<br />_**required**_ | An HTTPS URL |
+| enabled | boolean<br />_**required**_ | Determines if events should be sent to the webhook or not. |
+| secret | string<br />_**required**_ | The secret key used to generate the webhook payload HMAC. |
 
 ##### Example
 ```json
@@ -411,13 +426,13 @@ PUT /webhooks/{id}/rotate-secret
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json

@@ -1,5 +1,7 @@
 
 
+
+
 # Emission estimates
 
 Estimate CO2 emissions (caused by shipping goods for example).
@@ -17,25 +19,35 @@ POST /estimates/electricity
 ```
 
 
-#### Request Body
+#### Request Body [ElectricityEstimateRequest](electricityestimaterequest.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| consumption | object | Y |  |
-| country_code | string |  | The three-letter code of the country where the consumption takes place, if applicable.<br><br>Providing this value will improve the estimation process. If the value is not provided<br>the global average will be used.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| consumption |  object [ElectricityConsumption](electricityconsumption.html)<br />_**required**_ |  |
+| country_code | string | The three-letter code of the country where the consumption takes place, if applicable.<br><br>Providing this value will improve the estimation process. If the value is not provided<br>the global average will be used.<br> |
 
+##### Example
+```json
+{
+    "consumption": {
+        "amount": "40.501",
+        "unit": "MWh"
+    },
+    "country_code": "string"
+}
+```
 
 ### Responses
 
 **200** Estimation calculated successfully.
 
 
-#### Response Body
+#### Response Body [Mass](mass.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| amount | string | Y |  |
-| unit | string | Y | Unit, `t` for tonne, `kg` for kilogram |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| amount | string<br />_**required**_ |  |
+| unit | string<br />_**required**_<br /><br />Enum: <ul><li>`kg`</li><li>`t`</li></ul> | Unit, `t` for tonne, `kg` for kilogram |
 
 ##### Example
 ```json
@@ -48,13 +60,13 @@ POST /estimates/electricity
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -69,13 +81,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -113,26 +125,37 @@ POST /estimates/flight
 ```
 
 
-#### Request Body
+#### Request Body [FlightEstimateRequest](flightestimaterequest.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| route |  | Y | Either the flying distance or the start/destination airport code (ICAO or IATA). |
-| cabin_class | string |  | Cabin of class to be used for the specified passengers.<br>Higher classes account for more emissions since total weight and volume necessary to accomodate the class is higher.<br>This parameter defaults to first. |
-| passengers | number |  | Number of passengers the calculation should be applied to.<br>This parameter defaults to 1. |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| route | <br />_**required**_ | Either the flying distance or the start/destination airport code (ICAO or IATA). |
+| cabin_class |  object [CabinClass](cabinclass.html) |  |
+| passengers | number | Number of passengers the calculation should be applied to.<br>This parameter defaults to 1. |
 
+##### Example
+```json
+{
+    "route": {
+        "amount": "40.501",
+        "unit": "km"
+    },
+    "cabin_class": "string",
+    "passengers": "number"
+}
+```
 
 ### Responses
 
 **200** Estimation calculated successfully.
 
 
-#### Response Body
+#### Response Body [Mass](mass.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| amount | string | Y |  |
-| unit | string | Y | Unit, `t` for tonne, `kg` for kilogram |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| amount | string<br />_**required**_ |  |
+| unit | string<br />_**required**_<br /><br />Enum: <ul><li>`kg`</li><li>`t`</li></ul> | Unit, `t` for tonne, `kg` for kilogram |
 
 ##### Example
 ```json
@@ -145,13 +168,13 @@ POST /estimates/flight
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -166,13 +189,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -209,7 +232,7 @@ Some examples of the input payload:
 * Source/destination addresses, 10 tonnes transported by a diesel truck:
 
   ```json
-  { 
+  {
       "shipment": { "mass": { "amount": "10.0", "unit": "t" } },
       "route": {
           "source": {
@@ -281,27 +304,44 @@ POST /estimates/shipping
 ```
 
 
-#### Request Body
+#### Request Body [ShippingEstimateRequest](shippingestimaterequest.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| shipment |  | Y | Either a mass given in kilograms or tonnes (`mass`) or the number of [Twenty-foot Equivalent<br>Units (TEUs)](https://en.wikipedia.org/wiki/Twenty-foot_equivalent_unit) (with their cargo type,<br>optionally). Note that providing `mass` will result in more accurate estimates for methods other<br>than `container_ship`. Estimates using `container_ship` are more precise when the shipment is given<br>in TEUs.<br> |
-| route |  | Y | Either the shipping distance or the start/destination address pair. |
-| method |  | Y |  |
-| country_code | string |  | The three-letter code of the country where the shipping takes place, if applicable.<br><br>Providing this value will improve the estimation process. If the shipping spans<br>multiple countries you can either make multiple per-country estimations or choose<br>the country with the largest share of the route.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| shipment |  object [Shipment](shipment.html)<br />_**required**_ |  |
+| route | <br />_**required**_ | Either the shipping distance or the start/destination address pair. |
+| method |  object [ShippingMethod](shippingmethod.html)<br />_**required**_ |  |
+| country_code | string | The three-letter code of the country where the shipping takes place, if applicable.<br><br>Providing this value will improve the estimation process. If the shipping spans<br>multiple countries you can either make multiple per-country estimations or choose<br>the country with the largest share of the route.<br> |
 
+##### Example
+```json
+{
+    "shipment": {
+        "mass": {
+            "amount": "40.501",
+            "unit": "kg"
+        }
+    },
+    "route": {
+        "amount": "40.501",
+        "unit": "km"
+    },
+    "method": "string",
+    "country_code": "string"
+}
+```
 
 ### Responses
 
 **200** Estimation calculated successfully.
 
 
-#### Response Body
+#### Response Body [Mass](mass.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| amount | string | Y |  |
-| unit | string | Y | Unit, `t` for tonne, `kg` for kilogram |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| amount | string<br />_**required**_ |  |
+| unit | string<br />_**required**_<br /><br />Enum: <ul><li>`kg`</li><li>`t`</li></ul> | Unit, `t` for tonne, `kg` for kilogram |
 
 ##### Example
 ```json
@@ -314,13 +354,13 @@ POST /estimates/shipping
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -335,13 +375,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -385,26 +425,41 @@ POST /estimates/transactions
 ```
 
 
-#### Request Body
+#### Request Body [TransactionEstimateRequest](transactionestimaterequest.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| value | object | Y |  |
-| merchant | object | Y |  |
-| diet | string |  | A diet followed by an individual.<br><br>High meat-eater is someone consuming over 100 grams of meat per day, medium is 50-99 grams per day<br>and low is less than 50 grams per day. A fish eater is someone that doesn't consume meat other than<br>fish.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| value |  object [MonetaryAmount](monetaryamount.html)<br />_**required**_ |  |
+| merchant |  object [Merchant](merchant.html)<br />_**required**_ |  |
+| diet |  object [Diet](diet.html) |  |
 
+##### Example
+```json
+{
+    "value": {
+        "value": "3.14",
+        "currency": "string"
+    },
+    "merchant": {
+        "category_code": "0763",
+        "name": "The Corner Store",
+        "country_code": "GBR"
+    },
+    "diet": "string"
+}
+```
 
 ### Responses
 
 **200** Estimation calculated successfully.
 
 
-#### Response Body
+#### Response Body [Mass](mass.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| amount | string | Y |  |
-| unit | string | Y | Unit, `t` for tonne, `kg` for kilogram |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| amount | string<br />_**required**_ |  |
+| unit | string<br />_**required**_<br /><br />Enum: <ul><li>`kg`</li><li>`t`</li></ul> | Unit, `t` for tonne, `kg` for kilogram |
 
 ##### Example
 ```json
@@ -417,13 +472,13 @@ POST /estimates/transactions
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -438,13 +493,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json

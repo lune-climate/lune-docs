@@ -1,8 +1,11 @@
 
 
+
+
 # Orders
 
 Get a quote, create and fetch orders.
+
 
 
 ## Create an order by mass
@@ -14,15 +17,39 @@ POST /orders/by-mass
 ```
 
 
-#### Request Body
+#### Request Body [CreateOrderByQuantityRequest](createorderbyquantityrequest.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| mass |  | Y | Mass of CO2 offsets to purchase |
-| idempotency_key | string |  | Optional unique identifier provided by the client.<br><br>`idempotency_key` has two purposes:<br>1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.<br>2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.<br> |
-| bundle_selection | array |  | Optional allocation ratios by bundle.<br><br>The sum of all allocation ratios must equal 100.<br><br>If not specified, the preconfigured allocation ratios are going to be used.<br><br>If, for each selection, `percentage` is not provided, the selection is divided equally (best effort) between bundles. `percentage` must be provided for all or none of the bundles.<br> |
-| metadata | object |  | An arbitrary dictionary (key-value pairs) to store application-specific information.<br><br>Lune doesn't use this information for order processing. Its purpose is for the API<br>clients to be able to attach arbitrary information (to an order for example) and<br>then retrieve it.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| mass | <br />_**required**_ | Mass of CO2 offsets to purchase |
+| idempotency_key | string | Optional unique identifier provided by the client.<br><br>`idempotency_key` has two purposes:<br>1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.<br>2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.<br> |
+| bundle_selection |  object [BundleSelectionRequest](bundleselectionrequest.html) |  |
+| metadata |  object [Metadata](metadata.html) |  |
 
+##### Example
+```json
+{
+    "mass": {
+        "amount": "40.501",
+        "unit": "kg"
+    },
+    "idempotency_key": "5bd808a954e",
+    "bundle_selection": [
+        {
+            "bundle_id": "BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3",
+            "percentage": 34
+        },
+        {
+            "bundle_id": "VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B",
+            "percentage": 66
+        }
+    ],
+    "metadata": {
+        "property1": "string",
+        "property2": "number"
+    }
+}
+```
 
 ### Responses
 
@@ -30,27 +57,27 @@ POST /orders/by-mass
 The response returns an Order object.
 
 
-#### Response Body
+#### Response Body [OrderByQuantity](orderbyquantity.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The order's unique identifier |
-| idempotency_key | string |  | Optional unique identifier provided by the client.<br><br>`idempotency_key` has two purposes:<br>1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.<br>2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.<br> |
-| type | string | Y | Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount) |
-| status | string | Y | Order status |
-| currency | string | Y | Order currency code |
-| offset_cost | string |  | Represents the net cost of offsets purchased by the order. May be lower than `requested_value`.<br><br>This field is set when the order is linked to Bundles.<br><br>This field is set the order's status transitions from `received` to `placed`.<br><br>Unit: order currency<br> |
-| total_cost | string |  | The total cost for the order inclusive of fees.<br><br>Unit: order currency<br> |
-| commission | string |  | Represents Lune's fee.<br><br>This field is set when the order is linked to Bundles.<br><br>This field is set the order's status transitions from `received` to `placed`.<br><br>Unit: order currency<br> |
-| quantity | string |  | Quantity of CO2 offsets purchased in tonnes. |
-| created_at | string | Y | Order creation timestamp |
-| bundles | array |  | bundles are set when the order's status is `placed`, `paid`, `allocated` or `complete`.<br><br>Represents the bundles associated with the order including their relative quantity and cost breakdown.<br> |
-| projects | array |  | Projects are set when the order's status is `allocated` or `complete`.<br><br>Represents the projects associated with the order including their relative quantity and cost breakdown.<br><br>Orders are placed against bundles, not projects. Projects in a bundle may change based on supply.<br><br>This field is set as soon as we can guarantee project supply.<br> |
-| certificate | string |  | Carbon credits certificate URL.<br><br>This field is set when an order in 'complete' status<br> |
-| metadata | object | Y | An arbitrary dictionary (key-value pairs) to store application-specific information.<br><br>Lune doesn't use this information for order processing. Its purpose is for the API<br>clients to be able to attach arbitrary information (to an order for example) and<br>then retrieve it.<br> |
-| offset_link_id | string |  | The offset link identifier, if the order was placed through an offset link |
-| email | string |  | End-user email.<br><br>This field is currently populated on orders placed through offset links.<br> |
-| requested_quantity | string | Y | Represents the requested quantity of CO2 offsets to purchase in tonnes. |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The order's unique identifier |
+| idempotency_key | string | Optional unique identifier provided by the client.<br><br>`idempotency_key` has two purposes:<br>1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.<br>2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.<br> |
+| type | string<br />_**required**_<br /><br />Enum: <ul><li>`quantity`</li><li>`value`</li></ul> | Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount) |
+| status | string<br />_**required**_<br /><br />Enum: <ul><li>`received`</li><li>`placed`</li><li>`paid`</li><li>`allocated`</li><li>`cancelled`</li><li>`complete`</li><li>`failed`</li></ul> | Order status |
+| currency | string<br />_**required**_ | Order currency code |
+| offset_cost | string | Represents the net cost of offsets purchased by the order. May be lower than `requested_value`.<br><br>This field is set when the order is linked to Bundles.<br><br>This field is set the order's status transitions from `received` to `placed`.<br><br>Unit: order currency<br> |
+| total_cost | string | The total cost for the order inclusive of fees.<br><br>Unit: order currency<br> |
+| commission | string | Represents Lune's fee.<br><br>This field is set when the order is linked to Bundles.<br><br>This field is set the order's status transitions from `received` to `placed`.<br><br>Unit: order currency<br> |
+| quantity | string | Quantity of CO2 offsets purchased in tonnes. |
+| created_at | string<br />_**required**_ | Order creation timestamp |
+| bundles | array of [OrderBundle](orderbundle.html) | bundles are set when the order's status is `placed`, `paid`, `allocated` or `complete`.<br><br>Represents the bundles associated with the order including their relative quantity and cost breakdown.<br> |
+| projects | array of [OrderProject](orderproject.html) | Projects are set when the order's status is `allocated` or `complete`.<br><br>Represents the projects associated with the order including their relative quantity and cost breakdown.<br><br>Orders are placed against bundles, not projects. Projects in a bundle may change based on supply.<br><br>This field is set as soon as we can guarantee project supply.<br> |
+| certificate | string | Carbon credits certificate URL.<br><br>This field is set when an order in 'complete' status<br> |
+| metadata |  object [Metadata](metadata.html)<br />_**required**_ |  |
+| offset_link_id | string | The offset link identifier, if the order was placed through an offset link |
+| email | string | End-user email.<br><br>This field is currently populated on orders placed through offset links.<br> |
+| requested_quantity | string<br />_**required**_ | Represents the requested quantity of CO2 offsets to purchase in tonnes. |
 
 ##### Example
 ```json
@@ -109,13 +136,13 @@ The response returns an Order object.
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -130,13 +157,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -156,13 +183,13 @@ Examples:
   2. order idempotency failure: an order with the same idempotency_key has already by created
 
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -193,15 +220,36 @@ POST /orders/by-value
 ```
 
 
-#### Request Body
+#### Request Body [CreateOrderByValueRequest](createorderbyvaluerequest.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| value | string | Y | Maximum price of CO2 offsets to purchase (in the account's currency) |
-| idempotency_key | string |  | Optional unique identifier provided by the client.<br><br>`idempotency_key` has two purposes:<br>1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.<br>2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.<br> |
-| bundle_selection | array |  | Optional allocation ratios by bundle.<br><br>The sum of all allocation ratios must equal 100.<br><br>If not specified, the preconfigured allocation ratios are going to be used.<br><br>If, for each selection, `percentage` is not provided, the selection is divided equally (best effort) between bundles. `percentage` must be provided for all or none of the bundles.<br> |
-| metadata | object |  | An arbitrary dictionary (key-value pairs) to store application-specific information.<br><br>Lune doesn't use this information for order processing. Its purpose is for the API<br>clients to be able to attach arbitrary information (to an order for example) and<br>then retrieve it.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| value | string<br />_**required**_ | Maximum price of CO2 offsets to purchase (in the account's currency) |
+| idempotency_key | string | Optional unique identifier provided by the client.<br><br>`idempotency_key` has two purposes:<br>1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.<br>2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.<br> |
+| bundle_selection |  object [BundleSelectionRequest](bundleselectionrequest.html) |  |
+| metadata |  object [Metadata](metadata.html) |  |
 
+##### Example
+```json
+{
+    "value": "7700.00",
+    "idempotency_key": "5bd808a954e",
+    "bundle_selection": [
+        {
+            "bundle_id": "BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3",
+            "percentage": 34
+        },
+        {
+            "bundle_id": "VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B",
+            "percentage": 66
+        }
+    ],
+    "metadata": {
+        "property1": "string",
+        "property2": "number"
+    }
+}
+```
 
 ### Responses
 
@@ -209,27 +257,27 @@ POST /orders/by-value
 The response returns an Order object.
 
 
-#### Response Body
+#### Response Body [OrderByValue](orderbyvalue.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| id | string | Y | The order's unique identifier |
-| idempotency_key | string |  | Optional unique identifier provided by the client.<br><br>`idempotency_key` has two purposes:<br>1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.<br>2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.<br> |
-| type | string | Y | Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount) |
-| status | string | Y | Order status |
-| currency | string | Y | Order currency code |
-| offset_cost | string |  | Represents the net cost of offsets purchased by the order. May be lower than `requested_value`.<br><br>This field is set when the order is linked to Bundles.<br><br>This field is set the order's status transitions from `received` to `placed`.<br><br>Unit: order currency<br> |
-| total_cost | string |  | The total cost for the order inclusive of fees.<br><br>Unit: order currency<br> |
-| commission | string |  | Represents Lune's fee.<br><br>This field is set when the order is linked to Bundles.<br><br>This field is set the order's status transitions from `received` to `placed`.<br><br>Unit: order currency<br> |
-| quantity | string |  | Quantity of CO2 offsets purchased in tonnes. |
-| created_at | string | Y | Order creation timestamp |
-| bundles | array |  | bundles are set when the order's status is `placed`, `paid`, `allocated` or `complete`.<br><br>Represents the bundles associated with the order including their relative quantity and cost breakdown.<br> |
-| projects | array |  | Projects are set when the order's status is `allocated` or `complete`.<br><br>Represents the projects associated with the order including their relative quantity and cost breakdown.<br><br>Orders are placed against bundles, not projects. Projects in a bundle may change based on supply.<br><br>This field is set as soon as we can guarantee project supply.<br> |
-| certificate | string |  | Carbon credits certificate URL.<br><br>This field is set when an order in 'complete' status<br> |
-| metadata | object | Y | An arbitrary dictionary (key-value pairs) to store application-specific information.<br><br>Lune doesn't use this information for order processing. Its purpose is for the API<br>clients to be able to attach arbitrary information (to an order for example) and<br>then retrieve it.<br> |
-| offset_link_id | string |  | The offset link identifier, if the order was placed through an offset link |
-| email | string |  | End-user email.<br><br>This field is currently populated on orders placed through offset links.<br> |
-| requested_value | string | Y | Represents the requested value of CO2 offsets to purchase.<br><br>Unit: order currency<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| id | string<br />_**required**_ | The order's unique identifier |
+| idempotency_key | string | Optional unique identifier provided by the client.<br><br>`idempotency_key` has two purposes:<br>1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.<br>2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.<br> |
+| type | string<br />_**required**_<br /><br />Enum: <ul><li>`quantity`</li><li>`value`</li></ul> | Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount) |
+| status | string<br />_**required**_<br /><br />Enum: <ul><li>`received`</li><li>`placed`</li><li>`paid`</li><li>`allocated`</li><li>`cancelled`</li><li>`complete`</li><li>`failed`</li></ul> | Order status |
+| currency | string<br />_**required**_ | Order currency code |
+| offset_cost | string | Represents the net cost of offsets purchased by the order. May be lower than `requested_value`.<br><br>This field is set when the order is linked to Bundles.<br><br>This field is set the order's status transitions from `received` to `placed`.<br><br>Unit: order currency<br> |
+| total_cost | string | The total cost for the order inclusive of fees.<br><br>Unit: order currency<br> |
+| commission | string | Represents Lune's fee.<br><br>This field is set when the order is linked to Bundles.<br><br>This field is set the order's status transitions from `received` to `placed`.<br><br>Unit: order currency<br> |
+| quantity | string | Quantity of CO2 offsets purchased in tonnes. |
+| created_at | string<br />_**required**_ | Order creation timestamp |
+| bundles | array of [OrderBundle](orderbundle.html) | bundles are set when the order's status is `placed`, `paid`, `allocated` or `complete`.<br><br>Represents the bundles associated with the order including their relative quantity and cost breakdown.<br> |
+| projects | array of [OrderProject](orderproject.html) | Projects are set when the order's status is `allocated` or `complete`.<br><br>Represents the projects associated with the order including their relative quantity and cost breakdown.<br><br>Orders are placed against bundles, not projects. Projects in a bundle may change based on supply.<br><br>This field is set as soon as we can guarantee project supply.<br> |
+| certificate | string | Carbon credits certificate URL.<br><br>This field is set when an order in 'complete' status<br> |
+| metadata |  object [Metadata](metadata.html)<br />_**required**_ |  |
+| offset_link_id | string | The offset link identifier, if the order was placed through an offset link |
+| email | string | End-user email.<br><br>This field is currently populated on orders placed through offset links.<br> |
+| requested_value | string<br />_**required**_ | Represents the requested value of CO2 offsets to purchase.<br><br>Unit: order currency<br> |
 
 ##### Example
 ```json
@@ -288,13 +336,13 @@ The response returns an Order object.
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -309,13 +357,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -335,13 +383,13 @@ Examples:
   2. order idempotency failure: an order with the same idempotency_key has already by created
 
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -381,12 +429,12 @@ GET /orders
 
 **200** The response returns paginated orders
 
-#### Response Body
+#### Response Body [PaginatedOrders](paginatedorders.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| has_more | boolean | Y | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
-| data | array | Y | Paginated Order objects ordered by creation date descending. |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| has_more | boolean<br />_**required**_ | Whether or not there are more elements available after this set. If false, this set comprises the end of the array. |
+| data | array of [Order](order.html)<br />_**required**_ | Paginated Order objects ordered by creation date descending. |
 
 ##### Example
 ```json
@@ -450,13 +498,13 @@ GET /orders
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -484,20 +532,20 @@ GET /orders/{id}
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| id | string | Y | The order's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
+| id | string <br />_**required**_ | The order's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
 
 
 ### Responses
 
 **200** The response returns an order
 
-#### Response Body
+#### Response Body [Order](order.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| type | string | Y | Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount) |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| type | string<br />_**required**_<br /><br />Enum: <ul><li>`quantity`</li><li>`value`</li></ul> | Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount) |
 
 ##### Example
 ```json
@@ -573,9 +621,9 @@ GET /orders/{id}/certificate
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| id | string | Y | The order's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
+| id | string <br />_**required**_ | The order's unique identifier | ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz |
 
 
 ### Responses
@@ -603,20 +651,20 @@ GET /orders/by-idempotency-key/{idempotencyKey}
 ```
 
 #### Path Parameters
-| Field | Type | Required | Description | Example |
+| Field | Type | Description | Example |
 | ----- | ---- | -------- | ----------- | ------- |
-| idempotencyKey | string | Y | The order's idempotency key | sg5knd2 |
+| idempotencyKey | string <br />_**required**_ | The order's idempotency key | sg5knd2 |
 
 
 ### Responses
 
 **200** The response returns an order
 
-#### Response Body
+#### Response Body [Order](order.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| type | string | Y | Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount) |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| type | string<br />_**required**_<br /><br />Enum: <ul><li>`quantity`</li><li>`value`</li></ul> | Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount) |
 
 ##### Example
 ```json
@@ -694,30 +742,49 @@ POST /orders/by-mass/quote
 ```
 
 
-#### Request Body
+#### Request Body [OrderQuoteByQuantityRequest](orderquotebyquantityrequest.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| mass |  | Y | Mass of CO2 offsets to purchase |
-| bundle_selection | array |  | Optional allocation ratios by bundle.<br><br>The sum of all allocation ratios must equal 100.<br><br>If not specified, the preconfigured allocation ratios are going to be used.<br><br>If, for each selection, `percentage` is not provided, the selection is divided equally (best effort) between bundles. `percentage` must be provided for all or none of the bundles.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| mass | <br />_**required**_ | Mass of CO2 offsets to purchase |
+| bundle_selection |  object [BundleSelectionRequest](bundleselectionrequest.html) |  |
 
+##### Example
+```json
+{
+    "mass": {
+        "amount": "40.501",
+        "unit": "kg"
+    },
+    "bundle_selection": [
+        {
+            "bundle_id": "BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3",
+            "percentage": 34
+        },
+        {
+            "bundle_id": "VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B",
+            "percentage": 66
+        }
+    ]
+}
+```
 
 ### Responses
 
 **200** Order quote processed successfully.
 
 
-#### Response Body
+#### Response Body [OrderQuoteByQuantity](orderquotebyquantity.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| currency | string | Y | Currency code |
-| estimated_quantity | string | Y | Estimated quantity (tonnes CO2).<br><br>May be lower than `requested_quantity`.<br> |
-| estimated_offset_cost | string | Y | Estimated offset cost<br><br>Unit: order quote currency<br> |
-| estimated_total_cost | string | Y | Estimated total cost inclusive of Lune fees.<br><br>Unit: order quote currency<br> |
-| estimated_commission | string | Y | Estimated commission |
-| bundles | array | Y | Bundles included in the quote including quantity and cost breakdown.<br> |
-| requested_quantity | string | Y | Requested quantity for the specific bundle (tonnes CO2) |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| currency | string<br />_**required**_ | Currency code |
+| estimated_quantity | string<br />_**required**_ | Estimated quantity (tonnes CO2).<br><br>May be lower than `requested_quantity`.<br> |
+| estimated_offset_cost | string<br />_**required**_ | Estimated offset cost<br><br>Unit: order quote currency<br> |
+| estimated_total_cost | string<br />_**required**_ | Estimated total cost inclusive of Lune fees.<br><br>Unit: order quote currency<br> |
+| estimated_commission | string<br />_**required**_ | Estimated commission |
+| bundles | array of [OrderBundle](orderbundle.html)<br />_**required**_ | Bundles included in the quote including quantity and cost breakdown.<br> |
+| requested_quantity | string<br />_**required**_ | Requested quantity for the specific bundle (tonnes CO2) |
 
 ##### Example
 ```json
@@ -744,13 +811,13 @@ POST /orders/by-mass/quote
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -765,13 +832,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -805,30 +872,46 @@ POST /orders/by-value/quote
 ```
 
 
-#### Request Body
+#### Request Body [OrderQuoteByValueRequest](orderquotebyvaluerequest.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| value | string | Y | Maximum price of CO2 offsets to purchase (in the account's currency) |
-| bundle_selection | array |  | Optional allocation ratios by bundle.<br><br>The sum of all allocation ratios must equal 100.<br><br>If not specified, the preconfigured allocation ratios are going to be used.<br><br>If, for each selection, `percentage` is not provided, the selection is divided equally (best effort) between bundles. `percentage` must be provided for all or none of the bundles.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| value | string<br />_**required**_ | Maximum price of CO2 offsets to purchase (in the account's currency) |
+| bundle_selection |  object [BundleSelectionRequest](bundleselectionrequest.html) |  |
 
+##### Example
+```json
+{
+    "value": "7700.00",
+    "bundle_selection": [
+        {
+            "bundle_id": "BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3",
+            "percentage": 34
+        },
+        {
+            "bundle_id": "VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B",
+            "percentage": 66
+        }
+    ]
+}
+```
 
 ### Responses
 
 **200** Order quote processed successfully.
 
 
-#### Response Body
+#### Response Body [OrderQuoteByValue](orderquotebyvalue.html):
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| currency | string | Y | Currency code |
-| estimated_quantity | string | Y | Estimated quantity (tonnes CO2).<br><br>May be lower than `requested_quantity`.<br> |
-| estimated_offset_cost | string | Y | Estimated offset cost<br><br>Unit: order quote currency<br> |
-| estimated_total_cost | string | Y | Estimated total cost inclusive of Lune fees.<br><br>Unit: order quote currency<br> |
-| estimated_commission | string | Y | Estimated commission |
-| bundles | array | Y | Bundles included in the quote including quantity and cost breakdown.<br> |
-| requested_value | string | Y | Requested order value inclusive of commission |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| currency | string<br />_**required**_ | Currency code |
+| estimated_quantity | string<br />_**required**_ | Estimated quantity (tonnes CO2).<br><br>May be lower than `requested_quantity`.<br> |
+| estimated_offset_cost | string<br />_**required**_ | Estimated offset cost<br><br>Unit: order quote currency<br> |
+| estimated_total_cost | string<br />_**required**_ | Estimated total cost inclusive of Lune fees.<br><br>Unit: order quote currency<br> |
+| estimated_commission | string<br />_**required**_ | Estimated commission |
+| bundles | array of [OrderBundle](orderbundle.html)<br />_**required**_ | Bundles included in the quote including quantity and cost breakdown.<br> |
+| requested_value | string<br />_**required**_ | Requested order value inclusive of commission |
 
 ##### Example
 ```json
@@ -855,13 +938,13 @@ POST /orders/by-value/quote
 
 **400** Bad Request
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
@@ -876,13 +959,13 @@ Array of:
 
 **401** Unauthorized. The API Key is invalid or disabled.
 
-#### Response Body
+#### Response Body [Errors](errors.html):
 Array of:
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ------------|
-| error_code | string | Y | Immutable string representing a specific error. |
-| message | string | Y | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
+| Field | Type | Description |
+| ----- | ---- | ------------|
+| error_code | string<br />_**required**_<br /><br />Enum: <ul><li>`account_suspended`</li><li>`bundle_selection_not_100_pct`</li><li>`order_idempotency_failure`</li><li>`order_low_volume_no_split`</li><li>`invalid_bundle_id`</li><li>`invalid_id`</li><li>`validation_error`</li><li>`percentage_all_or_none`</li><li>`address_not_found`</li><li>`at_least_one_constraint_required`</li><li>`bundles_size_not_supported`</li><li>`unknown_imo_number`</li><li>`webhook_limit_reached`</li></ul> | Immutable string representing a specific error. |
+| message | string<br />_**required**_ | Human readable error message.<br><br>This value can contain some extra information about the error in<br>human-readable form. Not suitable for programmatic consumption, the format<br>is not guaranteed to be stable.<br> |
 
 ##### Example
 ```json
