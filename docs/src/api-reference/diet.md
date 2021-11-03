@@ -2,6 +2,7 @@
 sidebarDepth: 0
 ---
 
+
 ## Diet
 
 A diet followed by an individual.

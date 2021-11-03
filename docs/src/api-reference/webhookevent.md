@@ -2,6 +2,7 @@
 sidebarDepth: 0
 ---
 
+
 ## WebhookEvent
 
 
@@ -10,7 +11,7 @@ sidebarDepth: 0
 | ----- | ---- | ------------|
 | api_version | string<br />_**required**_ | Version of the API that serialized the event. The only possible value at the moment is `v1`.<br> |
 | event_id | string<br />_**required**_ | The event’s id. The id can be used for idempotency behaviour if stored on the client side. |
-| event_type | string<br />_**required**_<br /><br />Enum: <ul><li>`order.received`</li><li>`order.placed`</li><li>`order.allocated`</li><li>`order.paid`</li><li>`order.cancelled`</li><li>`order.failed`</li><li>`order.completed`</li></ul> | The event type. The type of event data will depend on the value present here. |
+| event_type | string<br />_**required**_<br /><br />Enum: <ul><li>`order.received`</li><li>`order.placed`</li><li>`order.allocated`</li><li>`order.paid`</li><li>`order.cancelled`</li><li>`order.failed`</li><li>`order.completed`</li> </ul> | The event type. The type of event data will depend on the value present here. |
 | sequence | string | The event’s sequence. This can be compared lexicographically to determine the order of events.<br><br>The details of the format are subject to change without notice as long as the lexicographical<br>ordering property remains intact. You can't depend on the values having any particular shape<br>(in particular you can't depend on them being valid timestamps).<br> |
 | data | object<br />_**required**_ |  |
 

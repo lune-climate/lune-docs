@@ -2,6 +2,7 @@
 sidebarDepth: 0
 ---
 
+
 ## Errors
 
 An array containing errors

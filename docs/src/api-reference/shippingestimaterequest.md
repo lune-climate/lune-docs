@@ -2,6 +2,7 @@
 sidebarDepth: 0
 ---
 
+
 ## ShippingEstimateRequest
 
 Parameters for estimating shipping emissions

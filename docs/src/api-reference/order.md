@@ -2,13 +2,14 @@
 sidebarDepth: 0
 ---
 
+
 ## Order
 
 
 
 | Field | Type | Description |
 | ----- | ---- | ------------|
-| type | string<br />_**required**_<br /><br />Enum: <ul><li>`quantity`</li><li>`value`</li></ul> | Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount) |
+| type | string<br />_**required**_<br /><br />Enum: <ul><li>`quantity`</li><li>`value`</li> </ul> | Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount) |
 
 ##### Example
 ```json

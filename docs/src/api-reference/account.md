@@ -2,6 +2,7 @@
 sidebarDepth: 0
 ---
 
+
 ## Account
 
 
@@ -13,7 +14,7 @@ sidebarDepth: 0
 | currency | string<br />_**required**_ | The Account's currency |
 | balance | string<br />_**required**_ | Account's cash balance.<br><br>Unit: Account currency<br> |
 | balance_outstanding | string<br />_**required**_ | The Account's outstanding balance represents the sum of placed and unpaid orders.<br><br>The outstanding balance is mostly negative.<br><br>Unit: Account currency<br> |
-| type | string<br />_**required**_<br /><br />Enum: <ul><li>`live`</li><li>`test`</li></ul> | The account's type.<br><br>See the <a href="#section/Live-and-test-accounts">Live and test accounts section</a> for details.<br> |
+| type | string<br />_**required**_<br /><br />Enum: <ul><li>`live`</li><li>`test`</li> </ul> | The account's type.<br><br>See the <a href="#section/Live-and-test-accounts">Live and test accounts section</a> for details.<br> |
 | logo | string | Offset link logo URL<br><br>This is the logo URL that appears on the first screen of the offset links flow.<br> |
 
 ##### Example

@@ -2,6 +2,7 @@
 sidebarDepth: 0
 ---
 
+
 ## CabinClass
 
 Cabin of class to be used for the specified passengers.

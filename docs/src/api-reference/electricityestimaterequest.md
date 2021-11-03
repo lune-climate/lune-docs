@@ -2,6 +2,7 @@
 sidebarDepth: 0
 ---
 
+
 ## ElectricityEstimateRequest
 
 Parameters for estimating electricity emissions

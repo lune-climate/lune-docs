@@ -2,6 +2,7 @@
 sidebarDepth: 0
 ---
 
+
 ## Distance
 
 
@@ -9,7 +10,7 @@ sidebarDepth: 0
 | Field | Type | Description |
 | ----- | ---- | ------------|
 | amount | string<br />_**required**_ |  |
-| unit | string<br />_**required**_<br /><br />Enum: <ul><li>`km`</li><li>`mi`</li></ul> | Unit, `km` for kilometers, `mi` for miles |
+| unit | string<br />_**required**_<br /><br />Enum: <ul><li>`km`</li><li>`mi`</li> </ul> | Unit, `km` for kilometers, `mi` for miles |
 
 ##### Example
 ```json

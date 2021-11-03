@@ -2,6 +2,7 @@
 sidebarDepth: 0
 ---
 
+
 ## OffsetLink
 
 
@@ -20,7 +21,7 @@ sidebarDepth: 0
 | emails | array | The email addresses of users that are allowed to use the offset link. |
 | bundles | array of [Bundle](bundle.html) | Bundle objects |
 | created_at | string<br />_**required**_ | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
-| status | string<br />_**required**_<br /><br />Enum: <ul><li>`enabled`</li><li>`disabled`</li></ul> |  |
+| status | string<br />_**required**_<br /><br />Enum: <ul><li>`enabled`</li><li>`disabled`</li> </ul> |  |
 | expires_at | string | An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp. |
 | require_payment | boolean<br />_**required**_ | If true, the user of the Offset Link is required to pay by credit/debit card.<br> |
 

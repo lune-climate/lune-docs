@@ -2,6 +2,7 @@
 sidebarDepth: 0
 ---
 
+
 ## SimpleShippingMethod
 
 Vessel sizes:

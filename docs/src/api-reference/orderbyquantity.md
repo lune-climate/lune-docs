@@ -2,6 +2,7 @@
 sidebarDepth: 0
 ---
 
+
 ## OrderByQuantity
 
 Order object
@@ -10,8 +11,8 @@ Order object
 | ----- | ---- | ------------|
 | id | string<br />_**required**_ | The order's unique identifier |
 | idempotency_key | string | Optional unique identifier provided by the client.<br><br>`idempotency_key` has two purposes:<br>1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.<br>2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.<br> |
-| type | string<br />_**required**_<br /><br />Enum: <ul><li>`quantity`</li><li>`value`</li></ul> | Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount) |
-| status | string<br />_**required**_<br /><br />Enum: <ul><li>`received`</li><li>`placed`</li><li>`paid`</li><li>`allocated`</li><li>`cancelled`</li><li>`complete`</li><li>`failed`</li></ul> | Order status |
+| type | string<br />_**required**_<br /><br />Enum: <ul><li>`quantity`</li><li>`value`</li> </ul> | Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount) |
+| status | string<br />_**required**_<br /><br />Enum: <ul><li>`received`</li><li>`placed`</li><li>`paid`</li><li>`allocated`</li><li>`cancelled`</li><li>`complete`</li><li>`failed`</li> </ul> | Order status |
 | currency | string<br />_**required**_ | Order currency code |
 | offset_cost | string | Represents the net cost of offsets purchased by the order. May be lower than `requested_value`.<br><br>This field is set when the order is linked to Bundles.<br><br>This field is set the order's status transitions from `received` to `placed`.<br><br>Unit: order currency<br> |
 | total_cost | string | The total cost for the order inclusive of fees.<br><br>Unit: order currency<br> |
