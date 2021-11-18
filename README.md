@@ -2,6 +2,12 @@
 
 The documentation app is in docs/.
 
+First, generate the api reference:
+```
+cd docs
+yarn api-reference
+```
+
 To start the documentation app in development mode:
 
 ```
