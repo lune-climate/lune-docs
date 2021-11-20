@@ -15,6 +15,6 @@
   "license": "MIT",
   "devDependencies": {
     "vuepress": "^1.5.3",
-    "openapi-vuepress-markdown": "0.0.7"
+    "openapi-vuepress-markdown": "0.0.8"
   }
 }

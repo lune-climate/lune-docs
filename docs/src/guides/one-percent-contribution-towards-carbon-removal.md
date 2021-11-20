@@ -2,7 +2,7 @@
 
 ## Pre-requisites
 * Please ensure you have access to [Lune’s dashboard](https://dashboard.lune.co/).
-* Ensure that you have selected your desired [default Bundle Selection](https://dashboard.lune.co/settings/bundle-selection). Orders are going to be placed according to your default Bundle Selection ratios.
+* Ensure that you have selected your desired [default Project Bundle Selection](https://dashboard.lune.co/settings/bundle-selection). Orders are going to be placed according to your default Project Bundle Selection ratios.
 
 ## Overview
 Implementing this feature requires the following steps:
@@ -32,7 +32,7 @@ This will increase conversions.
 
 As an example:
 
-<img :src="$withBase('/one-percent.png')" alt="one-percent-towards-carbon-removal">
+<img width="400" :src="$withBase('/one-percent.png')" alt="one-percent-towards-carbon-removal">
 
 ## Place an order by value
 First, calculate 1% of the checkout’s total cost.

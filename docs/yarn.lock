@@ -5541,10 +5541,10 @@ openapi-types@^9.3.0:
   resolved "https://registry.yarnpkg.com/openapi-types/-/openapi-types-9.3.1.tgz#617ae6db3efd3e3f68e849f65ced58801d01d3cf"
   integrity sha512-/Yvsd2D7miYB4HLJ3hOOS0+vnowQpaT75FsHzr/y5M9P4q9bwa7RcbW2YdH6KZBn8ceLbKGnHxMZ1CHliGHUFw==
 
-openapi-vuepress-markdown@0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/openapi-vuepress-markdown/-/openapi-vuepress-markdown-0.0.7.tgz#2ee1da586a7f7d63290651adb3b7fb0e24071306"
-  integrity sha512-5cuo8vDRIU/ut1U+jXueDKdtxkCNBp9RmA/btD/btD3rDNByzcGr3unSGgAmxaP3UIGP86ljVlvod1FSl1hUlA==
+openapi-vuepress-markdown@0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/openapi-vuepress-markdown/-/openapi-vuepress-markdown-0.0.8.tgz#ba3ff57d82562a67cf5f770550040bc18c09c338"
+  integrity sha512-85esShVYg+GMW1ci4GQKw2+o/tJdILEUis+5QIDkAiSF+qTrtFB7Img9E7nFAs+LCX6kJ5VRAQlTzY4nEpP5/w==
   dependencies:
     commander "^8.2.0"
     deepcopy "^2.1.0"
