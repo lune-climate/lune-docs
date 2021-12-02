@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: https://assets.lune.co/lune-logo.svg
+heroImage: /lune.jpg
 tagline: Learn how to use Lune to make your product or service climate positive
 actionText: Quick Start →
 actionLink: /guides/

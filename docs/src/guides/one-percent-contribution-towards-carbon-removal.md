@@ -197,7 +197,7 @@ When the above order completes, you should expect an event as the following:
 
         // Certificate URL
         "certificate": "https://api.lune.co/v1/orders/Vxg3b7MoBkrNQA329N0pnvmw1J8a6Lqj/certificate",
-        "requested_quantity": "1.46"
+        "requested_value": "1.46"
       }
     }
   ]
