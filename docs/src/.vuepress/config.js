@@ -53,7 +53,7 @@ module.exports = {
           collapsable: false,
           children: [
             'one-percent-contribution-towards-carbon-removal',
-            'downloading-completion-certificate',
+            'download-completion-certificate',
           ]
         }
       ],

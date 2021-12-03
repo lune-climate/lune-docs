@@ -10,7 +10,7 @@ features:
   link: /guides/one-percent-contribution-towards-carbon-removal.html
 - title: Download an order's completion certificate
   details: We'll take you through the necessary steps to download an order's certificate once all offsets have been retired.
-  link: /guides/downloading-completion-certificate.html
+  link: /guides/download-completion-certificate.html
 - title: Feature 3 Title
   details: Feature 3 Description
 footer: Made by Lune with ❤️

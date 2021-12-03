@@ -1,4 +1,4 @@
-# Downloading Lune's order completion certificate
+# Download Lune's order completion certificate
 
 This guide will take you through the steps to automatically download an order's certificate
 when all its carbon offsets have been retired.
