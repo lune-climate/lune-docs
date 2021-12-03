@@ -1,5 +1,8 @@
 # Downloading Lune's order completion certificate
 
+This guide will take you through the steps to automatically download an order's certificate
+when all its carbon offsets have been retired.
+
 ## Pre-requisites
 * Please ensure you have access to [Lune’s dashboard](https://dashboard.lune.co/)
 * API Keys required in this guide can be found in the [dashboard](https://dashboard.lune.co/api-keys)
@@ -10,7 +13,7 @@ An order completes when all carbon offsets purchased by placing the order are fu
 
 When the order's status transitions to `complete`, the order object includes a `certificate` field.
 
-The `certificate` field contains the url that can be used to download the certificate.
+The `certificate` field contains the URL that can be used to download the certificate.
 
 ```json
 {
@@ -66,7 +69,7 @@ The `certificate` field contains the url that can be used to download the certif
 
 <br />
 
-::: tip Notice
+::: tip Tip
 
 Please familiarise yourself with [order statuses and their lifecycle]().
 
@@ -83,6 +86,8 @@ An order's certificate looks like the following. Please note names are fictitiou
 ## Download the certificate
 
 First, identify the `id` of the completed order for which you would like to download the certificate.
+
+If you don't have your order id, either find the order in the [dashboard's orders page](https://dashboard.lune.co/orders) or you can [iterate through your all orders](/api-reference/orders.html#get-orders).
 
 Then, get your [API Key](https://dashboard.lune.co/api-keys).
 
