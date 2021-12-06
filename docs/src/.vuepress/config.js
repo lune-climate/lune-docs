@@ -54,6 +54,7 @@ module.exports = {
           children: [
             'one-percent-contribution-towards-carbon-removal',
             'download-completion-certificate',
+            'customer-project-bundle-selection',
           ]
         }
       ],
