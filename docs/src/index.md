@@ -2,10 +2,11 @@
 home: true
 heroImage: /lune.jpg
 heroText: Lune Documentation
+description: Lune is the easiest way for companies to makes climate impact a seamless part of their customer experience.
 tagline: |
   Welcome to the Lune Documentation!<br />
   Here you'll find guides and API references to make your product or service climate positive.
-description: |
+content: |
     Please visit our <a href="/guides">guides</a> to learn how to use the Lune API to make climate impact a seamless part of your customer experience.<br />
     Consult the <a href="/api-reference">API reference</a> for all your integration needs.
 actionText: Quick Start 🚀
