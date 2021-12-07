@@ -3,12 +3,6 @@
     :aria-labelledby="data.heroText !== null ? 'main-title' : null"
   >
     <header class="hero">
-      <img
-        v-if="data.heroImage"
-        :src="$withBase(data.heroImage)"
-        :alt="data.heroAlt || 'hero'"
-      >
-
       <h1
         v-if="data.heroText !== null"
         id="main-title"
@@ -19,8 +13,8 @@
       <p
         v-if="data.tagline !== null"
         class="description"
+        v-html="data.tagline"
       >
-        {{ data.tagline || $description || 'Welcome to your VuePress site' }}
       </p>
 
       <p
@@ -34,6 +28,10 @@
       </p>
     </header>
 
+    <div v-if="data.description != null">
+        <p v-html="data.description"></p>
+    </div>
+
     <div
       v-if="data.features && data.features.length"
       class="features"
@@ -45,6 +43,7 @@
       >
         <h2><a v-if="feature.link" v-bind:href="feature.link">{{ feature.title }}</a><span v-else>{{ feature.title }}</span></h2>
         <p><a v-if="feature.link" v-bind:href="feature.link">{{ feature.details }}</a><span v-else>{{ feature.details }}</span></p>
+        <p><a v-if="feature.link" v-bind:href="feature.link" class="learn-more">Learn more →</a></p>
       </div>
     </div>
 
@@ -89,7 +88,7 @@ export default {
   margin 0px auto
   display block
   .hero
-    text-align center
+    text-align left
     img
       max-width: 100%
       max-height 280px
@@ -98,12 +97,13 @@ export default {
     h1
       font-size 3rem
     h1, .description, .action
-      margin 1.8rem auto
+      margin 1.8rem 0rem
     .description
-      max-width 35rem
       font-size 1.6rem
       line-height 1.3
       color lighten($textColor, 40%)
+    .action
+      text-align center
     .action-button
       display inline-block
       font-size 1.2rem
@@ -137,11 +137,17 @@ export default {
       color lighten($textColor, 10%)
       a
         color lighten($textColor, 10%)
+      &:hover
+        text-decoration: underline
     p
       color lighten($textColor, 25%)
       a
         font-weight normal !important
         color lighten($textColor, 25%)
+    .learn-more
+      color darken($textColor, 40%)
+      &:hover
+        text-decoration: underline
   .footer
     padding 2.5rem
     border-top 1px solid $borderColor

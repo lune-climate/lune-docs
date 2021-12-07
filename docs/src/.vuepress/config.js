@@ -29,7 +29,7 @@ module.exports = {
    */
   themeConfig: {
     repo: 'https://github.com/lune-climate/lune-docs',
-    logo: '/lune.jpg',
+    logo: '/lune-vsmall.jpg',
     editLinks: true,
     showEditLink: true,
     smoothScroll: true,
