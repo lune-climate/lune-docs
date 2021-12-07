@@ -1,0 +1,3807 @@
+openapi: 3.0.1
+info:
+  title: Lune API Reference
+  version: '1.0'
+  x-logo:
+    url: https://assets.lune.co/lune-api.png
+  contact:
+    name: Lune Support
+    email: support@lune.co
+  termsOfService: https://lune.co/terms
+
+  description: |
+    # Quick start
+    The Lune API makes it very easy to purchase carbon offsets:
+
+    1. <a href="https://dashboard.lune.co/signup" target="_blank">Sign up</a> to Lune
+    2. Validate your email
+    3. <a href="https://dashboard.lune.co/api-keys" target="_blank">Get your API Key</a> from the dashboard
+
+    then:
+
+    ```
+    curl https://api.lune.co/v1/orders/by-mass \
+      -H 'Authorization: Bearer <API_KEY>' \
+      -H 'Content-Type: application/json' \
+      -X POST \
+      -d '{"mass": { "amount": "100.510", "unit": "t"} }'
+    ```
+
+    You've just purchased 100.51 tonnes of Carbon Offsets!
+
+    # Authentication
+    The Lune API uses API Keys to authenticate requests.
+
+    An API key corresponds to a specific account (a user can have access to multiple accounts, including test accounts, see the <a href="#section/Live-and-test-accounts">Live and test accounts section</a>).
+
+    You can view and manage your keys from the Lune Dashboard.
+
+    Please keep the keys secret.
+
+    If a key is compromised you can delete and re-create a new one at any time.
+
+    API keys are used as Bearer tokens included in the Authorization header.
+
+    ```
+    Authorization: Bearer <API_KEY>
+    ```
+
+    # Live and test accounts
+
+    A user can have access to multiple accounts, in the simplest case there'll be one live account and one test account by default.
+
+    Live accounts are the accounts through which you purchase real offsets and there'll be real money changing hands.
+
+    Test accounts behave similarly (you can place orders, get quotes, fetch orders and activity),
+    but there's no real money or real offsets involved. The purpose of test accounts is to be able
+    to experiment with the API with no consequences.
+
+    To better simulate the full order flow there's a process that'll credit your test account every once in a while (to bring the outstanding balance to zero, if there are any orders made) and go through the carbon credit retirement process for any orders needing it.
+
+    Orders and acitivity belong to an account used to generate them, so if you make an order using live account A you won't see it on test account B's order list and vice versa.
+
+    # Pagination
+    All GET endpoints that return an array of resources are paginated.
+
+    Lune supports cursor-based pagination. This means that, to get all objects, you must paginate through the results by providing the last resource id as a *after* query parameter.
+
+    Each result includes a *has_more* boolean field. If this is true, then the next page requested will return additional results.
+
+    By default, each page returns 10 objects, however, by setting *limit* you can request up to 100 objects.
+
+    # Rate limits
+    A rate limit is in place to safeguard against traffic bursts and therefore ensure the API is stable.
+
+    The default rate limit is currently set at **15 requests per second**.
+
+    Requests made after exceeding the rate limit return responses with a 429 status code.
+
+    If you require additional capacity, please get in touch.
+
+    # Errors
+    All error responses return conventional HTTP status codes.
+
+    Additionally, the response's body includes all raised by Lune.
+
+    Each error returns an *error_code* and a human readable *message*.
+
+    *error_code*'s are useful to handle errors programmatically.
+
+    ### HTTP Status Codes
+    | Code | Description |
+    |------|-------------|
+    | 200  | The request has been processed as expected |
+    | 201  | The request has been processed as expected and a resource has been created |
+    | 400  | The request is invalid. Parameters may be missing or are invalid |
+    | 401  | The API Key is missing or is invalid |
+    | 403  | The API Key is not authorized to perform the operation |
+    | 404  | The resource has not been found |
+    | 409  | The request could not be completed due to a conflict with the current state of the target resource or resources |
+    | 415  | The request content's have not been json encoded |
+    | 429  | Too many requests have been made in a short period of time |
+    | 500  | Internal server error. Something has gone wrong. Definitely Lune's issue |
+    | 503  | The service is temporarily unavailable. Lune's fault, you may retry. |
+
+
+    # Order status and lifecycle
+    Orders have statuses and follow a precise lifecycle.
+
+    Please familiarise with the following:
+
+    <img src="https://assets.lune.co/docs/order-status-transitions-same-bg.png" />
+
+    # Postman
+    If you are familiar with Postman, feel free to import our Postman collections.
+    Our Postman collections will allow you to very easily run real requests and see how the system responds.
+
+    [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/16751508-170c2b27-f8c0-4bbd-a139-2b83a36416d6?action=collection%2Ffork&collection-url=entityId%3D16751508-170c2b27-f8c0-4bbd-a139-2b83a36416d6%26entityType%3Dcollection%26workspaceId%3D4e2ab95c-f1a6-45f2-9a9a-d7c45af4f452)
+
+    You will still need an <a href="https://dashboard.lune.co/api-keys" target="_blank">API Key</a> from the dashboard.
+
+servers:
+  - url: https://api.lune.co/v1
+    description: Lune's REST API
+
+tags:
+  - name: Orders
+    description: |
+      Get a quote, create and fetch orders.
+  - name: Projects
+    description: Get projects and bundles
+  - name: Emission estimates
+    description: Estimate CO2 emissions (caused by shipping goods for example).
+  - name: Offset links
+    description: Provide your customers with links to fund a bundle of their choice.
+  - name: Webhooks
+    description: A way to get notified about order state changes.
+  - name: Webhook Request
+    description: |
+      After creating a webhook you can listen to events that occur in your Lune Account. This enables you to react to these events. Think of a webhook as a way to get notifications of activity that happens in your account.
+
+      API calls are a mechanism for *you*, the API client, to send requests to Lune (for example to place an
+      order). Webhooks are a mechanism for Lune to send notifications to you, right when a relevant event happens,
+      without you having to repeatedly call the API and ask for the information (which is wasteful in terms
+      of resources).
+
+      Currently, webhooks events are limited to order status changes that changes in your account (an event is generated whenever an order status changes).
+
+      Your webhook endpoint has to respond with a 2xx HTTP status code within 30 seconds. If we don't get a 2xx status code or the request times out we will treat is as failure and try to resend it with a delay.
+
+      The events sent to the webhook endpoint are batched – we send multiple events in a single request.
+      There's a limit to the number of events we send at once, if there are more events waiting to be sent
+      we only send a number of the oldest ones.
+
+      # Delivery guarantees
+
+      * Events are always delivered in the order they happened from the point of view of Lune's systems.
+        The order may not be obvious when multiple actions are performed concurrently (for example when
+        you place multiple orders at the same time you can't know which order will generate events first).
+      * Particularly, order events corresponding to one order are always delivered in the order
+        consistent with the transitions described in the "Order status and lifecycle" documentation section.
+      * Events are always delivered in the same order (this concerns retries).
+      * Events are delivered at least once – they may be tried to be delivered multiple times
+        if there were earlier attemps that failed (either because of a communication error or a non-2xx HTTP
+        status code). If you endpoint responds with a 2xx status code there's no guarantee that the response
+        will be registered by Lune's systems – the response may be lost in transit.
+      * Lune only attempts one request to your webhook endpoint at a time. There are some caveats:
+
+        * If we successfully manage to send a request but the communication is interrupted before we get
+          a response we have no way to know if the request reached your webhook endpoint.
+        * If the 30 second timeout is reached we abandon the request on our side but we have no way
+          of ensuring that the processing of the request on your side isn't continuing.
+
+        With that in mind, if you depend on there being strictly one and only one webhook request being
+        processed at any given time it's your responsibility to ensure that.
+
+      # Idempotency
+      It is necessary to handle the same events being delivered multiple times (for the reasons mentioned
+      above). This is achieved by keeping track of already processed `event_id`s – if you see the same
+      `event_id` again you know you can ignore the event it corresponds to. Alternatively, you can keep
+      track of the events `sequence`s – this string value is guaranteed to be monotonically increasing and
+      you can use it as a last processed event marker. If you stored `B` as last processed event sequence
+      value and you receive a re-delivered event with sequence `A` that contains a value lexicographically
+      "smaller" than `B` then you know you can ignore the event.
+
+      # Payload authentication and integrity
+      [HMAC](https://en.wikipedia.org/wiki/HMAC) is a security measure which allows you to verify the
+      integrity and authenticity of the data you’re receiving. Every request we make to your webhook
+      endpoint has a header `Lune-HMAC` set. The header has be used to validate the integrity and
+      authenticity of the payload, which ensures that the request actually comes from Lune and no one has
+      tampered with it.
+
+      The header has the following format:
+
+      ```
+      timestamp=TIMESTAMP,v1=HMAC_VALUE,...
+      ```
+
+      where `TIMESTAMP` is the current [Unix epoch](https://en.wikipedia.org/wiki/Unix_time) and
+      `HMAC_VALUE` is the value calculated in the following way:
+
+      ```
+      HMAC-256(SECRET, TIMESTAMP + "." + BODY)
+      ```
+
+      * `HMAC-256` is the HMAC version using the SHA-256 hashing algorithm
+      * `SECRET` is a per-webhook secret generated when the webhook is created. The secret can be
+        regenerated and fetched from the API.
+      * `BODY` is the body of the incoming request
+
+      Lune reserves the right to send multiple `v1=...` blocks in the header (in case there are multiple
+      secrets active) and your code has to handle that.
+
+      To verify the integrity and authenticity of the request you have to follow these steps\:
+      * Extract the timestamp from the header (we call it `TIMESTAMP` from now on)
+      * Verify that the `TIMESTAMP` is no more than two minutes in the past (this ensures that you don't
+        try to process old requests). If the `TIMESTAMP` is too old you should reject the request with
+        a non-2xx status code.
+      * Calculate `YOUR_HMAC = HMAC-256(SECRET, TIMESTAMP + "." + BODY)
+      * Verify that the header contains an `v1=...` block with value equal to your `YOUR_HMAC` value.
+
+      An HTTP request with missing or malformed `Lune-HMAC` header or for which the HMAC verification
+      fails (the calculated HMAC does not match any of the HMACs in the `Lune-HMAC` header) must not be
+      processed in any way (no action to be performed based on the payload) and must be rejected by
+      returning a non-2xx HTTP status code.
+
+      # A mock webhook Request
+      The request itself consist of two headers and the payload. One of the headers is the previously mentioned HMAC header, the other is the *Content-Type* which is *application/json*.
+
+      For testing purposes, if you want to produce an example request, this can be simulated with
+      ```
+      curl <WEBHOOK_URL> \
+        -H 'Lune-HMAC: <THE_HEADER_VALUE>' \
+        -H 'Content-Type: application/json' \
+        -X POST \
+        -d '{"events":[{"event_type":"order.received", "event_id": 1, "data": {"type": "quantity", "requested_quantity": "1000", "id": "va1BER4JZqnzPkYxJgALg0GeQDoXlWO5", "status": "received","currency": "GBP","created_at": "1985-04-12T23:20:50.52Z","metadata": {}}, "api_version": "v1"},{"event_type": "order.placed”, "event_id": 2, "data": {"type": "quantity", "requested_quantity": "1000", "id": "va1BER4JZqnzPkYxJgALg0GeQDoXlWO5", "status": "received","currency": "GBP","created_at": "1985-04-12T23:20:50.52Z","metadata": {}}, "api_version": "v1"}]}'
+      ```
+
+      where `WEBHOOK_URL` is your webhook endpoint and `THE_HEADER_VALUE` of form `timestamp=...,v1=...`
+      can be produced using the algorithm above.
+
+      # Handling unknown event_types
+      Lune may introduce events with new `event_type`s. Your code should ignore unknown `event_type`s
+      to make sure it remains future-proof.
+
+      # The payload format
+      The `/WebhookRequest` mock endpoint documents the data format that the webhook endpoints should expect.
+x-tagGroups:
+  - name: API Reference
+    tags:
+      - Orders
+      - Projects
+      - Accounts
+      - Analytics
+      - Activity
+      - Bundle selections
+      - Emission estimates
+      - Offset links
+      - Webhooks
+      - Webhook Request
+
+paths:
+  /activity:
+    get:
+      summary: Get account activity
+      description: |
+        Returns paginated activity in reverse order (most recent first).
+
+        Activity is an immutable event log. Every single account event yields an activity object.
+
+        The API key used to access this method affects what activity rows are returned: activity rows
+        corresponding to test orders for the test API key, the rest of the rows (both activity rows
+        corresponding to live orders or not having any order associated with them) for the live API key.
+      operationId: getActivity
+      security:
+        - BearerAuth: []
+      tags:
+        - Activity
+      parameters:
+        - name: limit
+          in: query
+          description:
+            Default is 10.
+
+            Maximum number of resources to return, between 1 and 100.
+          schema:
+            type: string
+            pattern: '^\d+$'
+            example: '50'
+        - name: after
+          in: query
+          description: |
+            A cursor for use in pagination.
+
+            *after* is an object ID that defines your place in the list.
+
+            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
+          schema:
+            type: string
+            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+      responses:
+        '200':
+          description: The response returns paginated activity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedActivity'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+  /accounts:
+    get:
+      summary: Get account
+      description: |
+        Returns the account linked to the API Key.
+
+        One account object is returned.
+      operationId: getAccount
+      security:
+        - BearerAuth: []
+      tags:
+        - Accounts
+      responses:
+        '200':
+          description: The response returns an account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /analytics:
+    get:
+      summary: Get analytics
+      description: |
+        Returns analytics for a specified time period for the account linked to the API Key.
+
+        Defaults to the last 30 days if no time period is specified.
+      operationId: getAnalytics
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - Analytics
+      parameters:
+        - name: start
+          in: query
+          description:
+            The start date of the custom date range.
+
+            The date must be in the format YYYY-MM-DD.
+          schema:
+            type: string
+            format: date
+            example: '2019-01-01'
+        - name: end
+          in: query
+          description:
+            The end date of the custom date range.
+
+            The date must be in the format YYYY-MM-DD.
+          schema:
+            type: string
+            format: date
+            example: '2020-01-31'
+      responses:
+        '200':
+          description: The response return account analytics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Analytics'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+  /bundles:
+    get:
+      summary: Get bundles
+      description: |
+        Returns paginated bundles.
+
+        Bundle represent a group of projects of similar unit price and characteristics.
+
+        Orders are placed against bundles.
+
+        Disabled bundles are not returned.
+      operationId: getBundles
+      security:
+        - BearerAuth: []
+      tags:
+        - Projects
+      parameters:
+        - name: limit
+          in: query
+          description:
+            Default is 10.
+
+            Maximum number of resources to return, between 1 and 100.
+          schema:
+            type: string
+            pattern: '^\d+$'
+            example: '50'
+        - name: after
+          in: query
+          description: |
+            A cursor for use in pagination.
+
+            *after* is an object ID that defines your place in the list.
+
+            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
+          schema:
+            type: string
+            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+      responses:
+        '200':
+          description: The response returns paginated bundles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBundles'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+  /bundles/{id}:
+    get:
+      summary: Get a bundle
+      description: |
+        Returns a bundle by id if it exists.
+
+        Bundle represent a group of projects of similar unit price and characteristics.
+
+        Orders are placed against bundles.
+      operationId: getBundleById
+      security:
+        - BearerAuth: []
+      tags:
+        - Projects
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The bundle's unique identifier
+          schema:
+            type: string
+            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+      responses:
+        '200':
+          description: The response returns a bundle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        '404':
+          description: The bundle does not exist
+        '429':
+          description: Rate limit exceeded
+  /projects:
+    get:
+      summary: Get projects
+      description: |
+        Returns paginated projects.
+
+        Disabled projects are not returned.
+
+        Note: orders are placed against bundles not projects.
+      operationId: getProjects
+      security:
+        - BearerAuth: []
+      tags:
+        - Projects
+      parameters:
+        - name: limit
+          in: query
+          description:
+            Default is 10.
+
+            Maximum number of resources to return, between 1 and 100.
+          schema:
+            type: string
+            pattern: '^\d+$'
+            example: '50'
+        - name: after
+          in: query
+          description: |
+            A cursor for use in pagination.
+
+            *after* is an object ID that defines your place in the list.
+
+            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
+          schema:
+            type: string
+            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+      responses:
+        '200':
+          description: The response returns paginated projects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProjects'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+  /projects/{id}:
+    get:
+      summary: Get a project by id
+      description: |
+        Returns a project by id if it exists.
+
+        Disabled projects are returned.
+      operationId: getProjectById
+      security:
+        - BearerAuth: []
+      tags:
+        - Projects
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The project's unique identifier
+          schema:
+            type: string
+            example: 1vE213P96LbXNap56NAqVoM7knOedQg4
+      responses:
+        '200':
+          description: The response returns a project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '404':
+          description: The project does not exist
+        '429':
+          description: Rate limit exceeded
+  /projects/by-slug/{slug}:
+    get:
+      summary: Get a project by slug
+      description: |
+        Returns a project by slug if it exists.
+
+        Disabled projects are returned.
+      operationId: getProjectBySlug
+      security:
+        - BearerAuth: []
+      tags:
+        - Projects
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          description: The project's unique slug
+          schema:
+            type: string
+            example: 'alto-mayo'
+      responses:
+        '200':
+          description: The response returns a project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '404':
+          description: The project does not exist
+        '429':
+          description: Rate limit exceeded
+  /orders/by-mass:
+    post:
+      summary: Create an order by mass
+      description: Create an order to purchase carbon offset by specifying a mass in tonnes or kilograms.
+      operationId: createOrderByMass
+      security:
+        - BearerAuth: []
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderByQuantityRequest'
+      responses:
+        '200':
+          description: |
+            Order created successfully.
+            The response returns an Order object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderByQuantity'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: |
+            Conflict
+
+            Examples:
+              1. account is suspended
+              2. order idempotency failure: an order with the same idempotency_key has already by created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+  /orders/by-value:
+    post:
+      summary: Create an order by value
+      description: Create an order to purchase carbon offset by specifying a maximum purchase value.
+      operationId: createOrderByValue
+      security:
+        - BearerAuth: []
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderByValueRequest'
+      responses:
+        '200':
+          description: |
+            Order created successfully.
+            The response returns an Order object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderByValue'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: |
+            Conflict
+
+            Examples:
+              1. account is suspended
+              2. order idempotency failure: an order with the same idempotency_key has already by created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+  /orders:
+    get:
+      summary: Get orders
+      description: |
+          Returns paginated account orders ordered by creation date descending
+
+          The API key used to access this method affects what orders are returned: test orders for the test
+          API key, live orders for the live one.
+      operationId: getOrders
+      security:
+        - BearerAuth: []
+      tags:
+        - Orders
+      parameters:
+        - name: limit
+          in: query
+          description:
+            Default is 10.
+
+            Maximum number of resources to return, between 1 and 100.
+          schema:
+            type: string
+            pattern: '^\d+$'
+            example: '50'
+        - name: after
+          in: query
+          description: |
+            A cursor for use in pagination.
+
+            *after* is an object ID that defines your place in the list.
+
+            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
+          schema:
+            type: string
+            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+        - name: offset_link_id
+          in: query
+          description: |
+            Filter orders by offset_link_id.
+
+
+            If offset_link_id is set, the response will only include orders belonging to the particular offset link.
+          schema:
+            type: string
+            example: ke56XR3wK72raAe6ZPyEDQzgWldPBO41
+      responses:
+        '200':
+          description: The response returns paginated orders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedOrders'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+  /orders/{id}:
+    get:
+      summary: Get an order
+      description: |
+        Returns an order by id if it exists.
+      operationId: getOrderById
+      security:
+        - BearerAuth: []
+      tags:
+        - Orders
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The order's unique identifier
+          schema:
+            type: string
+            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+      responses:
+        '200':
+          description: The response returns an order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: The order does not exist
+        '429':
+          description: Rate limit exceeded
+  /orders/{id}/certificate:
+    get:
+      summary: Get a carbon offset certificate
+      description: |
+        Download a Carbon Offset Certificate for a completed order.
+      operationId: getOrderCertificateById
+      security:
+        - BearerAuth: []
+        - AccessToken: []
+      tags:
+        - Orders
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The order's unique identifier
+          schema:
+            type: string
+            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+      responses:
+        '200':
+          description: The response returns the Carbon Offset Certificate
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: The order or the certificate does not exist
+        '429':
+          description: Rate limit exceeded
+  /orders/by-idempotency-key/{idempotencyKey}:
+    get:
+      summary: Get an order by idempotency key
+      description: |
+        Returns an order by idempotency key if it exists.
+      operationId: getOrderByIdempotencyKey
+      security:
+        - BearerAuth: []
+      tags:
+        - Orders
+      parameters:
+        - name: idempotencyKey
+          in: path
+          required: true
+          description: The order's idempotency key
+          schema:
+            type: string
+            example: 'sg5knd2'
+      responses:
+        '200':
+          description: The response returns an order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: The order does not exist
+        '429':
+          description: Rate limit exceeded
+  /orders/by-mass/quote:
+    post:
+      summary: Calculate an order quote by mass
+      description: |
+        This endpoint does not create an order.
+
+        However, it processes the order as if it were placed returning estimated cost and bundles allocations.
+      operationId: getOrderQuoteByMass
+      security:
+        - BearerAuth: []
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderQuoteByQuantityRequest'
+      responses:
+        '200':
+          description: |
+            Order quote processed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderQuoteByQuantity'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+  /orders/by-value/quote:
+    post:
+      summary: Calculate an order quote by value
+      description: |
+        This endpoint does not create an order.
+
+        However, it processes the order as if it were placed returning estimated cost and bundles allocations.
+      operationId: getOrderQuoteByValue
+      security:
+        - BearerAuth: []
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderQuoteByValueRequest'
+      responses:
+        '200':
+          description: |
+            Order quote processed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderQuoteByValue'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+  /bundle-selections:
+    get:
+      summary: Get account bundle selection
+      description: |
+        Returns the account's bundle selection.
+
+        When orders are placed without explicity setting bundle selections, the account's bundle selection is used.
+
+        Account bundle selections can be set via the API or Dashboard.
+
+        Every account is created with default bundle selections.
+
+      operationId: getBundleSelection
+      security:
+        - BearerAuth: []
+      tags:
+        - Bundle selections
+      responses:
+        '200':
+          description: The response returns the account's bundle selections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BundleSelection'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+    put:
+      summary: Set account bundle selection
+      description: |
+        Set the account's bundle selection.
+
+        Every account is created with default bundle selections. This will override default bundle selections.
+
+      operationId: updateBundleSelection
+      security:
+        - BearerAuth: []
+      tags:
+        - Bundle selections
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BundleSelectionRequest'
+      responses:
+        '200':
+          description: The response returns the new account's bundle selections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BundleSelection'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+
+  /estimates/electricity:
+    post:
+      summary: Estimate electricity emissions
+      description: |
+        Estimate emissions produced by electricity consumption.
+
+        The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
+      operationId: getElectricityEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ElectricityEstimateRequest'
+      responses:
+        '200':
+          description: |
+            Estimation calculated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionEstimate'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+        '503':
+          description: The service is temporarily unavailable
+
+  /estimates/flight:
+    post:
+      summary: Estimate flight emissions
+      description: |
+        Estimate emissions produced by passengers in a commercial airflight.
+
+        The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
+      operationId: getFlightEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightEstimateRequest'
+      responses:
+        '200':
+          description: |
+            Estimation calculated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionEstimate'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+        '503':
+          description: The service is temporarily unavailable
+
+  /estimates/shipping:
+    post:
+      summary: Estimate shipping emissions
+      description: |
+        Estimate emissions produced by shipping something from point A to point B.
+
+        The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
+
+        Some examples of the input payload:
+
+        * Source/destination addresses, 10 tonnes transported by a diesel truck:
+
+          ```json
+          {
+              "shipment": { "mass": { "amount": "10.0", "unit": "t" } },
+              "route": {
+                  "source": {
+                      "street_line1": "Karl-Liebknecht-Str. 13",
+                      "country_code": "DEU",
+                      "city": "Berlin",
+                      "postcode": "10178"
+                  },
+                  "destination": {
+                      "street_line1": "62 Great Russell St",
+                      "country_code": "GBR",
+                      "city": "London",
+                      "postcode": "WC1B 3BG"
+                  }
+              },
+              "method": "diesel_truck"
+          }
+          ```
+        * 1 tonne transported 2000 km by a small general cargo ship with Marine Gasoil (MGO) fuel used:
+
+          ```json
+          {
+              "shipment": { "mass": { "amount": "1.0", "unit": "t" } },
+              "route": { "amount": "2000.0", "unit": "km" },
+              "method": { "vessel_type": "sea_general_cargo_small", "fuel": "MGO" }
+          }
+          ```
+
+        * 3 containers (TEUs) transported 5000 km by a refrigerated container ship over an
+          Europe/South America trade lane:
+
+          ```json
+          {
+              "shipment": { "containers": "3.0" },
+              "route": { "amount": "5000.0", "unit": "km" },
+              "method": {
+                  "vessel_type": "container_ship",
+                  "refrigerated": true,
+                  "trade_lane": "disaggregated_europe_to_south_america"
+              }
+          }
+          ```
+
+        * 10 tonnes transported 4000 km by a vessel with IMO number 9745225:
+
+          ```json
+          {
+              "shipment": { "mass": { "amount": "10.0", "unit": "t" } },
+              "route": { "amount": "4000.0", "unit": "km" },
+              "method": { "vessel_imo_number": "9745225" }
+          }
+          ```
+
+
+
+        You can plug those payloads in the following command:
+
+        ```
+        curl https://api.lune.co/v1/estimates/shipping \
+        -H 'Authorization: Bearer <API_KEY>' \
+        -H 'Content-Type: application/json' \
+        -X POST \
+        -d <PAYLOAD>
+        ```
+      operationId: getShippingEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingEstimateRequest'
+      responses:
+        '200':
+          description: |
+            Estimation calculated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionEstimate'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+        '503':
+          description: The service is temporarily unavailable
+  /estimates/transactions:
+    post:
+      summary: Estimate transaction-related emissions
+      description: |
+        Estimate emissions produced by purchasing goods or services.
+
+        `value` and `merchant` tell us what's the value of the transaction and who the goods or services
+        have been purchased from. `value` should exclude shipping and taxes – if it doesn't, then the
+        results are likely to be higher than they should be.
+
+        `diet`, if provided, will affect the estimates for purchases we determine are food-related.
+
+        The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
+      operationId: getTransactionEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionEstimateRequest'
+      responses:
+        '200':
+          description: |
+            Estimation calculated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionEstimate'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+        '503':
+          description: The service is temporarily unavailable
+  /estimates/company:
+    post:
+      summary: Estimate company-wide emissions
+      description: |
+        Estimate emissions produced by a company. This includes office-related emissions,
+        employee transportation, food, drinks, electronic equipment and computing/networking
+        operations.
+
+        The result is an estimate of a year-worth of company emissions.
+      operationId: getCompanyEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyEstimateRequest'
+      responses:
+        '200':
+          description: |
+            Estimation calculated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyEmissionEstimate'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+        '503':
+          description: The service is temporarily unavailable
+  /offset-links/{id}:
+    get:
+      tags:
+        - Offset links
+      summary: Get an offset link by id
+      operationId: getOffsetLinkById
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The offset links's unique identifier
+          schema:
+            type: string
+            example: 1vE213P96LbXNap56NAqVoM7knOedQg5
+      responses:
+        '200':
+          description: Offset link fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetLink'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: The offset link does not exist
+        '429':
+          description: Rate limit exceeded
+    put:
+      tags:
+        - Offset links
+      summary: Update an offset link
+      operationId: updateOffsetLinkById
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The offset links's unique identifier
+          schema:
+            type: string
+            example: 1vE213P96LbXNap56NAqVoM7knOedQg5
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OffsetLinkRequest'
+      responses:
+        '200':
+          description: The offset link updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetLink'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: An offset link with the specified id belonging to the authenticated account has not been found.
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+  /offset-links:
+    get:
+      tags:
+        - Offset links
+      summary: Get the existing offset links
+      operationId: getOffsetLinks
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: limit
+          in: query
+          description:
+            Default is 10.
+
+            Maximum number of resources to return, between 1 and 100.
+          schema:
+            type: string
+            pattern: '^\d+$'
+            example: '50'
+        - name: after
+          in: query
+          description: |
+            A cursor for use in pagination.
+
+            *after* is an object ID that defines your place in the list.
+
+            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
+          schema:
+            type: string
+            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+      responses:
+        '200':
+          description: Offset links fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedOffsetLinks'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+    post:
+      tags:
+        - Offset links
+      summary: Create a new offset link
+      operationId: createOffsetLink
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OffsetLinkRequest'
+      responses:
+        '200':
+          description: The offset link created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetLink'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+  /offset-links/{id}/analytics:
+    get:
+      tags:
+        - Offset links
+      summary: Get analytics for a given offset link
+      operationId: getOffsetLinkAnalyticsById
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The offset links's unique identifier
+          schema:
+            type: string
+            example: 1vE213P96LbXNap56NAqVoM7knOedQg5
+      responses:
+        '200':
+          description: Offset link analytics fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetLinkAnalytics'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: The offset link does not exist
+        '429':
+          description: Rate limit exceeded
+  /webhooks:
+    get:
+      tags:
+        - Webhooks
+      summary: Get existing webhooks
+      operationId: getWebhooks
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Existing webhooks fetched successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Webhook'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+    post:
+      tags:
+        - Webhooks
+      summary: Create a new webhook
+      operationId: createWebhook
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+      responses:
+        '200':
+          description: A webhook created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+
+  /webhooks/{id}:
+    get:
+      tags:
+        - Webhooks
+      summary: Get an existing webhook
+      operationId: getWebhookById
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The webhooks's unique identifier
+          schema:
+            type: string
+            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+      responses:
+        '200':
+          description: Existing webhook fetched successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: The webhook does not exist
+        '429':
+          description: Rate limit exceeded
+    put:
+      tags:
+        - Webhooks
+      summary: Update an existing webhook
+      operationId: updateWebhook
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The webhooks's unique identifier
+          schema:
+            type: string
+            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhookRequest'
+      responses:
+        '200':
+          description: Existing webhook updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: The webhook does not exist
+        '429':
+          description: Rate limit exceeded
+    delete:
+      tags:
+        - Webhooks
+      summary: Delete an existing webhook
+      operationId: deleteWebhook
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The webhooks's unique identifier
+          schema:
+            type: string
+            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+      responses:
+        '200':
+          description: Existing webhook deleted successfully
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: The webhook does not exist
+        '429':
+          description: Rate limit exceeded
+  /webhooks/{id}/rotate-secret:
+    put:
+      tags:
+        - Webhooks
+      summary: Rotate a secret of an existing webhook.
+      description: |
+        The existing secret will be invalidated immediately and subsequent webhook payloads will be
+        accompanied by HMACs using the new secret.
+      operationId: rotateWebhookSecret
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The webhooks's unique identifier
+          schema:
+            type: string
+            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+      responses:
+        '200':
+          description: The secret was rotated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: The webhook does not exist
+        '429':
+          description: Rate limit exceeded
+  /WebhookRequest:
+    post:
+      tags:
+        - Webhook Request
+      summary: Webhook request
+      operationId: webhookRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookRequest'
+      responses:
+        '200':
+          description: The events have been successfully handled. Any status code of the `2xx` format has the same behaviour. Any header or body are ignored by Lune.
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authorization Bearer API Key (see <a href="#section/Authentication">Authentication</a>)
+    AccessToken:
+      type: apiKey
+      in: query
+      name: access_token
+      description: |
+        An API key used to access a resource that accepts it in the URL.
+
+        Note: Lune API keys are not URL-safe, which means that they can't be included in URLs directly.
+        They need to be percent-encoded using a function like JavaScript's [`encodeURIComponent()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) or
+        Python's [`urllib.parse.quote()`](https://docs.python.org/3/library/urllib.parse.html#urllib.parse.quote).
+  schemas:
+    ElectricityConsumption:
+      type: object
+      required:
+        - amount
+        - unit
+      properties:
+        amount:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '40.501'
+        unit:
+          type: string
+          enum:
+            - kWh
+            - MWh
+            - GWh
+          example: 'MWh'
+          description: Unit, `kWh` for kilowatt-hours, `MWh` for megawatt-hours, `GWh` for gigawatt-hours
+    Mass:
+      type: object
+      required:
+        - amount
+        - unit
+      properties:
+        amount:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '40.501'
+        unit:
+          type: string
+          enum:
+            - kg
+            - t
+          example: 'kg'
+          description: Unit, `t` for tonne, `kg` for kilogram
+    Distance:
+      type: object
+      required:
+        - amount
+        - unit
+      properties:
+        amount:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '40.501'
+        unit:
+          type: string
+          enum:
+            - km
+            - mi
+          example: 'km'
+          description: Unit, `km` for kilometers, `mi` for miles
+    Area:
+      type: object
+      required:
+        - amount
+        - unit
+      properties:
+        amount:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '40.501'
+        unit:
+          type: string
+          enum:
+            - square_meters
+            - square_feet
+          example: 'square_meters'
+    Errors:
+      type: array
+      description: An array containing errors
+      items:
+        $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      description: Individual error information
+      required:
+        - error_code
+        - message
+      properties:
+        error_code:
+          type: string
+          description: Immutable string representing a specific error.
+          example: account_suspended
+          enum:
+            - account_suspended
+            - bundle_selection_not_100_pct
+            - order_idempotency_failure
+            - order_low_volume_no_split
+            - invalid_bundle_id
+            - invalid_id
+            - validation_error
+            - percentage_all_or_none
+            - address_not_found
+            - at_least_one_constraint_required
+            - bundles_size_not_supported
+            - unknown_imo_number
+            - webhook_limit_reached
+            - invalid_time_range
+        message:
+          type: string
+          description: |
+              Human readable error message.
+
+              This value can contain some extra information about the error in
+              human-readable form. Not suitable for programmatic consumption, the format
+              is not guaranteed to be stable.
+    OffsetValueSeriesItem:
+      type: object
+      required:
+        - date
+        - value
+      properties:
+        date:
+          type: string
+          format: date
+          example: "2021-09-09"
+        value:
+          type: string
+          example: '333.66'
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+    OffsetQuantitySeriesItem:
+      type: object
+      required:
+        - date
+        - quantity
+      properties:
+        date:
+            type: string
+            format: date
+            example: "2021-09-09"
+        quantity:
+          type: string
+          example: '222.667'
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+    OrderQuoteByQuantityRequest:
+      type: object
+      description: Order by Quantity details
+      required:
+        - mass
+      properties:
+        mass:
+          description: Mass of CO2 offsets to purchase
+          allOf:
+            - $ref: '#/components/schemas/Mass'
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+    CreateOrderByQuantityRequest:
+      type: object
+      description: Order by Quantity details
+      required:
+        - mass
+      properties:
+        mass:
+          description: Mass of CO2 offsets to purchase
+          allOf:
+            - $ref: '#/components/schemas/Mass'
+        idempotency_key:
+          type: string
+          maxLength: 100
+          example: 5bd808a954e
+          description: |
+            Optional unique identifier provided by the client.
+
+            `idempotency_key` has two purposes:
+            1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.
+            2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    OrderQuoteByValueRequest:
+      type: object
+      description: Order by Value details
+      required:
+        - value
+      properties:
+        value:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '7700.00'
+          description: Maximum price of CO2 offsets to purchase (in the account's currency)
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+    CreateOrderByValueRequest:
+      type: object
+      description: Order by Value details
+      required:
+        - value
+      properties:
+        value:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '7700.00'
+          description: Maximum price of CO2 offsets to purchase (in the account's currency)
+        idempotency_key:
+          type: string
+          maxLength: 100
+          example: 5bd808a954e
+          description: |
+            Optional unique identifier provided by the client.
+
+            `idempotency_key` has two purposes:
+            1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.
+            2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    BundleSelectionRequest:
+      type: array
+      description: |
+        Optional allocation ratios by bundle.
+
+        The sum of all allocation ratios must equal 100.
+
+        If not specified, the preconfigured allocation ratios are going to be used.
+
+        If, for each selection, `percentage` is not provided, the selection is divided equally (best effort) between bundles. `percentage` must be provided for all or none of the bundles.
+      items:
+        $ref: '#/components/schemas/BundlePercentageRequest'
+      example:
+        - bundle_id: 'BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'
+          percentage: 34
+        - bundle_id: 'VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B'
+          percentage: 66
+    BundlePercentageRequest:
+      type: object
+      description: Maps a bundle id to an allocation ratio
+      required:
+        - bundle_id
+      properties:
+        bundle_id:
+          type: string
+          example: 'BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'
+          description: The bundle's unique identifier
+        percentage:
+          type: integer
+          example: 43
+          description: Selection percentage
+    BundleSelection:
+      type: array
+      description: |
+        Optional allocation ratios by bundle.
+
+        The sum of all allocation ratios must equal 100.
+
+        If not specified, the preconfigured allocation ratios are going to be used.
+      items:
+        $ref: '#/components/schemas/BundlePercentage'
+      example:
+        - bundle_id: 'BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'
+          percentage: 34
+        - bundle_id: 'VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B'
+          percentage: 66
+    BundlePercentage:
+      type: object
+      description: Maps a bundle id to an allocation ratio
+      required:
+        - bundle_id
+        - percentage
+      properties:
+        bundle_id:
+          type: string
+          example: 'BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'
+          description: The bundle's unique identifier
+        percentage:
+          type: integer
+          example: 43
+          description: Selection percentage
+    OrderBase:
+      type: object
+      description: Order object
+      required:
+        - id
+        - type
+        - status
+        - currency
+        - created_at
+        - metadata
+      properties:
+        id:
+          type: string
+          description: The order's unique identifier
+          example: va1BER4JZqnzPkYxJgALg0GeQDoXlWO5
+        idempotency_key:
+          type: string
+          maxLength: 100
+          example: 5bd808a954e
+          description: |
+            Optional unique identifier provided by the client.
+
+            `idempotency_key` has two purposes:
+            1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.
+            2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.
+        type:
+          type: string
+          description: Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount)
+          example: quantity
+          enum:
+            - quantity
+            - value
+        status:
+          type: string
+          description: Order status
+          example: complete
+          enum:
+            - received
+            - placed
+            - paid
+            - allocated
+            - cancelled
+            - complete
+            - failed
+        currency:
+          type: string
+          description: Order currency code
+          example: 'GBP'
+        offset_cost:
+          type: string
+          description: |
+            Represents the net cost of offsets purchased by the order. May be lower than `requested_value`.
+
+            This field is set when the order is linked to Bundles.
+
+            This field is set the order's status transitions from `received` to `placed`.
+
+            Unit: order currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '7176.00'
+        total_cost:
+          type: string
+          description: |
+            The total cost for the order inclusive of fees.
+
+            Unit: order currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '7696.00'
+        commission:
+          type: string
+          description: |
+            Represents Lune's fee.
+
+            This field is set when the order is linked to Bundles.
+
+            This field is set the order's status transitions from `received` to `placed`.
+
+            Unit: order currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '520.00'
+        quantity:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '1040'
+          description: Quantity of CO2 offsets purchased in tonnes.
+        created_at:
+          type: string
+          format: date-time
+          description: Order creation timestamp
+        bundles:
+          type: array
+          description: |
+            bundles are set when the order's status is `placed`, `paid`, `allocated` or `complete`.
+
+            Represents the bundles associated with the order including their relative quantity and cost breakdown.
+          items:
+            $ref: '#/components/schemas/OrderBundle'
+        projects:
+          type: array
+          description: |
+            Projects are set when the order's status is `allocated` or `complete`.
+
+            Represents the projects associated with the order including their relative quantity and cost breakdown.
+
+            Orders are placed against bundles, not projects. Projects in a bundle may change based on supply.
+
+            This field is set as soon as we can guarantee project supply.
+
+          items:
+            $ref: '#/components/schemas/OrderProject'
+          example:
+            - quantity: '600'
+              unit_price: '6.90'
+              offset_cost: '4140.00'
+              project_id: 'gMbvJoOaX54V1wpNaRY8dWDGQ7m239Bx'
+              project_name: 'Madre De Dios'
+              project_type: 'Forest Conservation'
+              project_slug: 'madre-de-dios'
+            - quantity: '440'
+              unit_price: '6.90'
+              offset_cost: '3036.00'
+              project_id: 'xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO5'
+              project_name: 'Alto Mayo'
+              project_type: 'Forest Conservation'
+              project_slug: 'alto-mayo'
+        certificate:
+          type: string
+          description: |
+            Carbon credits certificate URL.
+
+            This field is set when an order in 'complete' status
+
+          example: 'https://api.lune.co/v1/orders/08QD7GPaBx5b6Y60ndAONXLvrZljRE2e/certificate'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        offset_link_id:
+          type: string
+          description: The offset link identifier, if the order was placed through an offset link
+          example: 'UwjfkXjfksoHXzA1qjANL58GhjwqkxpB'
+        email:
+          type: string
+          description: |
+            End-user email.
+
+            This field is currently populated on orders placed through offset links.
+          example: 'john@doe.com'
+    OrderByQuantity:
+      title: Order by quantity
+      allOf:
+        - $ref: '#/components/schemas/OrderBase'
+        - type: object
+          required:
+            - requested_quantity
+            - type
+          properties:
+            requested_quantity:
+              type: string
+              pattern: '^[0-9]+(\.[0-9]+)?$'
+              example: '1045'
+              description: Represents the requested quantity of CO2 offsets to purchase in tonnes.
+            type:
+              type: string
+              description: Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount)
+              example: quantity
+              enum:
+                - quantity
+                - value
+    OrderByValue:
+      title: Order by value
+      allOf:
+        - $ref: '#/components/schemas/OrderBase'
+        - type: object
+          required:
+            - requested_value
+            - type
+          properties:
+            requested_value:
+              description: |
+                Represents the requested value of CO2 offsets to purchase.
+
+                Unit: order currency
+              type: string
+              pattern: '^[0-9]+(\.[0-9]+)?$'
+              example: '7700'
+            type:
+              type: string
+              description: Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount)
+              example: quantity
+              enum:
+                - quantity
+                - value
+    Order:
+      type: object
+      oneOf:
+          - $ref: '#/components/schemas/OrderByQuantity'
+          - $ref: '#/components/schemas/OrderByValue'
+      discriminator:
+        propertyName: type
+        mapping:
+          quantity: '#/components/schemas/OrderByQuantity'
+          value: '#/components/schemas/OrderByValue'
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount)
+          example: quantity
+          enum:
+            - quantity
+            - value
+    OrderProject:
+      type: object
+      required:
+        - project_id
+        - project_name
+        - project_type
+        - project_slug
+        - quantity
+        - unit_price
+        - offset_cost
+      properties:
+        project_id:
+          type: string
+          description: The project's unique identifier
+          example: xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO5
+        project_name:
+          type: string
+          description: The project's name
+          example: 'Alto Mayo'
+        project_type:
+          type: string
+          description: The project's offset type, eg Forest conservation, Afforestation, Direct Air Capture
+          example: 'Forest conservation'
+        project_slug:
+          type: string
+          description: The project's unique slug
+          example: 'alto-mayo'
+        quantity:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '1040'
+          description: Carbon offset purchased (tonnes CO2)
+        unit_price:
+          type: string
+          description: |
+            Project unit price per tonne CO2
+
+            Unit: order currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '6.09'
+        offset_cost:
+          type: string
+          description: |
+            Represents the net cost of offsets purchased by the order for this project.
+
+            Unit: order currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '7176.00'
+    OrderBundle:
+      type: object
+      required:
+        - bundle_id
+        - bundle_name
+        - quantity
+        - unit_price
+        - offset_cost
+      properties:
+        bundle_id:
+          type: string
+          description: The bundle's unique identifier
+          example: va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5
+        bundle_name:
+          type: string
+          description: The bundle's name
+          example: 'Latin America Forestry'
+        quantity:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '1040'
+          description: Quantity for the specific bundle (tonnes CO2)
+        unit_price:
+          type: string
+          description: |
+            Bundle unit price per tonne CO2
+
+            Unit: order currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '6.90'
+        offset_cost:
+          type: string
+          description: |
+            Represents the net cost of offsets purchased by the order for this bundle.
+
+            Unit: order currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '7176.00'
+        insufficient_available_quantity:
+          type: boolean
+          description: |
+            If true, there is no inventory necessary to fully satisfy the order for this bundle.
+
+          example: true
+    PaginatedBase:
+      type: object
+      required:
+        - has_more
+      properties:
+        has_more:
+          type: boolean
+          description: Whether or not there are more elements available after this set. If false, this set comprises the end of the array.
+    PaginatedOrders:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedBase'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              description: Paginated Order objects ordered by creation date descending.
+              items:
+                $ref: '#/components/schemas/Order'
+    OrderQuoteBase:
+      type: object
+      required:
+        - currency
+        - estimated_quantity
+        - estimated_commission
+        - estimated_offset_cost
+        - estimated_total_cost
+        - bundles
+      properties:
+        currency:
+          type: string
+          example: 'GBP'
+          description: Currency code
+        estimated_quantity:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '1040'
+          description: |
+            Estimated quantity (tonnes CO2).
+
+            May be lower than `requested_quantity`.
+        estimated_offset_cost:
+          type: string
+          description: |
+            Estimated offset cost
+
+            Unit: order quote currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '7176.00'
+        estimated_total_cost:
+          type: string
+          description: |
+            Estimated total cost inclusive of Lune fees.
+
+            Unit: order quote currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '7696.00'
+        estimated_commission:
+          type: string
+          description: Estimated commission
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '520.00'
+        bundles:
+          type: array
+          description: |
+            Bundles included in the quote including quantity and cost breakdown.
+          items:
+            $ref: '#/components/schemas/OrderBundle'
+    OrderQuoteByQuantity:
+      allOf:
+        - $ref: '#/components/schemas/OrderQuoteBase'
+        - type: object
+          required:
+            - requested_quantity
+          properties:
+            requested_quantity:
+              type: string
+              pattern: '^[0-9]+(\.[0-9]+)?$'
+              example: '1045'
+              description: Requested quantity for the specific bundle (tonnes CO2)
+    OrderQuoteByValue:
+      allOf:
+        - $ref: '#/components/schemas/OrderQuoteBase'
+        - type: object
+          required:
+            - requested_value
+          properties:
+            requested_value:
+              description: Requested order value inclusive of commission
+              type: string
+              pattern: '^[0-9]+(\.[0-9]+)?$'
+              example: '7700'
+    PaginatedBundles:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedBase'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              description: Paginated Bundle objects
+              items:
+                $ref: '#/components/schemas/Bundle'
+    BundleSummary:
+      type: object
+      required:
+        - id
+        - name
+        - unit_price
+        - currency
+        - disabled
+      properties:
+        id:
+          type: string
+          example: 'BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'
+          description: The bundle's unique identifier
+        name:
+          type: string
+          description: The bundle's name
+          example: 'Latin America Forestry'
+        unit_price:
+          type: string
+          description: |
+            Bundle unit price per tonne CO2
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '6.09'
+        currency:
+          type: string
+          example: 'GBP'
+          description: Currency code
+        primary_image:
+          type: string
+          description: A bundle's image URL
+          example: 'https://assets.lune.co/bundles/latin-america-forestry.png'
+        primary_image_hires:
+          type: string
+          description: A bundle's high resolution image URL
+          example: 'https://assets.lune.co/bundles/latin-america-hires.jpg'
+        description:
+          type: string
+          description: The bundle's description
+          example: 'A conglomeration of renewable energy projects around the world'
+        disabled:
+          type: boolean
+          example: false
+          description: |
+            Disabled bundles do not accept orders
+        available_quantity:
+          type: string
+          description: |
+            Quantity of CO2 offsets available to purchase (in tonnes).
+
+            If available_quantity is not set, assume there is an unlimited amount of offsets to purchase.
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '1000.09'
+    Bundle:
+      allOf:
+        - $ref: '#/components/schemas/BundleSummary'
+        - type: object
+          required:
+            - projects
+          properties:
+            projects:
+              type: array
+              description: Array of projects that belong to the bundle
+              items:
+                $ref: '#/components/schemas/ProjectSummary'
+    PaginatedProjects:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedBase'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              description: Paginated Project objects
+              items:
+                $ref: '#/components/schemas/Project'
+    ProjectSummary:
+      type: object
+      required:
+        - id
+        - name
+        - short_name
+        - slug
+        - description
+        - project_type
+        - registry_name
+        - latitude
+        - longitude
+        - country_name
+        - country_code
+        - disabled
+      properties:
+        id:
+          type: string
+          example: 'owda1kVEl60jnPykZeADr57Z8OqbKMXx'
+          description: The projects's unique identifier
+        name:
+          type: string
+          description: The project's name
+          example: 'Alto Mayo'
+        short_name:
+          type: string
+          description: The project's short name. May coincide with name.
+          example: 'Alto Mayo'
+        slug:
+          type: string
+          description: Project slug
+          example: 'alto-mayo'
+        description:
+          description: Project description
+          type: string
+        project_type:
+          type: string
+          description: The project's offset type, eg Forest conservation, Afforestation, Direct Air Capture
+          example: 'Forest conservation'
+        registry_name:
+          type: string
+          description: The project's Verification Standard Entity name or equivalent organization.
+          example: 'Verified Carbon Standard'
+        registry_link:
+          type: string
+          description: A link to the registry's project details page.
+          example: 'https://registry.verra.org/app/projectDetail/VCS/1566'
+        latitude:
+          type: number
+          format: float
+          description: Latitude
+          example: '-5.87798'
+        longitude:
+          type: number
+          format: float
+          description: Logitude
+          example: '-77.612352'
+        country_name:
+          type: string
+          description: The project's country
+          example: 'Peru'
+        country_code:
+          type: string
+          description: The project's 3 character country code
+        region:
+          type: string
+          description: The project's region
+          example: 'Huancavelica'
+        primary_image:
+          type: string
+          description: A project image URL
+          example: 'https://assets.lune.co/projects/Alto+Mayo+1.png'
+        thumbnail_image:
+          type: string
+          description: A project thumbnail image URL
+          example: 'https://assets.lune.co/projects/Alto+Mayo+1_thumbnail.png'
+        results:
+          description: Project results
+          type: array
+          items:
+            type: string
+          example: ['Reduced deforestation of 75% from baseline levels, the first time a project in Peru reaches such high results', 'Co-benefits include: poverty reduction across local communities, education around sustainable farming, conservation of biodiversity']
+        un_sdg:
+          description: |
+            UN Sustainable Development Goals.
+
+            Each number in the array represent one UN Sustainable Development Goal. See https://sdgs.un.org/goals.
+          type: array
+          items:
+            type: number
+          example: [1, 4, 8, 13, 15]
+        disabled:
+          type: boolean
+          example: false
+          description: |
+            Disabled projects do not get allocated to orders
+    Project:
+      allOf:
+        - $ref: '#/components/schemas/ProjectSummary'
+        - type: object
+          required:
+            - bundles
+          properties:
+            bundles:
+              type: array
+              description: Array of bundles the project is part of
+              items:
+                $ref: '#/components/schemas/BundleSummary'
+    Account:
+      type: object
+      required:
+        - id
+        - name
+        - currency
+        - balance
+        - balance_outstanding
+        - type
+      properties:
+        id:
+          type: string
+          example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+          description: The Account's unique identifier
+        name:
+          type: string
+          description: The Account's name
+          example: 'Acme Corporation'
+        currency:
+          type: string
+          description: The Account's currency
+          example: 'GBP'
+        balance:
+          type: string
+          description: |
+            Account's cash balance.
+
+            Unit: Account currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '23.50'
+        balance_outstanding:
+          type: string
+          description: |
+            The Account's outstanding balance represents the sum of placed and unpaid orders.
+
+            The outstanding balance is mostly negative.
+
+            Unit: Account currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '-132.50'
+        type:
+          type: string
+          description: |
+              The account's type.
+
+              See the <a href="#section/Live-and-test-accounts">Live and test accounts section</a> for details.
+          enum:
+            - live
+            - test
+          example: 'live'
+        logo:
+          type: string
+          description: |
+            Offset link logo URL
+
+            This is the logo URL that appears on the first screen of the offset links flow.
+        beneficiary:
+          type: string
+          description: |
+            Retirement beneficiary
+
+            This is the name that appears on future retirements that are made in this account.
+    Analytics:
+      type: object
+      required:
+        - total_completed_offset_value
+        - total_completed_offset_quantity
+        - total_placed_offset_value
+        - total_placed_offset_quantity
+        - completed_offset_values
+        - completed_offset_quantities
+        - placed_offset_values
+        - placed_offset_quantities
+      properties:
+        total_completed_offset_value:
+          type: string
+          description: The total monetary value of all completed orders for a given interval.
+          example: '500.66'
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+        total_completed_offset_quantity:
+          type: string
+          description: The total quantity in tCO2 of all completed orders for a given interval.
+          example: '500.667'
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+        total_placed_offset_value:
+          type: string
+          description: The total monetary value of all placed orders for a given interval.
+          example: '333.66'
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+        total_placed_offset_quantity:
+          type: string
+          description: The total quantity in tCO2 of all placed orders for a given interval.
+          example: '555.222'
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+        completed_offset_values:
+          type: array
+          description: An array of offest values grouped by completion date.
+          items:
+            $ref: '#/components/schemas/OffsetValueSeriesItem'
+        completed_offset_quantities:
+          type: array
+          description: An array of offest quantities grouped by completion date.
+          items:
+            $ref: '#/components/schemas/OffsetQuantitySeriesItem'
+        placed_offset_values:
+          type: array
+          description: An array of offest values grouped by placed date.
+          items:
+            $ref: '#/components/schemas/OffsetValueSeriesItem'
+        placed_offset_quantities:
+          type: array
+          description: An array of offest quantities grouped by placed date.
+          items:
+            $ref: '#/components/schemas/OffsetQuantitySeriesItem'
+    PaginatedActivity:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedBase'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              description: Paginated Activity objects
+              items:
+                $ref: '#/components/schemas/Activity'
+              example:
+                - id: 'gh2VDRT4JZqnzPkYxJgALg0GeQDoXlWO3'
+                  currency: 'GBP'
+                  source: 'order_paid'
+                  balance: '25.50'
+                  balance_delta: '-3.50'
+                  balance_outstanding: '-132.50'
+                  balance_outstanding_delta: '3.50'
+                  order_id: 'xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO3'
+                  created_at: '2019-08-24T14:15:22Z'
+                - id: 'q9aKx7b6nNXMk3Yv3NpD1mlW5Od2eLZE'
+                  currency: 'GBP'
+                  source: 'admin_credit'
+                  balance: '29'
+                  balance_delta: '29'
+                  balance_outstanding: '-136'
+                  balance_outstanding_delta: '0'
+                  created_at: '2019-08-24T14:15:22Z'
+    Activity:
+      type: object
+      required:
+        - id
+        - currency
+        - source
+        - balance
+        - balance_delta
+        - balance_outstanding
+        - balance_outstanding_delta
+        - created_at
+      properties:
+        id:
+          type: string
+          description: The activity's unique identifier
+          example: gh2VDRT4JZqnzPkYxJgALg0GeQDoXlWO3
+        currency:
+          type: string
+          description: |
+            Account currency code.
+
+            All activity rows amount are relative to the account's currency.
+          example: 'GBP'
+        source:
+          type: string
+          enum:
+            - admin_credit
+            - admin_debit
+            - order_received
+            - order_placed
+            - order_paid
+            - order_allocated
+            - order_cancelled
+            - order_allocation_retired
+            - order_complete
+            - order_failed
+          description: |
+            The source event that has yielded the activity.
+
+            * `admin_credit` The account has been credited by Lune.
+            * `admin_debit` The account has been debited by Lune.
+            * `order_received` The account has placed an order and Lune has received it.
+            * `order_placed` An order has been matched to bundles. Quantites and costs are known and have been set.
+            * `order_paid` The order has been paid for.
+            * `order_allocated` The order has been allocated to projects.
+            * `order_cancelled` The order has been cancelled
+            * `order_allocation_retired` Carbon credits linked to a specific project have been retired
+            * `order_complete` All carbon credits linked to the order have been retired
+            * `order_failed` Order failed to process.
+          example: 'order_complete'
+        balance:
+          type: string
+          description: |
+            Account's cash balance at the time of this activity
+
+            Unit: Account currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '23.50'
+        balance_delta:
+          type: string
+          description: |
+            Account's cash balance delta.
+
+            The previous balance plus `balance_delta` equals the current balance.
+
+            Unit: Account currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '-3.50'
+        balance_outstanding:
+          type: string
+          description: |
+            The Account's outstanding balance at the time of this activity
+
+            Unit: Account currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '-132.50'
+        balance_outstanding_delta:
+          type: string
+          description: |
+            Account's outstanding balance delta.
+
+            The previous outstanding balance plus `balance_outstanding_delta` equals the current outstanding balance.
+
+            Unit: Account currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '3.50'
+        quantity:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '500.50'
+          description: Quantity of CO2 offsets linked to this activity (tonnes CO2)
+        order_id:
+          type: string
+          description: The order's unique identifier
+          example: xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO3
+        project_id:
+          type: string
+          description: The project's unique identifier
+          example: 'BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'
+        project_name:
+          type: string
+          description: The project's name
+          example: 'Alto Mayo'
+        created_at:
+          type: string
+          format: date-time
+          description: Activity creation timestamp
+    ElectricityEstimateRequest:
+      type: object
+      description: Parameters for estimating electricity emissions
+      required:
+        - consumption
+      properties:
+        consumption:
+          $ref: '#/components/schemas/ElectricityConsumption'
+        country_code:
+          type: string
+          description: |
+              The three-letter code of the country where the consumption takes place, if applicable.
+
+              Providing this value will improve the estimation process. If the value is not provided
+              the global average will be used.
+    FlightEstimateRequest:
+      type: object
+      description: Parameters for estimating emissions for commercial plane travel
+      required:
+        - route
+      properties:
+        route:
+          description: Either the flying distance or the start/destination airport code (ICAO or IATA).
+          oneOf:
+            - $ref: '#/components/schemas/Distance'
+            - $ref: '#/components/schemas/AirportSourceDestination'
+        cabin_class:
+          $ref: '#/components/schemas/CabinClass'
+        passengers:
+          description: Number of passengers the calculation should be applied to.
+
+            This parameter defaults to 1.
+          type: number
+    CabinClass:
+       description: Cabin of class to be used for the specified passengers.
+
+         Higher classes account for more emissions since total weight and volume necessary
+         to accomodate the class is higher.
+
+         This parameter defaults to first.
+       type: string
+       enum:
+         - economy
+         - business
+         - first
+       example: 'economy'
+    ShippingEstimateRequest:
+      type: object
+      description: Parameters for estimating shipping emissions
+      required:
+        - shipment
+        - route
+        - method
+      properties:
+        shipment:
+          $ref: '#/components/schemas/Shipment'
+        route:
+          description: Either the shipping distance or the start/destination address pair.
+          oneOf:
+            - $ref: '#/components/schemas/Distance'
+            - $ref: '#/components/schemas/SourceDestination'
+        method:
+          $ref: '#/components/schemas/ShippingMethod'
+        country_code:
+          type: string
+          description: |
+              The three-letter code of the country where the shipping takes place, if applicable.
+
+              Providing this value will improve the estimation process. If the shipping spans
+              multiple countries you can either make multiple per-country estimations or choose
+              the country with the largest share of the route.
+    Shipment:
+      description: |
+        Either a mass given in kilograms or tonnes (`mass`) or the number of [Twenty-foot Equivalent
+        Units (TEUs)](https://en.wikipedia.org/wiki/Twenty-foot_equivalent_unit) (with their cargo type,
+        optionally). Note that providing `mass` will result in more accurate estimates for methods other
+        than `container_ship`. Estimates using `container_ship` are more precise when the shipment is given
+        in TEUs.
+      oneOf:
+        - type: object
+          required:
+            - mass
+          properties:
+            mass:
+              $ref: '#/components/schemas/Mass'
+        - type: object
+          required:
+            - containers
+          properties:
+            containers:
+              type: string
+              pattern: '^[0-9]+(\.[0-9]+)?$'
+              example: '40.501'
+            cargo_type:
+              type: string
+              enum:
+                - lightweight
+                - average
+                - heavyweight
+                - container_only
+    ShippingMethod:
+      oneOf:
+        - $ref: '#/components/schemas/SimpleShippingMethod'
+        - $ref: '#/components/schemas/SeaShippingMethod'
+        - $ref: '#/components/schemas/ContainerShippingMethod'
+        - $ref: '#/components/schemas/IdentifiedVesselShippingMethod'
+    SimpleShippingMethod:
+      type: string
+      description: |
+        Vessel sizes:
+        * `inland_waterway_motor_vessel_*`:
+
+          * `small` – less than 80 m / 1000 t
+          * `medium` – 85-110 m (1000-2000 t)
+          * `large` – 135 m (2000-3000 t)
+
+        * `inland_waterway_coupled_convoy` – 163-185 m
+        * `inland_waterway_pushed_convoy_*`:
+
+          * `small` – 2 barges
+          * `medium` – 4-5 barges
+          * `large` – 6 barges
+
+        * `inland_waterway_container_vessel_medium` – 110 m
+        * `inland_waterway_container_vessel_large` – 135 m
+
+      enum:
+        - inland_waterway_motor_vessel_small
+        - inland_waterway_motor_vessel_medium
+        - inland_waterway_motor_vessel_large
+        - inland_waterway_coupled_convoy
+        - inland_waterway_pushed_convoy_small
+        - inland_waterway_pushed_convoy_medium
+        - inland_waterway_pushed_convoy_large
+        - inland_waterway_tanker
+        - inland_waterway_container_vessel_medium
+        - inland_waterway_container_vessel_large
+        - inland_waterway_container_vessel_convoy
+
+        - diesel_freight_train
+        - electric_freight_train
+
+        - diesel_truck
+
+        - plane
+        - passenger_plane
+        - cargo_plane
+    SeaShippingMethod:
+      oneOf:
+        - $ref: '#/components/schemas/VariableFuelSeaShippingMethod'
+        - $ref: '#/components/schemas/VariableFuelVariableLoadSeaShippingMethod'
+        - $ref: '#/components/schemas/RoRoSeaShippingMethod'
+        - $ref: '#/components/schemas/HugeOilTankerSeaShippingMethod'
+    VariableFuelSeaShippingMethod:
+      type: object
+      required:
+        - vessel_type
+      properties:
+        vessel_type:
+          type: string
+          enum:
+            - sea_oil_tanker_small
+            - sea_oil_tanker_medium
+            - sea_oil_tanker_large
+            - sea_general_cargo_small
+            - sea_general_cargo_large
+            - sea_bulk_carrier_small
+            - sea_ropax
+        fuel:
+          type: string
+          enum:
+            - HFO
+            - MGO
+    VariableFuelVariableLoadSeaShippingMethod:
+      type: object
+      required:
+        - vessel_type
+      properties:
+        vessel_type:
+          type: string
+          enum:
+            - sea_bulk_carrier_medium
+            - sea_bulk_carrier_large
+        fuel:
+          type: string
+          enum:
+            - HFO
+            - MGO
+        load:
+          type: string
+          enum:
+            - average
+            - heavy
+    RoRoSeaShippingMethod:
+      type: object
+      required:
+        - vessel_type
+      properties:
+        vessel_type:
+          type: string
+          enum:
+            - sea_roro
+        fuel:
+          type: string
+          enum:
+            - HFO
+            - MGO
+        load:
+          type: string
+          enum:
+            - freight_only
+            - truck_and_trailer
+            - trailer_only
+    HugeOilTankerSeaShippingMethod:
+      type: object
+      required:
+        - vessel_type
+      properties:
+        vessel_type:
+          type: string
+          enum:
+            - sea_oil_tanker_huge
+        fuel:
+          type: string
+          enum:
+            - HFO
+            - MGO
+            - LNG
+    ContainerShippingMethod:
+      type: object
+      required:
+        - vessel_type
+      properties:
+        vessel_type:
+          type: string
+          enum:
+            - container_ship
+        refrigerated:
+          description: |
+            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
+            result in lower emissions.
+
+            This parameter defaults to `true`.
+          type: boolean
+        trade_lane:
+          type: string
+          description: |
+            Container transport emissions vary per trade lane. When a trade lane is not given we'll
+            use an industry-wide average. Providing an `aggregated_*` trade lane group will result in an
+            a more accurate estimate. Providing an `disaggregated_*` trade lane will result in the best
+            estimate precision.
+
+            The identifiers are kept relatively short for brevity: Mediterranean includes Black Sea and
+            South America includes Central America.
+
+            The trade lanes are bidirectional, for example `disaggregated_asia_to_africa` covers both
+            Asia to Africa and Africa to Asia.
+          enum:
+            - aggregated_panama_trade
+            - aggregated_transatlantic
+            - aggregated_transsuez
+            - aggregated_transpacific
+            - aggregated_other
+
+            - disaggregated_asia_to_africa
+            - disaggregated_asia_to_mediterranean
+            - disaggregated_asia_to_middle_east
+            - disaggregated_asia_to_north_america_east
+            - disaggregated_asia_to_north_america_west
+            - disaggregated_asia_to_north_europe
+            - disaggregated_asia_to_oceania
+            - disaggregated_asia_to_south_america
+            - disaggregated_europe_to_africa
+            - disaggregated_europe_to_south_america
+            - disaggregated_europe_to_middle_east
+            - disaggregated_europe_to_oceania
+            - disaggregated_mediterranean_to_north_america_east
+            - disaggregated_mediterranean_to_north_america_west
+            - disaggregated_north_america_to_africa
+            - disaggregated_north_america_to_oceania
+            - disaggregated_north_america_to_south_america
+            - disaggregated_north_america_to_middle_east
+            - disaggregated_north_europe_to_north_america_east
+            - disaggregated_north_europe_to_north_america_west
+            - disaggregated_south_america_to_africa
+            - disaggregated_intra_africa
+            - disaggregated_intra_north_america
+            - disaggregated_intra_south_america
+            - disaggregated_se_asia_to_ne_asia
+            - disaggregated_intra_ne_asia
+            - disaggregated_intra_se_asia
+            - disaggregated_north_europe_to_mediterranean
+            - disaggregated_intra_mediterranean
+            - disaggregated_intra_north_europe
+            - disaggregated_intra_middle_east
+            - disaggregated_other
+    IdentifiedVesselShippingMethod:
+      type: object
+      required:
+        - vessel_imo_number
+      properties:
+        vessel_imo_number:
+          description: |
+            The ship's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          type: string
+          pattern: '^[0-9]{7}$'
+
+    AirportSourceDestination:
+      type: object
+      required:
+        - source
+        - destination
+      properties:
+        source:
+          $ref: '#/components/schemas/AirportCode'
+        destination:
+          $ref: '#/components/schemas/AirportCode'
+    AirportCode:
+      type: object
+      oneOf:
+          - $ref: '#/components/schemas/IATACode'
+          - $ref: '#/components/schemas/ICAOCode'
+    IATACode:
+      type: object
+      required:
+          - code
+      properties:
+        code:
+          type: string
+          pattern: ^[A-Z]{3}$
+          description: Airport IATA code. For a full list of options (https://openflights.org/data.html)
+          example: OPO
+    ICAOCode:
+      type: object
+      required:
+          - code
+      properties:
+        code:
+          type: string
+          pattern: ^[A-Z]{4}[A-Z]?$
+          description: Airport ICAO code. For a full list of options (https://openflights.org/data.html)
+          example: LPPR
+
+    SourceDestination:
+      type: object
+      required:
+        - source
+        - destination
+      properties:
+        source:
+          $ref: '#/components/schemas/Address'
+        destination:
+          $ref: '#/components/schemas/Address'
+    Address:
+      type: object
+      required:
+        - street_line1
+        - postcode
+        - city
+        - country_code
+      properties:
+        street_line1:
+          type: string
+          description: A street and house number (or equivalent).
+          example: "1 Hollow Road"
+        street_line2:
+          type: string
+          description: An address component more precise than a street and house number.
+          example: "Apartment 2"
+        postcode:
+          type: string
+          example: "99 210"
+          description: The postal code in the format specific to the country it's in
+        city:
+          type: string
+          example: "Ledville"
+        country_code:
+          type: string
+          example: "GBR"
+          description: A three-letter country code.
+    TransactionEstimateRequest:
+      type: object
+      description: Parameters for estimating emissions associated with purchasing goods or services.
+      required:
+        - value
+        - merchant
+      properties:
+        value:
+          $ref: '#/components/schemas/MonetaryAmount'
+        merchant:
+          $ref: '#/components/schemas/Merchant'
+        diet:
+          $ref: '#/components/schemas/Diet'
+    CompanyEstimateRequest:
+      description: |
+        Parameters for estimating emissions associated with operating a company.
+
+        All relevant values are yearly values.
+      type: object
+      required:
+        - employees
+        - remote_employees_percentage
+        - office_area
+        - country_code
+        - postcode
+        - electricity_consumption
+        - green_electricity_used
+        - gas_consumption
+        - company_cars
+        - average_car_distance_travelled
+        - employees_using_public_transport
+        - short_flights
+        - medium_flights
+        - long_flights
+        - first_or_business_class_percentage
+        - food_and_drinks_expenses
+        - vegetarian_and_vegan_percentage
+        - electronic_device_expenses
+        - garbage
+        - recycled_garbage_percentage
+        - tech
+      properties:
+        employees:
+          type: integer
+          description: Number of employees
+          minimum: 0
+        remote_employees_percentage:
+          description: Share of employees working remotely (in percent)
+          $ref: '#/components/schemas/IntegerPercentage'
+        office_area:
+          $ref: '#/components/schemas/Area'
+          description: Office area in square meters
+        country_code:
+          type: string
+          description: The three-letter country code of the country where the company is located.
+          example:  GBR
+        postcode: 
+          type: string
+          example: "99 210"
+          description: The company's postal code
+        electricity_consumption:
+          type: integer
+          description: Electricity consumption in kWh
+          minimum: 0
+        green_electricity_used:
+          type: boolean
+          description: Is the electricity provided by renewable source(s)?
+        gas_consumption:
+          type: integer
+          description: Yearly natural gas consumption in cubic meters
+          minimum: 0
+        company_cars:
+          type: integer
+          description: Company cars
+          minimum: 0
+        average_car_distance_travelled:
+          $ref: '#/components/schemas/Distance'
+          description: Average yearly distance travelled per car
+        employees_using_public_transport:
+          type: integer
+          description: Number of employees commuting by public transport
+          minimum: 0
+        short_flights:
+          type: integer
+          description: Number of short (under 3 hours) flights per year
+          minimum: 0
+        medium_flights:
+          type: integer
+          description: Number of medium (between 3 and 6 hours) flights per year
+          minimum: 0
+        long_flights:
+          type: integer
+          description: Number of long (over 6 hours) flights per year
+          minimum: 0
+        first_or_business_class_percentage:
+          description: Share of business or first class flights, in percent
+          $ref: '#/components/schemas/IntegerPercentage'
+        food_and_drinks_expenses:
+          $ref: '#/components/schemas/MonetaryAmount'
+          description: Amount spend on food and drinks
+        vegetarian_and_vegan_percentage:
+          description: Share of vegetarians or vegans in the company, in percent
+          $ref: '#/components/schemas/IntegerPercentage'
+        electronic_device_expenses:
+          $ref: '#/components/schemas/MonetaryAmount'
+          description: New electronic devices (laptops, monitors, etc.) expenses
+        garbage:
+          type: integer
+          description: The amount of garbage produced, in kilograms
+          minimum: 0
+        recycled_garbage_percentage:
+          description: Share of recycled garbage, in percent
+          $ref: '#/components/schemas/IntegerPercentage'
+        tech:
+          $ref: '#/components/schemas/CompanyTechUse'
+    CompanyTechUse:
+      type: object
+      description: Description of what technology does a company use and what are its costs
+      oneOf:
+        - $ref: '#/components/schemas/CompanyCloudUse'
+        - $ref: '#/components/schemas/CompanyOnPremiseUse'
+    CompanyCloudUse:
+      type: object
+      description: Company's use of cloud services
+      required:
+        - cost
+        - provider
+      properties:
+        cost:
+          $ref: '#/components/schemas/MonetaryAmount'
+        provider: 
+          $ref: '#/components/schemas/CloudProvider'
+    CompanyOnPremiseUse:
+      type: object
+      description: Company's own tech infrastructure details
+      required:
+        - electricity_cost
+      properties:
+        electricity_cost: 
+          $ref: '#/components/schemas/MonetaryAmount'
+    CloudProvider:
+      type: string
+      description: The identifier of a cloud provider.
+      example: aws
+      enum:
+        - aws
+        - gcp
+        - azure
+        - ovh
+        - other
+    IntegerPercentage:
+      type: integer
+      minimum: 0
+      maximum: 100
+    Merchant:
+      type: object
+      required:
+        - category_code
+        - country_code
+      properties:
+        category_code:
+          type: string
+          description: |
+            An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding
+            to the transaction.
+
+            See https://github.com/greggles/mcc-codes for available codes.
+          example: "0763"
+        name:
+          type: string
+          description: The name of the merchant.
+          example: The Corner Store
+        country_code:
+          type: string
+          description: The three-letter code of the merchant's country.
+          example:  GBR
+    Diet:
+      description: |
+        A diet followed by an individual.
+
+        High meat-eater is someone consuming over 100 grams of meat per day, medium is 50-99 grams per day
+        and low is less than 50 grams per day. A fish eater is someone that doesn't consume meat other than
+        fish.
+      type: string
+      enum:
+        - high_meat_eater
+        - medium_meat_eater
+        - low_meat_eater
+        - fish_eater
+        - vegetarian
+        - vegan
+    EmissionEstimate:
+      description: An emission estimate result.
+      type: object
+      required:
+        - mass
+      properties:
+        mass:
+          $ref: '#/components/schemas/Mass'
+    PaginatedOffsetLinks:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedBase'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              description: Paginated Offset Links
+              items:
+                $ref: '#/components/schemas/OffsetLink'
+    CompanyEmissionEstimate:
+      allOf:
+        - $ref: '#/components/schemas/EmissionEstimate'
+        - type: object
+          required:
+            - components
+          properties:
+            components:
+              type: object
+              required:
+                - material_and_waste
+                - energy
+                - travel_and_commute
+                - food_and_drink
+                - tech
+              properties:
+                material_and_waste:
+                  description: Emissions associated with buying equipment and generating waste.
+                  $ref: '#/components/schemas/Mass'
+                energy:
+                  description: Emissions associated with purchasing energy (electricy, heating etc.)
+                  $ref: '#/components/schemas/Mass'
+                travel_and_commute:
+                  description: Emissions associated with business travels and commuting to/from work.
+                  $ref: '#/components/schemas/Mass'
+                food_and_drink:
+                  description: Emissions associated with food and drinks.
+                  $ref: '#/components/schemas/Mass'
+                tech:
+                  description: Emissions associated with operating computer systems.
+                  $ref: '#/components/schemas/Mass'
+    OffsetLink:
+      type: object
+      required:
+        - id
+        - name
+        - url
+        - created_at
+        - status
+        - use_logo
+        - require_payment
+      properties:
+        id:
+          type: string
+          description: The offset link identifier
+          example: 'UwjfkXjfksoHXzA1qjANL58GhjwqkxpB'
+        name:
+          type: string
+          description: |
+            Offset link name.
+
+            This is a human readable name to recognise and distingish different offset links.
+
+          example: 'Marketing Campaign July 2021'
+        title:
+          type: string
+          description: |
+            Offset link title
+
+            This is the title that appears on the first screen of the offset links flow.
+        description:
+          type: string
+          description: |
+            Offset link description
+
+            This is the description that appears on the first screen of the offset links flow.
+        logo:
+          type: string
+          description: |
+            Offset link logo URL
+
+            This is the logo URL that appears on the first screen of the offset links flow.
+        use_logo:
+          type: boolean
+          description: |
+            Whether to include the Offset link logo (defined in Account settings) in the footer.
+        url:
+          type: string
+          pattern: '^https:\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
+          description: The actual offset link URL that can be used to place orders
+          example: 'https://links.lune.co/ds234cAd'
+        value:
+          $ref: '#/components/schemas/Money'
+        currency:
+          $ref: '#/components/schemas/CurrencyCode'
+        emails:
+          type: array
+          items:
+            type: string
+          description: The email addresses of users that are allowed to use the offset link.
+          example:
+            - john@doe.com
+        bundles:
+          type: array
+          description: Bundle objects
+          items:
+            $ref: '#/components/schemas/Bundle'
+        created_at:
+          $ref: '#/components/schemas/Timestamp'
+        status:
+          $ref: '#/components/schemas/OffsetLinkStatus'
+        expires_at:
+          $ref: '#/components/schemas/Timestamp'
+        require_payment:
+          type: boolean
+          description: |
+              If true, the user of the Offset Link is required to pay by credit/debit card.
+    OffsetLinkAnalytics:
+      type: object
+      required:
+        - id
+        - unique_visitors
+        - placed_orders
+        - orders
+      properties:
+        id:
+          type: string
+          description: The offset link identifier
+          example: 'UwjfkXjfksoHXzA1qjANL58GhjwqkxpB'
+        unique_visitors:
+          type: integer
+          description: The number of unique visitors for the specific offset link
+          example: 52344
+        placed_orders:
+          type: integer
+          description: The number of placed orders for the specific offset link
+          example: 52344
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/OffsetLinkOrder'
+    OffsetLinkOrder:
+      type: object
+      required:
+        - order_id
+        - created_at
+        - email
+        - bundles
+      properties:
+        order_id:
+          type: string
+          description: The order's unique identifier
+          example: 'zwjfkXjfksoHXzA1qjANL58GhjwqkxpB'
+        created_at:
+          $ref: '#/components/schemas/Timestamp'
+        email:
+          type: string
+          description: The email address of the user that placed an order through the offset link
+          example:
+            - john@doe.com
+        bundles:
+          type: array
+          items:
+            type: object
+            required:
+              - bundle_id
+              - bundle_name
+            properties:
+              bundle_id:
+                type: string
+                description: The bundle's unique identifier
+                example: va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5
+              bundle_name:
+                type: string
+                description: The bundle's name
+                example: 'Latin America Forestry'
+    OffsetLinkRequest:
+      type: object
+      required:
+        - name
+        - use_logo
+      properties:
+        name:
+          type: string
+          description: |
+            Offset link name.
+
+            This is a human readable name to recognise and distingish different offset links.
+
+          example: 'Marketing Campaign July 2021'
+        title:
+          type: string
+          description: |
+            Offset link title
+
+            This is the title that appears on the first screen of the offset links flow.
+        description:
+          type: string
+          description: |
+            Offset link description
+
+            This is the description that appears on the first screen of the offset links flow.
+        bundles:
+          type: array
+          items:
+            type: string
+          description: The bundle ids selected for use through the particular offset link.
+          minItems: 1
+          maxItems: 6
+          uniqueItems: true
+        value:
+          $ref: '#/components/schemas/Money'
+        emails:
+          type: array
+          items:
+            type: string
+          description: The email addresses of users that are allowed to use the offset link.
+          example:
+            - john@doe.com
+        expires_at:
+          $ref: '#/components/schemas/Timestamp'
+        use_logo:
+          type: boolean
+          description: |
+              Whether to include the Offset link logo (defined in Account settings) in the footer.
+        require_payment:
+          type: boolean
+          description: |
+              If true, the user of the Offset Link is required to pay by credit/debit card.
+    OffsetLinkStatus:
+      type: string
+      enum:
+        - enabled
+        - disabled
+      example: 'enabled'
+    Metadata:
+      description: |
+          An arbitrary dictionary (key-value pairs) to store application-specific information.
+
+          Lune doesn't use this information for order processing. Its purpose is for the API
+          clients to be able to attach arbitrary information (to an order for example) and
+          then retrieve it.
+      type: object
+      additionalProperties:
+        type: string
+    Money:
+      type: string
+      pattern: '^[0-9]+(\.[0-9]+)?$'
+      description: An amount of money (the fractional part is optional)
+      example: '3.14'
+    Timestamp:
+      type: string
+      format: date-time
+      description: An <a href="https://pretty-rfc.herokuapp.com/RFC3339">RFC 3339</a>-formatted timestamp.
+      example: '1985-04-12T23:20:50.52Z'
+    Url:
+      type: string
+      pattern: '^https:\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
+      description: An HTTPS URL
+    MonetaryAmount:
+      type: object
+      required:
+        - value
+        - currency
+      properties:
+        value:
+          type: string
+          pattern: ^[0-9]+(\.[0-9]+)?$
+          description: An amount of money (the fractional part is optional)
+          example: "3.14"
+        currency:
+          $ref: "#/components/schemas/CurrencyCode"
+          example: GBP
+    CurrencyCode:
+      type: string
+      description: |
+        ISO 4217 3 character currency code.
+
+        Note: Lune does not support all currency codes.
+    CreateWebhookRequest:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          $ref: "#/components/schemas/Url"
+    UpdateWebhookRequest:
+      type: object
+      properties:
+        url:
+          $ref: "#/components/schemas/Url"
+        enabled:
+          description: |
+            Determines if events should be sent to the webhook or not. Defaults to `true` for newly created
+            webhooks. When updating a webhook and the value is not explicitly specified the existing value
+            will be used.
+          type: boolean
+    Webhook:
+      type: object
+      required:
+        - id
+        - url
+        - enabled
+        - secret
+      properties:
+        id:
+          description: The webhook's identifier
+          type: string
+          example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+        url:
+          $ref: "#/components/schemas/Url"
+        enabled:
+          description: Determines if events should be sent to the webhook or not.
+          type: boolean
+        secret:
+          description: The secret key used to generate the webhook payload HMAC.
+          type: string
+    WebhookRequest:
+      type: object
+      required:
+        - events
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookEvent'
+    WebhookEvent:
+      type: object
+      required:
+        - api_version
+        - event_id
+        - event_type
+        - data
+      properties:
+        api_version:
+          type: string
+          example: v1
+          description: |
+            Version of the API that serialized the event. The only possible value at the moment is `v1`.
+        event_id:
+          type: string
+          example: va1BER4JZqnzPkYxJgALg0GeQDoXlWO5
+          description: The event’s id. The id can be used for idempotency behaviour if stored on the client side.
+        event_type:
+          type: string
+          enum:
+            - order.received
+            - order.placed
+            - order.allocated
+            - order.paid
+            - order.cancelled
+            - order.failed
+            - order.completed
+          description: The event type. The type of event data will depend on the value present here.
+        sequence:
+          type: string
+          example: 2021-09-13 16:21:29.067803
+          description: |
+            The event’s sequence. This can be compared lexicographically to determine the order of events.
+
+            The details of the format are subject to change without notice as long as the lexicographical
+            ordering property remains intact. You can't depend on the values having any particular shape
+            (in particular you can't depend on them being valid timestamps).
+        data:
+          $ref: '#/components/schemas/Order'
+          description: Data of the event. On order.* events, this means an Order.
