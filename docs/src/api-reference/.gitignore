@@ -1,2 +1,3 @@
 *.md
-!README.md
+!index.md
+!api-reference.md
