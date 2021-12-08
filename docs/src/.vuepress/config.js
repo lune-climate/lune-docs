@@ -60,6 +60,14 @@ module.exports = {
       ],
       '/api-reference/': [
         {
+          title: '💡 API Reference',
+          collapsable: false,
+          children: [
+            '',
+            'api-reference',
+          ]
+        },
+        {
           title: '🚜 API Endpoints',
           collapsable: false,
           children: [
