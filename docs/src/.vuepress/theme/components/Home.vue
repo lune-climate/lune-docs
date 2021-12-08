@@ -28,8 +28,8 @@
       </p>
     </header>
 
-    <div v-if="data.description != null">
-        <p v-html="data.description"></p>
+    <div v-if="data.content != null">
+        <p v-html="data.content"></p>
     </div>
 
     <div
