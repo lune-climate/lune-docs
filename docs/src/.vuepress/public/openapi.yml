@@ -3273,7 +3273,6 @@ components:
         - remote_employees_percentage
         - office_area
         - country_code
-        - postcode
         - electricity_consumption
         - green_electricity_used
         - gas_consumption
@@ -3305,10 +3304,13 @@ components:
           type: string
           description: The three-letter country code of the country where the company is located.
           example:  GBR
-        postcode: 
+        postcode:
           type: string
           example: "99 210"
           description: The company's postal code
+        city:
+          type: string
+          example: "Ledville"
         electricity_consumption:
           type: integer
           description: Electricity consumption in kWh
