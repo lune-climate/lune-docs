@@ -1,6 +1,6 @@
 # API Reference
 
-The OpenAPI schema can be downloaded [here](/swagger.yml).
+The OpenAPI schema can be downloaded [here](/openapi.yml).
 
 ::: warning
 Please note the API reference is still in **beta**.
