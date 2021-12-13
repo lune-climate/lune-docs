@@ -10,7 +10,7 @@ This guide will explain how to calculate emissions for a parcel bought through a
 * Please ensure you have access to [Lune’s dashboard](https://dashboard.lune.co/)
 * API Keys required in this guide can be found in the [dashboard](https://dashboard.lune.co/api-keys)
 * Ensure that you have selected your desired [default Project Bundle Selection](https://dashboard.lune.co/settings/bundle-selection). Orders are going to be placed according to your default Project Bundle Selection ratios.
-* You must know the weight of the parcel and where your parcel is shipped from (the address of your distribution center or warehourse).
+* You must know the weight of the parcel and where your parcel is shipped from (the address of your distribution center or warehouse).
 
 ## Overview
 Implementing this feature requires the following steps:
