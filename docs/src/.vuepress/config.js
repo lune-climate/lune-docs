@@ -55,6 +55,7 @@ module.exports = {
             'one-percent-contribution-towards-carbon-removal',
             'download-completion-certificate',
             'customer-project-bundle-selection',
+            'offset-checkout-delivery-emissions',
           ]
         }
       ],
