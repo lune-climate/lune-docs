@@ -3288,7 +3288,6 @@ components:
         - electronic_device_expenses
         - garbage
         - recycled_garbage_percentage
-        - tech
       properties:
         employees:
           type: integer
@@ -3365,13 +3364,12 @@ components:
           description: Share of recycled garbage, in percent
           $ref: '#/components/schemas/IntegerPercentage'
         tech:
-          $ref: '#/components/schemas/CompanyTechUse'
-    CompanyTechUse:
-      type: object
-      description: Description of what technology does a company use and what are its costs
-      oneOf:
-        - $ref: '#/components/schemas/CompanyCloudUse'
-        - $ref: '#/components/schemas/CompanyOnPremiseUse'
+          type: object
+          properties:
+            on_premise:
+              $ref: '#/components/schemas/CompanyOnPremiseUse'
+            cloud:
+              $ref: '#/components/schemas/CompanyCloudUse'
     CompanyCloudUse:
       type: object
       description: Company's use of cloud services
