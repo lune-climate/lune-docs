@@ -2,7 +2,7 @@
 
 The Lune API allows you to estimate carbon dioxide emissions for [specific categories](/api-reference/emission-estimates.html).
 
-This guide will explain how to calculate emissions for a parcel bought through an ecommerce site and delivered to the customer's address.
+This guide will explain how to calculate shipping-related emissions for a parcel bought through an ecommerce site and delivered to the customer’s address as well as how to place an order to neutralise the emissions.
 
 <br />
 

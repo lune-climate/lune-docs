@@ -44,7 +44,7 @@ Now, [place an order by value](/api-reference/orders.html#create-an-order-by-val
 ```bash
 curl -X POST "https://api.lune.co/v1/orders/by-value" \
 	-H "Content-Type: application/json" \
-	-H "Authorization: <API_KEY>" \
+	-H "Authorization: Bearer <API_KEY>" \
 	-d '{ "value": "1.46" }'
 ```
 

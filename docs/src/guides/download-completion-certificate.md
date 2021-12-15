@@ -95,7 +95,7 @@ Now, [download the certificate](/api-reference/orders.html#get-a-carbon-offset-c
 
 ```bash
 curl -X GET \
-	-H "Authorization: <API_KEY>" \
+	-H "Authorization: Bearer <API_KEY>" \
 	"https://api.lune.co/v1/orders/Vxg3b7MoBkrNQA329N0pnvmw1J8a6Lqj/certificate"
 ```
 
