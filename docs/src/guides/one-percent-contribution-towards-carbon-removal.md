@@ -8,7 +8,7 @@
 Implementing this feature requires the following steps:
 1. On your checkout page, communicate to the user that 1% of the total cost will be used to finance carbon removal projects.
 2. Once the checkout process is complete and payment is confirmed, calculate 1% of the total cost and place an order by value with Lune.
-3. Implement a webhook receiver to receive order updates. Retiring carbon offsets does not occur immediately. Lune will send a webhook `order.completed` event every time an order is fully retired. The order will now contain the completion [Certificate URL which allows you to download the certificate](/guides/downloading-completion-certificate). The certificate includes projects defails, carbon offset retirements and links to official public ledgers (for verified projects).
+3. Implement a webhook receiver to receive order updates. Retiring carbon offsets does not occur immediately. Lune will send a webhook `order.completed` event every time an order is fully retired. The order will now contain the completion [Certificate URL which allows you to download the certificate](/guides/download-completion-certificate). The certificate includes projects defails, carbon offset retirements and links to official public ledgers (for verified projects).
 
 <br />
 
@@ -204,4 +204,4 @@ When the above order completes, you should expect an event as the following:
 }
 ```
 
-You are now able to [download the certificate](/guides/downloading-completion-certificate) and deliver it to your user as you see fit.
+You are now able to [download the certificate](/guides/download-completion-certificate) and deliver it to your user as you see fit.
