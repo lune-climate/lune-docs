@@ -2292,6 +2292,7 @@ components:
         - bundle_name
         - quantity
         - unit_price
+        - gross_unit_price
         - offset_cost
       properties:
         bundle_id:
@@ -2315,6 +2316,14 @@ components:
             Unit: order currency
           pattern: '^[0-9]+(\.[0-9]+)?$'
           example: '6.90'
+        gross_unit_price:
+          type: string
+          description: |
+            Bundle unit price per tonne CO2 inclusive of fees.
+
+            Unit: order currency
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '7.90'
         offset_cost:
           type: string
           description: |
@@ -2440,6 +2449,7 @@ components:
         - id
         - name
         - unit_price
+        - gross_unit_price
         - currency
         - disabled
       properties:
@@ -2457,6 +2467,12 @@ components:
             Bundle unit price per tonne CO2
           pattern: '^[0-9]+(\.[0-9]+)?$'
           example: '6.09'
+        gross_unit_price:
+          type: string
+          description: |
+            Bundle unit price per tonne CO2 inclusive of fees
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '7.09'
         currency:
           type: string
           example: 'GBP'
