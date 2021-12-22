@@ -410,6 +410,7 @@ paths:
         Orders are placed against bundles.
 
         Disabled bundles are not returned unless `recently_disabled` is used.
+        Disabled bundle projects are not returned unless `recently_disabled` is used.
       operationId: getBundles
       security:
         - BearerAuth: []
@@ -508,7 +509,8 @@ paths:
       description: |
         Returns paginated projects.
 
-        Disabled projects are not returned.
+        Disabled projects are not returned unless `recently_disabled` is used.
+        Disabled project bundles are not returned unless `recently_disabled` is used.
 
         Note: orders are placed against bundles not projects.
       operationId: getProjects
@@ -538,6 +540,17 @@ paths:
           schema:
             type: string
             example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+        - name: recently_disabled
+          in: query
+          description:
+            When `recently_disabled` is set to true, the response will also include bundles which have been disabled in the last 30 days.
+
+            Default is false.
+
+            Omitting or setting recently_disabled to false has the same effect.
+          schema:
+            type: boolean
+            example: true
       responses:
         '200':
           description: The response returns paginated projects
