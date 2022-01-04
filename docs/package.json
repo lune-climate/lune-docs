@@ -8,9 +8,9 @@
     "email": "support@lune.co"
   },
   "scripts": {
-    "dev": "vuepress dev src",
+    "dev": "yarn api-reference && vuepress dev src",
     "api-reference": "openapi-vuepress-markdown -s src/.vuepress/public/openapi.yml -o src/api-reference",
-    "build": "vuepress build src"
+    "build": "yarn api-reference && vuepress build src"
   },
   "license": "MIT",
   "devDependencies": {
