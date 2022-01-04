@@ -318,7 +318,7 @@ paths:
                 $ref: '#/components/schemas/Errors'
         '429':
           description: Rate limit exceeded
-  /accounts:
+  /accounts/me:
     get:
       summary: Get account
       description: |
