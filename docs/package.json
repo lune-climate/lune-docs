@@ -16,5 +16,9 @@
   "devDependencies": {
     "vuepress": "^1.5.3",
     "openapi-vuepress-markdown": "0.0.8"
+  },
+  "dependencies": {
+    "prismjs": "^1.26.0",
+    "vue-prism-component": "^1.2.0"
   }
 }
