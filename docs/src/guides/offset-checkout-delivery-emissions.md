@@ -1,6 +1,6 @@
 # Offset checkout delivery emissions
 
-The Lune API allows you to estimate carbon dioxide emissions for [specific categories](/api-reference/emission-estimates.html).
+The Lune API allows you to estimate carbon dioxide emissions for [specific categories](/api-reference/endpoints-emission-estimates.html).
 
 This guide will explain how to calculate shipping-related emissions for a parcel bought through an ecommerce site and delivered to the customer’s address as well as how to place an order to neutralise the emissions.
 
@@ -44,7 +44,7 @@ All API requests require an API key which must be kept secret.
 
 Dependending on your source and destination location and/or your delivery methods, you may need to perform one or multiple API emissions calculations.
 
-For detailed [shipping emissions calculations, refer to the API reference](/api-reference/emission-estimates.html#estimate-shipping-emissions).
+For detailed [shipping emissions calculations, refer to the API reference](/api-reference/endpoints-emission-estimates.html#estimate-shipping-emissions).
 
 Here are a few examples::
 
@@ -148,7 +148,7 @@ Once the checkout process has been successfully completed, place an order to off
 
 You know that the delivery emitted 55kg by performing an emissions calculation in your previous step.
 
-Now, [place an order by mass](/api-reference/orders.html#create-an-order-by-mass) to offset 55kg CO2.
+Now, [place an order by mass](/api-reference/endpoints-orders.html#create-an-order-by-mass) to offset 55kg CO2.
 
 ```bash
 curl -X POST "https://api.lune.co/v1/orders/by-mass" \
