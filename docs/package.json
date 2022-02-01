@@ -9,12 +9,16 @@
   },
   "scripts": {
     "dev": "yarn api-reference && vuepress dev src",
-    "api-reference": "openapi-vuepress-markdown -s src/.vuepress/public/openapi.yml -o src/api-reference -e endpoints-",
+    "api-reference": "openapi-vuepress-markdown -s src/.vuepress/public/openapi.yml -o src/api-reference -R templates/resource.md -E templates/endpoints.md -e endpoints-",
     "build": "yarn api-reference && vuepress build src"
   },
   "license": "MIT",
   "devDependencies": {
     "vuepress": "^1.5.3",
-    "openapi-vuepress-markdown": "0.0.8"
+    "openapi-vuepress-markdown": "0.0.11"
+  },
+  "dependencies": {
+    "prismjs": "^1.26.0",
+    "vue-prism-component": "^1.2.0"
   }
 }
