@@ -39,7 +39,7 @@ First, calculate 1% of the checkout’s total cost.
 
 For instance, assuming your account’s currency is GBP, if the total cost is **£145.95**, 1% would equal **£1.46**.
 
-Now, [place an order by value](/api-reference/orders.html#create-an-order-by-value):
+Now, [place an order by value](/api-reference/endpoints-orders.html#create-an-order-by-value):
 
 ```bash
 curl -X POST "https://api.lune.co/v1/orders/by-value" \

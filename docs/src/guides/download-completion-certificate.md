@@ -87,11 +87,11 @@ An order's certificate looks like the following. Please note names are fictitiou
 
 First, identify the `id` of the completed order for which you would like to download the certificate.
 
-If you don't have your order id, either find the order in the [dashboard's orders page](https://dashboard.lune.co/orders) or you can [iterate through your all orders](/api-reference/orders.html#get-orders).
+If you don't have your order id, either find the order in the [dashboard's orders page](https://dashboard.lune.co/orders) or you can [iterate through your all orders](/api-reference/endpoints-orders.html#get-orders).
 
 Then, get your [API Key](https://dashboard.lune.co/api-keys).
 
-Now, [download the certificate](/api-reference/orders.html#get-a-carbon-offset-certificate):
+Now, [download the certificate](/api-reference/endpoints-orders.html#get-a-carbon-offset-certificate):
 
 ```bash
 curl -X GET \

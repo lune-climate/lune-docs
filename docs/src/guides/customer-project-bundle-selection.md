@@ -54,7 +54,7 @@ Two examples:
 
 ## Retrieve project bundles
 
-The following example shows you how to [retrieve project bundles](/api-reference/projects.html#get-bundles):
+The following example shows you how to [retrieve project bundles](/api-reference/endpoints-projects.html#get-bundles):
 
 ```bash
 curl -X GET "https://api.lune.co/v1/bundles" \
@@ -140,7 +140,7 @@ Your customers can select their preferred bundles, it is fine to select multiple
 
 ## Place an order on specific project bundles
 
-Once you know what project bundles the order needs to be placed on, you can place an order [by mass](/api-reference/orders.html#create-an-order-by-mass) or [by value](/api-reference/orders.html#create-an-order-by-value), depending on your use case. The requests and responses are very similar for both cases.
+Once you know what project bundles the order needs to be placed on, you can place an order [by mass](/api-reference/endpoints-orders.html#create-an-order-by-mass) or [by value](/api-reference/endpoints-orders.html#create-an-order-by-value), depending on your use case. The requests and responses are very similar for both cases.
 
 The following examples places an order by mass (10 tonnes CO2) on two bundles (Asia Forestry and Concrete Mineralisation) in equal ratios.
 
