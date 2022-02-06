@@ -15,7 +15,7 @@
   "license": "MIT",
   "devDependencies": {
     "vuepress": "^1.5.3",
-    "openapi-vuepress-markdown": "0.0.11"
+    "openapi-vuepress-markdown": "0.0.12"
   },
   "dependencies": {
     "prismjs": "^1.26.0",
