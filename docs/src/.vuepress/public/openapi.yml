@@ -46,6 +46,16 @@ info:
     Authorization: Bearer <API_KEY>
     ```
 
+    # Content type
+
+    It's assumed that the incoming requests contain `application/json` payloads, so you can either explicitly
+    send the `Content-Type` header set to `application/json` or just skip the header altogether. Setting the
+    header to a value different from `application/json` will result in an HTTP 415 Unsupported Media Type
+    error.
+
+    The responses are returned using JSON with the appropriate `Content-Type` value (`application/json`)
+    unless specified otherwise.
+
     # Live and test accounts
 
     A user can have access to multiple accounts, in the simplest case there'll be one live account and one test account by default.
