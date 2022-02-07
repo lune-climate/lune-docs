@@ -1868,6 +1868,7 @@ components:
             - unknown_imo_number
             - webhook_limit_reached
             - invalid_time_range
+            - exchange_rate_not_found
         message:
           type: string
           description: |
