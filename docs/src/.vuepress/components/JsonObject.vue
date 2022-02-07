@@ -29,8 +29,6 @@ export default {
     props: {
         'json': Object
     },
-<<<<<<< HEAD
-=======
     data() {
         return {
             properties: {},
@@ -102,7 +100,6 @@ export default {
             return items[items.length - 1]
         }
     },
->>>>>>> d87d406 (Support oneOf clause)
 }
 </script>
 
