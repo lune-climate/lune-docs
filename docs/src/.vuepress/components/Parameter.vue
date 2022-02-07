@@ -15,6 +15,12 @@
             <div v-if="metadata.summary" v-html="metadata.summary"></div>
             <div class="keepFormatting" v-html="metadata.description"></div>
 
+            <div v-if="discriminator && discriminator.propertyName === name" class="parameterDiscriminator">
+                <select @change="change">
+                    <option v-for="(metadata, name) in discriminator.mapping" :key="name">{{ name }}</option>
+                </select>
+            </div>
+
             <div v-if="metadata.enum" class="parameterExtras">
                 <span>Enum:</span>
                 <ul class="parameterEnum">
@@ -22,7 +28,17 @@
                 </ul>
             </div>
 
-            <div v-if="metadata.type === 'array' && metadata.items.type === 'object'" class="parameterExtras">
+            <div v-if="metadata.oneOf">
+                <ToggableContent onText="Hide child parameters" offText="Show child parameters" class="parameterChild">
+                    <Json :json="metadata" />
+                </ToggableContent>
+            </div>
+            <div v-else-if="metadata.type === 'object'">
+                <ToggableContent onText="Hide child parameters" offText="Show child parameters" class="parameterChild">
+                    <Json :json="metadata" />
+                </ToggableContent>
+            </div>
+            <div v-else-if="metadata.type === 'array' && metadata.items.type === 'object'" class="parameterExtras">
                 <ToggableContent onText="Hide child parameters" offText="Show child parameters" class="parameterChild">
                     <Json :json="metadata.items" />
                 </ToggableContent>
@@ -36,7 +52,14 @@ export default {
         'name': String,
         'metadata': Object,
         'required': Array,
+        'discriminator': Object
     },
+    methods: {
+        change(e) {
+            const value = e.target.value
+            this.$emit('discriminatorChange', value)
+        },
+    }
 }
 </script>
 <style lang="stylus">
@@ -50,6 +73,7 @@ export default {
     font-style: italic
 .parameterContent
     margin-top 10px
+.parameterDiscriminator
 .parameterExtras
     margin-top 10px
 .parameterEnum

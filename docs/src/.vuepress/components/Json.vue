@@ -1,7 +1,7 @@
 <template>
     <main class="Json">
-        <JsonObject v-if="json.type === 'object'" :json="json" />
-        <JsonArray v-else-if="json.type === 'array'" :json="json" />
+        <JsonArray v-if="json.type === 'array'" :json="json" />
+        <JsonObject v-else :json="json" />
     </main>
 </template>
 

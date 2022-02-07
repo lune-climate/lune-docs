@@ -1,5 +1,6 @@
 <template>
-    <a :href="link">{{ name }}</a>
+    <span v-if="nolink === true">{{ name }}</span>
+    <a v-else :href="link">{{ name }}</a>
 </template>
 <script>
 function refToName(ref) {
@@ -14,6 +15,9 @@ function refToName(ref) {
 }
 
 function refToLink(ref) {
+    if (!ref) {
+        return ref
+    }
     const resourceName = refToName(ref)
     if (!resourceName) {
         return undefined
@@ -28,16 +32,21 @@ function refToLink(ref) {
 export default {
     props: {
         'reference': String,
+        'nolink': { type: Boolean, default: false },
     },
-    data() {
-        return {
-            name: '',
-            link: '',
-        }
-    },
-    mounted() {
-        this.name = refToName(this.reference)
-        this.link = refToLink(this.reference)
+    computed: {
+        name() {
+            if (!this) {
+                return undefined
+            }
+            return refToName(this.reference)
+        },
+        link() {
+            if (!this) {
+                return undefined
+            }
+            return refToLink(this.reference)
+        },
     }
  }
 </script>
