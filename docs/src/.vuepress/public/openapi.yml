@@ -2733,6 +2733,7 @@ components:
             Retirement beneficiary
 
             This is the name that appears on future retirements that are made in this account.
+            If none is present, the organisation beneficiary will be used instead.
     Analytics:
       type: object
       required:
