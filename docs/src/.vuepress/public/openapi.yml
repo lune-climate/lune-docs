@@ -46,6 +46,10 @@ info:
     Authorization: Bearer <API_KEY>
     ```
 
+    An API key is linked to a specific account but they can access all accounts that the organisation owning
+    the API key has access to. This can be done using the `Lune-Account` header. Provide a different account
+    ID in the header and that account will be used to perform the API call.
+
     # Content type
 
     It's assumed that the incoming requests contain `application/json` payloads, so you can either explicitly
@@ -332,7 +336,8 @@ paths:
     get:
       summary: Get account
       description: |
-        Returns the account linked to the API Key.
+        Returns the active account. This is the account linked to the API key by default but is affected
+        by the `Lune-Account` header.
 
         One account object is returned.
       operationId: getAccount
@@ -1865,6 +1870,7 @@ components:
           example: account_suspended
           enum:
             - account_suspended
+            - invalid_selected_account_id
             - bundle_selection_not_100_pct
             - order_idempotency_failure
             - order_low_volume_no_split
