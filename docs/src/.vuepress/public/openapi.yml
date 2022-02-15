@@ -2209,20 +2209,12 @@ components:
         - type: object
           required:
             - requested_quantity
-            - type
           properties:
             requested_quantity:
               type: string
               pattern: '^[0-9]+(\.[0-9]+)?$'
               example: '1045'
               description: Represents the requested quantity of CO2 offsets to purchase in tonnes.
-            type:
-              type: string
-              description: Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount)
-              example: quantity
-              enum:
-                - quantity
-                - value
     OrderByValue:
       title: Order by value
       allOf:
@@ -2230,7 +2222,6 @@ components:
         - type: object
           required:
             - requested_value
-            - type
           properties:
             requested_value:
               description: |
@@ -2240,13 +2231,6 @@ components:
               type: string
               pattern: '^[0-9]+(\.[0-9]+)?$'
               example: '7700'
-            type:
-              type: string
-              description: Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount)
-              example: quantity
-              enum:
-                - quantity
-                - value
     Order:
       type: object
       oneOf:
@@ -2257,16 +2241,6 @@ components:
         mapping:
           quantity: '#/components/schemas/OrderByQuantity'
           value: '#/components/schemas/OrderByValue'
-      required:
-        - type
-      properties:
-        type:
-          type: string
-          description: Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount)
-          example: quantity
-          enum:
-            - quantity
-            - value
     OrderProject:
       type: object
       required:
