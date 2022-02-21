@@ -56,7 +56,7 @@ module.exports = {
             'download-completion-certificate',
             'customer-project-bundle-selection',
             'offset-checkout-delivery-emissions',
-            'subaccounts-organisation-management',
+            'subaccounts-management',
           ]
         }
       ],
