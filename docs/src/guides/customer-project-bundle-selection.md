@@ -24,7 +24,7 @@ Project bundles allow us to add and remove projects at any time, pre and post or
 1. At Lune we only list very reputable projects which sell high quality carbon offsets. We assess the claims each project makes and only once they satisfy our rigorous selection criteria, we list them on Lune. We may decide, at any time, to de-list a project, if we think their carbon offsets are not achieving their purpose.
 2. Balancing supply: we many not have many carbon offsets for a particular, conversely we may have more carbon offsets from a different but similar project.
 
-## Pre-requisites
+## Prerequisites
 * Please ensure you have access to [Lune’s dashboard](https://dashboard.lune.co/)
 * API Keys required in this guide can be found in the [dashboard](https://dashboard.lune.co/api-keys)
 

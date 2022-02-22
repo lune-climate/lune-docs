@@ -6,7 +6,7 @@ This guide will explain how to calculate shipping-related emissions for a parcel
 
 <br />
 
-## Pre-requisites
+## Prerequisites
 * Please ensure you have access to [Lune’s dashboard](https://dashboard.lune.co/)
 * API Keys required in this guide can be found in the [dashboard](https://dashboard.lune.co/api-keys)
 * Ensure that you have selected your desired [default Project Bundle Selection](https://dashboard.lune.co/settings/bundle-selection). Orders are going to be placed according to your default Project Bundle Selection ratios.
