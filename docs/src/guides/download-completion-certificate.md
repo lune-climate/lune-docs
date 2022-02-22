@@ -3,7 +3,7 @@
 This guide will take you through the steps to automatically download an order's certificate
 when all its carbon offsets have been retired.
 
-## Pre-requisites
+## Prerequisites
 * Please ensure you have access to [Lune’s dashboard](https://dashboard.lune.co/)
 * API Keys required in this guide can be found in the [dashboard](https://dashboard.lune.co/api-keys)
 
