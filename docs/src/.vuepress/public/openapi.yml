@@ -206,11 +206,15 @@ tags:
       The header has the following format:
 
       ```
-      timestamp=TIMESTAMP,v1=HMAC_VALUE,...
+      timestamp=TIMESTAMP,account=ACCOUNT_ID,v1=HMAC_VALUE,...
       ```
 
-      where `TIMESTAMP` is the current [Unix epoch](https://en.wikipedia.org/wiki/Unix_time) and
-      `HMAC_VALUE` is the value calculated in the following way:
+      Where:
+      * `TIMESTAMP` is the current [Unix epoch](https://en.wikipedia.org/wiki/Unix_time). It is used to
+      verify the message has an acceptable age.
+      * `ACCOUNT_ID` is the account id associated with the webhook. It can be used to distinguish multiple
+      webhooks pointed to the same URL.
+      * `HMAC_VALUE` is the value calculated in the following way:
 
       ```
       HMAC-256(SECRET, TIMESTAMP + "." + BODY)
@@ -225,6 +229,8 @@ tags:
       secrets active) and your code has to handle that.
 
       To verify the integrity and authenticity of the request you have to follow these steps\:
+      * (Optional) Determine which webhook is sending you data and select the appropriate `SECRET` by
+      extracting the account from the header (`ACCOUNT_ID` referrenced above)
       * Extract the timestamp from the header (we call it `TIMESTAMP` from now on)
       * Verify that the `TIMESTAMP` is no more than two minutes in the past (this ensures that you don't
         try to process old requests). If the `TIMESTAMP` is too old you should reject the request with
