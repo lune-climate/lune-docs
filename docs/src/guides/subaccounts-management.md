@@ -1,4 +1,4 @@
-# Using Sub Accounts to perform operations on behalf of your customers
+# Using Subaccounts to perform operations on behalf of your customers
 
 As a Lune account holder, you are able to track emissions and place orders on behalf of your customers.
 This will allow you to provide segregated data sets and reflect the quantitive outcome of their impact.
@@ -6,17 +6,16 @@ This will allow you to provide segregated data sets and reflect the quantitive o
 For example; a payments company purchasing carbon offsets on behalf of their customers, or a logistics
 company calculating and offsetting the shipping emissions for their customers.
 
-To accommodate this use case, Sub Accounts can be created to enable a customer-by-customer view
+To accommodate this use case, Subaccounts can be created to enable a customer-by-customer view
 alongside the main account. This is performed directly through your current dashboard and API.
 
-This guide will take you through the steps required to create and use Sub Accounts.
+This guide will take you through the steps required to create and use Subaccounts.
 
 ::: tip Terminology
 
 **Customer**: An individual or organisation a current Lune account holder performs actions on behalf of.
 
-**Sub Account**: A subsidiary within an existing Lune account, purposefully created to enable
-segregated operations associated with a specific individual or organisation.
+**Subaccount**: An ad-hoc account within Lune, purposefully created to enable segregated operations associated with organisation.
 :::
 
 ## Prerequisites
@@ -28,41 +27,41 @@ segregated operations associated with a specific individual or organisation.
 
 To perform operations on behalf of a customer:
 
-1. Create a Sub Account for your Customer.
-2. Place an order against the Sub Account.
+1. Create a Subaccount for your Customer.
+2. Place an order against the Subaccount.
 3. View 'All Orders' in the dashboard.
 
-## Create a Sub Account for your customer
+## Create a Subaccount for your customer
 
-Access the dashboard and head to the [Sub Accounts](https://dashboard.lune.co/settings/sub-accounts).
+Access the dashboard and head to the [Subaccounts](https://dashboard.lune.co/settings/sub-accounts).
 
 A list of all your companies held accounts are located here and where you can create new ones.
-Create Sub Accounts for your customers as necessary. It is important to note that accounts are tied
+Create Subaccounts for your customers as necessary. It is important to note that accounts are tied
 to one currency, therefore if a customer requires multiple currencies you will need to set up multiple
-Sub Accounts in their name.
+Subaccounts in their name.
 
-As an example, this will be your list view of accounts with the addition of three customer Sub Accounts:
+As an example, this will be your list view of accounts with the addition of three customer Subaccounts:
 
 <img width="800" :src="$withBase('/organisation_accounts.png')" alt="sample organisation accounts">
 
-## Place an order against the Sub Account
+## Place an order against the Subaccount
 
-After creating a Sub Account, you are able to use all of the original Lune functionalities on behalf
+After creating a Subaccount, you are able to use all of the original Lune functionalities on behalf
 of your customer via the dashboard or the API. Let us go through both.
 
 ### Dashboard
 
-To perform operations for a specific individual or organisation standpoint, simply select the desired
-Sub Account via the `Account Picker`. All functionalities of the dashboard will behave as normal.
+To perform operations for a specific customer standpoint, simply select the desired
+Subaccount via the `Account Picker`. All functionalities of the dashboard will behave as normal.
 You can create orders, check your activity etc.
 
 <img width="600" :src="$withBase('/account_picker.png')" alt="sample account picker">
 
 ### API
 
-To perform operations, head over to the [Sub Accounts](https://dashboard.lune.co/settings/sub-accounts) section and copy the `Account Id` value of
-the Sub Account you want to use. Then, in any request to the API, use this `Account Id` in the `Lune-Account` header.
-The selected Sub Account will be used as the source of the operation instead of the default account tied to the API key.
+To perform operations, head over to the [Subaccounts](https://dashboard.lune.co/settings/sub-accounts) section and copy the `Account Id` value of
+the Subaccount you want to use. Then, in any request to the API, use this `Account Id` in the `Lune-Account` header.
+The selected Subaccount will be used as the source of the operation instead of the default account tied to the API key.
 Alternatively, you can simply create a new API Key and have the default account be the desired customer account. In this case, the header can be ommitted.
 
 An example of placing an order for the presented customer `Customer 2` via [place an order by value](/api-reference/endpoints-orders.html#create-an-order-by-value):
