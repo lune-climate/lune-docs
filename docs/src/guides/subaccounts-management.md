@@ -1,9 +1,9 @@
 # Using Subaccounts to perform operations on behalf of your customers
 
 As a Lune account holder, you are able to track emissions and place orders on behalf of your customers.
-This will allow you to provide segregated data sets and reflect the quantitive outcome of their impact.
+This will allow you to provide segregated datasets and reflect the quantitive outcome of their impact.
 
-For example; a payments company purchasing carbon offsets on behalf of their customers, or a logistics
+For example, a payments company purchasing carbon offsets on behalf of their customers, or a logistics
 company calculating and offsetting the shipping emissions for their customers.
 
 To accommodate this use case, Subaccounts can be created to enable a customer-by-customer view
