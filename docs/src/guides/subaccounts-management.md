@@ -1,24 +1,22 @@
-# Using Subaccounts to perform operations on behalf of your customers
+# Using Sub Accounts to perform operations on behalf of your customers
 
-Certain organisations must place orders, or more generically, perform specific actions on behalf of
-their customers.
+As a Lune account holder, you are able to track emissions and place orders on behalf of your customers.
+This will allow you to provide segregated data sets and reflect the quantitive outcome of their impact.
 
-This is especially true for payments companies who want to purchase carbon offsets on behalf of their
-merchants, or logistic companies who want to calculate and offset shipping emissions on behalf of
-their customers.
+For example; a payments company purchasing carbon offsets on behalf of their customers, or a logistics
+company calculating and offsetting the shipping emissions for their customers.
 
-To accomodate for this use case, Subaccounts can be used to perform these operations via the dashboard
-or the API.
+To accommodate this use case, Sub Accounts can be created to enable a customer-by-customer view
+alongside the main account. This is performed directly through your current dashboard and API.
 
-This guide will take you through the steps required to create and use Subaccounts.
+This guide will take you through the steps required to create and use Sub Accounts.
 
 ::: tip Terminology
 
-**Merchant**: Any particular customer a Lune User wants to perform actions on behalf of. This is usually
-associated with merchants of payment companies, but the term can reflect any customer or entity.
+**Customer**: An individual or organisation a current Lune account holder performs actions on behalf of.
 
-**Subaccount**: Any account that is purposely created to be operated on behalf of a Merchant.
-There is technically no difference between a Subaccount and any other Account.
+**Sub Account**: A subsidiary within an existing Lune account, purposefully created to enable
+segregated operations associated with a specific individual or organisation.
 :::
 
 ## Prerequisites
@@ -28,37 +26,46 @@ There is technically no difference between a Subaccount and any other Account.
 
 ## Overview
 
-To perform operations on behalf of a merchant:
+To perform operations on behalf of a customer:
 
-1. Create a Subaccount for your Merchant.
-2. Place an order against the Subaccount.
+1. Create a Sub Account for your Customer.
+2. Place an order against the Sub Account.
 3. View 'All Orders' in the dashboard.
 
-## Create a Subaccount for your merchant
+## Create a Sub Account for your customer
 
-Access the dashboard and head to the [Subaccounts](https://dashboard.lune.co/settings/sub-accounts). A list of all your accounts are present with the possibility of creating new ones. Create accounts for your merchants as necessary. Remember that an account is tied to a currency, so if a merchant requires multiple currencies several accounts need to be created.
+Access the dashboard and head to the [Sub Accounts](https://dashboard.lune.co/settings/sub-accounts).
 
-As an example, this is a list of accounts after creating three Subaccounts for our merchants:
-<img width="600" :src="$withBase('/organisation_accounts.png')" alt="sample organisation accounts">
+A list of all your companies held accounts are located here and where you can create new ones.
+Create Sub Accounts for your customers as necessary. It is important to note that accounts are tied
+to one currency, therefore if a customer requires multiple currencies you will need to set up multiple
+Sub Accounts in their name.
 
-## Place an order against the Subaccount
+As an example, this will be your list view of accounts with the addition of three customer Sub Accounts:
 
-After creating the accounts, you can now fully use all Lune functionalities on behalf of the merchant via the dashboard or the API. Let us go through both.
+<img width="800" :src="$withBase('/organisation_accounts.png')" alt="sample organisation accounts">
+
+## Place an order against the Sub Account
+
+After creating a Sub Account, you are able to use all of the original Lune functionalities on behalf
+of your customer via the dashboard or the API. Let us go through both.
 
 ### Dashboard
 
-To perform operations from a merchant standpoint, simply select the desired account via the `Account Picker`. All functionalities of the dashboard will behave as normal. You can create orders, check your activity etc.
+To perform operations for a specific individual or organisation standpoint, simply select the desired
+Sub Account via the `Account Picker`. All functionalities of the dashboard will behave as normal.
+You can create orders, check your activity etc.
 
 <img width="600" :src="$withBase('/account_picker.png')" alt="sample account picker">
 
 ### API
 
-To perform operations, head over to the [Subaccounts](https://dashboard.lune.co/settings/sub-accounts) section and copy the `Account Id` value of
-the Subaccount you want to use. Then, in any request to the API, use this `Account Id` in the `Lune-Account` header.
-That Subaccount will be used as the source of the operation instead of the default account tied to the API key.
-Alternatively, you can simply create a new API Key and have the default account be the desired merchant account. In this case, the header can be ommited.
+To perform operations, head over to the [Sub Accounts](https://dashboard.lune.co/settings/sub-accounts) section and copy the `Account Id` value of
+the Sub Account you want to use. Then, in any request to the API, use this `Account Id` in the `Lune-Account` header.
+The selected Sub Account will be used as the source of the operation instead of the default account tied to the API key.
+Alternatively, you can simply create a new API Key and have the default account be the desired customer account. In this case, the header can be ommitted.
 
-An example of placing an order for the presented `Merchant 2` via [place an order by value](/api-reference/endpoints-orders.html#create-an-order-by-value):
+An example of placing an order for the presented customer `Customer 2` via [place an order by value](/api-reference/endpoints-orders.html#create-an-order-by-value):
 
 ```bash
 curl -X POST "https://api.lune.co/v1/orders/by-value" \
@@ -72,6 +79,6 @@ curl -X POST "https://api.lune.co/v1/orders/by-value" \
 
 To aid in the visualization of all the orders under your organisation(s), you can head over to the [All Orders](https://dashboard.lune.co/settings/all-orders) section.
 All orders from which you have access to will be presented here. You can filter by organisation, account and account type, providing you with
-a quick view of all your merchant accounts.
+a quick view of all your customer accounts.
 
 <img width="1000" :src="$withBase('/user_orders.png')" alt="sample user orders">
