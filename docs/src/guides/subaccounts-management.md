@@ -44,13 +44,13 @@ As an example, this will be your list view of accounts with the addition of thre
 
 ## Place an order against the Subaccount
 
-After creating a Subaccount, you are able to use all of the original Lune functionalities on behalf
+After creating a Subaccount, you are able to use all of the original Lune functionality on behalf
 of your customer via the dashboard or the API. Let us go through both.
 
 ### Dashboard
 
 To perform operations for a specific customer standpoint, simply select the desired
-Subaccount via the `Account Picker`. All functionalities of the dashboard will behave as normal.
+Subaccount via the `Account Picker`. All functionality of the dashboard will behave as normal.
 You can create orders, check your activity etc.
 
 <img width="600" :src="$withBase('/account_picker.png')" alt="sample account picker">
