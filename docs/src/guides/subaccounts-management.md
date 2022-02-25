@@ -33,14 +33,12 @@ To perform operations on behalf of a customer:
 
 ## Create a Subaccount for your customer
 
-Access the dashboard and head to the [Subaccounts](https://dashboard.lune.co/settings/sub-accounts).
-
-A list of all your companies held accounts are located here and where you can create new ones.
+Access the dashboard and head to the [Create Subaccounts](https://dashboard.lune.co/settings/sub-accounts/create) section.
 Create Subaccounts for your customers as necessary. It is important to note that accounts are tied
 to one currency, therefore if a customer requires multiple currencies you will need to set up multiple
 Subaccounts in their name.
 
-As an example, this will be your list view of accounts with the addition of three customer Subaccounts:
+As an example, this will be your list view of accounts with the addition of three customer Subaccounts as seen on [List Accounts](https://dashboard.lune.co/settings/sub-accounts/list).
 
 <img width="800" :src="$withBase('/organisation_accounts.png')" alt="sample organisation accounts">
 
@@ -59,7 +57,7 @@ You can create orders, check your activity etc.
 
 ### API
 
-To perform operations, head over to the [Subaccounts](https://dashboard.lune.co/settings/sub-accounts) section and copy the `Account Id` value of
+To perform operations, head over to the [List Accounts](https://dashboard.lune.co/settings/sub-accounts/list) section and copy the `Account Id` value of
 the Subaccount you want to use. Then, in any request to the API, use this `Account Id` in the `Lune-Account` header.
 The selected Subaccount will be used as the source of the operation instead of the default account tied to the API key.
 Alternatively, you can simply create a new API Key and have the default account be the desired customer account. In this case, the header can be ommitted.
