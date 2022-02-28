@@ -199,7 +199,7 @@ tags:
       # Payload authentication and integrity
       [HMAC](https://en.wikipedia.org/wiki/HMAC) is a security measure which allows you to verify the
       integrity and authenticity of the data you’re receiving. Every request we make to your webhook
-      endpoint has a header `Lune-HMAC` set. The header has be used to validate the integrity and
+      endpoint has a header `Lune-HMAC` set. The header has to be used to validate the integrity and
       authenticity of the payload, which ensures that the request actually comes from Lune and no one has
       tampered with it.
 
@@ -3506,7 +3506,19 @@ components:
         - type: object
           required:
             - components
+            - scope1
+            - scope2
+            - scope3
           properties:
+            scope1:
+              description: Scope 1 emissions. Direct emissions from owned or controlled sources.
+              $ref: '#/components/schemas/Mass'
+            scope2:
+              description: Scope 2 emissions. Indirect emissions from the generation of purchased or acquired electricity, steam, heating, or cooling consumed.
+              $ref: '#/components/schemas/Mass'
+            scope3:
+              description: Scope 3 emissions. All indirect emissions, not included in scope 2, that occur in the value chain.
+              $ref: '#/components/schemas/Mass'
             components:
               type: object
               required:
