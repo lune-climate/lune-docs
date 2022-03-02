@@ -33,7 +33,7 @@ module.exports = {
     editLinks: true,
     showEditLink: true,
     smoothScroll: true,
-    docsDir: '',
+    docsDir: 'docs/src',
     lastUpdated: true,
     navbar: true,
     nav: [
