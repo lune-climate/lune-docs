@@ -13,7 +13,7 @@
         </div>
         <div class="parameterContent">
             <div v-if="metadata.summary" v-html="metadata.summary"></div>
-            <div class="keepFormatting" v-html="metadata.description"></div>
+            <Md :markdown="metadata.description" />
 
             <div v-if="discriminator && discriminator.propertyName === name" class="parameterDiscriminator">
                 <select @change="change">
