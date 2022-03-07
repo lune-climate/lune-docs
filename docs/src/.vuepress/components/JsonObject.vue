@@ -1,5 +1,8 @@
 <template>
     <main>
+        <div v-if="json.type !== 'array' && json.type !== 'object'">
+            <Parameter :metadata="json" :required="json.required" :discriminator="json.discriminator" @discriminatorChange="onOneOfDiscrimanatorChange" />
+        </div>
         <span v-if="resourceReferences.length">
             <div v-if="json.discriminator">
                 One of:
@@ -18,7 +21,7 @@
                 <Ref :reference="resourceRef" />
             </div>
         </span>
-        <div v-for="(metadata, name) in properties" :key="name" class="jsonProperty">
+        <div v-if="properties" v-for="(metadata, name) in properties" :key="name" class="jsonProperty">
             <Parameter :name="name" :metadata="metadata" :required="json.required" :discriminator="json.discriminator" @discriminatorChange="onOneOfDiscrimanatorChange" />
         </div>
     </main>
