@@ -60,7 +60,7 @@ export default {
             this.$emit('discriminatorChange', value)
         },
         decodeHTML(html) {
-            if (!html) {
+            if (!html || typeof document === 'undefined') {
                 return undefined
             }
             const txt = document.createElement('textarea')
