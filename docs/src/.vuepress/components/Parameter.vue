@@ -13,7 +13,7 @@
         </div>
         <div class="parameterContent">
             <div v-if="metadata.summary" v-html="metadata.summary"></div>
-            <div class="keepFormatting" v-html="metadata.description"></div>
+            <Md :markdown="decodeHTML(metadata.description)" />
 
             <div v-if="discriminator && discriminator.propertyName === name" class="parameterDiscriminator">
                 <select @change="change">
@@ -59,6 +59,14 @@ export default {
             const value = e.target.value
             this.$emit('discriminatorChange', value)
         },
+        decodeHTML(html) {
+            if (!html || typeof document === 'undefined') {
+                return undefined
+            }
+            const txt = document.createElement('textarea')
+            txt.innerHTML = html
+            return txt.value
+        }
     }
 }
 </script>
