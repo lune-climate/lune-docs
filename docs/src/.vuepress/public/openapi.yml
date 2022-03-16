@@ -2864,7 +2864,7 @@ components:
             Account's cash balance at the time of this activity
 
             Unit: Account currency
-          pattern: '^[0-9]+(\.[0-9]+)?$'
+          pattern: '^-?[0-9]+(\.[0-9]+)?$'
           example: '23.50'
         balance_delta:
           type: string
@@ -2874,7 +2874,7 @@ components:
             The previous balance plus `balance_delta` equals the current balance.
 
             Unit: Account currency
-          pattern: '^[0-9]+(\.[0-9]+)?$'
+          pattern: '^-?[0-9]+(\.[0-9]+)?$'
           example: '-3.50'
         balance_outstanding:
           type: string
@@ -2882,7 +2882,7 @@ components:
             The Account's outstanding balance at the time of this activity
 
             Unit: Account currency
-          pattern: '^[0-9]+(\.[0-9]+)?$'
+          pattern: '^-?[0-9]+(\.[0-9]+)?$'
           example: '-132.50'
         balance_outstanding_delta:
           type: string
