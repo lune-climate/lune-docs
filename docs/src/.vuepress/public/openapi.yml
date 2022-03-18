@@ -1059,6 +1059,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
         '429':
           description: Rate limit exceeded
 
@@ -1519,6 +1525,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
         '415':
           description: The request is not an application/json encoded request
         '429':
@@ -1897,6 +1909,7 @@ components:
             - webhook_limit_reached
             - invalid_time_range
             - exchange_rate_not_found
+            - live_account_required
         message:
           type: string
           description: |
