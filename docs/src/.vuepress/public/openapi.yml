@@ -412,6 +412,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Analytics'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
         '401':
           description: Unauthorized. The API Key is invalid or disabled.
           content:
