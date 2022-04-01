@@ -3284,9 +3284,13 @@ components:
         - destination
       properties:
         source:
-          $ref: '#/components/schemas/Address'
+          oneOf:
+            - $ref: '#/components/schemas/Address'
+            - $ref: '#/components/schemas/GeographicCoordinates'
         destination:
-          $ref: '#/components/schemas/Address'
+          oneOf:
+            - $ref: '#/components/schemas/Address'
+            - $ref: '#/components/schemas/GeographicCoordinates'
     Address:
       type: object
       required:
@@ -3314,6 +3318,22 @@ components:
           type: string
           example: "GBR"
           description: A three-letter country code.
+    GeographicCoordinates:
+      type: object
+      required:
+        - lat
+        - lon
+      properties:
+        lat:
+          description: Latitude
+          type: number
+          minimum: -90.0
+          maximum: 90.0
+        lon:
+          description: Longitude
+          type: number
+          minimum: -180.0
+          maximum: 180.0
     TransactionEstimateRequest:
       type: object
       description: Parameters for estimating emissions associated with purchasing goods or services.
