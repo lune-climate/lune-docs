@@ -1377,7 +1377,7 @@ paths:
           description: The service is temporarily unavailable
   /estimates/individual:
     post:
-      summary: Estimate an individual's annual emissions
+      summary: Estimate individual annual emissions
       description: |
         Estimate emissions produced by an individual for a year. This includes travel emissions, food, drinks, energy and shopping activities.
 
