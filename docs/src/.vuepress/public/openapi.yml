@@ -3914,7 +3914,7 @@ components:
             type: string
           description: The bundle ids selected for use through the particular offset link.
           minItems: 1
-          maxItems: 6
+          maxItems: 24
           uniqueItems: true
         value:
           $ref: '#/components/schemas/Money'
@@ -3968,7 +3968,7 @@ components:
             type: string
           description: The bundle ids selected for use through the particular offset link.
           minItems: 1
-          maxItems: 6
+          maxItems: 24
           uniqueItems: true
         value:
           $ref: '#/components/schemas/Money'
