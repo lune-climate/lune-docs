@@ -2744,6 +2744,10 @@ components:
           type: string
           description: The unique identifier of the organisation this account belongs to
           example: 'VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B'
+        sibling_id:
+          type: string
+          description: Account id of the pair account. This field is not populated on client accounts.
+          example: 'gGdqQ0AyQJ72NauCCndfaQLNhc6Jfxc1'
         currency:
           type: string
           description: The Account's currency
