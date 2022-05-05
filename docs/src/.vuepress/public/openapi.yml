@@ -2731,6 +2731,7 @@ components:
         - balance
         - balance_outstanding
         - type
+        - scope
       properties:
         id:
           type: string
@@ -2780,6 +2781,16 @@ components:
             - live
             - test
           example: 'live'
+        scope:
+          type: string
+          description: |
+              The account's scope.
+
+              Determines if the account is a client account or a standard account that comes in pairs (live and test).
+          enum:
+            - standard
+            - client
+          example: 'client'
         logo:
           type: string
           description: |
