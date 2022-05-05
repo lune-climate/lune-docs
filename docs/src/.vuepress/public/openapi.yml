@@ -1881,12 +1881,14 @@ components:
           pattern: '^[0-9]+(\.[0-9]+)?$'
           example: '40.501'
         unit:
-          type: string
-          enum:
-            - kg
-            - t
-          example: 'kg'
-          description: Unit, `t` for tonne, `kg` for kilogram
+          $ref: '#/components/schemas/MassUnit'
+    MassUnit:
+      type: string
+      description: Unit, `t` for tonne, `kg` for kilogram
+      enum:
+        - kg
+        - t
+      example: 't'
     Distance:
       type: object
       required:
@@ -2032,6 +2034,11 @@ components:
           $ref: '#/components/schemas/BundleSelectionRequest'
         metadata:
           $ref: '#/components/schemas/Metadata'
+        quantity_trunc:
+          description: |
+            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     OrderQuoteByValueRequest:
       type: object
       description: Order by Value details
@@ -2045,6 +2052,11 @@ components:
           description: Maximum price of CO2 offsets to purchase (in the account's currency)
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
+        quantity_trunc:
+          description: |
+            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     CreateOrderByValueRequest:
       type: object
       description: Order by Value details
