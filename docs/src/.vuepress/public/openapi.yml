@@ -372,6 +372,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+  /accounts:
+    post:
+      summary: Create accounts
+      description: |
+        Create a pair of standard accounts or a client account.
+
+        If a pair of accounts is requested the test and live accounts are returned, otherwise the client account is returned.
+      operationId: createAccounts
+      security:
+        - BearerAuth: []
+      tags:
+        - Accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountRequest'
+      responses:
+        '200':
+          description: The response returns the pair of accounts
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ClientAccount'
+                  - $ref: '#/components/schemas/StandardAccountPair'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden. The API Key is not authorized to perform the operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
   /analytics:
     get:
       summary: Get analytics
@@ -1962,6 +2009,8 @@ components:
             - invalid_time_range
             - exchange_rate_not_found
             - live_account_required
+            - organisation_not_found
+            - unauthorised
         message:
           type: string
           description: |
@@ -2733,6 +2782,26 @@ components:
               description: Array of bundles the project is part of
               items:
                 $ref: '#/components/schemas/BundleSummary'
+    AccountScope:
+      type: string
+      description: |
+          The account's scope.
+
+          Determines if the account is a client account or a standard account that comes in pairs (live and test).
+      enum:
+        - standard
+        - client
+      example: 'client'
+    AccountType:
+      type: string
+      description: |
+          The account's type.
+
+          See the <a href="#section/Live-and-test-accounts">Live and test accounts section</a> for details.
+      enum:
+        - live
+        - test
+      example: 'live'
     Account:
       type: object
       required:
@@ -2784,25 +2853,9 @@ components:
           pattern: '^-?[0-9]+(\.[0-9]+)?$'
           example: '-132.50'
         type:
-          type: string
-          description: |
-              The account's type.
-
-              See the <a href="#section/Live-and-test-accounts">Live and test accounts section</a> for details.
-          enum:
-            - live
-            - test
-          example: 'live'
+          $ref: '#/components/schemas/AccountType'
         scope:
-          type: string
-          description: |
-              The account's scope.
-
-              Determines if the account is a client account or a standard account that comes in pairs (live and test).
-          enum:
-            - standard
-            - client
-          example: 'client'
+          $ref: '#/components/schemas/AccountScope'
         logo:
           type: string
           description: |
@@ -4158,3 +4211,45 @@ components:
         data:
           $ref: '#/components/schemas/Order'
           description: Data of the event. On order.* events, this means an Order.
+    CreateAccountRequest:
+      type: object
+      required:
+        - name
+        - currency
+        - scope
+      properties:
+        name:
+          description: The account name.
+          type: string
+        currency:
+          description: The account currency.
+          $ref: '#/components/schemas/CurrencyCode'
+          example: 'GBP'
+        scope:
+          description: |
+            The scope of the account(s). If standard, a pair of test and live accounts will be created, otherwise a single client account is created.
+          $ref: '#/components/schemas/AccountScope'
+        type:
+          description: The account type. This field is unused if creating a pair of accounts.
+          $ref: '#/components/schemas/AccountType'
+          default: 'live'
+        beneficiary:
+          description: The account beneficiary.
+          type: string
+    StandardAccountPair:
+        type: object
+        required:
+          - live_account
+          - test_account
+        properties:
+          live_account:
+            $ref: '#/components/schemas/Account'
+          test_account:
+            $ref: '#/components/schemas/Account'
+    ClientAccount:
+        type: object
+        required:
+          - client_account
+        properties:
+          client_account:
+            $ref: '#/components/schemas/Account'
