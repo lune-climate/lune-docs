@@ -419,6 +419,52 @@ paths:
                 $ref: '#/components/schemas/Errors'
         '429':
           description: Rate limit exceeded
+  /accounts/{id}:
+    put:
+      summary: Update an account.
+      description: |
+        If the account being updated has standard scope its sibling account will also be updated
+        the same way but only one account (tha one being requested to be updated) will be returned.
+      operationId: updateAccount
+      security:
+        - BearerAuth: []
+      tags:
+        - Accounts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The account id
+          schema:
+            type: string
+            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountRequest'
+      responses:
+        '200':
+          description: The response returns the updated account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
   /analytics:
     get:
       summary: Get analytics
@@ -4253,3 +4299,16 @@ components:
         properties:
           client_account:
             $ref: '#/components/schemas/Account'
+    UpdateAccountRequest:
+      description: It's only possible to edit the name and beneficiary of an account.
+      type: object
+      required:
+        - name
+        - beneficiary
+      properties:
+        name:
+          description: The account name.
+          type: string
+        beneficiary:
+          description: The account beneficiary.
+          type: string
