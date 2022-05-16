@@ -1353,7 +1353,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmissionEstimate'
+                $ref: '#/components/schemas/SingleShippingEmissionEstimate'
         '400':
           description: Bad Request
           content:
@@ -3914,6 +3914,15 @@ components:
       properties:
         mass:
           $ref: '#/components/schemas/Mass'
+    SingleShippingEmissionEstimate:
+      allOf:
+        - $ref: '#/components/schemas/EmissionEstimate'
+        - type: object
+          required:
+            - distance
+          properties:
+            distance:
+              $ref: '#/components/schemas/Distance'
     MultiLegShippingEmissionEstimate:
       description: |
         An emission estimate result for a transport involving multiple legs.
@@ -3933,8 +3942,8 @@ components:
             legs:
               type: array
               items:
-                $ref: '#/components/schemas/EmissionEstimate'
-        - $ref: '#/components/schemas/EmissionEstimate'
+                $ref: '#/components/schemas/SingleShippingEmissionEstimate'
+        - $ref: '#/components/schemas/SingleShippingEmissionEstimate'
     PaginatedOffsetLinks:
       allOf:
         - $ref: '#/components/schemas/PaginatedBase'
