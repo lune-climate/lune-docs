@@ -1372,6 +1372,49 @@ paths:
           description: Rate limit exceeded
         '503':
           description: The service is temporarily unavailable
+  /estimates/shipping/multi-leg:
+    post:
+      summary: |
+        Estimate shipping emissions for multi-leg journeys (a track and a plane, for example).
+      description: |
+        The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
+      operationId: getMultiLegShippingEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiLegShippingEstimateRequest'
+      responses:
+        '200':
+          description: |
+            Estimation calculated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiLegShippingEmissionEstimate'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+        '503':
+          description: The service is temporarily unavailable
   /estimates/transactions:
     post:
       summary: Estimate transaction-related emissions
@@ -3169,29 +3212,58 @@ components:
         shipment:
           $ref: '#/components/schemas/Shipment'
         route:
-          description: |
-            Either the shipping distance or the start/destination address pair.
-
-            Note that for sea transport the source/destination pair should be as close to
-            locations of existing and well-known ports as possible. Coordinates or addresses
-            that lie far from the shore line or coordinates deep into the sea or ocean will
-            result in inaccurate calculations.
-
-            When transporting goods over unusual routes or between unusual points it's better
-            to provide us the distance directly to ensure better calculations.
-          oneOf:
-            - $ref: '#/components/schemas/Distance'
-            - $ref: '#/components/schemas/SourceDestination'
+          $ref: '#/components/schemas/ShippingRoute'
         method:
           $ref: '#/components/schemas/ShippingMethod'
         country_code:
-          type: string
-          description: |
-              The three-letter code of the country where the shipping takes place, if applicable.
+          $ref: '#/components/schemas/ShippingCountryCode'
+    ShippingRoute:
+      description: |
+        Either the shipping distance or the start/destination address pair.
 
-              Providing this value will improve the estimation process. If the shipping spans
-              multiple countries you can either make multiple per-country estimations or choose
-              the country with the largest share of the route.
+        Note that for sea transport the source/destination pair should be as close to
+        locations of existing and well-known ports as possible. Coordinates or addresses
+        that lie far from the shore line or coordinates deep into the sea or ocean will
+        result in inaccurate calculations.
+
+        When transporting goods over unusual routes or between unusual points it's better
+        to provide us the distance directly to ensure better calculations.
+      oneOf:
+        - $ref: '#/components/schemas/Distance'
+        - $ref: '#/components/schemas/SourceDestination'
+    ShippingCountryCode:
+      type: string
+      description: |
+          The three-letter code of the country where the shipping takes place, if applicable.
+
+          Providing this value will improve the estimation process. If the shipping spans
+          multiple countries you can either make multiple per-country estimations or choose
+          the country with the largest share of the route.
+    MultiLegShippingEstimateRequest:
+      type: object
+      description: Parameters for estimating shipping emissions
+      required:
+        - shipment
+        - legs
+      properties:
+        shipment:
+          $ref: '#/components/schemas/Shipment'
+        legs:
+          type: array
+          minItems: 1
+          maxItems: 10
+          items:
+            type: object
+            required:
+              - route
+              - method
+            properties:
+              route:
+                $ref: '#/components/schemas/ShippingRoute'
+              method:
+                $ref: '#/components/schemas/ShippingMethod'
+              country_code:
+                $ref: '#/components/schemas/ShippingCountryCode'
     Shipment:
       description: |
         Either a mass given in kilograms or tonnes (`mass`) or the number of [Twenty-foot Equivalent
@@ -3835,6 +3907,27 @@ components:
       properties:
         mass:
           $ref: '#/components/schemas/Mass'
+    MultiLegShippingEmissionEstimate:
+      description: |
+        An emission estimate result for a transport involving multiple legs.
+
+        Lune's API returns both the total emissions and per-leg emissions (in the `legs`
+        property).
+
+        The ordering of the legs in the estimate is the same as the ordering of the inputs.
+
+        An error with estimating any of the legs will result in the whole estimation process
+        failing completely (we don't provide partial estimates in light of a failure).
+      allOf:
+        - type: object
+          required:
+            - legs
+          properties:
+            legs:
+              type: array
+              items:
+                $ref: '#/components/schemas/EmissionEstimate'
+        - $ref: '#/components/schemas/EmissionEstimate'
     PaginatedOffsetLinks:
       allOf:
         - $ref: '#/components/schemas/PaginatedBase'
