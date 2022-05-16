@@ -2743,6 +2743,13 @@ components:
             - emissions_reduction
             - carbon_removal
           example: 'emissions_reduction'
+        carbon_permanence:
+          type: string
+          description: The bundle's carbon storage permanence.
+          enum:
+            - long_term
+            - short_term
+          example: 'long_term'
     Bundle:
       allOf:
         - $ref: '#/components/schemas/BundleSummary'
