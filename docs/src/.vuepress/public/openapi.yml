@@ -2792,6 +2792,10 @@ components:
           type: string
           description: The project's region
           example: 'Huancavelica'
+        logo:
+          type: string
+          description: A project logo image URL
+          example: 'https://assets.lune.co/projects/Alto+Mayo+1+logo.png'
         primary_image:
           type: string
           description: A project image URL
