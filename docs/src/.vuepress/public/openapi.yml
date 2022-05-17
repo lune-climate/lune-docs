@@ -419,6 +419,76 @@ paths:
                 $ref: '#/components/schemas/Errors'
         '429':
           description: Rate limit exceeded
+    get:
+      summary: Get accounts
+      description: |
+        Returns paginated accounts.
+
+        Query parameters can be used to filter these accounts by name and/or scope.
+      operationId: getClientAccounts
+      security:
+        - BearerAuth: []
+      tags:
+        - Accounts
+      parameters:
+        - name: limit
+          in: query
+          description:
+            Default is 10.
+
+            Maximum number of resources to return, between 1 and 100.
+          schema:
+            type: string
+            pattern: '^\d+$'
+            example: '50'
+        - name: after
+          in: query
+          description: |
+            A cursor for use in pagination.
+
+            *after* is an object ID that defines your place in the list.
+
+            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
+          schema:
+            type: string
+            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+        - name: scope
+          in: query
+          description:
+            Used to filter the results to only include accounts of a specific scope.
+          schema:
+            $ref: '#/components/schemas/AccountScope'
+        - name: name
+          in: query
+          description:
+            Used to filter the results to only include accounts which name contains this value (case insensitive).
+
+            Keep in mind the value itself can appear at the beggining, middle or end on the actual account name.
+          schema:
+            type: string
+            pattern: '^[a-zA-Z0-9_]{3,}$'
+            example: 'Merchant_X'
+      responses:
+        '200':
+          description: The response returns paginated accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccounts'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
   /accounts/{id}:
     put:
       summary: Update an account.
@@ -4399,6 +4469,18 @@ components:
         beneficiary:
           description: The account beneficiary.
           type: string
+    PaginatedAccounts:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedBase'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              description: Paginated Account objects
+              items:
+                $ref: '#/components/schemas/Account'
     StandardAccountPair:
         type: object
         required:
