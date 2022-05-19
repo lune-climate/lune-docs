@@ -1236,7 +1236,36 @@ paths:
                 $ref: '#/components/schemas/Errors'
         '429':
           description: Rate limit exceeded
+  /bundle-mixes:
+    get:
+      summary: Get bundle mixes
+      description: |
+        Returns bundle mixes.
 
+        Bundle mixes are predefined bundle selections, for example following Oxford Offsetting Principles.
+        Bundle selection for a particular Bundle mix may change over time.
+      operationId: getBundleMixes
+      security:
+        - BearerAuth: []
+      tags:
+        - Bundle mixes
+      responses:
+        '200':
+          description: The response returns the bundle mixes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BundleMix'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
   /estimates/electricity:
     post:
       summary: Estimate electricity emissions
@@ -2351,6 +2380,24 @@ components:
           type: integer
           example: 43
           description: Selection percentage
+    BundleMix:
+      type: object
+      description: Bundle mix information.
+      required:
+        - identifier
+        - label
+        - bundle_selection
+      properties:
+        identifier:
+          type: string
+          description: Identifier of the bundle mix.
+          example: 'oxford-offsetting-principles'
+        label:
+          type: string
+          description: Human readable name of the bundle mix.
+          example: 'Oxford Offseting Principles'
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelection'
     OrderBase:
       type: object
       description: Order object
