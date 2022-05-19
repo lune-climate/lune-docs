@@ -425,7 +425,7 @@ paths:
         Returns paginated accounts.
 
         Query parameters can be used to filter these accounts by name and/or scope.
-      operationId: getClientAccounts
+      operationId: getAccounts
       security:
         - BearerAuth: []
       tags:
