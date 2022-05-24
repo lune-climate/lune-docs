@@ -3090,6 +3090,10 @@ components:
 
             This is the name that appears on future retirements that are made in this account.
             If none is present, the organisation beneficiary will be used instead.
+        bundle_mix_id:
+          type: string
+          description: Bundle mix id tied to the account.
+          example: 'Jvhh30a6272NauKv92J7FG1c6Jfxd2E1'
     Analytics:
       type: object
       required:
@@ -4568,3 +4572,7 @@ components:
         beneficiary:
           description: The account beneficiary.
           type: string
+        bundle_mix_id:
+          description: The bundle mix unique identifier.
+          type: string
+          example: 'jvqkOq7vX2K18HHydar0W23ZGJdc91Pa'
