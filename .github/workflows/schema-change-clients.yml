@@ -11,6 +11,8 @@ jobs:
   build:
     name: Trigger rebuild of client libraries. Currently lune-ts
     runs-on: ubuntu-latest
+    # The environment is used to guarantee a slight delay to wait for remote schema update.
+    environment: lune_ts
     steps:
       - name: Emit TS library rebuild
         uses: peter-evans/repository-dispatch@v1
