@@ -2194,7 +2194,6 @@ components:
             - address_not_found
             - at_least_one_constraint_required
             - bundles_size_not_supported
-            - unknown_imo_number
             - webhook_limit_reached
             - invalid_time_range
             - exchange_rate_not_found
