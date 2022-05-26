@@ -2836,6 +2836,10 @@ components:
           type: string
           description: A bundle's high resolution image URL
           example: 'https://assets.lune.co/bundles/latin-america-hires.jpg'
+        small_thumbnail:
+          type: string
+          description: A bundle's small thumbnail image URL
+          example: 'https://assets.lune.co/bundles/latin-america-thumbnail.jpg'
         description:
           type: string
           description: The bundle's description
