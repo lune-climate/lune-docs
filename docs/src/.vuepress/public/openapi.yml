@@ -2427,10 +2427,15 @@ components:
       type: object
       description: Bundle mix information.
       required:
+        - id
         - identifier
         - label
         - bundle_selection
       properties:
+        id:
+          type: string
+          description: Id of the bundle mix.
+          example: 'A7hPO9C01RnzPkYxJgAHxq112roXlWO5'
         identifier:
           type: string
           description: Identifier of the bundle mix.
