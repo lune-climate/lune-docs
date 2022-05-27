@@ -1291,7 +1291,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmissionEstimate'
+                $ref: '#/components/schemas/EmissionEstimateResponse'
         '400':
           description: Bad Request
           content:
@@ -1300,6 +1300,12 @@ paths:
                 $ref: '#/components/schemas/Errors'
         '401':
           description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: Conflict
           content:
             application/json:
               schema:
@@ -1336,7 +1342,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmissionEstimate'
+                $ref: '#/components/schemas/EmissionEstimateResponse'
         '400':
           description: Bad Request
           content:
@@ -1345,6 +1351,12 @@ paths:
                 $ref: '#/components/schemas/Errors'
         '401':
           description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: Conflict
           content:
             application/json:
               schema:
@@ -1465,6 +1477,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
         '415':
           description: The request is not an application/json encoded request
         '429':
@@ -1510,6 +1528,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
         '415':
           description: The request is not an application/json encoded request
         '429':
@@ -1547,7 +1571,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmissionEstimate'
+                $ref: '#/components/schemas/EmissionEstimateResponse'
         '400':
           description: Bad Request
           content:
@@ -1556,6 +1580,12 @@ paths:
                 $ref: '#/components/schemas/Errors'
         '401':
           description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: Conflict
           content:
             application/json:
               schema:
@@ -1606,6 +1636,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
         '415':
           description: The request is not an application/json encoded request
         '429':
@@ -1637,7 +1673,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmissionEstimate'
+                $ref: '#/components/schemas/EmissionEstimateResponse'
         '400':
           description: Bad Request
           content:
@@ -1646,6 +1682,12 @@ paths:
                 $ref: '#/components/schemas/Errors'
         '401':
           description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: Conflict
           content:
             application/json:
               schema:
@@ -2765,7 +2807,10 @@ components:
               type: string
               pattern: '^[0-9]+(\.[0-9]+)?$'
               example: '1045'
-              description: Requested quantity for the specific bundle (tonnes CO2)
+              description: |
+                Requested quantity for the specific bundle (tonnes CO2).
+
+                requested_quantity may be returned as part of an emission estimate response, in which case this field containes the equivalient value as the `mass` field.
     OrderQuoteByValue:
       allOf:
         - $ref: '#/components/schemas/OrderQuoteBase'
@@ -3303,6 +3348,13 @@ components:
 
               Providing this value will improve the estimation process. If the value is not provided
               the global average will be used.
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+        quantity_trunc:
+          description: |
+            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     FlightEstimateRequest:
       type: object
       description: Parameters for estimating emissions for commercial plane travel
@@ -3321,6 +3373,13 @@ components:
 
             This parameter defaults to 1.
           type: number
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+        quantity_trunc:
+          description: |
+            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     CabinClass:
        description: Cabin of class to be used for the specified passengers.
 
@@ -3350,6 +3409,13 @@ components:
           $ref: '#/components/schemas/ShippingMethod'
         country_code:
           $ref: '#/components/schemas/ShippingCountryCode'
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+        quantity_trunc:
+          description: |
+            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     ShippingRoute:
       description: |
         Either the shipping distance or the start/destination address pair.
@@ -3397,6 +3463,13 @@ components:
                 $ref: '#/components/schemas/ShippingMethod'
               country_code:
                 $ref: '#/components/schemas/ShippingCountryCode'
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+        quantity_trunc:
+          description: |
+            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     Shipment:
       description: |
         Either a mass given in kilograms or tonnes (`mass`) or the number of [Twenty-foot Equivalent
@@ -3739,6 +3812,13 @@ components:
           $ref: '#/components/schemas/Merchant'
         diet:
           $ref: '#/components/schemas/Diet'
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+        quantity_trunc:
+          description: |
+            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     IndividualEstimateRequest:
       description: |
         Parameters for estimating an individual's emissions
@@ -3854,6 +3934,13 @@ components:
           description: Annual natural gas consumption in cubic meters
           minimum: 0
           example: 200
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+        quantity_trunc:
+          description: |
+            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     CompanyEstimateRequest:
       description: |
         Parameters for estimating emissions associated with operating a company.
@@ -3962,6 +4049,13 @@ components:
               $ref: '#/components/schemas/CompanyOnPremiseUse'
             cloud:
               $ref: '#/components/schemas/CompanyCloudUse'
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+        quantity_trunc:
+          description: |
+            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     CompanyCloudUse:
       type: object
       description: Company's use of cloud services
@@ -4040,7 +4134,26 @@ components:
       properties:
         mass:
           $ref: '#/components/schemas/Mass'
+    EmissionEstimateResponse:
+      description: An emission estimate result including a quote
+      allOf:
+        - $ref: '#/components/schemas/EmissionEstimate'
+        - type: object
+          required:
+            - quote
+          properties:
+            quote:
+              $ref: '#/components/schemas/OrderQuoteByQuantity'
     SingleShippingEmissionEstimate:
+      allOf:
+        - $ref: '#/components/schemas/ShippingLegEmissionEstimate'
+        - type: object
+          required:
+            - quote
+          properties:
+            quote:
+              $ref: '#/components/schemas/OrderQuoteByQuantity'
+    ShippingLegEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimate'
         - type: object
@@ -4078,7 +4191,7 @@ components:
             legs:
               type: array
               items:
-                $ref: '#/components/schemas/SingleShippingEmissionEstimate'
+                $ref: '#/components/schemas/ShippingLegEmissionEstimate'
         - $ref: '#/components/schemas/SingleShippingEmissionEstimate'
     PaginatedOffsetLinks:
       allOf:
@@ -4094,7 +4207,7 @@ components:
                 $ref: '#/components/schemas/OffsetLink'
     CompanyEmissionEstimate:
       allOf:
-        - $ref: '#/components/schemas/EmissionEstimate'
+        - $ref: '#/components/schemas/EmissionEstimateResponse'
         - type: object
           required:
             - components
