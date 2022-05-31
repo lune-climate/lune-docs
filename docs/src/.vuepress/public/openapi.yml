@@ -2414,6 +2414,11 @@ components:
           $ref: '#/components/schemas/BundleSelectionRequest'
         metadata:
           $ref: '#/components/schemas/Metadata'
+        quantity_trunc:
+          description: |
+            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     CreateOrderByEstimateRequest:
       type: object
       description: Order by Estimate details
