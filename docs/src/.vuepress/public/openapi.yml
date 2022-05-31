@@ -926,6 +926,57 @@ paths:
           description: The request is not an application/json encoded request
         '429':
           description: Rate limit exceeded
+  /orders/by-estimate:
+    post:
+      summary: Create an order from an emission estimate
+      description: Create an order to purchase carbon offset by specifying an estimate id
+      operationId: createOrderByEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderByEstimateRequest'
+      responses:
+        '200':
+          description: |
+            Order created successfully.
+            The response returns an Order object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderByEstimate'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: |
+            Conflict
+
+            Examples:
+              1. account is suspended
+              2. order idempotency failure: an order with the same idempotency_key has already by created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
   /orders:
     get:
       summary: Get orders
@@ -2242,6 +2293,7 @@ components:
             - live_account_required
             - organisation_not_found
             - unauthorised
+            - estimate_not_found
         message:
           type: string
           description: |
@@ -2362,6 +2414,35 @@ components:
           $ref: '#/components/schemas/BundleSelectionRequest'
         metadata:
           $ref: '#/components/schemas/Metadata'
+    CreateOrderByEstimateRequest:
+      type: object
+      description: Order by Estimate details
+      required:
+        - estimate_id
+      properties:
+        estimate_id:
+          type: string
+          description: The emission calculation unique identifier
+          example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
+        idempotency_key:
+          type: string
+          maxLength: 100
+          example: 5bd808a954e
+          description: |
+            Optional unique identifier provided by the client.
+
+            `idempotency_key` has two purposes:
+            1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.
+            2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        quantity_trunc:
+          description: |
+            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     BundleSelectionRequest:
       type: array
       description: |
@@ -2621,6 +2702,18 @@ components:
               type: string
               pattern: '^[0-9]+(\.[0-9]+)?$'
               example: '7700'
+    OrderByEstimate:
+      title: Order by emission estimate
+      allOf:
+        - $ref: '#/components/schemas/OrderBase'
+        - type: object
+          required:
+            - estimate_id
+          properties:
+            estimate_id:
+              type: string
+              description: The emission calculation unique identifier
+              example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
     Order:
       type: object
       oneOf:
