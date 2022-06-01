@@ -969,6 +969,7 @@ paths:
             Examples:
               1. account is suspended
               2. order idempotency failure: an order with the same idempotency_key has already by created
+              3. order for this emission estimate has already been placed
           content:
             application/json:
               schema:
@@ -2294,6 +2295,7 @@ components:
             - organisation_not_found
             - unauthorised
             - estimate_not_found
+            - estimate_order_already_placed
         message:
           type: string
           description: |
