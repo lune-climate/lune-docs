@@ -4793,11 +4793,14 @@ components:
           client_account:
             $ref: '#/components/schemas/Account'
     UpdateAccountRequest:
-      description: It's only possible to edit the name and beneficiary of an account.
+      description: |
+        It's only possible to edit the name and beneficiary of an account.
+
+        Not providing the `beneficiary` field will result in clearing the existing value
+        (if present).
       type: object
       required:
         - name
-        - beneficiary
       properties:
         name:
           description: The account name.
