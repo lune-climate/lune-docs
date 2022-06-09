@@ -3174,7 +3174,7 @@ components:
       enum:
         - standard
         - client
-      example: 'client'
+      example: 'standard'
     AccountType:
       type: string
       description: |
