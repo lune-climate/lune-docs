@@ -1280,6 +1280,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden. The API Key is not authorized to perform the operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
         '409':
           description: Conflict
           content:
