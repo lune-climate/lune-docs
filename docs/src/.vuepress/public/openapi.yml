@@ -3390,8 +3390,6 @@ components:
           example: '-132.50'
         type:
           $ref: '#/components/schemas/AccountType'
-        scope:
-          $ref: '#/components/schemas/AccountScope'
         logo:
           type: string
           description: |
