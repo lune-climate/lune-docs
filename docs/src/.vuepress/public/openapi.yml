@@ -270,6 +270,7 @@ x-tagGroups:
       - Orders
       - Projects
       - Accounts
+      - Client Accounts
       - Analytics
       - Activity
       - Bundle selections
@@ -372,13 +373,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+  /accounts/client:
+    post:
+      summary: Create a client account
+      description: |
+        Create a client account
+
+        A client account can be of type test or live.
+      operationId: createClientAccount
+      security:
+        - BearerAuth: []
+      tags:
+        - Client Accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClientAccountRequest'
+      responses:
+        '200':
+          description: The response returns the created client account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientAccount'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: Forbidden. The API Key is not authorized to perform the operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
   /accounts:
     post:
       summary: Create accounts
       description: |
-        Create a pair of standard accounts or a client account.
+        Create a pair of standard accounts.
 
-        If a pair of accounts is requested the test and live accounts are returned, otherwise the client account is returned.
+        A test and live account are returned
       operationId: createAccounts
       security:
         - BearerAuth: []
@@ -396,9 +442,7 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/ClientAccount'
-                  - $ref: '#/components/schemas/StandardAccountPair'
+                $ref: '#/components/schemas/StandardAccountPair'
         '400':
           description: Bad Request
           content:
@@ -3185,7 +3229,7 @@ components:
         - live
         - test
       example: 'live'
-    Account:
+    AccountBase:
       type: object
       required:
         - id
@@ -3195,7 +3239,6 @@ components:
         - balance
         - balance_outstanding
         - type
-        - scope
       properties:
         id:
           type: string
@@ -3209,10 +3252,6 @@ components:
           type: string
           description: The unique identifier of the organisation this account belongs to
           example: 'VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B'
-        sibling_id:
-          type: string
-          description: Account id of the pair account. This field is not populated on client accounts.
-          example: 'gGdqQ0AyQJ72NauCCndfaQLNhc6Jfxc1'
         currency:
           type: string
           description: The Account's currency
@@ -4745,12 +4784,12 @@ components:
         data:
           $ref: '#/components/schemas/Order'
           description: Data of the event. On order.* events, this means an Order.
-    CreateAccountRequest:
+    CreateClientAccountRequest:
       type: object
       required:
         - name
         - currency
-        - scope
+        - type
       properties:
         name:
           description: The account name.
@@ -4759,14 +4798,24 @@ components:
           description: The account currency.
           $ref: '#/components/schemas/CurrencyCode'
           example: 'GBP'
-        scope:
-          description: |
-            The scope of the account(s). If standard, a pair of test and live accounts will be created, otherwise a single client account is created.
-          $ref: '#/components/schemas/AccountScope'
         type:
-          description: The account type. This field is unused if creating a pair of accounts.
           $ref: '#/components/schemas/AccountType'
-          default: 'live'
+        beneficiary:
+          description: The account beneficiary.
+          type: string
+    CreateAccountRequest:
+      type: object
+      required:
+        - name
+        - currency
+      properties:
+        name:
+          description: The account name.
+          type: string
+        currency:
+          description: The account currency.
+          $ref: '#/components/schemas/CurrencyCode'
+          example: 'GBP'
         beneficiary:
           description: The account beneficiary.
           type: string
@@ -4783,22 +4832,55 @@ components:
               items:
                 $ref: '#/components/schemas/Account'
     StandardAccountPair:
-        type: object
-        required:
-          - live_account
-          - test_account
-        properties:
-          live_account:
-            $ref: '#/components/schemas/Account'
-          test_account:
-            $ref: '#/components/schemas/Account'
+      type: object
+      required:
+        - live
+        - test
+      properties:
+        live:
+          $ref: '#/components/schemas/StandardAccount'
+        test:
+          $ref: '#/components/schemas/StandardAccount'
+    StandardAccount:
+      allOf:
+        - $ref: '#/components/schemas/AccountBase'
+      type: object
+      required:
+        - scope
+        - sibling_id
+      properties:
+        scope:
+          type: string
+          enum:
+            - standard
+        sibling_id:
+          type: string
+          description: |
+            Account id of the paired account.
+
+            A live account points to its sibling test account and vice versa.
+          example: 'gGdqQ0AyQJ72NauCCndfaQLNhc6Jfxc1'
     ClientAccount:
-        type: object
-        required:
-          - client_account
-        properties:
-          client_account:
-            $ref: '#/components/schemas/Account'
+      allOf:
+        - $ref: '#/components/schemas/AccountBase'
+      type: object
+      required:
+        - scope
+      properties:
+        scope:
+          type: string
+          enum:
+            - client
+    Account:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/StandardAccount'
+        - $ref: '#/components/schemas/ClientAccount'
+      discriminator:
+        propertyName: scope
+        mapping:
+          standard: '#/components/schemas/StandardAccount'
+          client: '#/components/schemas/ClientAccount'
     UpdateAccountRequest:
       description: |
         It's only possible to edit the name and beneficiary of an account.
