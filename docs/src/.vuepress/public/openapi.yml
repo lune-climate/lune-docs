@@ -418,6 +418,121 @@ paths:
                 $ref: '#/components/schemas/Errors'
         '429':
           description: Rate limit exceeded
+    get:
+      summary: Get client accounts
+      description: |
+        Returns paginated client accounts.
+
+        Query parameters can be used to filter these accounts by name and/or type.
+      operationId: getClientAccounts
+      security:
+        - BearerAuth: []
+      tags:
+        - Accounts
+      parameters:
+        - name: limit
+          in: query
+          description:
+            Default is 10.
+
+            Maximum number of resources to return, between 1 and 100.
+          schema:
+            type: string
+            pattern: '^\d+$'
+            example: '50'
+        - name: after
+          in: query
+          description: |
+            A cursor for use in pagination.
+
+            *after* is an object ID that defines your place in the list.
+
+            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
+          schema:
+            type: string
+            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+        - name: type
+          in: query
+          description:
+            Used to filter the results to only include accounts of a specific type.
+          schema:
+            $ref: '#/components/schemas/AccountType'
+        - name: name
+          in: query
+          description:
+            Used to filter the results to only include accounts which name contains this value (case insensitive).
+
+            Keep in mind the value itself can appear at the beggining, middle or end on the actual account name.
+          schema:
+            type: string
+            pattern: '^[a-zA-Z0-9_]{3,}$'
+            example: 'Merchant_X'
+      responses:
+        '200':
+          description: The response returns paginated client accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedClientAccounts'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+  /accounts/client/{id}:
+    put:
+      summary: Update a client account.
+      description: |
+        Update a client account and return the updated account.
+      operationId: updateClientAccount
+      security:
+        - BearerAuth: []
+      tags:
+        - Client Accounts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The account id
+          schema:
+            type: string
+            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAccountRequest'
+      responses:
+        '200':
+          description: The response returns the updated account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientAccount'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
   /accounts:
     post:
       summary: Create accounts
@@ -496,12 +611,12 @@ paths:
           schema:
             type: string
             example: 0vE213P96LbXNap56NAqVoM7knOedQg4
-        - name: scope
+        - name: type
           in: query
           description:
-            Used to filter the results to only include accounts of a specific scope.
+            Used to filter the results to only include accounts of a specific type.
           schema:
-            $ref: '#/components/schemas/AccountScope'
+            $ref: '#/components/schemas/AccountType'
         - name: name
           in: query
           description:
@@ -537,8 +652,7 @@ paths:
     put:
       summary: Update an account.
       description: |
-        If the account being updated has standard scope its sibling account will also be updated
-        the same way but only one account (tha one being requested to be updated) will be returned.
+        Its sibling account will also be updated.
       operationId: updateAccount
       security:
         - BearerAuth: []
@@ -564,7 +678,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Account'
+                $ref: '#/components/schemas/StandardAccount'
         '400':
           description: Bad Request
           content:
@@ -3291,6 +3405,7 @@ components:
 
             This is the name that appears on future retirements that are made in this account.
             If none is present, the organisation beneficiary will be used instead.
+          minLength: 1
         bundle_mix_id:
           type: string
           description: Bundle mix id tied to the account.
@@ -4819,6 +4934,7 @@ components:
         beneficiary:
           description: The account beneficiary.
           type: string
+          minLength: 1
     PaginatedAccounts:
       allOf:
         - $ref: '#/components/schemas/PaginatedBase'
@@ -4830,7 +4946,19 @@ components:
               type: array
               description: Paginated Account objects
               items:
-                $ref: '#/components/schemas/Account'
+                $ref: '#/components/schemas/StandardAccount'
+    PaginatedClientAccounts:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedBase'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              description: Paginated Client Account objects
+              items:
+                $ref: '#/components/schemas/ClientAccount'
     StandardAccountPair:
       type: object
       required:
@@ -4897,6 +5025,7 @@ components:
         beneficiary:
           description: The account beneficiary.
           type: string
+          minLength: 1
         bundle_mix_id:
           description: The bundle mix unique identifier.
           type: string
