@@ -77,6 +77,7 @@ module.exports = {
             'endpoints-orders',
             'endpoints-projects',
             'endpoints-accounts',
+            'endpoints-client-accounts',
             'endpoints-activity',
             'endpoints-bundle-selections',
             'endpoints-emission-estimates',
