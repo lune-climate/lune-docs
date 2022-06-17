@@ -1571,6 +1571,69 @@ paths:
           description: Rate limit exceeded
         '503':
           description: The service is temporarily unavailable
+    put:
+      summary: Update electricity emission estimate
+      description: |
+        Update emission estimate produced by electricity consumption.
+
+        The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
+      operationId: updateElectricityEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The estimate unique identifier
+          schema:
+            type: string
+            example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ElectricityEstimateRequest'
+      responses:
+        '200':
+          description: |
+            Estimation updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionEstimateResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: The estimate does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '415':
+          description: The request is not an application/json encoded request
+        '429':
+          description: Rate limit exceeded
+        '503':
+          description: The service is temporarily unavailable
   /estimates/flight:
     post:
       summary: Estimate flight emissions
