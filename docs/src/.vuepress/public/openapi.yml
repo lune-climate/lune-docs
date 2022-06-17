@@ -1532,7 +1532,45 @@ paths:
           description: Rate limit exceeded
         '503':
           description: The service is temporarily unavailable
-
+  /estimates/electricity/{id}:
+    get:
+      summary: Get an electricity emission estimate
+      operationId: retrieveElectricityEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The estimate unique identifier
+          schema:
+            type: string
+            example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+      responses:
+        '200':
+          description: Estimation retrieved succesfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionEstimateResponse'
+        '401':
+          description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: The offset link does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
+        '503':
+          description: The service is temporarily unavailable
   /estimates/flight:
     post:
       summary: Estimate flight emissions
