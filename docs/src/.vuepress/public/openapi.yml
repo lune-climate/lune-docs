@@ -2843,7 +2843,7 @@ components:
             - received
             - placed
             - paid
-            - allocated
+            - retiring
             - cancelled
             - complete
             - failed
@@ -2895,7 +2895,7 @@ components:
         bundles:
           type: array
           description: |
-            bundles are set when the order's status is `placed`, `paid`, `allocated` or `complete`.
+            bundles are set when the order's status is `placed`, `paid`, `retiring` or `complete`.
 
             Represents the bundles associated with the order including their relative quantity and cost breakdown.
           items:
@@ -2903,7 +2903,7 @@ components:
         projects:
           type: array
           description: |
-            Projects are set when the order's status is `allocated` or `complete`.
+            Projects are set when the order's status is `retiring` or `complete`.
 
             Represents the projects associated with the order including their relative quantity and cost breakdown.
 
@@ -3625,7 +3625,7 @@ components:
             - order_received
             - order_placed
             - order_paid
-            - order_allocated
+            - order_retiring
             - order_cancelled
             - order_allocation_retired
             - order_complete
@@ -3638,7 +3638,7 @@ components:
             * `order_received` The account has placed an order and Lune has received it.
             * `order_placed` An order has been matched to bundles. Quantites and costs are known and have been set.
             * `order_paid` The order has been paid for.
-            * `order_allocated` The order has been allocated to projects.
+            * `order_retiring` Lune has started retiring the order's carbon offsets.
             * `order_cancelled` The order has been cancelled
             * `order_allocation_retired` Carbon credits linked to a specific project have been retired
             * `order_complete` All carbon credits linked to the order have been retired
