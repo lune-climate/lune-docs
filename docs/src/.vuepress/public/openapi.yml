@@ -2757,6 +2757,7 @@ components:
             - account_suspended
             - invalid_selected_account_id
             - bundle_selection_not_100_pct
+            - all_bundles_must_be_enabled
             - order_idempotency_failure
             - order_quantity_non_positive
             - invalid_bundle_id
