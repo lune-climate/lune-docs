@@ -1325,6 +1325,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
+        '409':
+          description: |
+            Conflict
+
+            Examples:
+              1. quantity not positive: the calculated quote results in non positive quantity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
         '415':
           description: The request is not an application/json encoded request
         '429':
@@ -1363,6 +1373,16 @@ paths:
                 $ref: '#/components/schemas/Errors'
         '401':
           description: Unauthorized. The API Key is invalid or disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: |
+            Conflict
+
+            Examples:
+              1. quantity not positive: the calculated quote results in non positive quantity
           content:
             application/json:
               schema:
@@ -2548,7 +2568,7 @@ components:
             - invalid_selected_account_id
             - bundle_selection_not_100_pct
             - order_idempotency_failure
-            - order_low_volume_no_split
+            - order_quantity_non_positive
             - invalid_bundle_id
             - invalid_id
             - standard_test_account_name_update_disallowed
