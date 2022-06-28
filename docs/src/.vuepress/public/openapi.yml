@@ -557,7 +557,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StandardAccountPair'
+                $ref: '#/components/schemas/AccountPair'
         '400':
           description: Bad Request
           content:
@@ -680,7 +680,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StandardAccount'
+                $ref: '#/components/schemas/Account'
         '400':
           description: Bad Request
           content:
@@ -5360,7 +5360,7 @@ components:
               type: array
               description: Paginated Account objects
               items:
-                $ref: '#/components/schemas/StandardAccount'
+                $ref: '#/components/schemas/Account'
     PaginatedClientAccounts:
       allOf:
         - $ref: '#/components/schemas/PaginatedBase'
@@ -5373,17 +5373,17 @@ components:
               description: Paginated Client Account objects
               items:
                 $ref: '#/components/schemas/ClientAccount'
-    StandardAccountPair:
+    AccountPair:
       type: object
       required:
         - live
         - test
       properties:
         live:
-          $ref: '#/components/schemas/StandardAccount'
+          $ref: '#/components/schemas/Account'
         test:
-          $ref: '#/components/schemas/StandardAccount'
-    StandardAccount:
+          $ref: '#/components/schemas/Account'
+    Account:
       allOf:
         - $ref: '#/components/schemas/AccountBase'
       type: object
@@ -5413,15 +5413,15 @@ components:
           type: string
           enum:
             - client_account
-    Account:
+    AnyAccount:
       type: object
       oneOf:
-        - $ref: '#/components/schemas/StandardAccount'
+        - $ref: '#/components/schemas/Account'
         - $ref: '#/components/schemas/ClientAccount'
       discriminator:
         propertyName: scope
         mapping:
-          account: '#/components/schemas/StandardAccount'
+          account: '#/components/schemas/Account'
           client_account: '#/components/schemas/ClientAccount'
     UpdateAccountRequest:
       description: |
