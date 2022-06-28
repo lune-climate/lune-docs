@@ -749,6 +749,54 @@ paths:
                 $ref: '#/components/schemas/Errors'
         '429':
           description: Rate limit exceeded
+  /analytics/cumulative-per-bundle:
+    get:
+      summary: Get cumulative analytics
+      description: |
+        Calculate cumulative volume and cost analytics per bundle
+      operationId: getCumulativeAnalyticsPerBundle
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - Analytics
+      parameters:
+        - name: from
+          in: query
+          description:
+            The start date of the custom date range.
+          schema:
+            type: string
+            format: date
+            example: '2019-01-01'
+        - name: through
+          in: query
+          description:
+            The to (inclusive) date of the custom date range.
+          schema:
+            type: string
+            format: date
+            example: '2020-01-31'
+      responses:
+        '200':
+          description: Cumulative analytics per bundle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CumulativeBundleAnalytics'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Rate limit exceeded
   /bundles:
     get:
       summary: Get bundles
@@ -3723,6 +3771,59 @@ components:
           type: string
           description: Bundle mix id tied to the account.
           example: 'Jvhh30a6272NauKv92J7FG1c6Jfxd2E1'
+    CumulativeBundleAnalytics:
+      type: array
+      items:
+        $ref: '#/components/schemas/AnalyticsByBundle'
+    AnalyticsByBundle:
+      type: object
+      required:
+        - bundle_id
+        - bundle_name
+        - timeseries
+      properties:
+        bundle_id:
+          type: string
+          description: The bundle's unique identifier
+          example: va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5
+        bundle_name:
+          type: string
+          description: The bundle's name
+          example: 'Latin America Forestry'
+        timeseries:
+          $ref: '#/components/schemas/QuantityAndValueTimeseries'
+    QuantityAndValueTimeseries:
+      type: array
+      items:
+        type: object
+        required:
+          - date
+          - quantity
+          - value
+        properties:
+          date:
+              type: string
+              format: date
+              example: "2021-09-09"
+          value:
+            type: string
+            example: '222.667'
+            pattern: '^[0-9]+(\.[0-9]+)?$'
+          quantity:
+            type: string
+            pattern: '^[0-9]+(\.[0-9]+)?$'
+            example: '500.50'
+            description: Quantity of CO2 offsets linked to this activity (tonnes CO2)
+        example:
+          - date: '2022-06-25'
+            value: '13.20'
+            quantity: '503.342'
+          - date: '2022-06-26'
+            value: '23.20'
+            quantity: '1503.342'
+          - date: '2022-06-27'
+            value: '64.23'
+            quantity: '4700.451'
     Analytics:
       type: object
       required:
