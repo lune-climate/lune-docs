@@ -537,7 +537,7 @@ paths:
     post:
       summary: Create accounts
       description: |
-        Create a pair of standard accounts.
+        Create a pair of accounts.
 
         A test and live account are returned
       operationId: createAccounts
@@ -652,7 +652,7 @@ paths:
     put:
       summary: Update an account.
       description: |
-        Update a standard account. If targeting a test account, the name field needs to match the current
+        Update an account. If targeting a test account, the name field needs to match the current
         account name. If targeting a live account, the name field change will be replicated to its
         sibling account.
       operationId: updateAccount
@@ -3691,11 +3691,11 @@ components:
       description: |
           The account's scope.
 
-          Determines if the account is a client account or a standard account that comes in pairs (live and test).
+          Determines if the resource is a regular account or a client account.
       enum:
-        - standard
-        - client
-      example: 'standard'
+        - account
+        - client_account
+      example: 'account'
     AccountType:
       type: string
       description: |
@@ -5394,7 +5394,7 @@ components:
         scope:
           type: string
           enum:
-            - standard
+            - account
         sibling_id:
           type: string
           description: |
@@ -5412,7 +5412,7 @@ components:
         scope:
           type: string
           enum:
-            - client
+            - client_account
     Account:
       type: object
       oneOf:
@@ -5421,8 +5421,8 @@ components:
       discriminator:
         propertyName: scope
         mapping:
-          standard: '#/components/schemas/StandardAccount'
-          client: '#/components/schemas/ClientAccount'
+          account: '#/components/schemas/StandardAccount'
+          client_account: '#/components/schemas/ClientAccount'
     UpdateAccountRequest:
       description: |
         It's only possible to edit the name and beneficiary of an account.
