@@ -2810,7 +2810,7 @@ components:
             - order_quantity_non_positive
             - invalid_bundle_id
             - invalid_id
-            - standard_test_account_name_update_disallowed
+            - test_account_name_update_disallowed
             - validation_error
             - percentage_all_or_none
             - address_not_found
