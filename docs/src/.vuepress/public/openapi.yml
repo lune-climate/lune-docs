@@ -428,7 +428,7 @@ paths:
       security:
         - BearerAuth: []
       tags:
-        - Accounts
+        - Client Accounts
       parameters:
         - name: limit
           in: query
