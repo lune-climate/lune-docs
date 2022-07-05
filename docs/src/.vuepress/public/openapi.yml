@@ -297,27 +297,8 @@ paths:
       tags:
         - Activity
       parameters:
-        - name: limit
-          in: query
-          description:
-            Default is 10.
-
-            Maximum number of resources to return, between 1 and 100.
-          schema:
-            type: string
-            pattern: '^\d+$'
-            example: '50'
-        - name: after
-          in: query
-          description: |
-            A cursor for use in pagination.
-
-            *after* is an object ID that defines your place in the list.
-
-            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
-          schema:
-            type: string
-            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+        - $ref: "#/components/parameters/LimitPagination"
+        - $ref: "#/components/parameters/AfterPagination"
       responses:
         '200':
           description: The response returns paginated activity
@@ -430,27 +411,8 @@ paths:
       tags:
         - Client Accounts
       parameters:
-        - name: limit
-          in: query
-          description:
-            Default is 10.
-
-            Maximum number of resources to return, between 1 and 100.
-          schema:
-            type: string
-            pattern: '^\d+$'
-            example: '50'
-        - name: after
-          in: query
-          description: |
-            A cursor for use in pagination.
-
-            *after* is an object ID that defines your place in the list.
-
-            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
-          schema:
-            type: string
-            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+        - $ref: "#/components/parameters/LimitPagination"
+        - $ref: "#/components/parameters/AfterPagination"
         - name: type
           in: query
           description:
@@ -590,27 +552,8 @@ paths:
       tags:
         - Accounts
       parameters:
-        - name: limit
-          in: query
-          description:
-            Default is 10.
-
-            Maximum number of resources to return, between 1 and 100.
-          schema:
-            type: string
-            pattern: '^\d+$'
-            example: '50'
-        - name: after
-          in: query
-          description: |
-            A cursor for use in pagination.
-
-            *after* is an object ID that defines your place in the list.
-
-            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
-          schema:
-            type: string
-            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+        - $ref: "#/components/parameters/LimitPagination"
+        - $ref: "#/components/parameters/AfterPagination"
         - name: type
           in: query
           description:
@@ -815,27 +758,8 @@ paths:
       tags:
         - Projects
       parameters:
-        - name: limit
-          in: query
-          description:
-            Default is 10.
-
-            Maximum number of resources to return, between 1 and 100.
-          schema:
-            type: string
-            pattern: '^\d+$'
-            example: '50'
-        - name: after
-          in: query
-          description: |
-            A cursor for use in pagination.
-
-            *after* is an object ID that defines your place in the list.
-
-            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
-          schema:
-            type: string
-            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+        - $ref: "#/components/parameters/LimitPagination"
+        - $ref: "#/components/parameters/AfterPagination"
         - name: recently_disabled
           in: query
           description:
@@ -917,27 +841,8 @@ paths:
       tags:
         - Projects
       parameters:
-        - name: limit
-          in: query
-          description:
-            Default is 10.
-
-            Maximum number of resources to return, between 1 and 100.
-          schema:
-            type: string
-            pattern: '^\d+$'
-            example: '50'
-        - name: after
-          in: query
-          description: |
-            A cursor for use in pagination.
-
-            *after* is an object ID that defines your place in the list.
-
-            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
-          schema:
-            type: string
-            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+        - $ref: "#/components/parameters/LimitPagination"
+        - $ref: "#/components/parameters/AfterPagination"
         - name: recently_disabled
           in: query
           description:
@@ -1200,27 +1105,8 @@ paths:
       tags:
         - Orders
       parameters:
-        - name: limit
-          in: query
-          description:
-            Default is 10.
-
-            Maximum number of resources to return, between 1 and 100.
-          schema:
-            type: string
-            pattern: '^\d+$'
-            example: '50'
-        - name: after
-          in: query
-          description: |
-            A cursor for use in pagination.
-
-            *after* is an object ID that defines your place in the list.
-
-            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
-          schema:
-            type: string
-            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+        - $ref: "#/components/parameters/LimitPagination"
+        - $ref: "#/components/parameters/AfterPagination"
         - name: offset_link_id
           in: query
           description: |
@@ -2363,27 +2249,8 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - name: limit
-          in: query
-          description:
-            Default is 10.
-
-            Maximum number of resources to return, between 1 and 100.
-          schema:
-            type: string
-            pattern: '^\d+$'
-            example: '50'
-        - name: after
-          in: query
-          description: |
-            A cursor for use in pagination.
-
-            *after* is an object ID that defines your place in the list.
-
-            For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
-          schema:
-            type: string
-            example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+        - $ref: "#/components/parameters/LimitPagination"
+        - $ref: "#/components/parameters/AfterPagination"
       responses:
         '200':
           description: Offset links fetched successfully.
@@ -2707,6 +2574,31 @@ components:
         Note: Lune API keys are not URL-safe, which means that they can't be included in URLs directly.
         They need to be percent-encoded using a function like JavaScript's [`encodeURIComponent()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) or
         Python's [`urllib.parse.quote()`](https://docs.python.org/3/library/urllib.parse.html#urllib.parse.quote).
+  parameters:
+    LimitPagination:
+      name: limit
+      in: query
+      required: false
+      description: |
+        Maximum number of resources to return, between 1 and 100.
+      schema:
+        type: string
+        pattern: '^\d+$'
+        default: '10'
+        example: '50'
+    AfterPagination:
+      name: after
+      in: query
+      required: false
+      description: |
+        A cursor for use in pagination.
+
+        *after* is an object ID that defines your place in the list.
+
+        For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
+      schema:
+        type: string
+        example: 0vE213P96LbXNap56NAqVoM7knOedQg4
   schemas:
     ElectricityConsumption:
       type: object
