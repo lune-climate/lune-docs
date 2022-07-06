@@ -282,7 +282,7 @@ x-tagGroups:
 paths:
   /activity:
     get:
-      summary: Get account activity
+      summary: Get an account's activity
       description: |
         Returns paginated activity in reverse order (most recent first).
 
@@ -322,7 +322,7 @@ paths:
           description: Rate limit exceeded
   /accounts/me:
     get:
-      summary: Get account
+      summary: Get an account
       description: |
         Returns the active account. This is the account linked to the API key by default but is affected
         by the `Lune-Account` header.
@@ -400,7 +400,7 @@ paths:
         '429':
           description: Rate limit exceeded
     get:
-      summary: Get client accounts
+      summary: List client accounts
       description: |
         Returns paginated client accounts.
 
@@ -452,7 +452,7 @@ paths:
           description: Rate limit exceeded
   /accounts/client/{id}:
     put:
-      summary: Update a client account.
+      summary: Update a client account
       description: |
         Update a client account and return the updated account.
       operationId: updateClientAccount
@@ -497,7 +497,7 @@ paths:
           description: Rate limit exceeded
   /accounts:
     post:
-      summary: Create accounts
+      summary: Create an account pair
       description: |
         Create a pair of accounts.
 
@@ -541,7 +541,7 @@ paths:
         '429':
           description: Rate limit exceeded
     get:
-      summary: Get accounts
+      summary: List accounts
       description: |
         Returns paginated accounts.
 
@@ -593,7 +593,7 @@ paths:
           description: Rate limit exceeded
   /accounts/{id}:
     put:
-      summary: Update an account.
+      summary: Update an account
       description: |
         Update an account. If targeting a test account, the name field needs to match the current
         account name. If targeting a live account, the name field change will be replicated to its
@@ -640,7 +640,7 @@ paths:
           description: Rate limit exceeded
   /analytics:
     get:
-      summary: Get analytics
+      summary: Get an account analytics
       description: |
         Returns analytics for a specified time period for the account linked to the API Key.
 
@@ -742,7 +742,7 @@ paths:
           description: Rate limit exceeded
   /bundles:
     get:
-      summary: Get bundles
+      summary: List bundles
       description: |
         Returns paginated bundles.
 
@@ -827,7 +827,7 @@ paths:
           description: Rate limit exceeded
   /projects:
     get:
-      summary: Get projects
+      summary: List projects
       description: |
         Returns paginated projects.
 
@@ -877,7 +877,7 @@ paths:
           description: Rate limit exceeded
   /projects/{id}:
     get:
-      summary: Get a project by id
+      summary: Get a project
       description: |
         Returns a project by id if it exists.
 
@@ -1041,7 +1041,7 @@ paths:
           description: Rate limit exceeded
   /orders/by-estimate:
     post:
-      summary: Create an order from an emission estimate
+      summary: Create an order by estimate id
       description: Create an order to purchase carbon offset by specifying an estimate id
       operationId: createOrderByEstimate
       security:
@@ -1093,7 +1093,7 @@ paths:
           description: Rate limit exceeded
   /orders:
     get:
-      summary: Get orders
+      summary: List orders
       description: |
           Returns paginated account orders ordered by creation date descending
 
@@ -1327,7 +1327,7 @@ paths:
           description: Rate limit exceeded
   /bundle-selections:
     get:
-      summary: Get account bundle selection
+      summary: Get an account's bundle selection
       description: |
         Returns the account's bundle selection.
 
@@ -1358,7 +1358,7 @@ paths:
         '429':
           description: Rate limit exceeded
     put:
-      summary: Set account bundle selection
+      summary: Update an account's bundle selection
       description: |
         Set the account's bundle selection.
 
@@ -1410,7 +1410,7 @@ paths:
           description: Rate limit exceeded
   /bundle-mixes:
     get:
-      summary: Get bundle mixes
+      summary: List all bundle mixes
       description: |
         Returns bundle mixes.
 
@@ -1440,7 +1440,7 @@ paths:
           description: Rate limit exceeded
   /estimates/electricity:
     post:
-      summary: Estimate electricity emissions
+      summary: Create an electricity emission estimate
       description: |
         Estimate emissions produced by electricity consumption.
 
@@ -1528,7 +1528,7 @@ paths:
         '503':
           description: The service is temporarily unavailable
     put:
-      summary: Update electricity emission estimate
+      summary: Update an electricity emission estimate
       description: |
         Update emission estimate produced by electricity consumption.
 
@@ -1592,7 +1592,7 @@ paths:
           description: The service is temporarily unavailable
   /estimates/flight:
     post:
-      summary: Estimate flight emissions
+      summary: Create a flight emission estimate
       description: |
         Estimate emissions produced by passengers in a commercial airflight.
 
@@ -1643,7 +1643,7 @@ paths:
 
   /estimates/shipping:
     post:
-      summary: Estimate shipping emissions
+      summary: Create a shipping emission estimate
       description: |
         Estimate emissions produced by shipping something from point A to point B.
 
@@ -1859,8 +1859,7 @@ paths:
           description: The service is temporarily unavailable
   /estimates/shipping/multi-leg:
     post:
-      summary: |
-        Estimate shipping emissions for multi-leg journeys
+      summary: Create a multi-leg shipping emission estimate
       description: |
         The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
 
@@ -2005,7 +2004,7 @@ paths:
           description: The service is temporarily unavailable
   /estimates/transactions:
     post:
-      summary: Estimate transaction-related emissions
+      summary: Create a transaction emission estimate
       description: |
         Estimate emissions produced by purchasing goods or services.
 
@@ -2061,7 +2060,7 @@ paths:
           description: The service is temporarily unavailable
   /estimates/company:
     post:
-      summary: Estimate company-wide emissions
+      summary: Create a company emission estimate
       description: |
         Estimate emissions produced by a company. This includes office-related emissions,
         employee transportation, food, drinks, electronic equipment and computing/networking
@@ -2113,7 +2112,7 @@ paths:
           description: The service is temporarily unavailable
   /estimates/individual:
     post:
-      summary: Estimate individual annual emissions
+      summary: Create an individual's emission estimate
       description: |
         Estimate emissions produced by an individual for a year. This includes travel emissions, food, drinks, energy and shopping activities.
 
@@ -2165,7 +2164,7 @@ paths:
     get:
       tags:
         - Offset links
-      summary: Get an offset link by id
+      summary: Get an offset link
       operationId: getOffsetLink
       security:
         - BearerAuth: []
@@ -2244,7 +2243,7 @@ paths:
     get:
       tags:
         - Offset links
-      summary: Get the existing offset links
+      summary: List offset links
       operationId: listOffsetLinks
       security:
         - BearerAuth: []
@@ -2269,7 +2268,7 @@ paths:
     post:
       tags:
         - Offset links
-      summary: Create a new offset link
+      summary: Create an offset link
       operationId: createOffsetLink
       security:
         - BearerAuth: []
@@ -2312,7 +2311,7 @@ paths:
     get:
       tags:
         - Offset links
-      summary: Get analytics for a given offset link
+      summary: Get offset link's analytics
       operationId: getOffsetLinkAnalytics
       security:
         - BearerAuth: []
@@ -2345,7 +2344,7 @@ paths:
     get:
       tags:
         - Webhooks
-      summary: Get existing webhooks
+      summary: List all webhooks
       operationId: listAllWebhooks
       security:
         - BearerAuth: []
@@ -2369,7 +2368,7 @@ paths:
     post:
       tags:
         - Webhooks
-      summary: Create a new webhook
+      summary: Create a webhook
       operationId: createWebhook
       security:
         - BearerAuth: []
@@ -2405,7 +2404,7 @@ paths:
     get:
       tags:
         - Webhooks
-      summary: Get an existing webhook
+      summary: Get a webhook
       operationId: getWebhook
       security:
         - BearerAuth: []
@@ -2437,7 +2436,7 @@ paths:
     put:
       tags:
         - Webhooks
-      summary: Update an existing webhook
+      summary: Update a webhook
       operationId: updateWebhook
       security:
         - BearerAuth: []
@@ -2481,7 +2480,7 @@ paths:
     delete:
       tags:
         - Webhooks
-      summary: Delete an existing webhook
+      summary: Delete a webhook
       operationId: deleteWebhook
       security:
         - BearerAuth: []
@@ -2510,7 +2509,7 @@ paths:
     put:
       tags:
         - Webhooks
-      summary: Rotate a secret of an existing webhook.
+      summary: Rotate a webhook secret
       description: |
         The existing secret will be invalidated immediately and subsequent webhook payloads will be
         accompanied by HMACs using the new secret.
@@ -2712,7 +2711,6 @@ components:
             - invalid_time_range
             - exchange_rate_not_found
             - live_account_required
-            - organisation_not_found
             - unauthorised
             - estimate_not_found
             - estimate_order_already_placed
