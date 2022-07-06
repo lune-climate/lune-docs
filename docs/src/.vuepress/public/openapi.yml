@@ -405,7 +405,7 @@ paths:
         Returns paginated client accounts.
 
         Query parameters can be used to filter these accounts by name and/or type.
-      operationId: getClientAccounts
+      operationId: listClientAccounts
       security:
         - BearerAuth: []
       tags:
@@ -502,7 +502,7 @@ paths:
         Create a pair of accounts.
 
         A test and live account are returned
-      operationId: createAccounts
+      operationId: createAccountPair
       security:
         - BearerAuth: []
       tags:
@@ -546,7 +546,7 @@ paths:
         Returns paginated accounts.
 
         Query parameters can be used to filter these accounts by name and/or scope.
-      operationId: getAccounts
+      operationId: listAccounts
       security:
         - BearerAuth: []
       tags:
@@ -752,7 +752,7 @@ paths:
 
         Disabled bundles are not returned unless `recently_disabled` is used.
         Disabled bundle projects are not returned unless `recently_disabled` is used.
-      operationId: getBundles
+      operationId: listBundles
       security:
         - BearerAuth: []
       tags:
@@ -801,7 +801,7 @@ paths:
         Bundle represent a group of projects of similar unit price and characteristics.
 
         Orders are placed against bundles.
-      operationId: getBundleById
+      operationId: getBundle
       security:
         - BearerAuth: []
       tags:
@@ -835,7 +835,7 @@ paths:
         Disabled project bundles are not returned unless `recently_disabled` is used.
 
         Note: orders are placed against bundles not projects.
-      operationId: getProjects
+      operationId: listProjects
       security:
         - BearerAuth: []
       tags:
@@ -882,7 +882,7 @@ paths:
         Returns a project by id if it exists.
 
         Disabled projects are returned.
-      operationId: getProjectById
+      operationId: getProject
       security:
         - BearerAuth: []
       tags:
@@ -1099,7 +1099,7 @@ paths:
 
           The API key used to access this method affects what orders are returned: test orders for the test
           API key, live orders for the live one.
-      operationId: getOrders
+      operationId: listOrders
       security:
         - BearerAuth: []
       tags:
@@ -1137,7 +1137,7 @@ paths:
       summary: Get an order
       description: |
         Returns an order by id if it exists.
-      operationId: getOrderById
+      operationId: getOrder
       security:
         - BearerAuth: []
       tags:
@@ -1166,7 +1166,7 @@ paths:
       summary: Get a carbon offset certificate
       description: |
         Download a Carbon Offset Certificate for a completed order.
-      operationId: getOrderCertificateById
+      operationId: getOrderCertificate
       security:
         - BearerAuth: []
         - AccessToken: []
@@ -1416,7 +1416,7 @@ paths:
 
         Bundle mixes are predefined bundle selections, for example following Oxford Offsetting Principles.
         Bundle selection for a particular Bundle mix may change over time.
-      operationId: getBundleMixes
+      operationId: listAllBundleMixes
       security:
         - BearerAuth: []
       tags:
@@ -1445,7 +1445,7 @@ paths:
         Estimate emissions produced by electricity consumption.
 
         The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
-      operationId: getElectricityEstimate
+      operationId: createElectricityEstimate
       security:
         - BearerAuth: []
       tags:
@@ -1491,7 +1491,7 @@ paths:
   /estimates/electricity/{id}:
     get:
       summary: Get an electricity emission estimate
-      operationId: retrieveElectricityEstimate
+      operationId: getElectricityEstimate
       security:
         - BearerAuth: []
       tags:
@@ -1597,7 +1597,7 @@ paths:
         Estimate emissions produced by passengers in a commercial airflight.
 
         The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
-      operationId: getFlightEstimate
+      operationId: createFlightEstimate
       security:
         - BearerAuth: []
       tags:
@@ -1719,7 +1719,7 @@ paths:
         -X POST \
         -d <PAYLOAD>
         ```
-      operationId: getShippingEstimate
+      operationId: createShippingEstimate
       security:
         - BearerAuth: []
       tags:
@@ -1765,7 +1765,7 @@ paths:
   /estimates/shipping/{id}:
     get:
       summary: Get a shipping emission estimate
-      operationId: retrieveShippingEstimate
+      operationId: getShippingEstimate
       security:
         - BearerAuth: []
       tags:
@@ -1865,7 +1865,7 @@ paths:
         The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
 
         Each leg can be fulfilled by a different method, eg a truck, a plane or other options.
-      operationId: getMultiLegShippingEstimate
+      operationId: createMultiLegShippingEstimate
       security:
         - BearerAuth: []
       tags:
@@ -1911,7 +1911,7 @@ paths:
   /estimates/shipping/multi-leg/{id}:
     get:
       summary: Get a multi-leg shipping emission estimate
-      operationId: retrieveMultiLegShippingEstimate
+      operationId: getMultiLegShippingEstimate
       security:
         - BearerAuth: []
       tags:
@@ -2016,7 +2016,7 @@ paths:
         `diet`, if provided, will affect the estimates for purchases we determine are food-related.
 
         The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
-      operationId: getTransactionEstimate
+      operationId: createTransactionEstimate
       security:
         - BearerAuth: []
       tags:
@@ -2068,7 +2068,7 @@ paths:
         operations.
 
         The result is an estimate of a year-worth of company emissions.
-      operationId: getCompanyEstimate
+      operationId: createCompanyEstimate
       security:
         - BearerAuth: []
       tags:
@@ -2118,7 +2118,7 @@ paths:
         Estimate emissions produced by an individual for a year. This includes travel emissions, food, drinks, energy and shopping activities.
 
         The result is an estimate of a year-worth of emissions.
-      operationId: getIndividualEstimate
+      operationId: createIndividualEstimate
       security:
         - BearerAuth: []
       tags:
@@ -2166,7 +2166,7 @@ paths:
       tags:
         - Offset links
       summary: Get an offset link by id
-      operationId: getOffsetLinkById
+      operationId: getOffsetLink
       security:
         - BearerAuth: []
       parameters:
@@ -2198,7 +2198,7 @@ paths:
       tags:
         - Offset links
       summary: Update an offset link
-      operationId: updateOffsetLinkById
+      operationId: updateOffsetLink
       security:
         - BearerAuth: []
       parameters:
@@ -2245,7 +2245,7 @@ paths:
       tags:
         - Offset links
       summary: Get the existing offset links
-      operationId: getOffsetLinks
+      operationId: listOffsetLinks
       security:
         - BearerAuth: []
       parameters:
@@ -2313,7 +2313,7 @@ paths:
       tags:
         - Offset links
       summary: Get analytics for a given offset link
-      operationId: getOffsetLinkAnalyticsById
+      operationId: getOffsetLinkAnalytics
       security:
         - BearerAuth: []
       parameters:
@@ -2346,7 +2346,7 @@ paths:
       tags:
         - Webhooks
       summary: Get existing webhooks
-      operationId: getWebhooks
+      operationId: listAllWebhooks
       security:
         - BearerAuth: []
       responses:
@@ -2406,7 +2406,7 @@ paths:
       tags:
         - Webhooks
       summary: Get an existing webhook
-      operationId: getWebhookById
+      operationId: getWebhook
       security:
         - BearerAuth: []
       parameters:
