@@ -2701,14 +2701,24 @@ components:
             - order_quantity_non_positive
             - invalid_bundle_id
             - invalid_id
+            - bundle_selection_ratios_invalid
+            - bundle_selection_bundle_invalid
+            - order_idempotency_already_exists
+            - order_quantity_invalid
+            - bundle_id_invalid
+            - id_invalid
             - test_account_name_update_disallowed
             - validation_error
             - percentage_all_or_none
+            - bundle_selection_ratios_invalid_format
             - address_not_found
             - at_least_one_constraint_required
             - bundles_size_not_supported
+            - offset_link_constraint_required
+            - offset_link_bundles_size_invalid
             - webhook_limit_reached
             - invalid_time_range
+            - time_range_invalid
             - exchange_rate_not_found
             - live_account_required
             - unauthorised
