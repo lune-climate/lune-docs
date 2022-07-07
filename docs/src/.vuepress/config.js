@@ -19,7 +19,8 @@ module.exports = {
     ['link', { rel: 'icon', href: '/favicon.png' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }]
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
+    ['script', { defer: true, dataDomain: 'docs.lune.co', src: 'https://plausible.io/js/plausible.js' }]
   ],
 
   /**
