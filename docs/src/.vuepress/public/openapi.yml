@@ -765,11 +765,10 @@ paths:
           description:
             When `recently_disabled` is set to true, the response will also include bundles which have been disabled in the last 30 days.
 
-            Default is false.
-
             Omitting or setting recently_disabled to false has the same effect.
           schema:
             type: boolean
+            default: false
             example: true
       responses:
         '200':
@@ -848,11 +847,10 @@ paths:
           description:
             When `recently_disabled` is set to true, the response will also include bundles which have been disabled in the last 30 days.
 
-            Default is false.
-
             Omitting or setting recently_disabled to false has the same effect.
           schema:
             type: boolean
+            default: false
             example: true
       responses:
         '200':
