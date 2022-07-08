@@ -301,7 +301,7 @@ paths:
         - $ref: "#/components/parameters/AfterPagination"
       responses:
         '200':
-          description: The response returns paginated activity
+          description: OK
           content:
             application/json:
               schema:
@@ -335,19 +335,19 @@ paths:
         - Accounts
       responses:
         '200':
-          description: The response returns an account
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Account'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '400':
           description: Bad Request
           content:
@@ -374,7 +374,7 @@ paths:
               $ref: '#/components/schemas/CreateClientAccountRequest'
       responses:
         '200':
-          description: The response returns the created client account
+          description: OK
           content:
             application/json:
               schema:
@@ -386,19 +386,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '403':
-          description: Forbidden. The API Key is not authorized to perform the operation.
+          description: Forbidden
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
     get:
       summary: List client accounts
       description: |
@@ -431,7 +431,7 @@ paths:
             example: 'Merchant_X'
       responses:
         '200':
-          description: The response returns paginated client accounts
+          description: OK
           content:
             application/json:
               schema:
@@ -476,7 +476,7 @@ paths:
               $ref: '#/components/schemas/UpdateAccountRequest'
       responses:
         '200':
-          description: The response returns the updated account
+          description: OK
           content:
             application/json:
               schema:
@@ -515,7 +515,7 @@ paths:
               $ref: '#/components/schemas/CreateAccountRequest'
       responses:
         '200':
-          description: The response returns the pair of accounts
+          description: OK
           content:
             application/json:
               schema:
@@ -572,7 +572,7 @@ paths:
             example: 'Merchant_X'
       responses:
         '200':
-          description: The response returns paginated accounts
+          description: OK
           content:
             application/json:
               schema:
@@ -619,7 +619,7 @@ paths:
               $ref: '#/components/schemas/UpdateAccountRequest'
       responses:
         '200':
-          description: The response returns the updated account
+          description: OK
           content:
             application/json:
               schema:
@@ -631,13 +631,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /analytics:
     get:
       summary: Get an account analytics
@@ -673,7 +673,7 @@ paths:
             example: '2020-01-31'
       responses:
         '200':
-          description: The response return account analytics
+          description: OK
           content:
             application/json:
               schema:
@@ -685,13 +685,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /analytics/cumulative-per-bundle:
     get:
       summary: Get cumulative analytics
@@ -721,7 +721,7 @@ paths:
             example: '2020-01-31'
       responses:
         '200':
-          description: Cumulative analytics per bundle
+          description: OK
           content:
             application/json:
               schema:
@@ -739,7 +739,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /bundles:
     get:
       summary: List bundles
@@ -773,7 +773,7 @@ paths:
             example: true
       responses:
         '200':
-          description: The response returns paginated bundles
+          description: OK
           content:
             application/json:
               schema:
@@ -785,13 +785,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /bundles/{id}:
     get:
       summary: Get a bundle
@@ -816,15 +816,15 @@ paths:
             example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
       responses:
         '200':
-          description: The response returns a bundle
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Bundle'
         '404':
-          description: The bundle does not exist
+          description: Not Found
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /projects:
     get:
       summary: List projects
@@ -856,7 +856,7 @@ paths:
             example: true
       responses:
         '200':
-          description: The response returns paginated projects
+          description: OK
           content:
             application/json:
               schema:
@@ -868,13 +868,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /projects/{id}:
     get:
       summary: Get a project
@@ -897,15 +897,15 @@ paths:
             example: 1vE213P96LbXNap56NAqVoM7knOedQg4
       responses:
         '200':
-          description: The response returns a project
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Project'
         '404':
-          description: The project does not exist
+          description: Not Found
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /projects/by-slug/{slug}:
     get:
       summary: Get a project by slug
@@ -928,15 +928,15 @@ paths:
             example: 'alto-mayo'
       responses:
         '200':
-          description: The response returns a project
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Project'
         '404':
-          description: The project does not exist
+          description: Not Found
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /orders/by-mass:
     post:
       summary: Create an order by mass
@@ -954,9 +954,7 @@ paths:
               $ref: '#/components/schemas/CreateOrderByQuantityRequest'
       responses:
         '200':
-          description: |
-            Order created successfully.
-            The response returns an Order object.
+          description: OK
           content:
             application/json:
               schema:
@@ -968,26 +966,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '409':
-          description: |
-            Conflict
-
-            Examples:
-              1. account is suspended
-              2. order idempotency failure: an order with the same idempotency_key has already by created
+          description: Conflict
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /orders/by-value:
     post:
       summary: Create an order by value
@@ -1005,9 +998,7 @@ paths:
               $ref: '#/components/schemas/CreateOrderByValueRequest'
       responses:
         '200':
-          description: |
-            Order created successfully.
-            The response returns an Order object.
+          description: OK
           content:
             application/json:
               schema:
@@ -1019,26 +1010,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '409':
-          description: |
-            Conflict
-
-            Examples:
-              1. account is suspended
-              2. order idempotency failure: an order with the same idempotency_key has already by created
+          description: Conflict
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /orders/by-estimate:
     post:
       summary: Create an order by estimate id
@@ -1056,9 +1042,7 @@ paths:
               $ref: '#/components/schemas/CreateOrderByEstimateRequest'
       responses:
         '200':
-          description: |
-            Order created successfully.
-            The response returns an Order object.
+          description: OK
           content:
             application/json:
               schema:
@@ -1070,27 +1054,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '409':
-          description: |
-            Conflict
-
-            Examples:
-              1. account is suspended
-              2. order idempotency failure: an order with the same idempotency_key has already by created
-              3. order for this emission estimate has already been placed
+          description: Conflict
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /orders:
     get:
       summary: List orders
@@ -1119,19 +1097,19 @@ paths:
             example: ke56XR3wK72raAe6ZPyEDQzgWldPBO41
       responses:
         '200':
-          description: The response returns paginated orders
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedOrders'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /orders/{id}:
     get:
       summary: Get an order
@@ -1152,15 +1130,15 @@ paths:
             example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
       responses:
         '200':
-          description: The response returns an order
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Order'
         '404':
-          description: The order does not exist
+          description: Not Found
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /orders/{id}/certificate:
     get:
       summary: Get a carbon offset certificate
@@ -1182,16 +1160,16 @@ paths:
             example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
       responses:
         '200':
-          description: The response returns the Carbon Offset Certificate
+          description: OK
           content:
             application/pdf:
               schema:
                 type: string
                 format: binary
         '404':
-          description: The order or the certificate does not exist
+          description: Not Found
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /orders/by-idempotency-key/{idempotencyKey}:
     get:
       summary: Get an order by idempotency key
@@ -1212,15 +1190,15 @@ paths:
             example: 'sg5knd2'
       responses:
         '200':
-          description: The response returns an order
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Order'
         '404':
-          description: The order does not exist
+          description: Not Found
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /orders/by-mass/quote:
     post:
       summary: Calculate an order quote by mass
@@ -1241,8 +1219,7 @@ paths:
               $ref: '#/components/schemas/OrderQuoteByQuantityRequest'
       responses:
         '200':
-          description: |
-            Order quote processed successfully.
+          description: OK
           content:
             application/json:
               schema:
@@ -1254,25 +1231,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '409':
-          description: |
-            Conflict
-
-            Examples:
-              1. quantity not positive: the calculated quote results in non positive quantity
+          description: Conflict
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /orders/by-value/quote:
     post:
       summary: Calculate an order quote by value
@@ -1293,8 +1266,7 @@ paths:
               $ref: '#/components/schemas/OrderQuoteByValueRequest'
       responses:
         '200':
-          description: |
-            Order quote processed successfully.
+          description: OK
           content:
             application/json:
               schema:
@@ -1306,25 +1278,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '409':
-          description: |
-            Conflict
-
-            Examples:
-              1. quantity not positive: the calculated quote results in non positive quantity
+          description: Conflict
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /bundle-selections:
     get:
       summary: Get an account's bundle selection
@@ -1344,19 +1312,19 @@ paths:
         - Bundle selections
       responses:
         '200':
-          description: The response returns the account's bundle selections
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BundleSelection'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
     put:
       summary: Update an account's bundle selection
       description: |
@@ -1377,7 +1345,7 @@ paths:
               $ref: '#/components/schemas/BundleSelectionRequest'
       responses:
         '200':
-          description: The response returns the new account's bundle selections
+          description: OK
           content:
             application/json:
               schema:
@@ -1389,13 +1357,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '403':
-          description: Forbidden. The API Key is not authorized to perform the operation.
+          description: Forbidden
           content:
             application/json:
               schema:
@@ -1407,7 +1375,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /bundle-mixes:
     get:
       summary: List all bundle mixes
@@ -1423,7 +1391,7 @@ paths:
         - Bundle mixes
       responses:
         '200':
-          description: The response returns the bundle mixes
+          description: OK
           content:
             application/json:
               schema:
@@ -1431,13 +1399,13 @@ paths:
                 items:
                   $ref: '#/components/schemas/BundleMix'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /estimates/electricity:
     post:
       summary: Create an electricity emission estimate
@@ -1458,8 +1426,7 @@ paths:
               $ref: '#/components/schemas/ElectricityEstimateRequest'
       responses:
         '200':
-          description: |
-            Estimation calculated successfully.
+          description: OK
           content:
             application/json:
               schema:
@@ -1471,7 +1438,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -1483,11 +1450,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
   /estimates/electricity/{id}:
     get:
       summary: Get an electricity emission estimate
@@ -1506,27 +1473,27 @@ paths:
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
       responses:
         '200':
-          description: Estimation retrieved succesfully
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/EmissionEstimateResponse'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '404':
-          description: The offset link does not exist
+          description: Not Found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
     put:
       summary: Update an electricity emission estimate
       description: |
@@ -1567,7 +1534,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -1585,11 +1552,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
   /estimates/flight:
     post:
       summary: Create a flight emission estimate
@@ -1610,8 +1577,7 @@ paths:
               $ref: '#/components/schemas/FlightEstimateRequest'
       responses:
         '200':
-          description: |
-            Estimation calculated successfully.
+          description: OK
           content:
             application/json:
               schema:
@@ -1623,7 +1589,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -1635,11 +1601,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
 
   /estimates/shipping:
     post:
@@ -1732,8 +1698,7 @@ paths:
               $ref: '#/components/schemas/ShippingEstimateRequest'
       responses:
         '200':
-          description: |
-            Estimation calculated successfully.
+          description: OK
           content:
             application/json:
               schema:
@@ -1745,7 +1710,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -1757,11 +1722,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
   /estimates/shipping/{id}:
     get:
       summary: Get a shipping emission estimate
@@ -1780,27 +1745,27 @@ paths:
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
       responses:
         '200':
-          description: Estimation retrieved succesfully
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleShippingEmissionEstimate'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '404':
-          description: The offset link does not exist
+          description: Not Found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
     put:
       summary: Update a shipping emission estimate
       operationId: updateShippingEstimate
@@ -1824,7 +1789,7 @@ paths:
               $ref: '#/components/schemas/ShippingEstimateRequest'
       responses:
         '200':
-          description: Estimation retrieved succesfully
+          description: OK
           content:
             application/json:
               schema:
@@ -1836,13 +1801,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '404':
-          description: The offset link does not exist
+          description: Not Found
           content:
             application/json:
               schema:
@@ -1854,9 +1819,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
   /estimates/shipping/multi-leg:
     post:
       summary: Create a multi-leg shipping emission estimate
@@ -1877,8 +1842,7 @@ paths:
               $ref: '#/components/schemas/MultiLegShippingEstimateRequest'
       responses:
         '200':
-          description: |
-            Estimation calculated successfully.
+          description: OK
           content:
             application/json:
               schema:
@@ -1890,7 +1854,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -1902,11 +1866,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
   /estimates/shipping/multi-leg/{id}:
     get:
       summary: Get a multi-leg shipping emission estimate
@@ -1925,27 +1889,27 @@ paths:
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
       responses:
         '200':
-          description: Estimation retrieved succesfully
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/MultiLegShippingEmissionEstimate'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '404':
-          description: The offset link does not exist
+          description: Not Found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
     put:
       summary: Update a multi-leg shipping emission estimate
       operationId: updateMultiLegShippingEstimate
@@ -1969,7 +1933,7 @@ paths:
               $ref: '#/components/schemas/MultiLegShippingEstimateRequest'
       responses:
         '200':
-          description: Estimation retrieved succesfully
+          description: OK
           content:
             application/json:
               schema:
@@ -1981,13 +1945,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '404':
-          description: The offset link does not exist
+          description: Not Found
           content:
             application/json:
               schema:
@@ -1999,9 +1963,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
   /estimates/transactions:
     post:
       summary: Create a transaction emission estimate
@@ -2028,8 +1992,7 @@ paths:
               $ref: '#/components/schemas/TransactionEstimateRequest'
       responses:
         '200':
-          description: |
-            Estimation calculated successfully.
+          description: OK
           content:
             application/json:
               schema:
@@ -2041,7 +2004,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -2053,11 +2016,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
   /estimates/company:
     post:
       summary: Create a company emission estimate
@@ -2080,8 +2043,7 @@ paths:
               $ref: '#/components/schemas/CompanyEstimateRequest'
       responses:
         '200':
-          description: |
-            Estimation calculated successfully.
+          description: OK
           content:
             application/json:
               schema:
@@ -2093,7 +2055,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -2105,11 +2067,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
   /estimates/individual:
     post:
       summary: Create an individual's emission estimate
@@ -2130,8 +2092,7 @@ paths:
               $ref: '#/components/schemas/IndividualEstimateRequest'
       responses:
         '200':
-          description: |
-            Estimation calculated successfully.
+          description: OK
           content:
             application/json:
               schema:
@@ -2143,7 +2104,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -2155,11 +2116,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
         '503':
-          description: The service is temporarily unavailable
+          description: Service Unavailable
   /offset-links/{id}:
     get:
       tags:
@@ -2178,21 +2139,21 @@ paths:
             example: 1vE213P96LbXNap56NAqVoM7knOedQg5
       responses:
         '200':
-          description: Offset link fetched successfully.
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/OffsetLink'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '404':
-          description: The offset link does not exist
+          description: Not Found
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
     put:
       tags:
         - Offset links
@@ -2216,7 +2177,7 @@ paths:
               $ref: '#/components/schemas/OffsetLinkUpdateRequest'
       responses:
         '200':
-          description: The offset link updated successfully.
+          description: OK
           content:
             application/json:
               schema:
@@ -2228,17 +2189,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '404':
-          description: An offset link with the specified id belonging to the authenticated account has not been found.
+          description: Not Found
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /offset-links:
     get:
       tags:
@@ -2252,19 +2213,19 @@ paths:
         - $ref: "#/components/parameters/AfterPagination"
       responses:
         '200':
-          description: Offset links fetched successfully.
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedOffsetLinks'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
     post:
       tags:
         - Offset links
@@ -2280,7 +2241,7 @@ paths:
               $ref: '#/components/schemas/OffsetLinkRequest'
       responses:
         '200':
-          description: The offset link created successfully.
+          description: OK
           content:
             application/json:
               schema:
@@ -2292,7 +2253,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
@@ -2304,9 +2265,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '415':
-          description: The request is not an application/json encoded request
+          description: Unsupported Media Type
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /offset-links/{id}/analytics:
     get:
       tags:
@@ -2325,21 +2286,21 @@ paths:
             example: 1vE213P96LbXNap56NAqVoM7knOedQg5
       responses:
         '200':
-          description: Offset link analytics fetched successfully.
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/OffsetLinkAnalytics'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '404':
-          description: The offset link does not exist
+          description: Not Found
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /webhooks:
     get:
       tags:
@@ -2350,7 +2311,7 @@ paths:
         - BearerAuth: []
       responses:
         '200':
-          description: Existing webhooks fetched successfully
+          description: OK
           content:
             application/json:
               schema:
@@ -2358,13 +2319,13 @@ paths:
                 items:
                   $ref: '#/components/schemas/Webhook'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
     post:
       tags:
         - Webhooks
@@ -2380,7 +2341,7 @@ paths:
               $ref: '#/components/schemas/CreateWebhookRequest'
       responses:
         '200':
-          description: A webhook created successfully
+          description: OK
           content:
             application/json:
               schema:
@@ -2392,13 +2353,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
 
   /webhooks/{id}:
     get:
@@ -2418,21 +2379,21 @@ paths:
             example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
       responses:
         '200':
-          description: Existing webhook fetched successfully
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Webhook'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '404':
-          description: The webhook does not exist
+          description: Not Found
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
     put:
       tags:
         - Webhooks
@@ -2456,7 +2417,7 @@ paths:
               $ref: '#/components/schemas/UpdateWebhookRequest'
       responses:
         '200':
-          description: Existing webhook updated successfully
+          description: OK
           content:
             application/json:
               schema:
@@ -2468,15 +2429,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '404':
-          description: The webhook does not exist
+          description: Not Found
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
     delete:
       tags:
         - Webhooks
@@ -2494,17 +2455,17 @@ paths:
             example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
       responses:
         '200':
-          description: Existing webhook deleted successfully
+          description: OK
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '404':
-          description: The webhook does not exist
+          description: Not Found
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /webhooks/{id}/rotate-secret:
     put:
       tags:
