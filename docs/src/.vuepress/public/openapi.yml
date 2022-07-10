@@ -2,8 +2,6 @@ openapi: 3.0.1
 info:
   title: Lune API Reference
   version: '1.0'
-  x-logo:
-    url: https://assets.lune.co/lune-api.png
   contact:
     name: Lune Support
     email: support@lune.co
@@ -101,36 +99,12 @@ info:
 
     *error_code*'s are useful to handle errors programmatically.
 
-    ### HTTP Status Codes
-    | Code | Description |
-    |------|-------------|
-    | 200  | The request has been processed as expected |
-    | 201  | The request has been processed as expected and a resource has been created |
-    | 400  | The request is invalid. Parameters may be missing or are invalid |
-    | 401  | The API Key is missing or is invalid |
-    | 403  | The API Key is not authorized to perform the operation |
-    | 404  | The resource has not been found |
-    | 409  | The request could not be completed due to a conflict with the current state of the target resource or resources |
-    | 415  | The request content's have not been json encoded |
-    | 429  | Too many requests have been made in a short period of time |
-    | 500  | Internal server error. Something has gone wrong. Definitely Lune's issue |
-    | 503  | The service is temporarily unavailable. Lune's fault, you may retry. |
-
-
     # Order status and lifecycle
     Orders have statuses and follow a precise lifecycle.
 
     Please familiarise with the following:
 
     <img src="https://assets.lune.co/docs/order-status-transitions-same-bg.png" />
-
-    # Postman
-    If you are familiar with Postman, feel free to import our Postman collections.
-    Our Postman collections will allow you to very easily run real requests and see how the system responds.
-
-    [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/16751508-170c2b27-f8c0-4bbd-a139-2b83a36416d6?action=collection%2Ffork&collection-url=entityId%3D16751508-170c2b27-f8c0-4bbd-a139-2b83a36416d6%26entityType%3Dcollection%26workspaceId%3D4e2ab95c-f1a6-45f2-9a9a-d7c45af4f452)
-
-    You will still need an <a href="https://dashboard.lune.co/api-keys" target="_blank">API Key</a> from the dashboard.
 
 servers:
   - url: https://api.lune.co/v1
@@ -264,20 +238,6 @@ tags:
 
       # The payload format
       The `/WebhookRequest` mock endpoint documents the data format that the webhook endpoints should expect.
-x-tagGroups:
-  - name: API Reference
-    tags:
-      - Orders
-      - Projects
-      - Accounts
-      - Client Accounts
-      - Analytics
-      - Activity
-      - Bundle selections
-      - Emission estimates
-      - Offset links
-      - Webhooks
-      - Webhook Request
 
 paths:
   /activity:
