@@ -20,7 +20,9 @@ module.exports = {
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
-    ['script', { defer: true, 'data-domain': 'docs.lune.co', src: 'https://plausible.io/js/plausible.js' }]
+    ...(process.env.ENABLE_PLAUSIBLE
+        ? [['script', { defer: true, 'data-domain': 'docs.lune.co', src: 'https://plausible.io/js/plausible.js' }]]
+        : [])
   ],
 
   /**
