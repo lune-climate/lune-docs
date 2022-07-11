@@ -243,14 +243,6 @@ paths:
   /activity:
     get:
       summary: Get an account's activity
-      description: |
-        Returns paginated activity in reverse order (most recent first).
-
-        Activity is an immutable event log. Every single account event yields an activity object.
-
-        The API key used to access this method affects what activity rows are returned: activity rows
-        corresponding to test orders for the test API key, the rest of the rows (both activity rows
-        corresponding to live orders or not having any order associated with them) for the live API key.
       operationId: getActivity
       security:
         - BearerAuth: []
@@ -273,21 +265,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /accounts/me:
     get:
       summary: Get an account
-      description: |
-        Returns the active account. This is the account linked to the API key by default but is affected
-        by the `Lune-Account` header.
-
-        One account object is returned.
       operationId: getAccount
       security:
         - BearerAuth: []
@@ -317,10 +304,6 @@ paths:
   /accounts/client:
     post:
       summary: Create a client account
-      description: |
-        Create a client account
-
-        A client account can be of type test or live.
       operationId: createClientAccount
       security:
         - BearerAuth: []
@@ -361,10 +344,6 @@ paths:
           description: Too Many Requests
     get:
       summary: List client accounts
-      description: |
-        Returns paginated client accounts.
-
-        Query parameters can be used to filter these accounts by name and/or type.
       operationId: listClientAccounts
       security:
         - BearerAuth: []
@@ -376,15 +355,15 @@ paths:
         - name: type
           in: query
           description:
-            Used to filter the results to only include accounts of a specific type.
+            Filter accounts based on type.
           schema:
             $ref: '#/components/schemas/AccountType'
         - name: name
           in: query
-          description:
-            Used to filter the results to only include accounts which name contains this value (case insensitive).
+          description: |
+            Filter accounts based on name (case insensitive).
 
-            Keep in mind the value itself can appear at the beggining, middle or end on the actual account name.
+            The value can appear at the beggining, middle or end on the actual account name.
           schema:
             type: string
             pattern: '^[a-zA-Z0-9_]{3,}$'
@@ -403,18 +382,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /accounts/client/{id}:
     put:
       summary: Update a client account
-      description: |
-        Update a client account and return the updated account.
       operationId: updateClientAccount
       security:
         - BearerAuth: []
@@ -424,7 +401,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: The account id
+          description: The account's unique identifier
           schema:
             type: string
             example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
@@ -448,20 +425,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /accounts:
     post:
       summary: Create an account pair
       description: |
-        Create a pair of accounts.
-
-        A test and live account are returned
+        Create a pair of live and test accounts. The accounts are linked via the `sibling_id` property.
       operationId: createAccountPair
       security:
         - BearerAuth: []
@@ -487,25 +462,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '403':
-          description: Forbidden. The API Key is not authorized to perform the operation.
+          description: Forbidden
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
     get:
       summary: List accounts
-      description: |
-        Returns paginated accounts.
-
-        Query parameters can be used to filter these accounts by name and/or scope.
       operationId: listAccounts
       security:
         - BearerAuth: []
@@ -517,15 +488,15 @@ paths:
         - name: type
           in: query
           description:
-            Used to filter the results to only include accounts of a specific type.
+            Filter accounts based on type.
           schema:
             $ref: '#/components/schemas/AccountType'
         - name: name
           in: query
           description:
-            Used to filter the results to only include accounts which name contains this value (case insensitive).
+            Filter accounts based on name (case insensitive).
 
-            Keep in mind the value itself can appear at the beggining, middle or end on the actual account name.
+            The value can appear at the beggining, middle or end on the actual account name.
           schema:
             type: string
             pattern: '^[a-zA-Z0-9_]{3,}$'
@@ -544,20 +515,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Errors'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /accounts/{id}:
     put:
       summary: Update an account
       description: |
-        Update an account. If targeting a test account, the name field needs to match the current
-        account name. If targeting a live account, the name field change will be replicated to its
-        sibling account.
+        Update an account. Live accounts will replicate a name change to its sibling account. Test accounts name updates are disallowed (name property must match the current account name).
       operationId: updateAccount
       security:
         - BearerAuth: []
@@ -567,7 +536,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: The account id
+          description: The account's unique identifier
           schema:
             type: string
             example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
@@ -601,10 +570,6 @@ paths:
   /analytics:
     get:
       summary: Get an account analytics
-      description: |
-        Returns analytics for a specified time period for the account linked to the API Key.
-
-        Defaults to the last 30 days if no time period is specified.
       operationId: getAnalytics
       security:
         - BearerAuth: [ ]
@@ -616,7 +581,7 @@ paths:
           description:
             The start date of the custom date range.
 
-            The date must be in the format YYYY-MM-DD.
+            Defaults to 30 days ago if not specified.
           schema:
             type: string
             format: date
@@ -626,7 +591,7 @@ paths:
           description:
             The end date of the custom date range.
 
-            The date must be in the format YYYY-MM-DD.
+            Defaults to the current date if not specified.
           schema:
             type: string
             format: date
@@ -655,8 +620,6 @@ paths:
   /analytics/cumulative-per-bundle:
     get:
       summary: Get cumulative analytics
-      description: |
-        Calculate cumulative volume and cost analytics per bundle
       operationId: getCumulativeAnalyticsPerBundle
       security:
         - BearerAuth: [ ]
@@ -667,6 +630,8 @@ paths:
           in: query
           description:
             The start date of the custom date range.
+
+            Defaults to 30 days ago if not specified.
           schema:
             type: string
             format: date
@@ -675,6 +640,8 @@ paths:
           in: query
           description:
             The to (inclusive) date of the custom date range.
+
+            Defaults to the current date if not specified.
           schema:
             type: string
             format: date
@@ -703,15 +670,6 @@ paths:
   /bundles:
     get:
       summary: List bundles
-      description: |
-        Returns paginated bundles.
-
-        Bundle represent a group of projects of similar unit price and characteristics.
-
-        Orders are placed against bundles.
-
-        Disabled bundles are not returned unless `recently_disabled` is used.
-        Disabled bundle projects are not returned unless `recently_disabled` is used.
       operationId: listBundles
       security:
         - BearerAuth: []
@@ -724,8 +682,6 @@ paths:
           in: query
           description:
             When `recently_disabled` is set to true, the response will also include bundles which have been disabled in the last 30 days.
-
-            Omitting or setting recently_disabled to false has the same effect.
           schema:
             type: boolean
             default: false
@@ -754,12 +710,6 @@ paths:
   /bundles/{id}:
     get:
       summary: Get a bundle
-      description: |
-        Returns a bundle by id if it exists.
-
-        Bundle represent a group of projects of similar unit price and characteristics.
-
-        Orders are placed against bundles.
       operationId: getBundle
       security:
         - BearerAuth: []
@@ -787,13 +737,6 @@ paths:
   /projects:
     get:
       summary: List projects
-      description: |
-        Returns paginated projects.
-
-        Disabled projects are not returned unless `recently_disabled` is used.
-        Disabled project bundles are not returned unless `recently_disabled` is used.
-
-        Note: orders are placed against bundles not projects.
       operationId: listProjects
       security:
         - BearerAuth: []
@@ -805,9 +748,7 @@ paths:
         - name: recently_disabled
           in: query
           description:
-            When `recently_disabled` is set to true, the response will also include bundles which have been disabled in the last 30 days.
-
-            Omitting or setting recently_disabled to false has the same effect.
+            When `recently_disabled` is set to true, the response will also include projects which have been disabled in the last 30 days.
           schema:
             type: boolean
             default: false
@@ -836,10 +777,6 @@ paths:
   /projects/{id}:
     get:
       summary: Get a project
-      description: |
-        Returns a project by id if it exists.
-
-        Disabled projects are returned.
       operationId: getProject
       security:
         - BearerAuth: []
@@ -867,10 +804,6 @@ paths:
   /projects/by-slug/{slug}:
     get:
       summary: Get a project by slug
-      description: |
-        Returns a project by slug if it exists.
-
-        Disabled projects are returned.
       operationId: getProjectBySlug
       security:
         - BearerAuth: []
@@ -898,7 +831,6 @@ paths:
   /orders/by-mass:
     post:
       summary: Create an order by mass
-      description: Create an order to purchase carbon offset by specifying a mass in tonnes or kilograms.
       operationId: createOrderByMass
       security:
         - BearerAuth: []
@@ -942,7 +874,6 @@ paths:
   /orders/by-value:
     post:
       summary: Create an order by value
-      description: Create an order to purchase carbon offset by specifying a maximum purchase value.
       operationId: createOrderByValue
       security:
         - BearerAuth: []
@@ -986,7 +917,6 @@ paths:
   /orders/by-estimate:
     post:
       summary: Create an order by estimate id
-      description: Create an order to purchase carbon offset by specifying an estimate id
       operationId: createOrderByEstimate
       security:
         - BearerAuth: []
@@ -1030,11 +960,7 @@ paths:
   /orders:
     get:
       summary: List orders
-      description: |
-          Returns paginated account orders ordered by creation date descending
-
-          The API key used to access this method affects what orders are returned: test orders for the test
-          API key, live orders for the live one.
+      description:  Returns the account's paginated orders in reverse order (most recent first).
       operationId: listOrders
       security:
         - BearerAuth: []
@@ -1047,7 +973,6 @@ paths:
           in: query
           description: |
             Filter orders by offset_link_id.
-
 
             If offset_link_id is set, the response will only include orders belonging to the particular offset link.
           schema:
@@ -1071,8 +996,6 @@ paths:
   /orders/{id}:
     get:
       summary: Get an order
-      description: |
-        Returns an order by id if it exists.
       operationId: getOrder
       security:
         - BearerAuth: []
@@ -1100,8 +1023,6 @@ paths:
   /orders/{id}/certificate:
     get:
       summary: Get a carbon offset certificate
-      description: |
-        Download a Carbon Offset Certificate for a completed order.
       operationId: getOrderCertificate
       security:
         - BearerAuth: []
@@ -1131,8 +1052,6 @@ paths:
   /orders/by-idempotency-key/{idempotencyKey}:
     get:
       summary: Get an order by idempotency key
-      description: |
-        Returns an order by idempotency key if it exists.
       operationId: getOrderByIdempotencyKey
       security:
         - BearerAuth: []
@@ -1142,7 +1061,10 @@ paths:
         - name: idempotencyKey
           in: path
           required: true
-          description: The order's idempotency key
+          description: |
+            The order's idempotency key.
+
+            Order idempotency keys must be unique per account.
           schema:
             type: string
             example: 'sg5knd2'
@@ -1163,7 +1085,7 @@ paths:
       description: |
         This endpoint does not create an order.
 
-        However, it processes the order as if it were placed returning estimated cost and bundles allocations.
+        It processes the order as if it were placed, returning estimated cost and bundles allocations.
       operationId: getOrderQuoteByMass
       security:
         - BearerAuth: []
@@ -1210,7 +1132,7 @@ paths:
       description: |
         This endpoint does not create an order.
 
-        However, it processes the order as if it were placed returning estimated cost and bundles allocations.
+        It processes the order as if it were placed, returning estimated cost and bundles allocations.
       operationId: getOrderQuoteByValue
       security:
         - BearerAuth: []
@@ -1254,15 +1176,6 @@ paths:
   /bundle-selections:
     get:
       summary: Get an account's bundle selection
-      description: |
-        Returns the account's bundle selection.
-
-        When orders are placed without explicity setting bundle selections, the account's bundle selection is used.
-
-        Account bundle selections can be set via the API or Dashboard.
-
-        Every account is created with default bundle selections.
-
       operationId: getBundleSelection
       security:
         - BearerAuth: []
@@ -1285,11 +1198,6 @@ paths:
           description: Too Many Requests
     put:
       summary: Update an account's bundle selection
-      description: |
-        Set the account's bundle selection.
-
-        Every account is created with default bundle selections. This will override default bundle selections.
-
       operationId: updateBundleSelection
       security:
         - BearerAuth: []
@@ -1337,11 +1245,6 @@ paths:
   /bundle-mixes:
     get:
       summary: List all bundle mixes
-      description: |
-        Returns bundle mixes.
-
-        Bundle mixes are predefined bundle selections, for example following Oxford Offsetting Principles.
-        Bundle selection for a particular Bundle mix may change over time.
       operationId: listAllBundleMixes
       security:
         - BearerAuth: []
@@ -1367,10 +1270,7 @@ paths:
   /estimates/electricity:
     post:
       summary: Create an electricity emission estimate
-      description: |
-        Estimate emissions produced by electricity consumption.
-
-        The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
+      description: Estimate emissions produced by electricity consumption.
       operationId: createElectricityEstimate
       security:
         - BearerAuth: []
@@ -1425,7 +1325,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: The estimate unique identifier
+          description: The estimate's unique identifier
           schema:
             type: string
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
@@ -1454,10 +1354,7 @@ paths:
           description: Service Unavailable
     put:
       summary: Update an electricity emission estimate
-      description: |
-        Update emission estimate produced by electricity consumption.
-
-        The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
+      description: Estimate emissions produced by electricity consumption.
       operationId: updateElectricityEstimate
       security:
         - BearerAuth: []
@@ -1467,7 +1364,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: The estimate unique identifier
+          description: The estimate's unique identifier
           schema:
             type: string
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
@@ -1518,10 +1415,7 @@ paths:
   /estimates/flight:
     post:
       summary: Create a flight emission estimate
-      description: |
-        Estimate emissions produced by passengers in a commercial airflight.
-
-        The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
+      description: Estimate emissions produced by passengers in a commercial airflight.
       operationId: createFlightEstimate
       security:
         - BearerAuth: []
@@ -1568,81 +1462,6 @@ paths:
   /estimates/shipping:
     post:
       summary: Create a shipping emission estimate
-      description: |
-        Estimate emissions produced by shipping something from point A to point B.
-
-        The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
-
-        Some examples of the input payload:
-
-        * Source/destination addresses, 10 tonnes transported by a diesel truck:
-
-          ```json
-          {
-              "shipment": { "mass": { "amount": "10.0", "unit": "t" } },
-              "route": {
-                  "source": {
-                      "street_line1": "Karl-Liebknecht-Str. 13",
-                      "country_code": "DEU",
-                      "city": "Berlin",
-                      "postcode": "10178"
-                  },
-                  "destination": {
-                      "street_line1": "62 Great Russell St",
-                      "country_code": "GBR",
-                      "city": "London",
-                      "postcode": "WC1B 3BG"
-                  }
-              },
-              "method": "diesel_truck"
-          }
-          ```
-        * 1 tonne transported 2000 km by a small general cargo ship with Marine Gasoil (MGO) fuel used:
-
-          ```json
-          {
-              "shipment": { "mass": { "amount": "1.0", "unit": "t" } },
-              "route": { "amount": "2000.0", "unit": "km" },
-              "method": { "vessel_type": "sea_general_cargo_small", "fuel": "MGO" }
-          }
-          ```
-
-        * 3 containers (TEUs) transported 5000 km by a refrigerated container ship over an
-          Europe/South America trade lane:
-
-          ```json
-          {
-              "shipment": { "containers": "3.0" },
-              "route": { "amount": "5000.0", "unit": "km" },
-              "method": {
-                  "vessel_type": "container_ship",
-                  "refrigerated": true,
-                  "trade_lane": "disaggregated_europe_to_south_america"
-              }
-          }
-          ```
-
-        * 10 tonnes transported 4000 km by a vessel with IMO number 9745225:
-
-          ```json
-          {
-              "shipment": { "mass": { "amount": "10.0", "unit": "t" } },
-              "route": { "amount": "4000.0", "unit": "km" },
-              "method": { "vessel_imo_number": "9745225" }
-          }
-          ```
-
-
-
-        You can plug those payloads in the following command:
-
-        ```
-        curl https://api.lune.co/v1/estimates/shipping \
-        -H 'Authorization: Bearer <API_KEY>' \
-        -H 'Content-Type: application/json' \
-        -X POST \
-        -d <PAYLOAD>
-        ```
       operationId: createShippingEstimate
       security:
         - BearerAuth: []
@@ -1697,7 +1516,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: The estimate unique identifier
+          description: The estimate's unique identifier
           schema:
             type: string
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
@@ -1735,7 +1554,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: The estimate unique identifier
+          description: The estimate's unique identifier
           schema:
             type: string
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
@@ -1783,10 +1602,7 @@ paths:
   /estimates/shipping/multi-leg:
     post:
       summary: Create a multi-leg shipping emission estimate
-      description: |
-        The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
-
-        Each leg can be fulfilled by a different method, eg a truck, a plane or other options.
+      description: Each leg can be fulfilled by a different method, eg a truck, a plane or other options.
       operationId: createMultiLegShippingEstimate
       security:
         - BearerAuth: []
@@ -1841,7 +1657,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: The estimate unique identifier
+          description: The estimate's unique identifier
           schema:
             type: string
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
@@ -1879,7 +1695,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: The estimate unique identifier
+          description: The estimate's unique identifier
           schema:
             type: string
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
@@ -1927,16 +1743,6 @@ paths:
   /estimates/transactions:
     post:
       summary: Create a transaction emission estimate
-      description: |
-        Estimate emissions produced by purchasing goods or services.
-
-        `value` and `merchant` tell us what's the value of the transaction and who the goods or services
-        have been purchased from. `value` should exclude shipping and taxes – if it doesn't, then the
-        results are likely to be higher than they should be.
-
-        `diet`, if provided, will affect the estimates for purchases we determine are food-related.
-
-        The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
       operationId: createTransactionEstimate
       security:
         - BearerAuth: []
@@ -2445,27 +2251,29 @@ paths:
             example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
       responses:
         '200':
-          description: The secret was rotated successfully
+          description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Webhook'
         '401':
-          description: Unauthorized. The API Key is invalid or disabled.
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Errors'
         '404':
-          description: The webhook does not exist
+          description: Not Found
         '429':
-          description: Rate limit exceeded
+          description: Too Many Requests
   /WebhookRequest:
     post:
       tags:
         - Webhook Request
       summary: Webhook request
       operationId: webhookRequest
+      description: |
+        The endpoint describes the request that you will receive in your webhook receiver and the responses the Lune webhook infrastructure expects.
       requestBody:
         required: true
         content:
@@ -2696,23 +2504,24 @@ components:
           maxLength: 100
           example: 5bd808a954e
           description: |
-            Optional unique identifier provided by the client.
+            Account-unique identifier provided by the client.
 
             `idempotency_key` has two purposes:
             1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.
             2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.
         bundle_selection:
+          description: |
+            Bundle selection to be used for the order.
+            For the order, this property overrides the account's bundle selection.
           $ref: '#/components/schemas/BundleSelectionRequest'
         metadata:
           $ref: '#/components/schemas/Metadata'
         quantity_trunc:
-          description: |
-            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
     OrderQuoteByValueRequest:
       type: object
-      description: Order by Value details
       required:
         - value
       properties:
@@ -2724,13 +2533,11 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: |
-            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
     CreateOrderByValueRequest:
       type: object
-      description: Order by Value details
       required:
         - value
       properties:
@@ -2744,23 +2551,24 @@ components:
           maxLength: 100
           example: 5bd808a954e
           description: |
-            Optional unique identifier provided by the client.
+            Account-unique identifier provided by the client.
 
             `idempotency_key` has two purposes:
             1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.
             2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.
         bundle_selection:
+          description: |
+            Bundle selection to be used for the order.
+            For the order, this property overrides the account's bundle selection.
           $ref: '#/components/schemas/BundleSelectionRequest'
         metadata:
           $ref: '#/components/schemas/Metadata'
         quantity_trunc:
-          description: |
-            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
     CreateOrderByEstimateRequest:
       type: object
-      description: Order by Estimate details
       required:
         - estimate_id
       properties:
@@ -2773,7 +2581,7 @@ components:
           maxLength: 100
           example: 5bd808a954e
           description: |
-            Optional unique identifier provided by the client.
+            Account-unique identifier provided by the client.
 
             `idempotency_key` has two purposes:
             1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.
@@ -2783,16 +2591,15 @@ components:
         metadata:
           $ref: '#/components/schemas/Metadata'
         quantity_trunc:
-          description: |
-            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
     BundleSelectionRequest:
       type: array
       description: |
-        Optional allocation ratios by bundle.
+        Bundle selection percentages.
 
-        The sum of all allocation ratios must equal 100.
+        The sum of all percentages must equal 100.
 
         If not specified, the preconfigured allocation ratios are going to be used.
 
@@ -2821,7 +2628,7 @@ components:
     BundleSelection:
       type: array
       description: |
-        Optional allocation ratios by bundle.
+        Allocation ratios by bundle.
 
         The sum of all allocation ratios must equal 100.
 
@@ -2835,7 +2642,7 @@ components:
           percentage: 66
     BundlePercentage:
       type: object
-      description: Maps a bundle id to an allocation ratio
+      description: Maps a bundle's unique identifier to an allocation ratio
       required:
         - bundle_id
         - percentage
@@ -2850,7 +2657,9 @@ components:
           description: Selection percentage
     BundleMix:
       type: object
-      description: Bundle mix information.
+      description: |
+        Predefined bundle selections, for example following Oxford Offsetting Principles.
+        Bundle selection for a particular Bundle mix may change over time.
       required:
         - id
         - identifier
@@ -2859,7 +2668,7 @@ components:
       properties:
         id:
           type: string
-          description: Id of the bundle mix.
+          description: Bundle mix unique identifier.
           example: 'A7hPO9C01RnzPkYxJgAHxq112roXlWO5'
         identifier:
           type: string
@@ -2891,7 +2700,7 @@ components:
           maxLength: 100
           example: 5bd808a954e
           description: |
-            Optional unique identifier provided by the client.
+            Account-unique identifier provided by the client.
 
             `idempotency_key` has two purposes:
             1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.
@@ -2922,12 +2731,9 @@ components:
         offset_cost:
           type: string
           description: |
-            Represents the net cost of offsets purchased by the order. May be lower than `requested_value`.
+            The net offset cost being purchased. May be lower than `requested_value`.
 
-            This field is set when the order is linked to Bundles.
-
-            This field is set the order's status transitions from `received` to `placed`.
-
+            This property is set when bundles are assigned to the order.
             Unit: order currency
           pattern: '^[0-9]+(\.[0-9]+)?$'
           example: '7176.00'
@@ -2942,12 +2748,9 @@ components:
         commission:
           type: string
           description: |
-            Represents Lune's fee.
+            Lune's fee.
 
-            This field is set when the order is linked to Bundles.
-
-            This field is set the order's status transitions from `received` to `placed`.
-
+            This property is set when bundles are assigned to the order.
             Unit: order currency
           pattern: '^[0-9]+(\.[0-9]+)?$'
           example: '520.00'
@@ -2965,7 +2768,7 @@ components:
           description: |
             bundles are set when the order's status is `placed`, `paid`, `retiring` or `complete`.
 
-            Represents the bundles associated with the order including their relative quantity and cost breakdown.
+            The bundles associated with the order including their relative quantity and cost breakdown.
           items:
             $ref: '#/components/schemas/OrderBundle'
         projects:
@@ -2973,11 +2776,11 @@ components:
           description: |
             Projects are set when the order's status is `retiring` or `complete`.
 
-            Represents the projects associated with the order including their relative quantity and cost breakdown.
+            The projects associated with the order including their relative quantity and cost breakdown.
 
             Orders are placed against bundles, not projects. Projects in a bundle may change based on supply.
 
-            This field is set as soon as we can guarantee project supply.
+            This property is set as soon as we can guarantee project supply.
 
           items:
             $ref: '#/components/schemas/OrderProject'
@@ -3001,7 +2804,7 @@ components:
           description: |
             Carbon credits certificate URL.
 
-            This field is set when an order in 'complete' status
+            This property is set when an order has state 'complete'
 
           example: 'https://api.lune.co/v1/orders/08QD7GPaBx5b6Y60ndAONXLvrZljRE2e/certificate'
         metadata:
@@ -3015,7 +2818,7 @@ components:
           description: |
             End-user email.
 
-            This field is currently populated on orders placed through offset links.
+            This property is currently populated on orders placed through offset links.
           example: 'john@doe.com'
     OrderByQuantity:
       title: Order by quantity
@@ -3029,7 +2832,7 @@ components:
               type: string
               pattern: '^[0-9]+(\.[0-9]+)?$'
               example: '1045'
-              description: Represents the requested quantity of CO2 offsets to purchase in tonnes.
+              description: Requested quantity of CO2 offsets to purchase in tonnes.
     OrderByValue:
       title: Order by value
       allOf:
@@ -3039,10 +2842,7 @@ components:
             - requested_value
           properties:
             requested_value:
-              description: |
-                Represents the requested value of CO2 offsets to purchase.
-
-                Unit: order currency
+              description: Requested value of CO2 offsets to purchase in the account's currency.
               type: string
               pattern: '^[0-9]+(\.[0-9]+)?$'
               example: '7700'
@@ -3111,7 +2911,7 @@ components:
         offset_cost:
           type: string
           description: |
-            Represents the net cost of offsets purchased by the order for this project.
+            The net offset cost being purchased.
 
             Unit: order currency
           pattern: '^[0-9]+(\.[0-9]+)?$'
@@ -3158,7 +2958,7 @@ components:
         offset_cost:
           type: string
           description: |
-            Represents the net cost of offsets purchased by the order for this bundle.
+            The bundle's net offset cost being purchased.
 
             Unit: order currency
           pattern: '^[0-9]+(\.[0-9]+)?$'
@@ -3252,7 +3052,7 @@ components:
               description: |
                 Requested quantity for the specific bundle (tonnes CO2).
 
-                requested_quantity may be returned as part of an emission estimate response, in which case this field containes the equivalient value as the `mass` field.
+                requested_quantity may be returned as part of an emission estimate response, in which case this property contains the equivalent value as the `mass` property.
     OrderQuoteByValue:
       allOf:
         - $ref: '#/components/schemas/OrderQuoteBase'
@@ -3274,7 +3074,6 @@ components:
           properties:
             data:
               type: array
-              description: Paginated Bundle objects
               items:
                 $ref: '#/components/schemas/Bundle'
     BundleSummary:
@@ -3360,6 +3159,10 @@ components:
             - short_term
           example: 'long_term'
     Bundle:
+      description: |
+        Group of projects of similar price and characteristics.
+
+        Orders are placed against bundles.
       allOf:
         - $ref: '#/components/schemas/BundleSummary'
         - type: object
@@ -3380,7 +3183,6 @@ components:
           properties:
             data:
               type: array
-              description: Paginated Project objects
               items:
                 $ref: '#/components/schemas/Project'
     ProjectSummary:
@@ -3553,7 +3355,7 @@ components:
         balance_outstanding:
           type: string
           description: |
-            The Account's outstanding balance represents the sum of placed and unpaid orders.
+            The Account's outstanding balance. It is the sum of placed and unpaid orders.
 
             The outstanding balance is mostly negative.
 
@@ -3686,6 +3488,7 @@ components:
           items:
             $ref: '#/components/schemas/OffsetQuantitySeriesItem'
     PaginatedActivity:
+      description: Activity is presented in reverse order (most recent first).
       allOf:
         - $ref: '#/components/schemas/PaginatedBase'
         - type: object
@@ -3694,7 +3497,6 @@ components:
           properties:
             data:
               type: array
-              description: Paginated Activity objects
               items:
                 $ref: '#/components/schemas/Activity'
               example:
@@ -3717,6 +3519,7 @@ components:
                   created_at: '2019-08-24T14:15:22Z'
     Activity:
       type: object
+      description: Immutable event log entry. Some account events yield an activity object.
       required:
         - id
         - currency
@@ -3840,8 +3643,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: |
-            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
     FlightEstimateRequest:
@@ -3865,8 +3667,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: |
-            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
     CabinClass:
@@ -3901,8 +3702,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: |
-            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
     ShippingRoute:
@@ -3929,7 +3729,7 @@ components:
           the country with the largest share of the route.
     MultiLegShippingEstimateRequest:
       type: object
-      description: Parameters for estimating shipping emissions
+      description: Parameters for estimating multi-leg shipping emissions
       required:
         - shipment
         - legs
@@ -3955,8 +3755,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: |
-            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
     Shipment:
@@ -4296,16 +4095,18 @@ components:
         - merchant
       properties:
         value:
+          description: Monetary value of the transaction. This should exclude shipping and taxes.
           $ref: '#/components/schemas/MonetaryAmount'
         merchant:
+          description: Merchant from whom the goods or services the purchase was made
           $ref: '#/components/schemas/Merchant'
         diet:
+          description: Individual diet. Used to better estimate  food-related purchases.
           $ref: '#/components/schemas/Diet'
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: |
-            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
     IndividualEstimateRequest:
@@ -4426,8 +4227,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: |
-            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
     CompanyEstimateRequest:
@@ -4541,8 +4341,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: |
-            This property represents the level of precision used to truncate quantities assigned to each bundle.
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
     CompanyCloudUse:
@@ -4616,7 +4415,7 @@ components:
         - vegetarian
         - vegan
     EmissionEstimate:
-      description: An emission estimate result.
+      description: An emission estimate result. The value returned is in CO2e – it accounts for both CO2 and non-CO2 emissions.
       type: object
       required:
         - mass
@@ -4701,7 +4500,6 @@ components:
           properties:
             data:
               type: array
-              description: Paginated Offset Links
               items:
                 $ref: '#/components/schemas/OffsetLink'
     CompanyEmissionEstimate:
@@ -4760,7 +4558,7 @@ components:
       properties:
         id:
           type: string
-          description: The offset link identifier
+          description: The offset link unique identifier
           example: 'UwjfkXjfksoHXzA1qjANL58GhjwqkxpB'
         name:
           type: string
@@ -4768,7 +4566,6 @@ components:
             Offset link name.
 
             This is a human readable name to recognise and distingish different offset links.
-
           example: 'Marketing Campaign July 2021'
         title:
           type: string
@@ -4894,7 +4691,6 @@ components:
             Offset link name.
 
             This is a human readable name to recognise and distingish different offset links.
-
           example: 'Marketing Campaign July 2021'
         title:
           type: string
@@ -5062,7 +4858,7 @@ components:
         - secret
       properties:
         id:
-          description: The webhook's identifier
+          description: The webhook's unique identifier
           type: string
           example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
         url:
@@ -5200,6 +4996,7 @@ components:
         test:
           $ref: '#/components/schemas/Account'
     Account:
+      description: Account used for your regular operations.
       allOf:
         - $ref: '#/components/schemas/AccountBase'
       type: object
@@ -5219,6 +5016,7 @@ components:
             A live account points to its sibling test account and vice versa.
           example: 'gGdqQ0AyQJ72NauCCndfaQLNhc6Jfxc1'
     ClientAccount:
+      description: Account used when you operate an account on behalf of a third party.
       allOf:
         - $ref: '#/components/schemas/AccountBase'
       type: object
@@ -5243,8 +5041,7 @@ components:
       description: |
         It's only possible to edit the name and beneficiary of an account.
 
-        Not providing the `beneficiary` field will result in clearing the existing value
-        (if present).
+        Not providing the `beneficiary` property will result in clearing the existing value (if present).
       type: object
       required:
         - name
