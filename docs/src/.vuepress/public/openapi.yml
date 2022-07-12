@@ -259,19 +259,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedActivity'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /accounts/me:
     get:
       summary: Get an account
@@ -288,19 +280,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Account'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
   /accounts/client:
     post:
       summary: Create a client account
@@ -323,25 +307,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/ClientAccount'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Forbidden'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
     get:
       summary: List client accounts
       operationId: listClientAccounts
@@ -376,19 +348,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedClientAccounts'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /accounts/client/{id}:
     put:
       summary: Update a client account
@@ -419,19 +383,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ClientAccount'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /accounts:
     post:
       summary: Create an account pair
@@ -456,25 +412,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/AccountPair'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Forbidden'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
     get:
       summary: List accounts
       operationId: listAccounts
@@ -509,19 +453,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedAccounts'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /accounts/{id}:
     put:
       summary: Update an account
@@ -554,19 +490,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Account'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /analytics:
     get:
       summary: Get an account analytics
@@ -604,19 +532,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Analytics'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /analytics/cumulative-per-bundle:
     get:
       summary: Get cumulative analytics
@@ -654,19 +574,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/CumulativeBundleAnalytics'
         '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /bundles:
     get:
       summary: List bundles
@@ -694,19 +606,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedBundles'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /bundles/{id}:
     get:
       summary: Get a bundle
@@ -731,9 +635,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Bundle'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /projects:
     get:
       summary: List projects
@@ -761,19 +665,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedProjects'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /projects/{id}:
     get:
       summary: Get a project
@@ -798,9 +694,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Project'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /projects/by-slug/{slug}:
     get:
       summary: Get a project by slug
@@ -825,9 +721,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Project'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /orders/by-mass:
     post:
       summary: Create an order by mass
@@ -850,27 +746,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderByQuantity'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /orders/by-value:
     post:
       summary: Create an order by value
@@ -893,27 +777,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderByValue'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /orders/by-estimate:
     post:
       summary: Create an order by estimate id
@@ -936,27 +808,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderByEstimate'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /orders:
     get:
       summary: List orders
@@ -986,13 +846,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedOrders'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /orders/{id}:
     get:
       summary: Get an order
@@ -1017,9 +873,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Order'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /orders/{id}/certificate:
     get:
       summary: Get a carbon offset certificate
@@ -1046,9 +902,9 @@ paths:
                 type: string
                 format: binary
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /orders/by-idempotency-key/{idempotencyKey}:
     get:
       summary: Get an order by idempotency key
@@ -1076,9 +932,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Order'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /orders/by-mass/quote:
     post:
       summary: Calculate an order quote by mass
@@ -1105,27 +961,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderQuoteByQuantity'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /orders/by-value/quote:
     post:
       summary: Calculate an order quote by value
@@ -1152,27 +996,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderQuoteByValue'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /bundle-selections:
     get:
       summary: Get an account's bundle selection
@@ -1189,13 +1021,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/BundleSelection'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
     put:
       summary: Update an account's bundle selection
       operationId: updateBundleSelection
@@ -1217,31 +1045,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/BundleSelection'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Forbidden'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /bundle-mixes:
     get:
       summary: List all bundle mixes
@@ -1260,13 +1072,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/BundleMix'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /estimates/electricity:
     post:
       summary: Create an electricity emission estimate
@@ -1290,29 +1098,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmissionEstimateResponse'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/electricity/{id}:
     get:
       summary: Get an electricity emission estimate
@@ -1337,21 +1133,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmissionEstimateResponse'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/NotFoundWithErrors'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
     put:
       summary: Update an electricity emission estimate
       description: Estimate emissions produced by electricity consumption.
@@ -1383,35 +1171,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmissionEstimateResponse'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: The estimate does not exist
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/NotFound'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/flight:
     post:
       summary: Create a flight emission estimate
@@ -1435,29 +1207,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmissionEstimateResponse'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
 
   /estimates/shipping:
     post:
@@ -1481,29 +1241,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/SingleShippingEmissionEstimate'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/shipping/{id}:
     get:
       summary: Get a shipping emission estimate
@@ -1528,21 +1276,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/SingleShippingEmissionEstimate'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/NotFoundWithErrors'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
     put:
       summary: Update a shipping emission estimate
       operationId: updateShippingEstimate
@@ -1572,33 +1312,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/SingleShippingEmissionEstimate'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/NotFound'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/shipping/multi-leg:
     post:
       summary: Create a multi-leg shipping emission estimate
@@ -1622,29 +1346,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/MultiLegShippingEmissionEstimate'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/shipping/multi-leg/{id}:
     get:
       summary: Get a multi-leg shipping emission estimate
@@ -1669,21 +1381,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/MultiLegShippingEmissionEstimate'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/NotFoundWithErrors'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
     put:
       summary: Update a multi-leg shipping emission estimate
       operationId: updateMultiLegShippingEstimate
@@ -1713,33 +1417,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/MultiLegShippingEmissionEstimate'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/NotFound'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/transactions:
     post:
       summary: Create a transaction emission estimate
@@ -1762,29 +1450,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmissionEstimateResponse'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/company:
     post:
       summary: Create a company emission estimate
@@ -1813,29 +1489,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/CompanyEmissionEstimate'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/individual:
     post:
       summary: Create an individual's emission estimate
@@ -1862,29 +1526,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmissionEstimateResponse'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
         '503':
-          description: Service Unavailable
+          $ref: '#/components/responses/ServiceUnavailable'
   /offset-links/{id}:
     get:
       tags:
@@ -1909,15 +1561,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/OffsetLink'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
     put:
       tags:
         - Offset links
@@ -1947,23 +1595,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/OffsetLink'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /offset-links:
     get:
       tags:
@@ -1983,13 +1623,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedOffsetLinks'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
     post:
       tags:
         - Offset links
@@ -2011,27 +1647,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/OffsetLink'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Conflict'
         '415':
-          description: Unsupported Media Type
+          $ref: '#/components/responses/UnsupportedMediaType'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /offset-links/{id}/analytics:
     get:
       tags:
@@ -2056,15 +1680,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/OffsetLinkAnalytics'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /webhooks:
     get:
       tags:
@@ -2083,13 +1703,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/Webhook'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
     post:
       tags:
         - Webhooks
@@ -2111,19 +1727,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Webhook'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
 
   /webhooks/{id}:
     get:
@@ -2149,15 +1757,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Webhook'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
     put:
       tags:
         - Webhooks
@@ -2187,21 +1791,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Webhook'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
     delete:
       tags:
         - Webhooks
@@ -2221,15 +1817,11 @@ paths:
         '200':
           description: OK
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /webhooks/{id}/rotate-secret:
     put:
       tags:
@@ -2257,15 +1849,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Webhook'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /WebhookRequest:
     post:
       tags:
@@ -2325,6 +1913,45 @@ components:
       schema:
         type: string
         example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+  responses:
+    NotFound:
+      description: The specified resource was not found
+    NotFoundWithErrors:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    BadRequest:
+      description: The request is invalid. Parameters may be missing or are invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Unauthorized:
+      description: The API Key is missing or is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    TooManyRequests:
+      description: Too many requests have been made in a short period of time
+    Forbidden:
+      description: The API Key is not authorized to perform the operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    Conflict:
+      description: The request could not be completed due to a conflict with the current state of the target resource or resources
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    UnsupportedMediaType:
+      description: The payload format is in an unsupported format.
+    ServiceUnavailable:
+      description: The service is temporarily unavailable. You may retry.
   schemas:
     ElectricityConsumption:
       type: object
