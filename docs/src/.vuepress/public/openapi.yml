@@ -2812,6 +2812,23 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Project'
+    Media:
+      type: object
+      required:
+        - type
+        - url
+      properties:
+        type:
+          type: string
+          enum: 
+            - image
+            - video
+          example: 'image'
+          description: The type of the media item
+        url:
+          type: string
+          example: https://assets.lune.co/bundles/biochar.png
+          description: The URL of the media item
     ProjectSummary:
       type: object
       required:
@@ -2912,6 +2929,11 @@ components:
           example: false
           description: |
             Disabled projects do not get allocated to orders
+        media: 
+          type: array
+          items: 
+            $ref: '#/components/schemas/Media'
+          description: A list of images and videos belonging to the project.
     Project:
       allOf:
         - $ref: '#/components/schemas/ProjectSummary'
