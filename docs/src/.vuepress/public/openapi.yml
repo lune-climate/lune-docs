@@ -2116,6 +2116,10 @@ components:
             - $ref: '#/components/schemas/Mass'
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
+        quantity_trunc:
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     CreateOrderByQuantityRequest:
       type: object
       description: Order by Quantity details
