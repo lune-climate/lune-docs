@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div v-if="json.type !== 'array' && json.type !== 'object'">
+        <div v-if="json.type !== 'array' && json.type !== 'object' && !json.oneOf">
             <Parameter :metadata="json" :required="json.required" :discriminator="json.discriminator" @discriminatorChange="onOneOfDiscrimanatorChange" />
         </div>
         <span v-if="resourceReferences.length">
