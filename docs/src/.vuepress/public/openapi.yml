@@ -2833,6 +2833,14 @@ components:
           type: string
           example: https://assets.lune.co/bundles/biochar.png
           description: The URL of the media item
+        attribution_text:
+          type: string
+          example: instagram.com/conservationorg
+          description: A short description of where the image or video was sourced
+        attribution_url:
+          type: string
+          example: https://conservationorg.com
+          description: A URL pointing to where the image or video was sourced
     ProjectSummary:
       type: object
       required:
