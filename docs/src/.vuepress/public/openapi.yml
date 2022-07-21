@@ -2883,7 +2883,15 @@ components:
         registry_name:
           type: string
           description: The project's Verification Standard Entity name or equivalent organization.
-          example: 'Verified Carbon Standard'
+          example: 'Verra'
+          enum:
+            - American Carbon Registry
+            - Verra
+            - Puro.Earth
+            - Gold Standard
+            - Climate Action Reserve
+            - Woodland Carbon Code
+            - ''
         registry_link:
           type: string
           description: A link to the registry's project details page.
