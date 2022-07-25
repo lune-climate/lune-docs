@@ -1,0 +1,224 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;ShippingMethod&quot;,
+    &quot;oneOf&quot;: [
+        {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Vessel sizes:\n* &#x60;inland_waterway_motor_vessel_*&#x60;:\n\n  * &#x60;small&#x60; – less than 80 m / 1000 t\n  * &#x60;medium&#x60; – 85-110 m (1000-2000 t)\n  * &#x60;large&#x60; – 135 m (2000-3000 t)\n\n* &#x60;inland_waterway_coupled_convoy&#x60; – 163-185 m\n* &#x60;inland_waterway_pushed_convoy_*&#x60;:\n\n  * &#x60;small&#x60; – 2 barges\n  * &#x60;medium&#x60; – 4-5 barges\n  * &#x60;large&#x60; – 6 barges\n\n* &#x60;inland_waterway_container_vessel_medium&#x60; – 110 m\n* &#x60;inland_waterway_container_vessel_large&#x60; – 135 m\n&quot;,
+            &quot;enum&quot;: [
+                &quot;inland_waterway_motor_vessel_small&quot;,
+                &quot;inland_waterway_motor_vessel_medium&quot;,
+                &quot;inland_waterway_motor_vessel_large&quot;,
+                &quot;inland_waterway_coupled_convoy&quot;,
+                &quot;inland_waterway_pushed_convoy_small&quot;,
+                &quot;inland_waterway_pushed_convoy_medium&quot;,
+                &quot;inland_waterway_pushed_convoy_large&quot;,
+                &quot;inland_waterway_tanker&quot;,
+                &quot;inland_waterway_container_vessel_medium&quot;,
+                &quot;inland_waterway_container_vessel_large&quot;,
+                &quot;inland_waterway_container_vessel_convoy&quot;,
+                &quot;diesel_freight_train&quot;,
+                &quot;electric_freight_train&quot;,
+                &quot;diesel_truck&quot;,
+                &quot;plane&quot;,
+                &quot;passenger_plane&quot;,
+                &quot;cargo_plane&quot;
+            ],
+            &quot;ref&quot;: &quot;#/components/schemas/SimpleShippingMethod&quot;
+        },
+        {
+            &quot;oneOf&quot;: [
+                {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;required&quot;: [
+                        &quot;vessel_type&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;vessel_type&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;enum&quot;: [
+                                &quot;sea_oil_tanker_small&quot;,
+                                &quot;sea_oil_tanker_medium&quot;,
+                                &quot;sea_oil_tanker_large&quot;,
+                                &quot;sea_general_cargo_small&quot;,
+                                &quot;sea_general_cargo_large&quot;,
+                                &quot;sea_bulk_carrier_small&quot;,
+                                &quot;sea_ropax&quot;
+                            ]
+                        },
+                        &quot;fuel&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;enum&quot;: [
+                                &quot;HFO&quot;,
+                                &quot;MGO&quot;
+                            ]
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/VariableFuelSeaShippingMethod&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;required&quot;: [
+                        &quot;vessel_type&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;vessel_type&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;enum&quot;: [
+                                &quot;sea_bulk_carrier_medium&quot;,
+                                &quot;sea_bulk_carrier_large&quot;
+                            ]
+                        },
+                        &quot;fuel&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;enum&quot;: [
+                                &quot;HFO&quot;,
+                                &quot;MGO&quot;
+                            ]
+                        },
+                        &quot;load&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;enum&quot;: [
+                                &quot;average&quot;,
+                                &quot;heavy&quot;
+                            ]
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/VariableFuelVariableLoadSeaShippingMethod&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;required&quot;: [
+                        &quot;vessel_type&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;vessel_type&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;enum&quot;: [
+                                &quot;sea_roro&quot;
+                            ]
+                        },
+                        &quot;fuel&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;enum&quot;: [
+                                &quot;HFO&quot;,
+                                &quot;MGO&quot;
+                            ]
+                        },
+                        &quot;load&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;enum&quot;: [
+                                &quot;freight_only&quot;,
+                                &quot;truck_and_trailer&quot;,
+                                &quot;trailer_only&quot;
+                            ]
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/RoRoSeaShippingMethod&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;required&quot;: [
+                        &quot;vessel_type&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;vessel_type&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;enum&quot;: [
+                                &quot;sea_oil_tanker_huge&quot;
+                            ]
+                        },
+                        &quot;fuel&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;enum&quot;: [
+                                &quot;HFO&quot;,
+                                &quot;MGO&quot;,
+                                &quot;LNG&quot;
+                            ]
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/HugeOilTankerSeaShippingMethod&quot;
+                }
+            ],
+            &quot;ref&quot;: &quot;#/components/schemas/SeaShippingMethod&quot;
+        },
+        {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;vessel_type&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;vessel_type&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;container_ship&quot;
+                    ]
+                },
+                &quot;refrigerated&quot;: {
+                    &quot;description&quot;: &quot;A container transport is either refrigerated or \&quot;dry\&quot; (not refrigerated). Dry transports\nresult in lower emissions.\n\nThis parameter defaults to &#x60;false&#x60;.\n&quot;,
+                    &quot;type&quot;: &quot;boolean&quot;
+                },
+                &quot;trade_lane&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;description&quot;: &quot;Container transport emissions vary per trade lane. When a trade lane is not given we&#x27;ll\nuse an industry-wide average. Providing an &#x60;aggregated_*&#x60; trade lane group will result in an\na more accurate estimate. Providing an &#x60;disaggregated_*&#x60; trade lane will result in the best\nestimate precision.\n\nThe identifiers are kept relatively short for brevity: Mediterranean includes Black Sea and\nSouth America includes Central America.\n\nThe trade lanes are bidirectional, for example &#x60;disaggregated_asia_to_africa&#x60; covers both\nAsia to Africa and Africa to Asia.\n&quot;,
+                    &quot;enum&quot;: [
+                        &quot;aggregated_panama_trade&quot;,
+                        &quot;aggregated_transatlantic&quot;,
+                        &quot;aggregated_transsuez&quot;,
+                        &quot;aggregated_transpacific&quot;,
+                        &quot;aggregated_other&quot;,
+                        &quot;disaggregated_asia_to_africa&quot;,
+                        &quot;disaggregated_asia_to_mediterranean&quot;,
+                        &quot;disaggregated_asia_to_middle_east&quot;,
+                        &quot;disaggregated_asia_to_north_america_east&quot;,
+                        &quot;disaggregated_asia_to_north_america_west&quot;,
+                        &quot;disaggregated_asia_to_north_europe&quot;,
+                        &quot;disaggregated_asia_to_oceania&quot;,
+                        &quot;disaggregated_asia_to_south_america&quot;,
+                        &quot;disaggregated_europe_to_africa&quot;,
+                        &quot;disaggregated_europe_to_south_america&quot;,
+                        &quot;disaggregated_europe_to_middle_east&quot;,
+                        &quot;disaggregated_europe_to_oceania&quot;,
+                        &quot;disaggregated_mediterranean_to_north_america_east&quot;,
+                        &quot;disaggregated_mediterranean_to_north_america_west&quot;,
+                        &quot;disaggregated_north_america_to_africa&quot;,
+                        &quot;disaggregated_north_america_to_oceania&quot;,
+                        &quot;disaggregated_north_america_to_south_america&quot;,
+                        &quot;disaggregated_north_america_to_middle_east&quot;,
+                        &quot;disaggregated_north_europe_to_north_america_east&quot;,
+                        &quot;disaggregated_north_europe_to_north_america_west&quot;,
+                        &quot;disaggregated_south_america_to_africa&quot;,
+                        &quot;disaggregated_intra_africa&quot;,
+                        &quot;disaggregated_intra_north_america&quot;,
+                        &quot;disaggregated_intra_south_america&quot;,
+                        &quot;disaggregated_se_asia_to_ne_asia&quot;,
+                        &quot;disaggregated_intra_ne_asia&quot;,
+                        &quot;disaggregated_intra_se_asia&quot;,
+                        &quot;disaggregated_north_europe_to_mediterranean&quot;,
+                        &quot;disaggregated_intra_mediterranean&quot;,
+                        &quot;disaggregated_intra_north_europe&quot;,
+                        &quot;disaggregated_intra_middle_east&quot;,
+                        &quot;disaggregated_other&quot;
+                    ]
+                }
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/ContainerShippingMethod&quot;
+        },
+        {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;vessel_imo_number&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;vessel_imo_number&quot;: {
+                    &quot;description&quot;: &quot;The ship&#x27;s [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the &#x60;IMO&#x60; prefix.\n&quot;,
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;pattern&quot;: &quot;^[0-9]{7}$&quot;
+                }
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/IdentifiedVesselShippingMethod&quot;
+        }
+    ],
+    &quot;example&quot;: &quot;string&quot;
+}" />

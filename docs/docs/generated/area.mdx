@@ -1,0 +1,29 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;Area&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;amount&quot;,
+        &quot;unit&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;amount&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+            &quot;example&quot;: &quot;40.501&quot;
+        },
+        &quot;unit&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+                &quot;square_meters&quot;,
+                &quot;square_feet&quot;
+            ],
+            &quot;example&quot;: &quot;square_meters&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;amount&quot;: &quot;40.501&quot;,
+        &quot;unit&quot;: &quot;square_meters&quot;
+    }
+}" />

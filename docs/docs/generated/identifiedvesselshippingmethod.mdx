@@ -1,0 +1,19 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;IdentifiedVesselShippingMethod&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;vessel_imo_number&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;vessel_imo_number&quot;: {
+            &quot;description&quot;: &quot;The ship&#x27;s [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the &#x60;IMO&#x60; prefix.\n&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]{7}$&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;vessel_imo_number&quot;: &quot;string&quot;
+    }
+}" />

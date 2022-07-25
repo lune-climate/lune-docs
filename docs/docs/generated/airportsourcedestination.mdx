@@ -1,0 +1,92 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;AirportSourceDestination&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;source&quot;,
+        &quot;destination&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;source&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;oneOf&quot;: [
+                {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;required&quot;: [
+                        &quot;code&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;code&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;pattern&quot;: &quot;^[A-Z]{3}$&quot;,
+                            &quot;description&quot;: &quot;Airport IATA code. For a full list of options (https://openflights.org/data.html)&quot;,
+                            &quot;example&quot;: &quot;OPO&quot;
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/IATACode&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;required&quot;: [
+                        &quot;code&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;code&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;pattern&quot;: &quot;^[A-Z]{4}[A-Z]?$&quot;,
+                            &quot;description&quot;: &quot;Airport ICAO code. For a full list of options (https://openflights.org/data.html)&quot;,
+                            &quot;example&quot;: &quot;LPPR&quot;
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/ICAOCode&quot;
+                }
+            ],
+            &quot;ref&quot;: &quot;#/components/schemas/AirportCode&quot;
+        },
+        &quot;destination&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;oneOf&quot;: [
+                {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;required&quot;: [
+                        &quot;code&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;code&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;pattern&quot;: &quot;^[A-Z]{3}$&quot;,
+                            &quot;description&quot;: &quot;Airport IATA code. For a full list of options (https://openflights.org/data.html)&quot;,
+                            &quot;example&quot;: &quot;OPO&quot;
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/IATACode&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;required&quot;: [
+                        &quot;code&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;code&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;pattern&quot;: &quot;^[A-Z]{4}[A-Z]?$&quot;,
+                            &quot;description&quot;: &quot;Airport ICAO code. For a full list of options (https://openflights.org/data.html)&quot;,
+                            &quot;example&quot;: &quot;LPPR&quot;
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/ICAOCode&quot;
+                }
+            ],
+            &quot;ref&quot;: &quot;#/components/schemas/AirportCode&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;source&quot;: {
+            &quot;code&quot;: &quot;OPO&quot;
+        },
+        &quot;destination&quot;: {
+            &quot;code&quot;: &quot;OPO&quot;
+        }
+    }
+}" />

@@ -1,0 +1,129 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;OrderQuoteByQuantity&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;currency&quot;,
+        &quot;estimated_quantity&quot;,
+        &quot;estimated_commission&quot;,
+        &quot;estimated_offset_cost&quot;,
+        &quot;estimated_total_cost&quot;,
+        &quot;bundles&quot;,
+        &quot;requested_quantity&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;currency&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;example&quot;: &quot;GBP&quot;,
+            &quot;description&quot;: &quot;Currency code&quot;
+        },
+        &quot;estimated_quantity&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+            &quot;example&quot;: &quot;1040&quot;,
+            &quot;description&quot;: &quot;Estimated quantity (tonnes CO2).\n\nMay be lower than &#x60;requested_quantity&#x60;.\n&quot;
+        },
+        &quot;estimated_offset_cost&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Estimated offset cost\n\nUnit: order quote currency\n&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+            &quot;example&quot;: &quot;7176.00&quot;
+        },
+        &quot;estimated_total_cost&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Estimated total cost inclusive of Lune fees.\n\nUnit: order quote currency\n&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+            &quot;example&quot;: &quot;7696.00&quot;
+        },
+        &quot;estimated_commission&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Estimated commission&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+            &quot;example&quot;: &quot;520.00&quot;
+        },
+        &quot;bundles&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;description&quot;: &quot;Bundles included in the quote including quantity and cost breakdown.\n&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;required&quot;: [
+                    &quot;bundle_id&quot;,
+                    &quot;bundle_name&quot;,
+                    &quot;quantity&quot;,
+                    &quot;unit_price&quot;,
+                    &quot;gross_unit_price&quot;,
+                    &quot;offset_cost&quot;
+                ],
+                &quot;properties&quot;: {
+                    &quot;bundle_id&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s unique identifier&quot;,
+                        &quot;example&quot;: &quot;va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;
+                    },
+                    &quot;bundle_name&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s name&quot;,
+                        &quot;example&quot;: &quot;Latin America Forestry&quot;
+                    },
+                    &quot;quantity&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                        &quot;example&quot;: &quot;1040&quot;,
+                        &quot;description&quot;: &quot;Quantity for the specific bundle (tonnes CO2)&quot;
+                    },
+                    &quot;unit_price&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;Bundle unit price per tonne CO2\n\nUnit: order currency\n&quot;,
+                        &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                        &quot;example&quot;: &quot;6.90&quot;
+                    },
+                    &quot;gross_unit_price&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;Bundle unit price per tonne CO2 inclusive of fees.\n\nUnit: order currency\n&quot;,
+                        &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                        &quot;example&quot;: &quot;7.90&quot;
+                    },
+                    &quot;offset_cost&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s net offset cost being purchased.\n\nUnit: order currency\n&quot;,
+                        &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                        &quot;example&quot;: &quot;7176.00&quot;
+                    },
+                    &quot;insufficient_available_quantity&quot;: {
+                        &quot;type&quot;: &quot;boolean&quot;,
+                        &quot;description&quot;: &quot;If true, there is no inventory necessary to fully satisfy the order for this bundle.\n&quot;,
+                        &quot;example&quot;: true
+                    }
+                },
+                &quot;ref&quot;: &quot;#/components/schemas/OrderBundle&quot;
+            }
+        },
+        &quot;requested_quantity&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+            &quot;example&quot;: &quot;1045&quot;,
+            &quot;description&quot;: &quot;Requested quantity for the specific bundle (tonnes CO2).\n\nrequested_quantity may be returned as part of an emission estimate response, in which case this property contains the equivalent value as the &#x60;mass&#x60; property.\n&quot;
+        }
+    },
+    &quot;ref&quot;: &quot;#/components/schemas/OrderQuoteBase&quot;,
+    &quot;example&quot;: {
+        &quot;currency&quot;: &quot;GBP&quot;,
+        &quot;estimated_quantity&quot;: &quot;1040&quot;,
+        &quot;estimated_offset_cost&quot;: &quot;7176.00&quot;,
+        &quot;estimated_total_cost&quot;: &quot;7696.00&quot;,
+        &quot;estimated_commission&quot;: &quot;520.00&quot;,
+        &quot;bundles&quot;: [
+            {
+                &quot;bundle_id&quot;: &quot;va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;,
+                &quot;bundle_name&quot;: &quot;Latin America Forestry&quot;,
+                &quot;quantity&quot;: &quot;1040&quot;,
+                &quot;unit_price&quot;: &quot;6.90&quot;,
+                &quot;gross_unit_price&quot;: &quot;7.90&quot;,
+                &quot;offset_cost&quot;: &quot;7176.00&quot;,
+                &quot;insufficient_available_quantity&quot;: true
+            }
+        ],
+        &quot;requested_quantity&quot;: &quot;1045&quot;
+    }
+}" />

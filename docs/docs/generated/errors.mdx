@@ -1,0 +1,67 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;Errors&quot;,
+    &quot;description&quot;: &quot;An error container&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;errors&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;errors&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;description&quot;: &quot;An array containing errors&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;description&quot;: &quot;Individual error information&quot;,
+                &quot;required&quot;: [
+                    &quot;error_code&quot;,
+                    &quot;message&quot;
+                ],
+                &quot;properties&quot;: {
+                    &quot;error_code&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;Immutable string representing a specific error.&quot;,
+                        &quot;example&quot;: &quot;account_suspended&quot;,
+                        &quot;enum&quot;: [
+                            &quot;account_suspended&quot;,
+                            &quot;invalid_selected_account_id&quot;,
+                            &quot;bundle_selection_ratios_invalid&quot;,
+                            &quot;bundle_selection_bundle_invalid&quot;,
+                            &quot;order_idempotency_already_exists&quot;,
+                            &quot;order_quantity_invalid&quot;,
+                            &quot;bundle_id_invalid&quot;,
+                            &quot;id_invalid&quot;,
+                            &quot;test_account_name_update_disallowed&quot;,
+                            &quot;validation_error&quot;,
+                            &quot;bundle_selection_ratios_invalid_format&quot;,
+                            &quot;address_not_found&quot;,
+                            &quot;offset_link_constraint_required&quot;,
+                            &quot;offset_link_bundles_size_invalid&quot;,
+                            &quot;webhook_limit_reached&quot;,
+                            &quot;time_range_invalid&quot;,
+                            &quot;exchange_rate_not_found&quot;,
+                            &quot;live_account_required&quot;,
+                            &quot;unauthorised&quot;,
+                            &quot;estimate_not_found&quot;,
+                            &quot;estimate_order_already_placed&quot;
+                        ]
+                    },
+                    &quot;message&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;Human readable error message.\n\nThis value can contain some extra information about the error in\nhuman-readable form. Not suitable for programmatic consumption, the format\nis not guaranteed to be stable.\n&quot;
+                    }
+                },
+                &quot;ref&quot;: &quot;#/components/schemas/Error&quot;
+            }
+        }
+    },
+    &quot;example&quot;: {
+        &quot;errors&quot;: [
+            {
+                &quot;error_code&quot;: &quot;account_suspended&quot;,
+                &quot;message&quot;: &quot;string&quot;
+            }
+        ]
+    }
+}" />

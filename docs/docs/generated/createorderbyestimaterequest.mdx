@@ -1,0 +1,95 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;CreateOrderByEstimateRequest&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;estimate_id&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;estimate_id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The emission calculation unique identifier&quot;,
+            &quot;example&quot;: &quot;90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6&quot;
+        },
+        &quot;idempotency_key&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;maxLength&quot;: 100,
+            &quot;example&quot;: &quot;5bd808a954e&quot;,
+            &quot;description&quot;: &quot;Account-unique identifier provided by the client.\n\n&#x60;idempotency_key&#x60; has two purposes:\n1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.\n2. Clients can use &#x60;idempotency_key&#x60; to reconcile orders with other entities on their system.\n&quot;
+        },
+        &quot;bundle_selection&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;description&quot;: &quot;Bundle selection percentages.\n\nThe sum of all percentages must equal 100.\n\nIf not specified, the preconfigured allocation ratios are going to be used.\n\nIf, for each selection, &#x60;percentage&#x60; is not provided, the selection is divided equally (best effort) between bundles. &#x60;percentage&#x60; must be provided for all or none of the bundles.\n&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;description&quot;: &quot;Maps a bundle id to an allocation ratio&quot;,
+                &quot;required&quot;: [
+                    &quot;bundle_id&quot;
+                ],
+                &quot;properties&quot;: {
+                    &quot;bundle_id&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;example&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s unique identifier&quot;
+                    },
+                    &quot;percentage&quot;: {
+                        &quot;type&quot;: &quot;integer&quot;,
+                        &quot;example&quot;: 43,
+                        &quot;description&quot;: &quot;Selection percentage&quot;
+                    }
+                },
+                &quot;ref&quot;: &quot;#/components/schemas/BundlePercentageRequest&quot;
+            },
+            &quot;example&quot;: [
+                {
+                    &quot;bundle_id&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                    &quot;percentage&quot;: 34
+                },
+                {
+                    &quot;bundle_id&quot;: &quot;VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B&quot;,
+                    &quot;percentage&quot;: 66
+                }
+            ],
+            &quot;ref&quot;: &quot;#/components/schemas/BundleSelectionRequest&quot;
+        },
+        &quot;metadata&quot;: {
+            &quot;description&quot;: &quot;An arbitrary dictionary (key-value pairs) to store application-specific information.\n\nLune doesn&#x27;t use this information for order processing. Its purpose is for the API\nclients to be able to attach arbitrary information (to an order for example) and\nthen retrieve it.\n&quot;,
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;additionalProperties&quot;: {
+                &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/Metadata&quot;
+        },
+        &quot;quantity_trunc&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Unit, &#x60;t&#x60; for tonne, &#x60;kg&#x60; for kilogram, &#x60;g&#x60; for gram&quot;,
+            &quot;enum&quot;: [
+                &quot;g&quot;,
+                &quot;kg&quot;,
+                &quot;t&quot;
+            ],
+            &quot;example&quot;: &quot;t&quot;,
+            &quot;ref&quot;: &quot;#/components/schemas/MassUnit&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;estimate_id&quot;: &quot;90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6&quot;,
+        &quot;idempotency_key&quot;: &quot;5bd808a954e&quot;,
+        &quot;bundle_selection&quot;: [
+            {
+                &quot;bundle_id&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                &quot;percentage&quot;: 34
+            },
+            {
+                &quot;bundle_id&quot;: &quot;VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B&quot;,
+                &quot;percentage&quot;: 66
+            }
+        ],
+        &quot;metadata&quot;: {
+            &quot;property1&quot;: &quot;string&quot;,
+            &quot;property2&quot;: &quot;number&quot;
+        },
+        &quot;quantity_trunc&quot;: &quot;t&quot;
+    }
+}" />

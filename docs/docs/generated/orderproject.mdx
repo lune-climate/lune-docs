@@ -1,0 +1,64 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;OrderProject&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;project_id&quot;,
+        &quot;project_name&quot;,
+        &quot;project_type&quot;,
+        &quot;project_slug&quot;,
+        &quot;quantity&quot;,
+        &quot;unit_price&quot;,
+        &quot;offset_cost&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;project_id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The project&#x27;s unique identifier&quot;,
+            &quot;example&quot;: &quot;xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;
+        },
+        &quot;project_name&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The project&#x27;s name&quot;,
+            &quot;example&quot;: &quot;Alto Mayo&quot;
+        },
+        &quot;project_type&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The project&#x27;s offset type, eg Forest conservation, Afforestation, Direct Air Capture&quot;,
+            &quot;example&quot;: &quot;Forest conservation&quot;
+        },
+        &quot;project_slug&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The project&#x27;s unique slug&quot;,
+            &quot;example&quot;: &quot;alto-mayo&quot;
+        },
+        &quot;quantity&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+            &quot;example&quot;: &quot;1040&quot;,
+            &quot;description&quot;: &quot;Carbon offset purchased (tonnes CO2)&quot;
+        },
+        &quot;unit_price&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Project unit price per tonne CO2\n\nUnit: order currency\n&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+            &quot;example&quot;: &quot;6.09&quot;
+        },
+        &quot;offset_cost&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The net offset cost being purchased.\n\nUnit: order currency\n&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+            &quot;example&quot;: &quot;7176.00&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;project_id&quot;: &quot;xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;,
+        &quot;project_name&quot;: &quot;Alto Mayo&quot;,
+        &quot;project_type&quot;: &quot;Forest conservation&quot;,
+        &quot;project_slug&quot;: &quot;alto-mayo&quot;,
+        &quot;quantity&quot;: &quot;1040&quot;,
+        &quot;unit_price&quot;: &quot;6.09&quot;,
+        &quot;offset_cost&quot;: &quot;7176.00&quot;
+    }
+}" />

@@ -1,0 +1,68 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;OffsetLinkOrder&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;order_id&quot;,
+        &quot;created_at&quot;,
+        &quot;email&quot;,
+        &quot;bundles&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;order_id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The order&#x27;s unique identifier&quot;,
+            &quot;example&quot;: &quot;zwjfkXjfksoHXzA1qjANL58GhjwqkxpB&quot;
+        },
+        &quot;created_at&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;description&quot;: &quot;An &lt;a href&#x3D;\&quot;https://pretty-rfc.herokuapp.com/RFC3339\&quot;&gt;RFC 3339&lt;/a&gt;-formatted timestamp.&quot;,
+            &quot;example&quot;: &quot;1985-04-12T23:20:50.52Z&quot;,
+            &quot;ref&quot;: &quot;#/components/schemas/Timestamp&quot;
+        },
+        &quot;email&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The email address of the user that placed an order through the offset link&quot;,
+            &quot;example&quot;: [
+                &quot;john@doe.com&quot;
+            ]
+        },
+        &quot;bundles&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;required&quot;: [
+                    &quot;bundle_id&quot;,
+                    &quot;bundle_name&quot;
+                ],
+                &quot;properties&quot;: {
+                    &quot;bundle_id&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s unique identifier&quot;,
+                        &quot;example&quot;: &quot;va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;
+                    },
+                    &quot;bundle_name&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s name&quot;,
+                        &quot;example&quot;: &quot;Latin America Forestry&quot;
+                    }
+                }
+            }
+        }
+    },
+    &quot;example&quot;: {
+        &quot;order_id&quot;: &quot;zwjfkXjfksoHXzA1qjANL58GhjwqkxpB&quot;,
+        &quot;created_at&quot;: &quot;1985-04-12T23:20:50.52Z&quot;,
+        &quot;email&quot;: [
+            &quot;john@doe.com&quot;
+        ],
+        &quot;bundles&quot;: [
+            {
+                &quot;bundle_id&quot;: &quot;va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;,
+                &quot;bundle_name&quot;: &quot;Latin America Forestry&quot;
+            }
+        ]
+    }
+}" />

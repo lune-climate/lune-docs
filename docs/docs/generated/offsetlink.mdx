@@ -1,0 +1,435 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;OffsetLink&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;id&quot;,
+        &quot;name&quot;,
+        &quot;url&quot;,
+        &quot;created_at&quot;,
+        &quot;status&quot;,
+        &quot;use_logo&quot;,
+        &quot;require_payment&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The offset link unique identifier&quot;,
+            &quot;example&quot;: &quot;UwjfkXjfksoHXzA1qjANL58GhjwqkxpB&quot;
+        },
+        &quot;name&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Offset link name.\n\nThis is a human readable name to recognise and distingish different offset links.\n&quot;,
+            &quot;example&quot;: &quot;Marketing Campaign July 2021&quot;
+        },
+        &quot;title&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Offset link title\n\nThis is the title that appears on the first screen of the offset links flow.\n&quot;
+        },
+        &quot;description&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Offset link description\n\nThis is the description that appears on the first screen of the offset links flow.\n&quot;
+        },
+        &quot;logo&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Offset link logo URL\n\nThis is the logo URL that appears on the first screen of the offset links flow.\n&quot;
+        },
+        &quot;use_logo&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;,
+            &quot;description&quot;: &quot;Whether to include the Offset link logo (defined in Account settings) in the footer.\n&quot;
+        },
+        &quot;url&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^https?:\\/\\/.+$&quot;,
+            &quot;description&quot;: &quot;The actual offset link URL that can be used to place orders&quot;,
+            &quot;example&quot;: &quot;https://links.lune.co/ds234cAd&quot;
+        },
+        &quot;value&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+            &quot;description&quot;: &quot;An amount of money (the fractional part is optional)&quot;,
+            &quot;example&quot;: &quot;3.14&quot;,
+            &quot;ref&quot;: &quot;#/components/schemas/Money&quot;
+        },
+        &quot;currency&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;ISO 4217 3 character currency code.\n\nNote: Lune does not support all currency codes.\n&quot;,
+            &quot;ref&quot;: &quot;#/components/schemas/CurrencyCode&quot;
+        },
+        &quot;emails&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;description&quot;: &quot;The email addresses of users that are allowed to use the offset link.&quot;,
+            &quot;example&quot;: [
+                &quot;john@doe.com&quot;
+            ]
+        },
+        &quot;bundles&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;description&quot;: &quot;Bundle objects&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;required&quot;: [
+                    &quot;id&quot;,
+                    &quot;name&quot;,
+                    &quot;unit_price&quot;,
+                    &quot;gross_unit_price&quot;,
+                    &quot;currency&quot;,
+                    &quot;disabled&quot;,
+                    &quot;projects&quot;
+                ],
+                &quot;properties&quot;: {
+                    &quot;id&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;example&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s unique identifier&quot;
+                    },
+                    &quot;name&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s name&quot;,
+                        &quot;example&quot;: &quot;Latin America Forestry&quot;
+                    },
+                    &quot;unit_price&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;Bundle unit price per tonne CO2\n&quot;,
+                        &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                        &quot;example&quot;: &quot;6.09&quot;
+                    },
+                    &quot;gross_unit_price&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;Bundle unit price per tonne CO2 inclusive of fees\n&quot;,
+                        &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                        &quot;example&quot;: &quot;7.09&quot;
+                    },
+                    &quot;currency&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;example&quot;: &quot;GBP&quot;,
+                        &quot;description&quot;: &quot;Currency code&quot;
+                    },
+                    &quot;background_colour&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;A bundle&#x27;s background colour in hexadecimal format&quot;,
+                        &quot;example&quot;: &quot;#AABBCC&quot;
+                    },
+                    &quot;primary_image&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;A bundle&#x27;s image URL&quot;,
+                        &quot;example&quot;: &quot;https://assets.lune.co/bundles/latin-america-forestry.png&quot;
+                    },
+                    &quot;primary_image_hires&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;A bundle&#x27;s high resolution image URL&quot;,
+                        &quot;example&quot;: &quot;https://assets.lune.co/bundles/latin-america-hires.jpg&quot;
+                    },
+                    &quot;small_thumbnail&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;A bundle&#x27;s small thumbnail image URL&quot;,
+                        &quot;example&quot;: &quot;https://assets.lune.co/bundles/latin-america-thumbnail.jpg&quot;
+                    },
+                    &quot;description&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s description&quot;,
+                        &quot;example&quot;: &quot;A conglomeration of renewable energy projects around the world&quot;
+                    },
+                    &quot;disabled&quot;: {
+                        &quot;type&quot;: &quot;boolean&quot;,
+                        &quot;example&quot;: false,
+                        &quot;description&quot;: &quot;Disabled bundles do not accept orders\n&quot;
+                    },
+                    &quot;available_quantity&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;Quantity of CO2 offsets available to purchase (in tonnes).\n\nIf available_quantity is not set, assume there is an unlimited amount of offsets to purchase.\n&quot;,
+                        &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                        &quot;example&quot;: &quot;1000.09&quot;
+                    },
+                    &quot;offset_type&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;Offset type classification\n&quot;,
+                        &quot;enum&quot;: [
+                            &quot;emissions_reduction&quot;,
+                            &quot;carbon_removal&quot;
+                        ],
+                        &quot;example&quot;: &quot;emissions_reduction&quot;
+                    },
+                    &quot;carbon_permanence&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s carbon storage permanence.&quot;,
+                        &quot;enum&quot;: [
+                            &quot;long_term&quot;,
+                            &quot;short_term&quot;
+                        ],
+                        &quot;example&quot;: &quot;long_term&quot;
+                    },
+                    &quot;projects&quot;: {
+                        &quot;type&quot;: &quot;array&quot;,
+                        &quot;description&quot;: &quot;Array of projects that belong to the bundle&quot;,
+                        &quot;items&quot;: {
+                            &quot;type&quot;: &quot;object&quot;,
+                            &quot;required&quot;: [
+                                &quot;id&quot;,
+                                &quot;name&quot;,
+                                &quot;short_name&quot;,
+                                &quot;slug&quot;,
+                                &quot;description&quot;,
+                                &quot;project_type&quot;,
+                                &quot;registry_name&quot;,
+                                &quot;latitude&quot;,
+                                &quot;longitude&quot;,
+                                &quot;country_name&quot;,
+                                &quot;country_code&quot;,
+                                &quot;disabled&quot;
+                            ],
+                            &quot;properties&quot;: {
+                                &quot;id&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;example&quot;: &quot;owda1kVEl60jnPykZeADr57Z8OqbKMXx&quot;,
+                                    &quot;description&quot;: &quot;The projects&#x27;s unique identifier&quot;
+                                },
+                                &quot;name&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The project&#x27;s name&quot;,
+                                    &quot;example&quot;: &quot;Alto Mayo&quot;
+                                },
+                                &quot;short_name&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The project&#x27;s short name. May coincide with name.&quot;,
+                                    &quot;example&quot;: &quot;Alto Mayo&quot;
+                                },
+                                &quot;slug&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;Project slug&quot;,
+                                    &quot;example&quot;: &quot;alto-mayo&quot;
+                                },
+                                &quot;description&quot;: {
+                                    &quot;description&quot;: &quot;Project description&quot;,
+                                    &quot;type&quot;: &quot;string&quot;
+                                },
+                                &quot;project_type&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The project&#x27;s offset type, eg Forest conservation, Afforestation, Direct Air Capture&quot;,
+                                    &quot;example&quot;: &quot;Forest conservation&quot;
+                                },
+                                &quot;registry_name&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The project&#x27;s Verification Standard Entity name or equivalent organization.&quot;,
+                                    &quot;example&quot;: &quot;Verified Carbon Standard&quot;
+                                },
+                                &quot;registry_link&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;A link to the registry&#x27;s project details page.&quot;,
+                                    &quot;example&quot;: &quot;https://registry.verra.org/app/projectDetail/VCS/1566&quot;
+                                },
+                                &quot;latitude&quot;: {
+                                    &quot;type&quot;: &quot;number&quot;,
+                                    &quot;format&quot;: &quot;float&quot;,
+                                    &quot;description&quot;: &quot;Latitude&quot;,
+                                    &quot;example&quot;: &quot;-5.87798&quot;
+                                },
+                                &quot;longitude&quot;: {
+                                    &quot;type&quot;: &quot;number&quot;,
+                                    &quot;format&quot;: &quot;float&quot;,
+                                    &quot;description&quot;: &quot;Logitude&quot;,
+                                    &quot;example&quot;: &quot;-77.612352&quot;
+                                },
+                                &quot;country_name&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The project&#x27;s country&quot;,
+                                    &quot;example&quot;: &quot;Peru&quot;
+                                },
+                                &quot;country_code&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The project&#x27;s 3 character country code&quot;
+                                },
+                                &quot;region&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The project&#x27;s region&quot;,
+                                    &quot;example&quot;: &quot;Huancavelica&quot;
+                                },
+                                &quot;logo&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;A project logo image URL&quot;,
+                                    &quot;example&quot;: &quot;https://assets.lune.co/projects/Alto+Mayo+1+logo.png&quot;
+                                },
+                                &quot;primary_image&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;A project image URL&quot;,
+                                    &quot;example&quot;: &quot;https://assets.lune.co/projects/Alto+Mayo+1.png&quot;
+                                },
+                                &quot;thumbnail_image&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;A project thumbnail image URL&quot;,
+                                    &quot;example&quot;: &quot;https://assets.lune.co/projects/Alto+Mayo+1_thumbnail.png&quot;
+                                },
+                                &quot;results&quot;: {
+                                    &quot;description&quot;: &quot;Project results&quot;,
+                                    &quot;type&quot;: &quot;array&quot;,
+                                    &quot;items&quot;: {
+                                        &quot;type&quot;: &quot;string&quot;
+                                    },
+                                    &quot;example&quot;: [
+                                        &quot;Reduced deforestation of 75% from baseline levels, the first time a project in Peru reaches such high results&quot;,
+                                        &quot;Co-benefits include: poverty reduction across local communities, education around sustainable farming, conservation of biodiversity&quot;
+                                    ]
+                                },
+                                &quot;un_sdg&quot;: {
+                                    &quot;description&quot;: &quot;UN Sustainable Development Goals.\n\nEach number in the array represent one UN Sustainable Development Goal. See https://sdgs.un.org/goals.\n&quot;,
+                                    &quot;type&quot;: &quot;array&quot;,
+                                    &quot;items&quot;: {
+                                        &quot;type&quot;: &quot;number&quot;
+                                    },
+                                    &quot;example&quot;: [
+                                        1,
+                                        4,
+                                        8,
+                                        13,
+                                        15
+                                    ]
+                                },
+                                &quot;disabled&quot;: {
+                                    &quot;type&quot;: &quot;boolean&quot;,
+                                    &quot;example&quot;: false,
+                                    &quot;description&quot;: &quot;Disabled projects do not get allocated to orders\n&quot;
+                                },
+                                &quot;media&quot;: {
+                                    &quot;type&quot;: &quot;array&quot;,
+                                    &quot;items&quot;: {
+                                        &quot;type&quot;: &quot;object&quot;,
+                                        &quot;required&quot;: [
+                                            &quot;type&quot;,
+                                            &quot;url&quot;
+                                        ],
+                                        &quot;properties&quot;: {
+                                            &quot;type&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;enum&quot;: [
+                                                    &quot;image&quot;,
+                                                    &quot;video&quot;
+                                                ],
+                                                &quot;example&quot;: &quot;image&quot;,
+                                                &quot;description&quot;: &quot;The type of the media item&quot;
+                                            },
+                                            &quot;url&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;example&quot;: &quot;https://assets.lune.co/bundles/biochar.png&quot;,
+                                                &quot;description&quot;: &quot;The URL of the media item&quot;
+                                            }
+                                        },
+                                        &quot;ref&quot;: &quot;#/components/schemas/Media&quot;
+                                    },
+                                    &quot;description&quot;: &quot;A list of images and videos belonging to the project.&quot;
+                                }
+                            },
+                            &quot;ref&quot;: &quot;#/components/schemas/ProjectSummary&quot;
+                        }
+                    }
+                },
+                &quot;ref&quot;: &quot;#/components/schemas/Bundle&quot;,
+                &quot;description&quot;: &quot;Group of projects of similar price and characteristics.\n\nOrders are placed against bundles.\n&quot;
+            }
+        },
+        &quot;created_at&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;description&quot;: &quot;An &lt;a href&#x3D;\&quot;https://pretty-rfc.herokuapp.com/RFC3339\&quot;&gt;RFC 3339&lt;/a&gt;-formatted timestamp.&quot;,
+            &quot;example&quot;: &quot;1985-04-12T23:20:50.52Z&quot;,
+            &quot;ref&quot;: &quot;#/components/schemas/Timestamp&quot;
+        },
+        &quot;status&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+                &quot;enabled&quot;,
+                &quot;disabled&quot;
+            ],
+            &quot;example&quot;: &quot;enabled&quot;,
+            &quot;ref&quot;: &quot;#/components/schemas/OffsetLinkStatus&quot;
+        },
+        &quot;expires_at&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;description&quot;: &quot;An &lt;a href&#x3D;\&quot;https://pretty-rfc.herokuapp.com/RFC3339\&quot;&gt;RFC 3339&lt;/a&gt;-formatted timestamp.&quot;,
+            &quot;example&quot;: &quot;1985-04-12T23:20:50.52Z&quot;,
+            &quot;ref&quot;: &quot;#/components/schemas/Timestamp&quot;
+        },
+        &quot;require_payment&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;,
+            &quot;description&quot;: &quot;If true, the user of the Offset Link is required to pay by credit/debit card.\n&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;id&quot;: &quot;UwjfkXjfksoHXzA1qjANL58GhjwqkxpB&quot;,
+        &quot;name&quot;: &quot;Marketing Campaign July 2021&quot;,
+        &quot;title&quot;: &quot;string&quot;,
+        &quot;description&quot;: &quot;string&quot;,
+        &quot;logo&quot;: &quot;string&quot;,
+        &quot;use_logo&quot;: &quot;boolean&quot;,
+        &quot;url&quot;: &quot;https://links.lune.co/ds234cAd&quot;,
+        &quot;value&quot;: &quot;3.14&quot;,
+        &quot;currency&quot;: &quot;string&quot;,
+        &quot;emails&quot;: [
+            &quot;john@doe.com&quot;
+        ],
+        &quot;bundles&quot;: [
+            {
+                &quot;id&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                &quot;name&quot;: &quot;Latin America Forestry&quot;,
+                &quot;unit_price&quot;: &quot;6.09&quot;,
+                &quot;gross_unit_price&quot;: &quot;7.09&quot;,
+                &quot;currency&quot;: &quot;GBP&quot;,
+                &quot;background_colour&quot;: &quot;#AABBCC&quot;,
+                &quot;primary_image&quot;: &quot;https://assets.lune.co/bundles/latin-america-forestry.png&quot;,
+                &quot;primary_image_hires&quot;: &quot;https://assets.lune.co/bundles/latin-america-hires.jpg&quot;,
+                &quot;small_thumbnail&quot;: &quot;https://assets.lune.co/bundles/latin-america-thumbnail.jpg&quot;,
+                &quot;description&quot;: &quot;A conglomeration of renewable energy projects around the world&quot;,
+                &quot;disabled&quot;: false,
+                &quot;available_quantity&quot;: &quot;1000.09&quot;,
+                &quot;offset_type&quot;: &quot;emissions_reduction&quot;,
+                &quot;carbon_permanence&quot;: &quot;long_term&quot;,
+                &quot;projects&quot;: [
+                    {
+                        &quot;id&quot;: &quot;owda1kVEl60jnPykZeADr57Z8OqbKMXx&quot;,
+                        &quot;name&quot;: &quot;Alto Mayo&quot;,
+                        &quot;short_name&quot;: &quot;Alto Mayo&quot;,
+                        &quot;slug&quot;: &quot;alto-mayo&quot;,
+                        &quot;description&quot;: &quot;string&quot;,
+                        &quot;project_type&quot;: &quot;Forest conservation&quot;,
+                        &quot;registry_name&quot;: &quot;Verified Carbon Standard&quot;,
+                        &quot;registry_link&quot;: &quot;https://registry.verra.org/app/projectDetail/VCS/1566&quot;,
+                        &quot;latitude&quot;: &quot;-5.87798&quot;,
+                        &quot;longitude&quot;: &quot;-77.612352&quot;,
+                        &quot;country_name&quot;: &quot;Peru&quot;,
+                        &quot;country_code&quot;: &quot;string&quot;,
+                        &quot;region&quot;: &quot;Huancavelica&quot;,
+                        &quot;logo&quot;: &quot;https://assets.lune.co/projects/Alto+Mayo+1+logo.png&quot;,
+                        &quot;primary_image&quot;: &quot;https://assets.lune.co/projects/Alto+Mayo+1.png&quot;,
+                        &quot;thumbnail_image&quot;: &quot;https://assets.lune.co/projects/Alto+Mayo+1_thumbnail.png&quot;,
+                        &quot;results&quot;: [
+                            &quot;Reduced deforestation of 75% from baseline levels, the first time a project in Peru reaches such high results&quot;,
+                            &quot;Co-benefits include: poverty reduction across local communities, education around sustainable farming, conservation of biodiversity&quot;
+                        ],
+                        &quot;un_sdg&quot;: [
+                            1,
+                            4,
+                            8,
+                            13,
+                            15
+                        ],
+                        &quot;disabled&quot;: false,
+                        &quot;media&quot;: [
+                            {
+                                &quot;type&quot;: &quot;image&quot;,
+                                &quot;url&quot;: &quot;https://assets.lune.co/bundles/biochar.png&quot;
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        &quot;created_at&quot;: &quot;1985-04-12T23:20:50.52Z&quot;,
+        &quot;status&quot;: &quot;enabled&quot;,
+        &quot;expires_at&quot;: &quot;1985-04-12T23:20:50.52Z&quot;,
+        &quot;require_payment&quot;: &quot;boolean&quot;
+    }
+}" />

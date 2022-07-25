@@ -1,0 +1,203 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;FlightEstimateRequest&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;description&quot;: &quot;Parameters for estimating emissions for commercial plane travel&quot;,
+    &quot;required&quot;: [
+        &quot;route&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;route&quot;: {
+            &quot;description&quot;: &quot;Either the flying distance or the start/destination airport code (ICAO or IATA).&quot;,
+            &quot;oneOf&quot;: [
+                {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;required&quot;: [
+                        &quot;amount&quot;,
+                        &quot;unit&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;amount&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                            &quot;example&quot;: &quot;40.501&quot;
+                        },
+                        &quot;unit&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;enum&quot;: [
+                                &quot;km&quot;,
+                                &quot;mi&quot;
+                            ],
+                            &quot;example&quot;: &quot;km&quot;,
+                            &quot;description&quot;: &quot;Unit, &#x60;km&#x60; for kilometers, &#x60;mi&#x60; for miles&quot;
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/Distance&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;required&quot;: [
+                        &quot;source&quot;,
+                        &quot;destination&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;source&quot;: {
+                            &quot;type&quot;: &quot;object&quot;,
+                            &quot;oneOf&quot;: [
+                                {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;code&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;code&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;,
+                                            &quot;pattern&quot;: &quot;^[A-Z]{3}$&quot;,
+                                            &quot;description&quot;: &quot;Airport IATA code. For a full list of options (https://openflights.org/data.html)&quot;,
+                                            &quot;example&quot;: &quot;OPO&quot;
+                                        }
+                                    },
+                                    &quot;ref&quot;: &quot;#/components/schemas/IATACode&quot;
+                                },
+                                {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;code&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;code&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;,
+                                            &quot;pattern&quot;: &quot;^[A-Z]{4}[A-Z]?$&quot;,
+                                            &quot;description&quot;: &quot;Airport ICAO code. For a full list of options (https://openflights.org/data.html)&quot;,
+                                            &quot;example&quot;: &quot;LPPR&quot;
+                                        }
+                                    },
+                                    &quot;ref&quot;: &quot;#/components/schemas/ICAOCode&quot;
+                                }
+                            ],
+                            &quot;ref&quot;: &quot;#/components/schemas/AirportCode&quot;
+                        },
+                        &quot;destination&quot;: {
+                            &quot;type&quot;: &quot;object&quot;,
+                            &quot;oneOf&quot;: [
+                                {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;code&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;code&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;,
+                                            &quot;pattern&quot;: &quot;^[A-Z]{3}$&quot;,
+                                            &quot;description&quot;: &quot;Airport IATA code. For a full list of options (https://openflights.org/data.html)&quot;,
+                                            &quot;example&quot;: &quot;OPO&quot;
+                                        }
+                                    },
+                                    &quot;ref&quot;: &quot;#/components/schemas/IATACode&quot;
+                                },
+                                {
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;required&quot;: [
+                                        &quot;code&quot;
+                                    ],
+                                    &quot;properties&quot;: {
+                                        &quot;code&quot;: {
+                                            &quot;type&quot;: &quot;string&quot;,
+                                            &quot;pattern&quot;: &quot;^[A-Z]{4}[A-Z]?$&quot;,
+                                            &quot;description&quot;: &quot;Airport ICAO code. For a full list of options (https://openflights.org/data.html)&quot;,
+                                            &quot;example&quot;: &quot;LPPR&quot;
+                                        }
+                                    },
+                                    &quot;ref&quot;: &quot;#/components/schemas/ICAOCode&quot;
+                                }
+                            ],
+                            &quot;ref&quot;: &quot;#/components/schemas/AirportCode&quot;
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/AirportSourceDestination&quot;
+                }
+            ]
+        },
+        &quot;cabin_class&quot;: {
+            &quot;description&quot;: &quot;Cabin of class to be used for the specified passengers.\nHigher classes account for more emissions since total weight and volume necessary to accomodate the class is higher.\nThis parameter defaults to first.&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+                &quot;economy&quot;,
+                &quot;business&quot;,
+                &quot;first&quot;
+            ],
+            &quot;example&quot;: &quot;economy&quot;,
+            &quot;ref&quot;: &quot;#/components/schemas/CabinClass&quot;
+        },
+        &quot;passengers&quot;: {
+            &quot;description&quot;: &quot;Number of passengers the calculation should be applied to.\nThis parameter defaults to 1.&quot;,
+            &quot;type&quot;: &quot;number&quot;
+        },
+        &quot;bundle_selection&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;description&quot;: &quot;Bundle selection percentages.\n\nThe sum of all percentages must equal 100.\n\nIf not specified, the preconfigured allocation ratios are going to be used.\n\nIf, for each selection, &#x60;percentage&#x60; is not provided, the selection is divided equally (best effort) between bundles. &#x60;percentage&#x60; must be provided for all or none of the bundles.\n&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;description&quot;: &quot;Maps a bundle id to an allocation ratio&quot;,
+                &quot;required&quot;: [
+                    &quot;bundle_id&quot;
+                ],
+                &quot;properties&quot;: {
+                    &quot;bundle_id&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;example&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s unique identifier&quot;
+                    },
+                    &quot;percentage&quot;: {
+                        &quot;type&quot;: &quot;integer&quot;,
+                        &quot;example&quot;: 43,
+                        &quot;description&quot;: &quot;Selection percentage&quot;
+                    }
+                },
+                &quot;ref&quot;: &quot;#/components/schemas/BundlePercentageRequest&quot;
+            },
+            &quot;example&quot;: [
+                {
+                    &quot;bundle_id&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                    &quot;percentage&quot;: 34
+                },
+                {
+                    &quot;bundle_id&quot;: &quot;VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B&quot;,
+                    &quot;percentage&quot;: 66
+                }
+            ],
+            &quot;ref&quot;: &quot;#/components/schemas/BundleSelectionRequest&quot;
+        },
+        &quot;quantity_trunc&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Unit, &#x60;t&#x60; for tonne, &#x60;kg&#x60; for kilogram, &#x60;g&#x60; for gram&quot;,
+            &quot;enum&quot;: [
+                &quot;g&quot;,
+                &quot;kg&quot;,
+                &quot;t&quot;
+            ],
+            &quot;example&quot;: &quot;t&quot;,
+            &quot;ref&quot;: &quot;#/components/schemas/MassUnit&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;route&quot;: {
+            &quot;amount&quot;: &quot;40.501&quot;,
+            &quot;unit&quot;: &quot;km&quot;
+        },
+        &quot;cabin_class&quot;: &quot;economy&quot;,
+        &quot;passengers&quot;: &quot;number&quot;,
+        &quot;bundle_selection&quot;: [
+            {
+                &quot;bundle_id&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                &quot;percentage&quot;: 34
+            },
+            {
+                &quot;bundle_id&quot;: &quot;VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B&quot;,
+                &quot;percentage&quot;: 66
+            }
+        ],
+        &quot;quantity_trunc&quot;: &quot;t&quot;
+    }
+}" />

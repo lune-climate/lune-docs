@@ -1,0 +1,32 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;Mass&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;amount&quot;,
+        &quot;unit&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;amount&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+            &quot;example&quot;: &quot;40.501&quot;
+        },
+        &quot;unit&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Unit, &#x60;t&#x60; for tonne, &#x60;kg&#x60; for kilogram, &#x60;g&#x60; for gram&quot;,
+            &quot;enum&quot;: [
+                &quot;g&quot;,
+                &quot;kg&quot;,
+                &quot;t&quot;
+            ],
+            &quot;example&quot;: &quot;t&quot;,
+            &quot;ref&quot;: &quot;#/components/schemas/MassUnit&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;amount&quot;: &quot;40.501&quot;,
+        &quot;unit&quot;: &quot;t&quot;
+    }
+}" />

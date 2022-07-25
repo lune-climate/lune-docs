@@ -1,0 +1,31 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;UpdateAccountRequest&quot;,
+    &quot;description&quot;: &quot;It&#x27;s only possible to edit the name and beneficiary of an account.\n\nNot providing the &#x60;beneficiary&#x60; property will result in clearing the existing value (if present).\n&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;name&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;name&quot;: {
+            &quot;description&quot;: &quot;The account name.&quot;,
+            &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;beneficiary&quot;: {
+            &quot;description&quot;: &quot;The account beneficiary.&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;minLength&quot;: 1
+        },
+        &quot;bundle_mix_id&quot;: {
+            &quot;description&quot;: &quot;The bundle mix unique identifier.&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;example&quot;: &quot;jvqkOq7vX2K18HHydar0W23ZGJdc91Pa&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;name&quot;: &quot;string&quot;,
+        &quot;beneficiary&quot;: &quot;string&quot;,
+        &quot;bundle_mix_id&quot;: &quot;jvqkOq7vX2K18HHydar0W23ZGJdc91Pa&quot;
+    }
+}" />

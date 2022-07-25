@@ -1,0 +1,168 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;Analytics&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;total_completed_offset_value&quot;,
+        &quot;total_completed_offset_quantity&quot;,
+        &quot;total_placed_offset_value&quot;,
+        &quot;total_placed_offset_quantity&quot;,
+        &quot;completed_offset_values&quot;,
+        &quot;completed_offset_quantities&quot;,
+        &quot;placed_offset_values&quot;,
+        &quot;placed_offset_quantities&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;total_completed_offset_value&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The total monetary value of all completed orders for a given interval.&quot;,
+            &quot;example&quot;: &quot;500.66&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;
+        },
+        &quot;total_completed_offset_quantity&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The total quantity in tCO2 of all completed orders for a given interval.&quot;,
+            &quot;example&quot;: &quot;500.667&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;
+        },
+        &quot;total_placed_offset_value&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The total monetary value of all placed orders for a given interval.&quot;,
+            &quot;example&quot;: &quot;333.66&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;
+        },
+        &quot;total_placed_offset_quantity&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The total quantity in tCO2 of all placed orders for a given interval.&quot;,
+            &quot;example&quot;: &quot;555.222&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;
+        },
+        &quot;completed_offset_values&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;description&quot;: &quot;An array of offest values grouped by completion date.&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;required&quot;: [
+                    &quot;date&quot;,
+                    &quot;value&quot;
+                ],
+                &quot;properties&quot;: {
+                    &quot;date&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;format&quot;: &quot;date&quot;,
+                        &quot;example&quot;: &quot;2021-09-09&quot;
+                    },
+                    &quot;value&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;example&quot;: &quot;333.66&quot;,
+                        &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;
+                    }
+                },
+                &quot;ref&quot;: &quot;#/components/schemas/OffsetValueSeriesItem&quot;
+            }
+        },
+        &quot;completed_offset_quantities&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;description&quot;: &quot;An array of offest quantities grouped by completion date.&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;required&quot;: [
+                    &quot;date&quot;,
+                    &quot;quantity&quot;
+                ],
+                &quot;properties&quot;: {
+                    &quot;date&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;format&quot;: &quot;date&quot;,
+                        &quot;example&quot;: &quot;2021-09-09&quot;
+                    },
+                    &quot;quantity&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;example&quot;: &quot;222.667&quot;,
+                        &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;
+                    }
+                },
+                &quot;ref&quot;: &quot;#/components/schemas/OffsetQuantitySeriesItem&quot;
+            }
+        },
+        &quot;placed_offset_values&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;description&quot;: &quot;An array of offest values grouped by placed date.&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;required&quot;: [
+                    &quot;date&quot;,
+                    &quot;value&quot;
+                ],
+                &quot;properties&quot;: {
+                    &quot;date&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;format&quot;: &quot;date&quot;,
+                        &quot;example&quot;: &quot;2021-09-09&quot;
+                    },
+                    &quot;value&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;example&quot;: &quot;333.66&quot;,
+                        &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;
+                    }
+                },
+                &quot;ref&quot;: &quot;#/components/schemas/OffsetValueSeriesItem&quot;
+            }
+        },
+        &quot;placed_offset_quantities&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;description&quot;: &quot;An array of offest quantities grouped by placed date.&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;required&quot;: [
+                    &quot;date&quot;,
+                    &quot;quantity&quot;
+                ],
+                &quot;properties&quot;: {
+                    &quot;date&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;format&quot;: &quot;date&quot;,
+                        &quot;example&quot;: &quot;2021-09-09&quot;
+                    },
+                    &quot;quantity&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;example&quot;: &quot;222.667&quot;,
+                        &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;
+                    }
+                },
+                &quot;ref&quot;: &quot;#/components/schemas/OffsetQuantitySeriesItem&quot;
+            }
+        }
+    },
+    &quot;example&quot;: {
+        &quot;total_completed_offset_value&quot;: &quot;500.66&quot;,
+        &quot;total_completed_offset_quantity&quot;: &quot;500.667&quot;,
+        &quot;total_placed_offset_value&quot;: &quot;333.66&quot;,
+        &quot;total_placed_offset_quantity&quot;: &quot;555.222&quot;,
+        &quot;completed_offset_values&quot;: [
+            {
+                &quot;date&quot;: &quot;2021-09-09&quot;,
+                &quot;value&quot;: &quot;333.66&quot;
+            }
+        ],
+        &quot;completed_offset_quantities&quot;: [
+            {
+                &quot;date&quot;: &quot;2021-09-09&quot;,
+                &quot;quantity&quot;: &quot;222.667&quot;
+            }
+        ],
+        &quot;placed_offset_values&quot;: [
+            {
+                &quot;date&quot;: &quot;2021-09-09&quot;,
+                &quot;value&quot;: &quot;333.66&quot;
+            }
+        ],
+        &quot;placed_offset_quantities&quot;: [
+            {
+                &quot;date&quot;: &quot;2021-09-09&quot;,
+                &quot;quantity&quot;: &quot;222.667&quot;
+            }
+        ]
+    }
+}" />

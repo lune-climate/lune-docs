@@ -1,0 +1,31 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;ElectricityConsumption&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;amount&quot;,
+        &quot;unit&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;amount&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+            &quot;example&quot;: &quot;40.501&quot;
+        },
+        &quot;unit&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+                &quot;kWh&quot;,
+                &quot;MWh&quot;,
+                &quot;GWh&quot;
+            ],
+            &quot;example&quot;: &quot;MWh&quot;,
+            &quot;description&quot;: &quot;Unit, &#x60;kWh&#x60; for kilowatt-hours, &#x60;MWh&#x60; for megawatt-hours, &#x60;GWh&#x60; for gigawatt-hours&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;amount&quot;: &quot;40.501&quot;,
+        &quot;unit&quot;: &quot;MWh&quot;
+    }
+}" />

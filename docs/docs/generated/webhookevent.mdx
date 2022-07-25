@@ -1,0 +1,619 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;WebhookEvent&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;api_version&quot;,
+        &quot;event_id&quot;,
+        &quot;event_type&quot;,
+        &quot;data&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;api_version&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;example&quot;: &quot;v1&quot;,
+            &quot;description&quot;: &quot;Version of the API that serialized the event. The only possible value at the moment is &#x60;v1&#x60;.\n&quot;
+        },
+        &quot;event_id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;example&quot;: &quot;va1BER4JZqnzPkYxJgALg0GeQDoXlWO5&quot;,
+            &quot;description&quot;: &quot;The event’s id. The id can be used for idempotency behaviour if stored on the client side.&quot;
+        },
+        &quot;event_type&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+                &quot;order.received&quot;,
+                &quot;order.placed&quot;,
+                &quot;order.allocated&quot;,
+                &quot;order.paid&quot;,
+                &quot;order.cancelled&quot;,
+                &quot;order.failed&quot;,
+                &quot;order.completed&quot;
+            ],
+            &quot;description&quot;: &quot;The event type. The type of event data will depend on the value present here.&quot;
+        },
+        &quot;sequence&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;example&quot;: &quot;2021-09-13T16:21:29.067Z&quot;,
+            &quot;description&quot;: &quot;The event’s sequence. This can be compared lexicographically to determine the order of events.\n\nThe details of the format are subject to change without notice as long as the lexicographical\nordering property remains intact. You can&#x27;t depend on the values having any particular shape\n(in particular you can&#x27;t depend on them being valid timestamps).\n&quot;
+        },
+        &quot;data&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;order&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;order&quot;: {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;oneOf&quot;: [
+                        {
+                            &quot;type&quot;: &quot;object&quot;,
+                            &quot;required&quot;: [
+                                &quot;id&quot;,
+                                &quot;type&quot;,
+                                &quot;status&quot;,
+                                &quot;currency&quot;,
+                                &quot;created_at&quot;,
+                                &quot;metadata&quot;,
+                                &quot;requested_quantity&quot;
+                            ],
+                            &quot;properties&quot;: {
+                                &quot;id&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The order&#x27;s unique identifier&quot;,
+                                    &quot;example&quot;: &quot;va1BER4JZqnzPkYxJgALg0GeQDoXlWO5&quot;
+                                },
+                                &quot;idempotency_key&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;maxLength&quot;: 100,
+                                    &quot;example&quot;: &quot;5bd808a954e&quot;,
+                                    &quot;description&quot;: &quot;Account-unique identifier provided by the client.\n\n&#x60;idempotency_key&#x60; has two purposes:\n1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.\n2. Clients can use &#x60;idempotency_key&#x60; to reconcile orders with other entities on their system.\n&quot;
+                                },
+                                &quot;type&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount)&quot;,
+                                    &quot;example&quot;: &quot;quantity&quot;,
+                                    &quot;enum&quot;: [
+                                        &quot;quantity&quot;,
+                                        &quot;value&quot;
+                                    ]
+                                },
+                                &quot;status&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;Order status&quot;,
+                                    &quot;example&quot;: &quot;complete&quot;,
+                                    &quot;enum&quot;: [
+                                        &quot;received&quot;,
+                                        &quot;placed&quot;,
+                                        &quot;paid&quot;,
+                                        &quot;retiring&quot;,
+                                        &quot;cancelled&quot;,
+                                        &quot;complete&quot;,
+                                        &quot;failed&quot;
+                                    ]
+                                },
+                                &quot;currency&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;Order currency code&quot;,
+                                    &quot;example&quot;: &quot;GBP&quot;
+                                },
+                                &quot;offset_cost&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The net offset cost being purchased. May be lower than &#x60;requested_value&#x60;.\n\nThis property is set when bundles are assigned to the order.\nUnit: order currency\n&quot;,
+                                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                    &quot;example&quot;: &quot;7176.00&quot;
+                                },
+                                &quot;total_cost&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The total cost for the order inclusive of fees.\n\nUnit: order currency\n&quot;,
+                                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                    &quot;example&quot;: &quot;7696.00&quot;
+                                },
+                                &quot;commission&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;Lune&#x27;s fee.\n\nThis property is set when bundles are assigned to the order.\nUnit: order currency\n&quot;,
+                                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                    &quot;example&quot;: &quot;520.00&quot;
+                                },
+                                &quot;quantity&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                    &quot;example&quot;: &quot;1040&quot;,
+                                    &quot;description&quot;: &quot;Quantity of CO2 offsets purchased in tonnes.&quot;
+                                },
+                                &quot;created_at&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;format&quot;: &quot;date-time&quot;,
+                                    &quot;description&quot;: &quot;Order creation timestamp&quot;
+                                },
+                                &quot;bundles&quot;: {
+                                    &quot;type&quot;: &quot;array&quot;,
+                                    &quot;description&quot;: &quot;bundles are set when the order&#x27;s status is &#x60;placed&#x60;, &#x60;paid&#x60;, &#x60;retiring&#x60; or &#x60;complete&#x60;.\n\nThe bundles associated with the order including their relative quantity and cost breakdown.\n&quot;,
+                                    &quot;items&quot;: {
+                                        &quot;type&quot;: &quot;object&quot;,
+                                        &quot;required&quot;: [
+                                            &quot;bundle_id&quot;,
+                                            &quot;bundle_name&quot;,
+                                            &quot;quantity&quot;,
+                                            &quot;unit_price&quot;,
+                                            &quot;gross_unit_price&quot;,
+                                            &quot;offset_cost&quot;
+                                        ],
+                                        &quot;properties&quot;: {
+                                            &quot;bundle_id&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The bundle&#x27;s unique identifier&quot;,
+                                                &quot;example&quot;: &quot;va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;
+                                            },
+                                            &quot;bundle_name&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The bundle&#x27;s name&quot;,
+                                                &quot;example&quot;: &quot;Latin America Forestry&quot;
+                                            },
+                                            &quot;quantity&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;1040&quot;,
+                                                &quot;description&quot;: &quot;Quantity for the specific bundle (tonnes CO2)&quot;
+                                            },
+                                            &quot;unit_price&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;Bundle unit price per tonne CO2\n\nUnit: order currency\n&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;6.90&quot;
+                                            },
+                                            &quot;gross_unit_price&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;Bundle unit price per tonne CO2 inclusive of fees.\n\nUnit: order currency\n&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;7.90&quot;
+                                            },
+                                            &quot;offset_cost&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The bundle&#x27;s net offset cost being purchased.\n\nUnit: order currency\n&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;7176.00&quot;
+                                            },
+                                            &quot;insufficient_available_quantity&quot;: {
+                                                &quot;type&quot;: &quot;boolean&quot;,
+                                                &quot;description&quot;: &quot;If true, there is no inventory necessary to fully satisfy the order for this bundle.\n&quot;,
+                                                &quot;example&quot;: true
+                                            }
+                                        },
+                                        &quot;ref&quot;: &quot;#/components/schemas/OrderBundle&quot;
+                                    }
+                                },
+                                &quot;projects&quot;: {
+                                    &quot;type&quot;: &quot;array&quot;,
+                                    &quot;description&quot;: &quot;Projects are set when the order&#x27;s status is &#x60;retiring&#x60; or &#x60;complete&#x60;.\n\nThe projects associated with the order including their relative quantity and cost breakdown.\n\nOrders are placed against bundles, not projects. Projects in a bundle may change based on supply.\n\nThis property is set as soon as we can guarantee project supply.\n&quot;,
+                                    &quot;items&quot;: {
+                                        &quot;type&quot;: &quot;object&quot;,
+                                        &quot;required&quot;: [
+                                            &quot;project_id&quot;,
+                                            &quot;project_name&quot;,
+                                            &quot;project_type&quot;,
+                                            &quot;project_slug&quot;,
+                                            &quot;quantity&quot;,
+                                            &quot;unit_price&quot;,
+                                            &quot;offset_cost&quot;
+                                        ],
+                                        &quot;properties&quot;: {
+                                            &quot;project_id&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The project&#x27;s unique identifier&quot;,
+                                                &quot;example&quot;: &quot;xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;
+                                            },
+                                            &quot;project_name&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The project&#x27;s name&quot;,
+                                                &quot;example&quot;: &quot;Alto Mayo&quot;
+                                            },
+                                            &quot;project_type&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The project&#x27;s offset type, eg Forest conservation, Afforestation, Direct Air Capture&quot;,
+                                                &quot;example&quot;: &quot;Forest conservation&quot;
+                                            },
+                                            &quot;project_slug&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The project&#x27;s unique slug&quot;,
+                                                &quot;example&quot;: &quot;alto-mayo&quot;
+                                            },
+                                            &quot;quantity&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;1040&quot;,
+                                                &quot;description&quot;: &quot;Carbon offset purchased (tonnes CO2)&quot;
+                                            },
+                                            &quot;unit_price&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;Project unit price per tonne CO2\n\nUnit: order currency\n&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;6.09&quot;
+                                            },
+                                            &quot;offset_cost&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The net offset cost being purchased.\n\nUnit: order currency\n&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;7176.00&quot;
+                                            }
+                                        },
+                                        &quot;ref&quot;: &quot;#/components/schemas/OrderProject&quot;
+                                    },
+                                    &quot;example&quot;: [
+                                        {
+                                            &quot;quantity&quot;: &quot;600&quot;,
+                                            &quot;unit_price&quot;: &quot;6.90&quot;,
+                                            &quot;offset_cost&quot;: &quot;4140.00&quot;,
+                                            &quot;project_id&quot;: &quot;gMbvJoOaX54V1wpNaRY8dWDGQ7m239Bx&quot;,
+                                            &quot;project_name&quot;: &quot;Madre De Dios&quot;,
+                                            &quot;project_type&quot;: &quot;Forest Conservation&quot;,
+                                            &quot;project_slug&quot;: &quot;madre-de-dios&quot;
+                                        },
+                                        {
+                                            &quot;quantity&quot;: &quot;440&quot;,
+                                            &quot;unit_price&quot;: &quot;6.90&quot;,
+                                            &quot;offset_cost&quot;: &quot;3036.00&quot;,
+                                            &quot;project_id&quot;: &quot;xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;,
+                                            &quot;project_name&quot;: &quot;Alto Mayo&quot;,
+                                            &quot;project_type&quot;: &quot;Forest Conservation&quot;,
+                                            &quot;project_slug&quot;: &quot;alto-mayo&quot;
+                                        }
+                                    ]
+                                },
+                                &quot;certificate&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;Carbon credits certificate URL.\n\nThis property is set when an order has state &#x27;complete&#x27;\n&quot;,
+                                    &quot;example&quot;: &quot;https://api.lune.co/v1/orders/08QD7GPaBx5b6Y60ndAONXLvrZljRE2e/certificate&quot;
+                                },
+                                &quot;metadata&quot;: {
+                                    &quot;description&quot;: &quot;An arbitrary dictionary (key-value pairs) to store application-specific information.\n\nLune doesn&#x27;t use this information for order processing. Its purpose is for the API\nclients to be able to attach arbitrary information (to an order for example) and\nthen retrieve it.\n&quot;,
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;additionalProperties&quot;: {
+                                        &quot;type&quot;: &quot;string&quot;
+                                    },
+                                    &quot;ref&quot;: &quot;#/components/schemas/Metadata&quot;
+                                },
+                                &quot;offset_link_id&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The offset link identifier, if the order was placed through an offset link&quot;,
+                                    &quot;example&quot;: &quot;UwjfkXjfksoHXzA1qjANL58GhjwqkxpB&quot;
+                                },
+                                &quot;email&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;End-user email.\n\nThis property is currently populated on orders placed through offset links.\n&quot;,
+                                    &quot;example&quot;: &quot;john@doe.com&quot;
+                                },
+                                &quot;requested_quantity&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                    &quot;example&quot;: &quot;1045&quot;,
+                                    &quot;description&quot;: &quot;Requested quantity of CO2 offsets to purchase in tonnes.&quot;
+                                }
+                            },
+                            &quot;description&quot;: &quot;Order object&quot;,
+                            &quot;ref&quot;: &quot;#/components/schemas/OrderByQuantity&quot;,
+                            &quot;title&quot;: &quot;Order by quantity&quot;
+                        },
+                        {
+                            &quot;type&quot;: &quot;object&quot;,
+                            &quot;required&quot;: [
+                                &quot;id&quot;,
+                                &quot;type&quot;,
+                                &quot;status&quot;,
+                                &quot;currency&quot;,
+                                &quot;created_at&quot;,
+                                &quot;metadata&quot;,
+                                &quot;requested_value&quot;
+                            ],
+                            &quot;properties&quot;: {
+                                &quot;id&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The order&#x27;s unique identifier&quot;,
+                                    &quot;example&quot;: &quot;va1BER4JZqnzPkYxJgALg0GeQDoXlWO5&quot;
+                                },
+                                &quot;idempotency_key&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;maxLength&quot;: 100,
+                                    &quot;example&quot;: &quot;5bd808a954e&quot;,
+                                    &quot;description&quot;: &quot;Account-unique identifier provided by the client.\n\n&#x60;idempotency_key&#x60; has two purposes:\n1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.\n2. Clients can use &#x60;idempotency_key&#x60; to reconcile orders with other entities on their system.\n&quot;
+                                },
+                                &quot;type&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;Identifies whether the order has been placed by quantity (kg CO2) or value (monetary amount)&quot;,
+                                    &quot;example&quot;: &quot;quantity&quot;,
+                                    &quot;enum&quot;: [
+                                        &quot;quantity&quot;,
+                                        &quot;value&quot;
+                                    ]
+                                },
+                                &quot;status&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;Order status&quot;,
+                                    &quot;example&quot;: &quot;complete&quot;,
+                                    &quot;enum&quot;: [
+                                        &quot;received&quot;,
+                                        &quot;placed&quot;,
+                                        &quot;paid&quot;,
+                                        &quot;retiring&quot;,
+                                        &quot;cancelled&quot;,
+                                        &quot;complete&quot;,
+                                        &quot;failed&quot;
+                                    ]
+                                },
+                                &quot;currency&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;Order currency code&quot;,
+                                    &quot;example&quot;: &quot;GBP&quot;
+                                },
+                                &quot;offset_cost&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The net offset cost being purchased. May be lower than &#x60;requested_value&#x60;.\n\nThis property is set when bundles are assigned to the order.\nUnit: order currency\n&quot;,
+                                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                    &quot;example&quot;: &quot;7176.00&quot;
+                                },
+                                &quot;total_cost&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The total cost for the order inclusive of fees.\n\nUnit: order currency\n&quot;,
+                                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                    &quot;example&quot;: &quot;7696.00&quot;
+                                },
+                                &quot;commission&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;Lune&#x27;s fee.\n\nThis property is set when bundles are assigned to the order.\nUnit: order currency\n&quot;,
+                                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                    &quot;example&quot;: &quot;520.00&quot;
+                                },
+                                &quot;quantity&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                    &quot;example&quot;: &quot;1040&quot;,
+                                    &quot;description&quot;: &quot;Quantity of CO2 offsets purchased in tonnes.&quot;
+                                },
+                                &quot;created_at&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;format&quot;: &quot;date-time&quot;,
+                                    &quot;description&quot;: &quot;Order creation timestamp&quot;
+                                },
+                                &quot;bundles&quot;: {
+                                    &quot;type&quot;: &quot;array&quot;,
+                                    &quot;description&quot;: &quot;bundles are set when the order&#x27;s status is &#x60;placed&#x60;, &#x60;paid&#x60;, &#x60;retiring&#x60; or &#x60;complete&#x60;.\n\nThe bundles associated with the order including their relative quantity and cost breakdown.\n&quot;,
+                                    &quot;items&quot;: {
+                                        &quot;type&quot;: &quot;object&quot;,
+                                        &quot;required&quot;: [
+                                            &quot;bundle_id&quot;,
+                                            &quot;bundle_name&quot;,
+                                            &quot;quantity&quot;,
+                                            &quot;unit_price&quot;,
+                                            &quot;gross_unit_price&quot;,
+                                            &quot;offset_cost&quot;
+                                        ],
+                                        &quot;properties&quot;: {
+                                            &quot;bundle_id&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The bundle&#x27;s unique identifier&quot;,
+                                                &quot;example&quot;: &quot;va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;
+                                            },
+                                            &quot;bundle_name&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The bundle&#x27;s name&quot;,
+                                                &quot;example&quot;: &quot;Latin America Forestry&quot;
+                                            },
+                                            &quot;quantity&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;1040&quot;,
+                                                &quot;description&quot;: &quot;Quantity for the specific bundle (tonnes CO2)&quot;
+                                            },
+                                            &quot;unit_price&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;Bundle unit price per tonne CO2\n\nUnit: order currency\n&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;6.90&quot;
+                                            },
+                                            &quot;gross_unit_price&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;Bundle unit price per tonne CO2 inclusive of fees.\n\nUnit: order currency\n&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;7.90&quot;
+                                            },
+                                            &quot;offset_cost&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The bundle&#x27;s net offset cost being purchased.\n\nUnit: order currency\n&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;7176.00&quot;
+                                            },
+                                            &quot;insufficient_available_quantity&quot;: {
+                                                &quot;type&quot;: &quot;boolean&quot;,
+                                                &quot;description&quot;: &quot;If true, there is no inventory necessary to fully satisfy the order for this bundle.\n&quot;,
+                                                &quot;example&quot;: true
+                                            }
+                                        },
+                                        &quot;ref&quot;: &quot;#/components/schemas/OrderBundle&quot;
+                                    }
+                                },
+                                &quot;projects&quot;: {
+                                    &quot;type&quot;: &quot;array&quot;,
+                                    &quot;description&quot;: &quot;Projects are set when the order&#x27;s status is &#x60;retiring&#x60; or &#x60;complete&#x60;.\n\nThe projects associated with the order including their relative quantity and cost breakdown.\n\nOrders are placed against bundles, not projects. Projects in a bundle may change based on supply.\n\nThis property is set as soon as we can guarantee project supply.\n&quot;,
+                                    &quot;items&quot;: {
+                                        &quot;type&quot;: &quot;object&quot;,
+                                        &quot;required&quot;: [
+                                            &quot;project_id&quot;,
+                                            &quot;project_name&quot;,
+                                            &quot;project_type&quot;,
+                                            &quot;project_slug&quot;,
+                                            &quot;quantity&quot;,
+                                            &quot;unit_price&quot;,
+                                            &quot;offset_cost&quot;
+                                        ],
+                                        &quot;properties&quot;: {
+                                            &quot;project_id&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The project&#x27;s unique identifier&quot;,
+                                                &quot;example&quot;: &quot;xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;
+                                            },
+                                            &quot;project_name&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The project&#x27;s name&quot;,
+                                                &quot;example&quot;: &quot;Alto Mayo&quot;
+                                            },
+                                            &quot;project_type&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The project&#x27;s offset type, eg Forest conservation, Afforestation, Direct Air Capture&quot;,
+                                                &quot;example&quot;: &quot;Forest conservation&quot;
+                                            },
+                                            &quot;project_slug&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The project&#x27;s unique slug&quot;,
+                                                &quot;example&quot;: &quot;alto-mayo&quot;
+                                            },
+                                            &quot;quantity&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;1040&quot;,
+                                                &quot;description&quot;: &quot;Carbon offset purchased (tonnes CO2)&quot;
+                                            },
+                                            &quot;unit_price&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;Project unit price per tonne CO2\n\nUnit: order currency\n&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;6.09&quot;
+                                            },
+                                            &quot;offset_cost&quot;: {
+                                                &quot;type&quot;: &quot;string&quot;,
+                                                &quot;description&quot;: &quot;The net offset cost being purchased.\n\nUnit: order currency\n&quot;,
+                                                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                                &quot;example&quot;: &quot;7176.00&quot;
+                                            }
+                                        },
+                                        &quot;ref&quot;: &quot;#/components/schemas/OrderProject&quot;
+                                    },
+                                    &quot;example&quot;: [
+                                        {
+                                            &quot;quantity&quot;: &quot;600&quot;,
+                                            &quot;unit_price&quot;: &quot;6.90&quot;,
+                                            &quot;offset_cost&quot;: &quot;4140.00&quot;,
+                                            &quot;project_id&quot;: &quot;gMbvJoOaX54V1wpNaRY8dWDGQ7m239Bx&quot;,
+                                            &quot;project_name&quot;: &quot;Madre De Dios&quot;,
+                                            &quot;project_type&quot;: &quot;Forest Conservation&quot;,
+                                            &quot;project_slug&quot;: &quot;madre-de-dios&quot;
+                                        },
+                                        {
+                                            &quot;quantity&quot;: &quot;440&quot;,
+                                            &quot;unit_price&quot;: &quot;6.90&quot;,
+                                            &quot;offset_cost&quot;: &quot;3036.00&quot;,
+                                            &quot;project_id&quot;: &quot;xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;,
+                                            &quot;project_name&quot;: &quot;Alto Mayo&quot;,
+                                            &quot;project_type&quot;: &quot;Forest Conservation&quot;,
+                                            &quot;project_slug&quot;: &quot;alto-mayo&quot;
+                                        }
+                                    ]
+                                },
+                                &quot;certificate&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;Carbon credits certificate URL.\n\nThis property is set when an order has state &#x27;complete&#x27;\n&quot;,
+                                    &quot;example&quot;: &quot;https://api.lune.co/v1/orders/08QD7GPaBx5b6Y60ndAONXLvrZljRE2e/certificate&quot;
+                                },
+                                &quot;metadata&quot;: {
+                                    &quot;description&quot;: &quot;An arbitrary dictionary (key-value pairs) to store application-specific information.\n\nLune doesn&#x27;t use this information for order processing. Its purpose is for the API\nclients to be able to attach arbitrary information (to an order for example) and\nthen retrieve it.\n&quot;,
+                                    &quot;type&quot;: &quot;object&quot;,
+                                    &quot;additionalProperties&quot;: {
+                                        &quot;type&quot;: &quot;string&quot;
+                                    },
+                                    &quot;ref&quot;: &quot;#/components/schemas/Metadata&quot;
+                                },
+                                &quot;offset_link_id&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;The offset link identifier, if the order was placed through an offset link&quot;,
+                                    &quot;example&quot;: &quot;UwjfkXjfksoHXzA1qjANL58GhjwqkxpB&quot;
+                                },
+                                &quot;email&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;End-user email.\n\nThis property is currently populated on orders placed through offset links.\n&quot;,
+                                    &quot;example&quot;: &quot;john@doe.com&quot;
+                                },
+                                &quot;requested_value&quot;: {
+                                    &quot;description&quot;: &quot;Requested value of CO2 offsets to purchase in the account&#x27;s currency.&quot;,
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                    &quot;example&quot;: &quot;7700&quot;
+                                }
+                            },
+                            &quot;description&quot;: &quot;Order object&quot;,
+                            &quot;ref&quot;: &quot;#/components/schemas/OrderByValue&quot;,
+                            &quot;title&quot;: &quot;Order by value&quot;
+                        }
+                    ],
+                    &quot;discriminator&quot;: {
+                        &quot;propertyName&quot;: &quot;type&quot;,
+                        &quot;mapping&quot;: {
+                            &quot;quantity&quot;: &quot;#/components/schemas/OrderByQuantity&quot;,
+                            &quot;value&quot;: &quot;#/components/schemas/OrderByValue&quot;
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/Order&quot;
+                }
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/OrderEventDetails&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;api_version&quot;: &quot;v1&quot;,
+        &quot;event_id&quot;: &quot;va1BER4JZqnzPkYxJgALg0GeQDoXlWO5&quot;,
+        &quot;event_type&quot;: &quot;string&quot;,
+        &quot;sequence&quot;: &quot;2021-09-13T16:21:29.067Z&quot;,
+        &quot;data&quot;: {
+            &quot;order&quot;: {
+                &quot;id&quot;: &quot;va1BER4JZqnzPkYxJgALg0GeQDoXlWO5&quot;,
+                &quot;idempotency_key&quot;: &quot;5bd808a954e&quot;,
+                &quot;type&quot;: &quot;quantity&quot;,
+                &quot;status&quot;: &quot;complete&quot;,
+                &quot;currency&quot;: &quot;GBP&quot;,
+                &quot;offset_cost&quot;: &quot;7176.00&quot;,
+                &quot;total_cost&quot;: &quot;7696.00&quot;,
+                &quot;commission&quot;: &quot;520.00&quot;,
+                &quot;quantity&quot;: &quot;1040&quot;,
+                &quot;created_at&quot;: &quot;string&quot;,
+                &quot;bundles&quot;: [
+                    {
+                        &quot;bundle_id&quot;: &quot;va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;,
+                        &quot;bundle_name&quot;: &quot;Latin America Forestry&quot;,
+                        &quot;quantity&quot;: &quot;1040&quot;,
+                        &quot;unit_price&quot;: &quot;6.90&quot;,
+                        &quot;gross_unit_price&quot;: &quot;7.90&quot;,
+                        &quot;offset_cost&quot;: &quot;7176.00&quot;,
+                        &quot;insufficient_available_quantity&quot;: true
+                    }
+                ],
+                &quot;projects&quot;: [
+                    {
+                        &quot;quantity&quot;: &quot;600&quot;,
+                        &quot;unit_price&quot;: &quot;6.90&quot;,
+                        &quot;offset_cost&quot;: &quot;4140.00&quot;,
+                        &quot;project_id&quot;: &quot;gMbvJoOaX54V1wpNaRY8dWDGQ7m239Bx&quot;,
+                        &quot;project_name&quot;: &quot;Madre De Dios&quot;,
+                        &quot;project_type&quot;: &quot;Forest Conservation&quot;,
+                        &quot;project_slug&quot;: &quot;madre-de-dios&quot;
+                    },
+                    {
+                        &quot;quantity&quot;: &quot;440&quot;,
+                        &quot;unit_price&quot;: &quot;6.90&quot;,
+                        &quot;offset_cost&quot;: &quot;3036.00&quot;,
+                        &quot;project_id&quot;: &quot;xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO5&quot;,
+                        &quot;project_name&quot;: &quot;Alto Mayo&quot;,
+                        &quot;project_type&quot;: &quot;Forest Conservation&quot;,
+                        &quot;project_slug&quot;: &quot;alto-mayo&quot;
+                    }
+                ],
+                &quot;certificate&quot;: &quot;https://api.lune.co/v1/orders/08QD7GPaBx5b6Y60ndAONXLvrZljRE2e/certificate&quot;,
+                &quot;metadata&quot;: {
+                    &quot;property1&quot;: &quot;string&quot;,
+                    &quot;property2&quot;: &quot;number&quot;
+                },
+                &quot;offset_link_id&quot;: &quot;UwjfkXjfksoHXzA1qjANL58GhjwqkxpB&quot;,
+                &quot;email&quot;: &quot;john@doe.com&quot;,
+                &quot;requested_quantity&quot;: &quot;1045&quot;
+            }
+        }
+    }
+}" />

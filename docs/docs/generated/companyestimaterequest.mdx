@@ -1,0 +1,394 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;CompanyEstimateRequest&quot;,
+    &quot;description&quot;: &quot;Parameters for estimating emissions associated with operating a company.\n\nAll relevant values are yearly values.\n&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;employees&quot;,
+        &quot;remote_employees_percentage&quot;,
+        &quot;office_area&quot;,
+        &quot;country_code&quot;,
+        &quot;electricity_consumption&quot;,
+        &quot;green_electricity_used&quot;,
+        &quot;gas_consumption&quot;,
+        &quot;company_cars&quot;,
+        &quot;average_car_distance_travelled&quot;,
+        &quot;employees_using_public_transport&quot;,
+        &quot;short_flights&quot;,
+        &quot;medium_flights&quot;,
+        &quot;long_flights&quot;,
+        &quot;first_or_business_class_percentage&quot;,
+        &quot;food_and_drinks_expenses&quot;,
+        &quot;vegetarian_and_vegan_percentage&quot;,
+        &quot;electronic_device_expenses&quot;,
+        &quot;garbage&quot;,
+        &quot;recycled_garbage_percentage&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;employees&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Number of employees&quot;,
+            &quot;minimum&quot;: 0
+        },
+        &quot;remote_employees_percentage&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 0,
+            &quot;maximum&quot;: 100,
+            &quot;ref&quot;: &quot;#/components/schemas/IntegerPercentage&quot;
+        },
+        &quot;office_area&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;amount&quot;,
+                &quot;unit&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;amount&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                    &quot;example&quot;: &quot;40.501&quot;
+                },
+                &quot;unit&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;square_meters&quot;,
+                        &quot;square_feet&quot;
+                    ],
+                    &quot;example&quot;: &quot;square_meters&quot;
+                }
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/Area&quot;
+        },
+        &quot;country_code&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The three-letter country code of the country where the company is located.&quot;,
+            &quot;example&quot;: &quot;GBR&quot;
+        },
+        &quot;postcode&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;example&quot;: &quot;99 210&quot;,
+            &quot;description&quot;: &quot;The company&#x27;s postal code&quot;
+        },
+        &quot;city&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;example&quot;: &quot;Ledville&quot;
+        },
+        &quot;electricity_consumption&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Electricity consumption in kWh&quot;,
+            &quot;minimum&quot;: 0
+        },
+        &quot;green_electricity_used&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;,
+            &quot;description&quot;: &quot;Is the electricity provided by renewable source(s)?&quot;
+        },
+        &quot;gas_consumption&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Yearly natural gas consumption in cubic meters&quot;,
+            &quot;minimum&quot;: 0
+        },
+        &quot;company_cars&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Company cars&quot;,
+            &quot;minimum&quot;: 0
+        },
+        &quot;average_car_distance_travelled&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;amount&quot;,
+                &quot;unit&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;amount&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                    &quot;example&quot;: &quot;40.501&quot;
+                },
+                &quot;unit&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;km&quot;,
+                        &quot;mi&quot;
+                    ],
+                    &quot;example&quot;: &quot;km&quot;,
+                    &quot;description&quot;: &quot;Unit, &#x60;km&#x60; for kilometers, &#x60;mi&#x60; for miles&quot;
+                }
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/Distance&quot;
+        },
+        &quot;employees_using_public_transport&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Number of employees commuting by public transport&quot;,
+            &quot;minimum&quot;: 0
+        },
+        &quot;short_flights&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Number of short (under 3 hours) flights per year&quot;,
+            &quot;minimum&quot;: 0
+        },
+        &quot;medium_flights&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Number of medium (between 3 and 6 hours) flights per year&quot;,
+            &quot;minimum&quot;: 0
+        },
+        &quot;long_flights&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;Number of long (over 6 hours) flights per year&quot;,
+            &quot;minimum&quot;: 0
+        },
+        &quot;first_or_business_class_percentage&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 0,
+            &quot;maximum&quot;: 100,
+            &quot;ref&quot;: &quot;#/components/schemas/IntegerPercentage&quot;
+        },
+        &quot;food_and_drinks_expenses&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;value&quot;,
+                &quot;currency&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;value&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                    &quot;description&quot;: &quot;An amount of money (the fractional part is optional)&quot;,
+                    &quot;example&quot;: &quot;3.14&quot;
+                },
+                &quot;currency&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;description&quot;: &quot;ISO 4217 3 character currency code.\n\nNote: Lune does not support all currency codes.\n&quot;,
+                    &quot;ref&quot;: &quot;#/components/schemas/CurrencyCode&quot;
+                }
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/MonetaryAmount&quot;
+        },
+        &quot;vegetarian_and_vegan_percentage&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 0,
+            &quot;maximum&quot;: 100,
+            &quot;ref&quot;: &quot;#/components/schemas/IntegerPercentage&quot;
+        },
+        &quot;electronic_device_expenses&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;value&quot;,
+                &quot;currency&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;value&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                    &quot;description&quot;: &quot;An amount of money (the fractional part is optional)&quot;,
+                    &quot;example&quot;: &quot;3.14&quot;
+                },
+                &quot;currency&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;description&quot;: &quot;ISO 4217 3 character currency code.\n\nNote: Lune does not support all currency codes.\n&quot;,
+                    &quot;ref&quot;: &quot;#/components/schemas/CurrencyCode&quot;
+                }
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/MonetaryAmount&quot;
+        },
+        &quot;garbage&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;description&quot;: &quot;The amount of garbage produced, in kilograms&quot;,
+            &quot;minimum&quot;: 0
+        },
+        &quot;recycled_garbage_percentage&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 0,
+            &quot;maximum&quot;: 100,
+            &quot;ref&quot;: &quot;#/components/schemas/IntegerPercentage&quot;
+        },
+        &quot;tech&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+                &quot;on_premise&quot;: {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;description&quot;: &quot;Company&#x27;s own tech infrastructure details&quot;,
+                    &quot;required&quot;: [
+                        &quot;electricity_cost&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;electricity_cost&quot;: {
+                            &quot;type&quot;: &quot;object&quot;,
+                            &quot;required&quot;: [
+                                &quot;value&quot;,
+                                &quot;currency&quot;
+                            ],
+                            &quot;properties&quot;: {
+                                &quot;value&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                    &quot;description&quot;: &quot;An amount of money (the fractional part is optional)&quot;,
+                                    &quot;example&quot;: &quot;3.14&quot;
+                                },
+                                &quot;currency&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;ISO 4217 3 character currency code.\n\nNote: Lune does not support all currency codes.\n&quot;,
+                                    &quot;ref&quot;: &quot;#/components/schemas/CurrencyCode&quot;
+                                }
+                            },
+                            &quot;ref&quot;: &quot;#/components/schemas/MonetaryAmount&quot;
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/CompanyOnPremiseUse&quot;
+                },
+                &quot;cloud&quot;: {
+                    &quot;type&quot;: &quot;object&quot;,
+                    &quot;description&quot;: &quot;Company&#x27;s use of cloud services&quot;,
+                    &quot;required&quot;: [
+                        &quot;cost&quot;,
+                        &quot;provider&quot;
+                    ],
+                    &quot;properties&quot;: {
+                        &quot;cost&quot;: {
+                            &quot;type&quot;: &quot;object&quot;,
+                            &quot;required&quot;: [
+                                &quot;value&quot;,
+                                &quot;currency&quot;
+                            ],
+                            &quot;properties&quot;: {
+                                &quot;value&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                                    &quot;description&quot;: &quot;An amount of money (the fractional part is optional)&quot;,
+                                    &quot;example&quot;: &quot;3.14&quot;
+                                },
+                                &quot;currency&quot;: {
+                                    &quot;type&quot;: &quot;string&quot;,
+                                    &quot;description&quot;: &quot;ISO 4217 3 character currency code.\n\nNote: Lune does not support all currency codes.\n&quot;,
+                                    &quot;ref&quot;: &quot;#/components/schemas/CurrencyCode&quot;
+                                }
+                            },
+                            &quot;ref&quot;: &quot;#/components/schemas/MonetaryAmount&quot;
+                        },
+                        &quot;provider&quot;: {
+                            &quot;type&quot;: &quot;string&quot;,
+                            &quot;description&quot;: &quot;The identifier of a cloud provider.&quot;,
+                            &quot;example&quot;: &quot;aws&quot;,
+                            &quot;enum&quot;: [
+                                &quot;aws&quot;,
+                                &quot;gcp&quot;,
+                                &quot;azure&quot;,
+                                &quot;ovh&quot;,
+                                &quot;other&quot;
+                            ],
+                            &quot;ref&quot;: &quot;#/components/schemas/CloudProvider&quot;
+                        }
+                    },
+                    &quot;ref&quot;: &quot;#/components/schemas/CompanyCloudUse&quot;
+                }
+            }
+        },
+        &quot;bundle_selection&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;description&quot;: &quot;Bundle selection percentages.\n\nThe sum of all percentages must equal 100.\n\nIf not specified, the preconfigured allocation ratios are going to be used.\n\nIf, for each selection, &#x60;percentage&#x60; is not provided, the selection is divided equally (best effort) between bundles. &#x60;percentage&#x60; must be provided for all or none of the bundles.\n&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;description&quot;: &quot;Maps a bundle id to an allocation ratio&quot;,
+                &quot;required&quot;: [
+                    &quot;bundle_id&quot;
+                ],
+                &quot;properties&quot;: {
+                    &quot;bundle_id&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;example&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s unique identifier&quot;
+                    },
+                    &quot;percentage&quot;: {
+                        &quot;type&quot;: &quot;integer&quot;,
+                        &quot;example&quot;: 43,
+                        &quot;description&quot;: &quot;Selection percentage&quot;
+                    }
+                },
+                &quot;ref&quot;: &quot;#/components/schemas/BundlePercentageRequest&quot;
+            },
+            &quot;example&quot;: [
+                {
+                    &quot;bundle_id&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                    &quot;percentage&quot;: 34
+                },
+                {
+                    &quot;bundle_id&quot;: &quot;VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B&quot;,
+                    &quot;percentage&quot;: 66
+                }
+            ],
+            &quot;ref&quot;: &quot;#/components/schemas/BundleSelectionRequest&quot;
+        },
+        &quot;quantity_trunc&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Unit, &#x60;t&#x60; for tonne, &#x60;kg&#x60; for kilogram, &#x60;g&#x60; for gram&quot;,
+            &quot;enum&quot;: [
+                &quot;g&quot;,
+                &quot;kg&quot;,
+                &quot;t&quot;
+            ],
+            &quot;example&quot;: &quot;t&quot;,
+            &quot;ref&quot;: &quot;#/components/schemas/MassUnit&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;employees&quot;: &quot;integer&quot;,
+        &quot;remote_employees_percentage&quot;: &quot;integer&quot;,
+        &quot;office_area&quot;: {
+            &quot;amount&quot;: &quot;40.501&quot;,
+            &quot;unit&quot;: &quot;square_meters&quot;
+        },
+        &quot;country_code&quot;: &quot;GBR&quot;,
+        &quot;postcode&quot;: &quot;99 210&quot;,
+        &quot;city&quot;: &quot;Ledville&quot;,
+        &quot;electricity_consumption&quot;: &quot;integer&quot;,
+        &quot;green_electricity_used&quot;: &quot;boolean&quot;,
+        &quot;gas_consumption&quot;: &quot;integer&quot;,
+        &quot;company_cars&quot;: &quot;integer&quot;,
+        &quot;average_car_distance_travelled&quot;: {
+            &quot;amount&quot;: &quot;40.501&quot;,
+            &quot;unit&quot;: &quot;km&quot;
+        },
+        &quot;employees_using_public_transport&quot;: &quot;integer&quot;,
+        &quot;short_flights&quot;: &quot;integer&quot;,
+        &quot;medium_flights&quot;: &quot;integer&quot;,
+        &quot;long_flights&quot;: &quot;integer&quot;,
+        &quot;first_or_business_class_percentage&quot;: &quot;integer&quot;,
+        &quot;food_and_drinks_expenses&quot;: {
+            &quot;value&quot;: &quot;3.14&quot;,
+            &quot;currency&quot;: &quot;string&quot;
+        },
+        &quot;vegetarian_and_vegan_percentage&quot;: &quot;integer&quot;,
+        &quot;electronic_device_expenses&quot;: {
+            &quot;value&quot;: &quot;3.14&quot;,
+            &quot;currency&quot;: &quot;string&quot;
+        },
+        &quot;garbage&quot;: &quot;integer&quot;,
+        &quot;recycled_garbage_percentage&quot;: &quot;integer&quot;,
+        &quot;tech&quot;: {
+            &quot;on_premise&quot;: {
+                &quot;electricity_cost&quot;: {
+                    &quot;value&quot;: &quot;3.14&quot;,
+                    &quot;currency&quot;: &quot;string&quot;
+                }
+            },
+            &quot;cloud&quot;: {
+                &quot;cost&quot;: {
+                    &quot;value&quot;: &quot;3.14&quot;,
+                    &quot;currency&quot;: &quot;string&quot;
+                },
+                &quot;provider&quot;: &quot;aws&quot;
+            }
+        },
+        &quot;bundle_selection&quot;: [
+            {
+                &quot;bundle_id&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                &quot;percentage&quot;: 34
+            },
+            {
+                &quot;bundle_id&quot;: &quot;VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B&quot;,
+                &quot;percentage&quot;: 66
+            }
+        ],
+        &quot;quantity_trunc&quot;: &quot;t&quot;
+    }
+}" />

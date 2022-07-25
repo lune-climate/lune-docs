@@ -1,0 +1,81 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;BundleMix&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;description&quot;: &quot;Predefined bundle selections, for example following Oxford Offsetting Principles.\nBundle selection for a particular Bundle mix may change over time.\n&quot;,
+    &quot;required&quot;: [
+        &quot;id&quot;,
+        &quot;identifier&quot;,
+        &quot;label&quot;,
+        &quot;bundle_selection&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Bundle mix unique identifier.&quot;,
+            &quot;example&quot;: &quot;A7hPO9C01RnzPkYxJgAHxq112roXlWO5&quot;
+        },
+        &quot;identifier&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Identifier of the bundle mix.&quot;,
+            &quot;example&quot;: &quot;oxford-offsetting-principles&quot;
+        },
+        &quot;label&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Human readable name of the bundle mix.&quot;,
+            &quot;example&quot;: &quot;Oxford Offseting Principles&quot;
+        },
+        &quot;bundle_selection&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;description&quot;: &quot;Allocation ratios by bundle.\n\nThe sum of all allocation ratios must equal 100.\n\nIf not specified, the preconfigured allocation ratios are going to be used.\n&quot;,
+            &quot;items&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;description&quot;: &quot;Maps a bundle&#x27;s unique identifier to an allocation ratio&quot;,
+                &quot;required&quot;: [
+                    &quot;bundle_id&quot;,
+                    &quot;percentage&quot;
+                ],
+                &quot;properties&quot;: {
+                    &quot;bundle_id&quot;: {
+                        &quot;type&quot;: &quot;string&quot;,
+                        &quot;example&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                        &quot;description&quot;: &quot;The bundle&#x27;s unique identifier&quot;
+                    },
+                    &quot;percentage&quot;: {
+                        &quot;type&quot;: &quot;integer&quot;,
+                        &quot;example&quot;: 43,
+                        &quot;description&quot;: &quot;Selection percentage&quot;
+                    }
+                },
+                &quot;ref&quot;: &quot;#/components/schemas/BundlePercentage&quot;
+            },
+            &quot;example&quot;: [
+                {
+                    &quot;bundle_id&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                    &quot;percentage&quot;: 34
+                },
+                {
+                    &quot;bundle_id&quot;: &quot;VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B&quot;,
+                    &quot;percentage&quot;: 66
+                }
+            ],
+            &quot;ref&quot;: &quot;#/components/schemas/BundleSelection&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;id&quot;: &quot;A7hPO9C01RnzPkYxJgAHxq112roXlWO5&quot;,
+        &quot;identifier&quot;: &quot;oxford-offsetting-principles&quot;,
+        &quot;label&quot;: &quot;Oxford Offseting Principles&quot;,
+        &quot;bundle_selection&quot;: [
+            {
+                &quot;bundle_id&quot;: &quot;BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3&quot;,
+                &quot;percentage&quot;: 34
+            },
+            {
+                &quot;bundle_id&quot;: &quot;VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B&quot;,
+                &quot;percentage&quot;: 66
+            }
+        ]
+    }
+}" />

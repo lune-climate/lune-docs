@@ -1,0 +1,68 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;QuantityAndValueTimeseries&quot;,
+    &quot;type&quot;: &quot;array&quot;,
+    &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;required&quot;: [
+            &quot;date&quot;,
+            &quot;quantity&quot;,
+            &quot;value&quot;
+        ],
+        &quot;properties&quot;: {
+            &quot;date&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;format&quot;: &quot;date&quot;,
+                &quot;example&quot;: &quot;2021-09-09&quot;
+            },
+            &quot;value&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;example&quot;: &quot;222.667&quot;,
+                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;
+            },
+            &quot;quantity&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                &quot;example&quot;: &quot;500.50&quot;,
+                &quot;description&quot;: &quot;Quantity of CO2 offsets linked to this activity (tonnes CO2)&quot;
+            }
+        },
+        &quot;example&quot;: [
+            {
+                &quot;date&quot;: &quot;2022-06-25&quot;,
+                &quot;value&quot;: &quot;13.20&quot;,
+                &quot;quantity&quot;: &quot;503.342&quot;
+            },
+            {
+                &quot;date&quot;: &quot;2022-06-26&quot;,
+                &quot;value&quot;: &quot;23.20&quot;,
+                &quot;quantity&quot;: &quot;1503.342&quot;
+            },
+            {
+                &quot;date&quot;: &quot;2022-06-27&quot;,
+                &quot;value&quot;: &quot;64.23&quot;,
+                &quot;quantity&quot;: &quot;4700.451&quot;
+            }
+        ]
+    },
+    &quot;example&quot;: [
+        [
+            {
+                &quot;date&quot;: &quot;2022-06-25&quot;,
+                &quot;value&quot;: &quot;13.20&quot;,
+                &quot;quantity&quot;: &quot;503.342&quot;
+            },
+            {
+                &quot;date&quot;: &quot;2022-06-26&quot;,
+                &quot;value&quot;: &quot;23.20&quot;,
+                &quot;quantity&quot;: &quot;1503.342&quot;
+            },
+            {
+                &quot;date&quot;: &quot;2022-06-27&quot;,
+                &quot;value&quot;: &quot;64.23&quot;,
+                &quot;quantity&quot;: &quot;4700.451&quot;
+            }
+        ]
+    ]
+}" />

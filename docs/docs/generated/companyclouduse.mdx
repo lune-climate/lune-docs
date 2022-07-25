@@ -1,0 +1,54 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;CompanyCloudUse&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;description&quot;: &quot;Company&#x27;s use of cloud services&quot;,
+    &quot;required&quot;: [
+        &quot;cost&quot;,
+        &quot;provider&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;cost&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;value&quot;,
+                &quot;currency&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;value&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;pattern&quot;: &quot;^[0-9]+(\\.[0-9]+)?$&quot;,
+                    &quot;description&quot;: &quot;An amount of money (the fractional part is optional)&quot;,
+                    &quot;example&quot;: &quot;3.14&quot;
+                },
+                &quot;currency&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;description&quot;: &quot;ISO 4217 3 character currency code.\n\nNote: Lune does not support all currency codes.\n&quot;,
+                    &quot;ref&quot;: &quot;#/components/schemas/CurrencyCode&quot;
+                }
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/MonetaryAmount&quot;
+        },
+        &quot;provider&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The identifier of a cloud provider.&quot;,
+            &quot;example&quot;: &quot;aws&quot;,
+            &quot;enum&quot;: [
+                &quot;aws&quot;,
+                &quot;gcp&quot;,
+                &quot;azure&quot;,
+                &quot;ovh&quot;,
+                &quot;other&quot;
+            ],
+            &quot;ref&quot;: &quot;#/components/schemas/CloudProvider&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;cost&quot;: {
+            &quot;value&quot;: &quot;3.14&quot;,
+            &quot;currency&quot;: &quot;string&quot;
+        },
+        &quot;provider&quot;: &quot;aws&quot;
+    }
+}" />

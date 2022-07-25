@@ -1,0 +1,32 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;Merchant&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;category_code&quot;,
+        &quot;country_code&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;category_code&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding\nto the transaction.\n\nSee https://github.com/greggles/mcc-codes for available codes.\n&quot;,
+            &quot;example&quot;: &quot;0763&quot;
+        },
+        &quot;name&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The name of the merchant.&quot;,
+            &quot;example&quot;: &quot;The Corner Store&quot;
+        },
+        &quot;country_code&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;The three-letter code of the merchant&#x27;s country.&quot;,
+            &quot;example&quot;: &quot;GBR&quot;
+        }
+    },
+    &quot;example&quot;: {
+        &quot;category_code&quot;: &quot;0763&quot;,
+        &quot;name&quot;: &quot;The Corner Store&quot;,
+        &quot;country_code&quot;: &quot;GBR&quot;
+    }
+}" />

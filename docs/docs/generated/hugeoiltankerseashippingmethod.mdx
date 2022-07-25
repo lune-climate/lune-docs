@@ -1,0 +1,29 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;HugeOilTankerSeaShippingMethod&quot;,
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+        &quot;vessel_type&quot;
+    ],
+    &quot;properties&quot;: {
+        &quot;vessel_type&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+                &quot;sea_oil_tanker_huge&quot;
+            ]
+        },
+        &quot;fuel&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+                &quot;HFO&quot;,
+                &quot;MGO&quot;,
+                &quot;LNG&quot;
+            ]
+        }
+    },
+    &quot;example&quot;: {
+        &quot;vessel_type&quot;: &quot;string&quot;,
+        &quot;fuel&quot;: &quot;string&quot;
+    }
+}" />

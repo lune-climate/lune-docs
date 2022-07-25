@@ -1,0 +1,122 @@
+import JsonObject from '@site/src/components/JsonObject';
+
+<JsonObject json="{
+    &quot;name&quot;: &quot;SeaShippingMethod&quot;,
+    &quot;oneOf&quot;: [
+        {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;vessel_type&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;vessel_type&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;sea_oil_tanker_small&quot;,
+                        &quot;sea_oil_tanker_medium&quot;,
+                        &quot;sea_oil_tanker_large&quot;,
+                        &quot;sea_general_cargo_small&quot;,
+                        &quot;sea_general_cargo_large&quot;,
+                        &quot;sea_bulk_carrier_small&quot;,
+                        &quot;sea_ropax&quot;
+                    ]
+                },
+                &quot;fuel&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;HFO&quot;,
+                        &quot;MGO&quot;
+                    ]
+                }
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/VariableFuelSeaShippingMethod&quot;
+        },
+        {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;vessel_type&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;vessel_type&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;sea_bulk_carrier_medium&quot;,
+                        &quot;sea_bulk_carrier_large&quot;
+                    ]
+                },
+                &quot;fuel&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;HFO&quot;,
+                        &quot;MGO&quot;
+                    ]
+                },
+                &quot;load&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;average&quot;,
+                        &quot;heavy&quot;
+                    ]
+                }
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/VariableFuelVariableLoadSeaShippingMethod&quot;
+        },
+        {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;vessel_type&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;vessel_type&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;sea_roro&quot;
+                    ]
+                },
+                &quot;fuel&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;HFO&quot;,
+                        &quot;MGO&quot;
+                    ]
+                },
+                &quot;load&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;freight_only&quot;,
+                        &quot;truck_and_trailer&quot;,
+                        &quot;trailer_only&quot;
+                    ]
+                }
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/RoRoSeaShippingMethod&quot;
+        },
+        {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;required&quot;: [
+                &quot;vessel_type&quot;
+            ],
+            &quot;properties&quot;: {
+                &quot;vessel_type&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;sea_oil_tanker_huge&quot;
+                    ]
+                },
+                &quot;fuel&quot;: {
+                    &quot;type&quot;: &quot;string&quot;,
+                    &quot;enum&quot;: [
+                        &quot;HFO&quot;,
+                        &quot;MGO&quot;,
+                        &quot;LNG&quot;
+                    ]
+                }
+            },
+            &quot;ref&quot;: &quot;#/components/schemas/HugeOilTankerSeaShippingMethod&quot;
+        }
+    ],
+    &quot;example&quot;: {
+        &quot;vessel_type&quot;: &quot;string&quot;,
+        &quot;fuel&quot;: &quot;string&quot;
+    }
+}" />
