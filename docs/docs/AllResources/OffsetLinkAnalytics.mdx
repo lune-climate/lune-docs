@@ -1,0 +1,6 @@
+
+# OffsetLinkAnalytics
+
+import ResourceParser from '@site/src/components/ResourceParser';
+
+<ResourceParser json={{"type":"object","required":["id","unique_visitors","placed_orders","orders"],"properties":{"id":{"type":"string","description":"The offset link identifier","example":"UwjfkXjfksoHXzA1qjANL58GhjwqkxpB"},"unique_visitors":{"type":"integer","description":"The number of unique visitors for the specific offset link","example":52344},"placed_orders":{"type":"integer","description":"The number of placed orders for the specific offset link","example":52344},"orders":{"type":"array","items":{"$ref":"#/components/schemas/OffsetLinkOrder"}}},"component":"OffsetLinkAnalytics"}}/>

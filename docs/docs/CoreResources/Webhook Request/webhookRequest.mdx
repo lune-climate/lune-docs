@@ -1,0 +1,6 @@
+
+# Webhook request
+
+import EndpointParser from '@site/src/components/EndpointParser';
+
+<EndpointParser json={{"tags":["Webhook Request"],"summary":"Webhook request","operationId":"webhookRequest","description":"The endpoint describes the request that you will receive in your webhook receiver and the responses the Lune webhook infrastructure expects.\n","requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/WebhookRequest"}}}},"responses":{"200":{"description":"The events have been successfully handled. Any status code of the `2xx` format has the same behaviour. Any header or body are ignored by Lune."}},"tag":"Webhook Request","endpoint":"post"}}/>

@@ -1,0 +1,6 @@
+
+# Get a multi-leg shipping emission estimate
+
+import EndpointParser from '@site/src/components/EndpointParser';
+
+<EndpointParser json={{"summary":"Get a multi-leg shipping emission estimate","operationId":"getMultiLegShippingEstimate","security":[{"BearerAuth":[]}],"tags":["Emission estimates"],"parameters":[{"name":"id","in":"path","required":true,"description":"The estimate's unique identifier","schema":{"type":"string","example":"Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/MultiLegShippingEmissionEstimate"}}}},"401":{"$ref":"#/components/responses/Unauthorized"},"404":{"$ref":"#/components/responses/NotFoundWithErrors"},"429":{"$ref":"#/components/responses/TooManyRequests"},"503":{"$ref":"#/components/responses/ServiceUnavailable"}},"tag":"Emission estimates","endpoint":"get"}}/>

@@ -1,0 +1,6 @@
+
+# Bundle
+
+import ResourceParser from '@site/src/components/ResourceParser';
+
+<ResourceParser json={{"description":"Group of projects of similar price and characteristics.\n\nOrders are placed against bundles.\n","allOf":[{"$ref":"#/components/schemas/BundleSummary"},{"type":"object","required":["projects"],"properties":{"projects":{"type":"array","description":"Array of projects that belong to the bundle","items":{"$ref":"#/components/schemas/ProjectSummary"}}}}],"component":"Bundle"}}/>

@@ -1,0 +1,6 @@
+
+# AnyAccount
+
+import ResourceParser from '@site/src/components/ResourceParser';
+
+<ResourceParser json={{"type":"object","oneOf":[{"$ref":"#/components/schemas/Account"},{"$ref":"#/components/schemas/ClientAccount"}],"discriminator":{"propertyName":"scope","mapping":{"account":"#/components/schemas/Account","client_account":"#/components/schemas/ClientAccount"}},"component":"AnyAccount"}}/>

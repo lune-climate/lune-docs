@@ -114,6 +114,7 @@ tags:
   - name: Orders
     description: |
       Get a quote, create and fetch orders.
+    x-components: [Order, OrderBase]
   - name: Projects
     description: Get projects and bundles
   - name: Emission estimates

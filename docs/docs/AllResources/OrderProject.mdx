@@ -1,0 +1,6 @@
+
+# OrderProject
+
+import ResourceParser from '@site/src/components/ResourceParser';
+
+<ResourceParser json={{"type":"object","required":["project_id","project_name","project_type","project_slug","quantity","unit_price","offset_cost"],"properties":{"project_id":{"type":"string","description":"The project's unique identifier","example":"xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO5"},"project_name":{"type":"string","description":"The project's name","example":"Alto Mayo"},"project_type":{"type":"string","description":"The project's offset type, eg Forest conservation, Afforestation, Direct Air Capture","example":"Forest conservation"},"project_slug":{"type":"string","description":"The project's unique slug","example":"alto-mayo"},"quantity":{"type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"1040","description":"Carbon offset purchased (tonnes CO2)"},"unit_price":{"type":"string","description":"Project unit price per tonne CO2\n\nUnit: order currency\n","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"6.09"},"offset_cost":{"type":"string","description":"The net offset cost being purchased.\n\nUnit: order currency\n","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"7176.00"}},"component":"OrderProject"}}/>

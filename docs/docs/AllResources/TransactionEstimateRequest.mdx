@@ -1,0 +1,6 @@
+
+# TransactionEstimateRequest
+
+import ResourceParser from '@site/src/components/ResourceParser';
+
+<ResourceParser json={{"type":"object","description":"Parameters for estimating emissions associated with purchasing goods or services.","required":["value","merchant"],"properties":{"value":{"description":"Monetary value of the transaction. This should exclude shipping and taxes.","$ref":"#/components/schemas/MonetaryAmount"},"merchant":{"description":"Merchant from whom the goods or services the purchase was made","$ref":"#/components/schemas/Merchant"},"diet":{"description":"Individual diet. Used to better estimate  food-related purchases.","$ref":"#/components/schemas/Diet"},"bundle_selection":{"$ref":"#/components/schemas/BundleSelectionRequest"},"quantity_trunc":{"description":"Selects to which precision to truncate the quantities assigned to each bundle.","example":"t","$ref":"#/components/schemas/MassUnit"}},"component":"TransactionEstimateRequest"}}/>

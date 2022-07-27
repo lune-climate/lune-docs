@@ -1,0 +1,10 @@
+{
+  "label": "All Resources",
+  "position": 3,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "description": "Details of all resources."
+  }
+}

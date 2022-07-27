@@ -1,0 +1,6 @@
+
+# Create an order by mass
+
+import EndpointParser from '@site/src/components/EndpointParser';
+
+<EndpointParser json={{"summary":"Create an order by mass","operationId":"createOrderByMass","security":[{"BearerAuth":[]}],"tags":["Orders"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateOrderByQuantityRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/OrderByQuantity"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"409":{"$ref":"#/components/responses/Conflict"},"415":{"$ref":"#/components/responses/UnsupportedMediaType"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Orders","endpoint":"post"}}/>

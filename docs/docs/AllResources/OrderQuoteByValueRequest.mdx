@@ -1,0 +1,6 @@
+
+# OrderQuoteByValueRequest
+
+import ResourceParser from '@site/src/components/ResourceParser';
+
+<ResourceParser json={{"type":"object","required":["value"],"properties":{"value":{"type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"7700.00","description":"Maximum price of CO2 offsets to purchase (in the account's currency)"},"bundle_selection":{"$ref":"#/components/schemas/BundleSelectionRequest"},"quantity_trunc":{"description":"Selects to which precision to truncate the quantities assigned to each bundle.","example":"t","$ref":"#/components/schemas/MassUnit"}},"component":"OrderQuoteByValueRequest"}}/>

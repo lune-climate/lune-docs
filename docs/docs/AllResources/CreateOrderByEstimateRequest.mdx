@@ -1,0 +1,6 @@
+
+# CreateOrderByEstimateRequest
+
+import ResourceParser from '@site/src/components/ResourceParser';
+
+<ResourceParser json={{"type":"object","required":["estimate_id"],"properties":{"estimate_id":{"type":"string","description":"The emission calculation unique identifier","example":"90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6"},"idempotency_key":{"type":"string","maxLength":100,"example":"5bd808a954e","description":"Account-unique identifier provided by the client.\n\n`idempotency_key` has two purposes:\n1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.\n2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.\n"},"bundle_selection":{"$ref":"#/components/schemas/BundleSelectionRequest"},"metadata":{"$ref":"#/components/schemas/Metadata"},"quantity_trunc":{"description":"Selects to which precision to truncate the quantities assigned to each bundle.","example":"t","$ref":"#/components/schemas/MassUnit"}},"component":"CreateOrderByEstimateRequest"}}/>

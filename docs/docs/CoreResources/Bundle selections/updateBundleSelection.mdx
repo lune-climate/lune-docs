@@ -1,0 +1,6 @@
+
+# Update an account's bundle selection
+
+import EndpointParser from '@site/src/components/EndpointParser';
+
+<EndpointParser json={{"summary":"Update an account's bundle selection","operationId":"updateBundleSelection","security":[{"BearerAuth":[]}],"tags":["Bundle selections"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/BundleSelectionRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/BundleSelection"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"403":{"$ref":"#/components/responses/Forbidden"},"409":{"$ref":"#/components/responses/Conflict"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Bundle selections","endpoint":"put"}}/>

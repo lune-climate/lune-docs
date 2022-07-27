@@ -1,0 +1,6 @@
+
+# PaginatedBundles
+
+import ResourceParser from '@site/src/components/ResourceParser';
+
+<ResourceParser json={{"allOf":[{"$ref":"#/components/schemas/PaginatedBase"},{"type":"object","required":["data"],"properties":{"data":{"type":"array","items":{"$ref":"#/components/schemas/Bundle"}}}}],"component":"PaginatedBundles"}}/>

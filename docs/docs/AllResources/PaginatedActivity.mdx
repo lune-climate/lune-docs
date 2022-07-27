@@ -1,0 +1,6 @@
+
+# PaginatedActivity
+
+import ResourceParser from '@site/src/components/ResourceParser';
+
+<ResourceParser json={{"description":"Activity is presented in reverse order (most recent first).","allOf":[{"$ref":"#/components/schemas/PaginatedBase"},{"type":"object","required":["data"],"properties":{"data":{"type":"array","items":{"$ref":"#/components/schemas/Activity"},"example":[{"id":"gh2VDRT4JZqnzPkYxJgALg0GeQDoXlWO3","currency":"GBP","source":"order_paid","balance":"25.50","balance_delta":"-3.50","balance_outstanding":"-132.50","balance_outstanding_delta":"3.50","order_id":"xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO3","created_at":"2019-08-24T14:15:22Z"},{"id":"q9aKx7b6nNXMk3Yv3NpD1mlW5Od2eLZE","currency":"GBP","source":"admin_credit","balance":"29","balance_delta":"29","balance_outstanding":"-136","balance_outstanding_delta":"0","created_at":"2019-08-24T14:15:22Z"}]}}}],"component":"PaginatedActivity"}}/>

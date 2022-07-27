@@ -1,0 +1,6 @@
+
+# IdentifiedVesselShippingMethod
+
+import ResourceParser from '@site/src/components/ResourceParser';
+
+<ResourceParser json={{"type":"object","required":["vessel_imo_number"],"properties":{"vessel_imo_number":{"description":"The ship's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.\n","type":"string","pattern":"^[0-9]{7}$"}},"component":"IdentifiedVesselShippingMethod"}}/>

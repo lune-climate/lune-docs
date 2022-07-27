@@ -1,0 +1,6 @@
+
+# Create a client account
+
+import EndpointParser from '@site/src/components/EndpointParser';
+
+<EndpointParser json={{"summary":"Create a client account","operationId":"createClientAccount","security":[{"BearerAuth":[]}],"tags":["Client Accounts"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateClientAccountRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ClientAccount"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"403":{"$ref":"#/components/responses/Forbidden"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Client Accounts","endpoint":"post"}}/>

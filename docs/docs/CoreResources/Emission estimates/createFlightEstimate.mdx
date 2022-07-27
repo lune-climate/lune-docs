@@ -1,0 +1,6 @@
+
+# Create a flight emission estimate
+
+import EndpointParser from '@site/src/components/EndpointParser';
+
+<EndpointParser json={{"summary":"Create a flight emission estimate","description":"Estimate emissions produced by passengers in a commercial airflight.","operationId":"createFlightEstimate","security":[{"BearerAuth":[]}],"tags":["Emission estimates"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/FlightEstimateRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/EmissionEstimateResponse"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"409":{"$ref":"#/components/responses/Conflict"},"415":{"$ref":"#/components/responses/UnsupportedMediaType"},"429":{"$ref":"#/components/responses/TooManyRequests"},"503":{"$ref":"#/components/responses/ServiceUnavailable"}},"tag":"Emission estimates","endpoint":"post"}}/>

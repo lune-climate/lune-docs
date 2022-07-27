@@ -1,0 +1,6 @@
+
+# List bundles
+
+import EndpointParser from '@site/src/components/EndpointParser';
+
+<EndpointParser json={{"summary":"List bundles","operationId":"listBundles","security":[{"BearerAuth":[]}],"tags":["Projects"],"parameters":[{"$ref":"#/components/parameters/LimitPagination"},{"$ref":"#/components/parameters/AfterPagination"},{"name":"recently_disabled","in":"query","description":"When `recently_disabled` is set to true, the response will also include bundles which have been disabled in the last 30 days.","schema":{"type":"boolean","default":false,"example":true}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PaginatedBundles"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Projects","endpoint":"get"}}/>

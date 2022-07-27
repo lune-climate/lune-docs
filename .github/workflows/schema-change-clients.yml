@@ -1,0 +1,25 @@
+# IMPORTANT: Reenable this workflow ONLY when the project has fully substituted the
+# documentation project. We don't want/need different projects triggering builds on lune-ts
+
+# name: Rebuild clients due to API schema change
+# 
+# on:
+#   push:
+#     branches:
+#       - master
+#     paths:
+#       - 'docs/data/openapi.yml'
+# 
+# jobs:
+#   build:
+#     name: Trigger rebuild of client libraries. Currently lune-ts
+#     runs-on: ubuntu-latest
+#     # The environment is used to guarantee a slight delay to wait for remote schema update.
+#     environment: lune_ts
+#     steps:
+#       - name: Emit TS library rebuild
+#         uses: peter-evans/repository-dispatch@v1
+#         with:
+#           token: ${{ secrets.CLIENT_REBUILD_TOKEN_GITHUB }}
+#           repository: lune-climate/lune-ts
+#           event-type: rebuild_schema_change

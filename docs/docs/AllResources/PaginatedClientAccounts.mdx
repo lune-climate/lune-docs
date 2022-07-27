@@ -1,0 +1,6 @@
+
+# PaginatedClientAccounts
+
+import ResourceParser from '@site/src/components/ResourceParser';
+
+<ResourceParser json={{"allOf":[{"$ref":"#/components/schemas/PaginatedBase"},{"type":"object","required":["data"],"properties":{"data":{"type":"array","description":"Paginated Client Account objects","items":{"$ref":"#/components/schemas/ClientAccount"}}}}],"component":"PaginatedClientAccounts"}}/>

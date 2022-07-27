@@ -1,0 +1,6 @@
+
+# Get cumulative analytics
+
+import EndpointParser from '@site/src/components/EndpointParser';
+
+<EndpointParser json={{"summary":"Get cumulative analytics","operationId":"getCumulativeAnalyticsPerBundle","security":[{"BearerAuth":[]}],"tags":["Analytics"],"parameters":[{"name":"from","in":"query","description":"The start date of the custom date range.\nDefaults to 30 days ago if not specified.","schema":{"type":"string","format":"date","example":"2019-01-01"}},{"name":"through","in":"query","description":"The to (inclusive) date of the custom date range.\nDefaults to the current date if not specified.","schema":{"type":"string","format":"date","example":"2020-01-31"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/CumulativeBundleAnalytics"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Analytics","endpoint":"get"}}/>

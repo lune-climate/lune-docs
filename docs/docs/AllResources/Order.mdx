@@ -1,0 +1,6 @@
+
+# Order
+
+import ResourceParser from '@site/src/components/ResourceParser';
+
+<ResourceParser json={{"type":"object","oneOf":[{"$ref":"#/components/schemas/OrderByQuantity"},{"$ref":"#/components/schemas/OrderByValue"}],"discriminator":{"propertyName":"type","mapping":{"quantity":"#/components/schemas/OrderByQuantity","value":"#/components/schemas/OrderByValue"}},"component":"Order"}}/>
