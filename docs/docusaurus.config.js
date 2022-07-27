@@ -34,6 +34,7 @@ const config = {
             {
                 docs: {
                     sidebarPath: require.resolve('./sidebars.js'),
+                    routeBasePath: '/',
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
@@ -45,6 +46,11 @@ const config = {
     themeConfig:
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         {
+            colorMode: {
+                defaultMode: 'light',
+                disableSwitch: false,
+                respectPrefersColorScheme: true,
+            },
             navbar: {
                 title: 'Documentation',
                 logo: {
