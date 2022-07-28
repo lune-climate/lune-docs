@@ -41,6 +41,12 @@ import ResourceParser from '@site/src/components/ResourceParser';
 <ResourceParser json={${JSON.stringify(data)}}/>`
 }
 
+function createContextAPISchema(schema: any): string {
+    return `import React from 'react'
+
+export const APISchemaContext = React.createContext<any>(${JSON.stringify(schema)})`
+}
+
 async function main() {
     const schema = yaml.load(fs.readFileSync('data/openapi.yml', 'utf8'))
 
@@ -99,6 +105,11 @@ async function main() {
         const resourceJSON = { ...data, component: component }
         writeFile(`docs/AllResources/${component}.mdx`, createResourceMDX(resourceJSON))
     }
+
+    // Create context containing the whole OpenAPI schema. This allows components to read this global
+    // state and handle any references in the schema itself. It would maybe allow the components written
+    // above to instead have a pointer, but that wasn't thought at first.
+    writeFile(`src/components/APISchemaContext.tsx`, createContextAPISchema(schema))
 
     process.exit(0)
 }
