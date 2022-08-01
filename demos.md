@@ -1,3 +1,8 @@
+# Table of Contents
+1. [Payments use case](#payments-use-case)
+2. [Logistics use case](#logistics-use-case)
+3. [Fintech use case](#fintech-use-case)
+
 # Payments use case
 
 https://www.figma.com/proto/hzIyN9eG4ba1Q0qHDhiWs0/Demos?node-id=494%3A26389&scaling=min-zoom&page-id=95%3A743&starting-point-node-id=494%3A26389&hide-ui=1
@@ -240,5 +245,146 @@ curl https://api.lune.co/v1/orders/by-estimate \
     -d '
 {
   "estimate_id": "<ESTIMATE_ID>"
+}'
+```
+
+# Fintech use case
+
+## Create a client account:
+
+For each user, create a Client Account:
+```
+curl "https://api.lune.co/v1/accounts/client" \
+    -s \
+    -X POST \
+    -H "Authorization: Bearer $API_KEY" \
+    -H "Content-Type: application/json" \
+    -d '
+{
+    "name": "James Smith",
+    "currency": "GBP",
+    "type": "test",
+    "beneficiary": "James Smith"
+}'
+```
+
+## Transactions (Home)
+
+Calculate emissions for each line item:
+
+```
+curl https://api.lune.co/v1/estimates/transactions \
+	-H 'Content-Type: application/json' \
+	-H "Authorization: Bearer $API_KEY" \
+    -H "Lune-Account: <CLIENT_ACCOUNT_ID>" \
+	-X POST \
+	-d '
+{
+  "value": {
+    "value": "56.14",
+    "currency": "GBP"
+  },
+  "merchant": {
+    "category_code": "5411",
+    "name": "Waitrose",
+    "country_code": "GBR"
+  }
+}'
+```
+
+Each emission estimate returns and id (ESTIMATE_ID), amount of CO2 emitted (mass property) and `total_cost`.
+Clients should store emissions (mass) with each transaction.
+
+## Analytics
+
+**All managed by the client**
+
+* kgCO2 over time: can be calculated by looking up emissions stored with transactions
+* kgCO2 by category: can be calculated by looking up emissions stored with transactions
+* Your top project: can be calculated by looking at all orders
+
+```
+curl https://api.lune.co/v1/orders \
+    -H "Lune-Account: <CLIENT_ACCOUNT_ID>" \
+	-H "Authorization: Bearer $API_KEY"
+
+or via webhook
+```
+
+* Sustainably development goals you support: same as above
+* Highest footprint purchases: can be calculated by looking up emissions stored with transactions
+
+## Offsetting
+
+### Fetch bundles and bundle mixes:
+```
+curl https://api.lune.co/v1/bundles \
+    -H "Authorization: Bearer $API_KEY"
+```
+
+```
+curl https://api.lune.co/v1/bundle-mixes \
+    -H "Authorization: Bearer $API_KEY"
+```
+
+Fetch projects:
+```
+curl https://api.lune.co/v1/projects \
+    -H "Authorization: Bearer $API_KEY"
+```
+
+### Quotes
+
+Perform quotes by mass
+```
+curl https://api.lune.co/v1/orders/by-mass/quote \
+	-H 'Content-Type: application/json' \
+    -H "Lune-Account: <CLIENT_ACCOUNT_ID>" \
+	-H "Authorization: Bearer $API_KEY" \
+	-X POST \
+	-d '
+{
+  "mass": {
+    "amount": "50.4",
+    "unit": "t"
+  },
+  "bundle_selection": [
+    {
+      "bundle_id": "DVndoQ0PZjGMzvYOWY6kbgN1eOJx9B82",
+      "percentage": 34
+    },
+    {
+      "bundle_id": "L0M3zv7Qr2OGRqY9WAVdbwKPx5XWao64",
+      "percentage": 66
+    }
+  ]
+}'
+```
+This returns the cost to offset emissions with the particular bundle selection.
+
+
+Offset emissions:
+```
+curl https://api.lune.co/v1/orders/by-mass\
+    -H 'Content-Type: application/json' \
+    -H "Authorization: Bearer $API_KEY" \
+    -H "Lune-Account: <CLIENT_ACCOUNT_ID>" \
+    -X POST \
+    -d '
+{
+  "mass": {
+    "amount": "50.4",
+    "unit": "t"
+  },
+  "bundle_selection": [
+    {
+      "bundle_id": "DVndoQ0PZjGMzvYOWY6kbgN1eOJx9B82",
+      "percentage": 34
+    },
+    {
+      "bundle_id": "L0M3zv7Qr2OGRqY9WAVdbwKPx5XWao64",
+      "percentage": 66
+    }
+  ]
 }'
 ```
