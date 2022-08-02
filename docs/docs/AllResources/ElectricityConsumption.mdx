@@ -1,6 +1,6 @@
 
 # ElectricityConsumption
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"type":"object","required":["amount","unit"],"properties":{"amount":{"type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"40.501"},"unit":{"type":"string","enum":["kWh","MWh","GWh"],"example":"MWh","description":"Unit, `kWh` for kilowatt-hours, `MWh` for megawatt-hours, `GWh` for gigawatt-hours"}},"component":"ElectricityConsumption"}}/>
+<Resource json={{"type":"object","required":["amount","unit"],"properties":{"amount":{"type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"40.501"},"unit":{"type":"string","enum":["kWh","MWh","GWh"],"example":"MWh","description":"Unit, `kWh` for kilowatt-hours, `MWh` for megawatt-hours, `GWh` for gigawatt-hours"}},"component":"ElectricityConsumption"}}/>

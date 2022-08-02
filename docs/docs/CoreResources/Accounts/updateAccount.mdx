@@ -1,6 +1,9 @@
+---
 
+sidebar_class_name: put
+---
 # Update an account
 
-import EndpointParser from '@site/src/components/EndpointParser';
+import Endpoint from '@site/src/components/Endpoint';
 
-<EndpointParser json={{"summary":"Update an account","description":"Update an account. Live accounts will replicate a name change to its sibling account. Test accounts name updates are disallowed (name property must match the current account name).\n","operationId":"updateAccount","security":[{"BearerAuth":[]}],"tags":["Accounts"],"parameters":[{"name":"id","in":"path","required":true,"description":"The account's unique identifier","schema":{"type":"string","example":"ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateAccountRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Account"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Accounts","endpoint":"put"}}/>
+<Endpoint json={{"summary":"Update an account","description":"Update an account. Live accounts will replicate a name change to its sibling account. Test accounts name updates are disallowed (name property must match the current account name).\n","operationId":"updateAccount","security":[{"BearerAuth":[]}],"tags":["Accounts"],"parameters":[{"name":"id","in":"path","required":true,"description":"The account's unique identifier","schema":{"type":"string","example":"ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateAccountRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Account"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Accounts","endpoint":"put"}}/>

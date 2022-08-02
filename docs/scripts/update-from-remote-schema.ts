@@ -12,18 +12,20 @@ function writeFile(dir: string, data: any): void {
 }
 
 function createEndpointMDX(data: any, sidebarPosition?: number): string {
-    return `${
-        sidebarPosition
-            ? `---
-sidebar_position: 1
----`
-            : ''
-    }
+    return `---
+${
+    sidebarPosition
+        ? `sidebar_position: 1
+`
+        : ''
+}
+sidebar_class_name: ${data.endpoint}
+---
 # ${data.summary}
 
-import EndpointParser from '@site/src/components/EndpointParser';
+import Endpoint from '@site/src/components/Endpoint';
 
-<EndpointParser json={${JSON.stringify(data)}}/>`
+<Endpoint json={${JSON.stringify(data)}}/>`
 }
 
 function createResourceMDX(data: any, sidebarPosition?: number): string {
@@ -36,9 +38,9 @@ sidebar_position: 1
     }
 # ${data.component}
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={${JSON.stringify(data)}}/>`
+<Resource json={${JSON.stringify(data)}}/>`
 }
 
 function createContextAPISchema(schema: any): string {
@@ -49,6 +51,7 @@ export const APISchemaContext = React.createContext<any>(${JSON.stringify(schema
 
 async function main() {
     const schema = yaml.load(fs.readFileSync('data/openapi.yml', 'utf8'))
+    const schemaPaths = Object.entries(schema.paths)
 
     // Create directories for `Core Resources` section. Each tag consists of one directory.
     schema.tags.forEach((tag, index) => {
@@ -61,9 +64,6 @@ async function main() {
         const directoryInfo = {
             label: tag.name,
             position: index + 1,
-            link: {
-                type: 'generated-index',
-            },
         }
 
         writeFile(`${folderDir}/_category_.json`, JSON.stringify(directoryInfo, null, 2))
@@ -72,7 +72,27 @@ async function main() {
         if (tag['x-components']) {
             for (const component of tag['x-components']) {
                 const data = schema.components.schemas[component]
-                const resourceJSON = { ...data, component: component }
+                const endpointsForTag = schemaPaths.filter((path) => {
+                    // All methods in an endpoint are tied to the same tag, so we can simply
+                    // check the first endpoint to verify the tag is present.
+                    // path[1] = endpointMethods = {"put": {}, "get": {} etc.}
+                    return (Object.entries(path[1] as any)[0][1] as any).tags.includes(tag.name)
+                })
+
+                // Build the endpoints that are tied to the CoreResource
+                const linkedEndpoints = endpointsForTag.reduce((acc, endpoint) => {
+                    const endpointURL = endpoint[0]
+                    const methods = Object.entries(endpoint[1] as any)
+                    for (const [method, data] of methods) {
+                        acc.push({
+                            method: method as string,
+                            endpoint: endpointURL,
+                            operationId: (data as any).operationId,
+                        })
+                    }
+                    return acc
+                }, [] as any[])
+                const resourceJSON = { ...data, component: component, endpoints: linkedEndpoints }
                 writeFile(`${folderDir}/${component}.mdx`, createResourceMDX(resourceJSON, 1))
             }
         }
@@ -81,7 +101,7 @@ async function main() {
     // Iterate through endpoints
     let path: string
     let endpoints: any
-    for ([path, endpoints] of Object.entries(schema.paths)) {
+    for ([path, endpoints] of schemaPaths) {
         let endpoint: string
         let data: any
         for ([endpoint, data] of Object.entries(endpoints as any)) {

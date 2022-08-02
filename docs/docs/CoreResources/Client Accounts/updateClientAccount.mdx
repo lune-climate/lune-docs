@@ -1,6 +1,9 @@
+---
 
+sidebar_class_name: put
+---
 # Update a client account
 
-import EndpointParser from '@site/src/components/EndpointParser';
+import Endpoint from '@site/src/components/Endpoint';
 
-<EndpointParser json={{"summary":"Update a client account","operationId":"updateClientAccount","security":[{"BearerAuth":[]}],"tags":["Client Accounts"],"parameters":[{"name":"id","in":"path","required":true,"description":"The account's unique identifier","schema":{"type":"string","example":"ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateAccountRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ClientAccount"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Client Accounts","endpoint":"put"}}/>
+<Endpoint json={{"summary":"Update a client account","operationId":"updateClientAccount","security":[{"BearerAuth":[]}],"tags":["Client Accounts"],"parameters":[{"name":"id","in":"path","required":true,"description":"The account's unique identifier","schema":{"type":"string","example":"ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateAccountRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ClientAccount"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Client Accounts","endpoint":"put"}}/>

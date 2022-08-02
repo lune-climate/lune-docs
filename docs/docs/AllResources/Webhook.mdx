@@ -1,6 +1,6 @@
 
 # Webhook
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"type":"object","required":["id","url","enabled","secret"],"properties":{"id":{"description":"The webhook's unique identifier","type":"string","example":"ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz"},"url":{"$ref":"#/components/schemas/Url"},"enabled":{"description":"Determines if events should be sent to the webhook or not.","type":"boolean"},"secret":{"description":"The secret key used to generate the webhook payload HMAC.","type":"string"}},"component":"Webhook"}}/>
+<Resource json={{"type":"object","required":["id","url","enabled","secret"],"properties":{"id":{"description":"The webhook's unique identifier","type":"string","example":"ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz"},"url":{"$ref":"#/components/schemas/Url"},"enabled":{"description":"Determines if events should be sent to the webhook or not.","type":"boolean"},"secret":{"description":"The secret key used to generate the webhook payload HMAC.","type":"string"}},"component":"Webhook"}}/>

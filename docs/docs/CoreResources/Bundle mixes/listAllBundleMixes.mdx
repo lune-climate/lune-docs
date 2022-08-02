@@ -1,6 +1,9 @@
+---
 
+sidebar_class_name: get
+---
 # List all bundle mixes
 
-import EndpointParser from '@site/src/components/EndpointParser';
+import Endpoint from '@site/src/components/Endpoint';
 
-<EndpointParser json={{"summary":"List all bundle mixes","operationId":"listAllBundleMixes","security":[{"BearerAuth":[]}],"tags":["Bundle mixes"],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/BundleMix"}}}}},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Bundle mixes","endpoint":"get"}}/>
+<Endpoint json={{"summary":"List all bundle mixes","operationId":"listAllBundleMixes","security":[{"BearerAuth":[]}],"tags":["Bundle mixes"],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/BundleMix"}}}}},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Bundle mixes","endpoint":"get"}}/>

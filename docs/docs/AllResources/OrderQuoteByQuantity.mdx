@@ -1,6 +1,6 @@
 
 # OrderQuoteByQuantity
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"allOf":[{"$ref":"#/components/schemas/OrderQuoteBase"},{"type":"object","required":["requested_quantity"],"properties":{"requested_quantity":{"type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"1045","description":"Requested quantity for the specific bundle (tonnes CO2).\n\nrequested_quantity may be returned as part of an emission estimate response, in which case this property contains the equivalent value as the `mass` property.\n"}}}],"component":"OrderQuoteByQuantity"}}/>
+<Resource json={{"allOf":[{"$ref":"#/components/schemas/OrderQuoteBase"},{"type":"object","required":["requested_quantity"],"properties":{"requested_quantity":{"type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"1045","description":"Requested quantity for the specific bundle (tonnes CO2).\n\nrequested_quantity may be returned as part of an emission estimate response, in which case this property contains the equivalent value as the `mass` property.\n"}}}],"component":"OrderQuoteByQuantity"}}/>

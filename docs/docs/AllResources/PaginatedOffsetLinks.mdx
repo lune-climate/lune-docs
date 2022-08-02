@@ -1,6 +1,6 @@
 
 # PaginatedOffsetLinks
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"allOf":[{"$ref":"#/components/schemas/PaginatedBase"},{"type":"object","required":["data"],"properties":{"data":{"type":"array","items":{"$ref":"#/components/schemas/OffsetLink"}}}}],"component":"PaginatedOffsetLinks"}}/>
+<Resource json={{"allOf":[{"$ref":"#/components/schemas/PaginatedBase"},{"type":"object","required":["data"],"properties":{"data":{"type":"array","items":{"$ref":"#/components/schemas/OffsetLink"}}}}],"component":"PaginatedOffsetLinks"}}/>

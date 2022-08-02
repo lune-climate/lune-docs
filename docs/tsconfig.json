@@ -1,10 +1,12 @@
 {
+  "extends": "@tsconfig/docusaurus/tsconfig.json",
   "compilerOptions": {
     "target": "ES2019",
     "module": "ESNext",
     "moduleResolution": "Node",
     "outDir": "dist",
     "rootDir": "src",
+    "jsx": "react",
     "strict": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,
@@ -15,9 +17,8 @@
     "noImplicitReturns": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["./*"],
+      "@site/*": ["./*"]
     },
     "typeRoots": [
       "node_modules/@types"
@@ -29,8 +30,7 @@
     ],
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
   },
-  "include": ["src/**/*.tsx", "src/**/**/*.tsx"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": ["src/**/*.tsx", "src/**/**/*.tsx"]
 }

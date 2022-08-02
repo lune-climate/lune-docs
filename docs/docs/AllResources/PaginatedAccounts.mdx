@@ -1,6 +1,6 @@
 
 # PaginatedAccounts
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"allOf":[{"$ref":"#/components/schemas/PaginatedBase"},{"type":"object","required":["data"],"properties":{"data":{"type":"array","description":"Paginated Account objects","items":{"$ref":"#/components/schemas/Account"}}}}],"component":"PaginatedAccounts"}}/>
+<Resource json={{"allOf":[{"$ref":"#/components/schemas/PaginatedBase"},{"type":"object","required":["data"],"properties":{"data":{"type":"array","description":"Paginated Account objects","items":{"$ref":"#/components/schemas/Account"}}}}],"component":"PaginatedAccounts"}}/>

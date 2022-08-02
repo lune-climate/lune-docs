@@ -1,6 +1,6 @@
 
 # ClientAccount
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"description":"Account used when you operate an account on behalf of a third party.","allOf":[{"$ref":"#/components/schemas/AccountBase"}],"type":"object","required":["scope"],"properties":{"scope":{"type":"string","enum":["client_account"]}},"component":"ClientAccount"}}/>
+<Resource json={{"description":"Account used when you operate an account on behalf of a third party.","allOf":[{"$ref":"#/components/schemas/AccountBase"}],"type":"object","required":["scope"],"properties":{"scope":{"type":"string","enum":["client_account"]}},"component":"ClientAccount"}}/>

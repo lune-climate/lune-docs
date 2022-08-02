@@ -1,6 +1,6 @@
 
 # MultiLegShippingEstimateRequest
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"type":"object","description":"Parameters for estimating multi-leg shipping emissions","required":["shipment","legs"],"properties":{"shipment":{"$ref":"#/components/schemas/Shipment"},"legs":{"type":"array","minItems":1,"maxItems":10,"items":{"type":"object","required":["route","method"],"properties":{"route":{"$ref":"#/components/schemas/ShippingRoute"},"method":{"$ref":"#/components/schemas/ShippingMethod"},"country_code":{"$ref":"#/components/schemas/ShippingCountryCode"}}}},"bundle_selection":{"$ref":"#/components/schemas/BundleSelectionRequest"},"quantity_trunc":{"description":"Selects to which precision to truncate the quantities assigned to each bundle.","example":"t","$ref":"#/components/schemas/MassUnit"}},"component":"MultiLegShippingEstimateRequest"}}/>
+<Resource json={{"type":"object","description":"Parameters for estimating multi-leg shipping emissions","required":["shipment","legs"],"properties":{"shipment":{"$ref":"#/components/schemas/Shipment"},"legs":{"type":"array","minItems":1,"maxItems":10,"items":{"type":"object","required":["route","method"],"properties":{"route":{"$ref":"#/components/schemas/ShippingRoute"},"method":{"$ref":"#/components/schemas/ShippingMethod"},"country_code":{"$ref":"#/components/schemas/ShippingCountryCode"}}}},"bundle_selection":{"$ref":"#/components/schemas/BundleSelectionRequest"},"quantity_trunc":{"description":"Selects to which precision to truncate the quantities assigned to each bundle.","example":"t","$ref":"#/components/schemas/MassUnit"}},"component":"MultiLegShippingEstimateRequest"}}/>

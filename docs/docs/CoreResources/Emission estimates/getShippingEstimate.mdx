@@ -1,6 +1,9 @@
+---
 
+sidebar_class_name: get
+---
 # Get a shipping emission estimate
 
-import EndpointParser from '@site/src/components/EndpointParser';
+import Endpoint from '@site/src/components/Endpoint';
 
-<EndpointParser json={{"summary":"Get a shipping emission estimate","operationId":"getShippingEstimate","security":[{"BearerAuth":[]}],"tags":["Emission estimates"],"parameters":[{"name":"id","in":"path","required":true,"description":"The estimate's unique identifier","schema":{"type":"string","example":"Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SingleShippingEmissionEstimate"}}}},"401":{"$ref":"#/components/responses/Unauthorized"},"404":{"$ref":"#/components/responses/NotFoundWithErrors"},"429":{"$ref":"#/components/responses/TooManyRequests"},"503":{"$ref":"#/components/responses/ServiceUnavailable"}},"tag":"Emission estimates","endpoint":"get"}}/>
+<Endpoint json={{"summary":"Get a shipping emission estimate","operationId":"getShippingEstimate","security":[{"BearerAuth":[]}],"tags":["Emission estimates"],"parameters":[{"name":"id","in":"path","required":true,"description":"The estimate's unique identifier","schema":{"type":"string","example":"Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SingleShippingEmissionEstimate"}}}},"401":{"$ref":"#/components/responses/Unauthorized"},"404":{"$ref":"#/components/responses/NotFoundWithErrors"},"429":{"$ref":"#/components/responses/TooManyRequests"},"503":{"$ref":"#/components/responses/ServiceUnavailable"}},"tag":"Emission estimates","endpoint":"get"}}/>

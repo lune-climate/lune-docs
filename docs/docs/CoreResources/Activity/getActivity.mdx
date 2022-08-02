@@ -1,6 +1,9 @@
+---
 
+sidebar_class_name: get
+---
 # Get an account's activity
 
-import EndpointParser from '@site/src/components/EndpointParser';
+import Endpoint from '@site/src/components/Endpoint';
 
-<EndpointParser json={{"summary":"Get an account's activity","operationId":"getActivity","security":[{"BearerAuth":[]}],"tags":["Activity"],"parameters":[{"$ref":"#/components/parameters/LimitPagination"},{"$ref":"#/components/parameters/AfterPagination"}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PaginatedActivity"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Activity","endpoint":"get"}}/>
+<Endpoint json={{"summary":"Get an account's activity","operationId":"getActivity","security":[{"BearerAuth":[]}],"tags":["Activity"],"parameters":[{"$ref":"#/components/parameters/LimitPagination"},{"$ref":"#/components/parameters/AfterPagination"}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PaginatedActivity"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Activity","endpoint":"get"}}/>

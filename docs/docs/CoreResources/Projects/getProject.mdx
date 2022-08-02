@@ -1,6 +1,9 @@
+---
 
+sidebar_class_name: get
+---
 # Get a project
 
-import EndpointParser from '@site/src/components/EndpointParser';
+import Endpoint from '@site/src/components/Endpoint';
 
-<EndpointParser json={{"summary":"Get a project","operationId":"getProject","security":[{"BearerAuth":[]}],"tags":["Projects"],"parameters":[{"name":"id","in":"path","required":true,"description":"The project's unique identifier","schema":{"type":"string","example":"1vE213P96LbXNap56NAqVoM7knOedQg4"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Project"}}}},"404":{"$ref":"#/components/responses/NotFound"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Projects","endpoint":"get"}}/>
+<Endpoint json={{"summary":"Get a project","operationId":"getProject","security":[{"BearerAuth":[]}],"tags":["Projects"],"parameters":[{"name":"id","in":"path","required":true,"description":"The project's unique identifier","schema":{"type":"string","example":"1vE213P96LbXNap56NAqVoM7knOedQg4"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Project"}}}},"404":{"$ref":"#/components/responses/NotFound"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Projects","endpoint":"get"}}/>

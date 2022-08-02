@@ -1,6 +1,6 @@
 
 # CreateAccountRequest
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"type":"object","required":["name","currency"],"properties":{"name":{"description":"The account name.","type":"string"},"currency":{"description":"The account currency.","$ref":"#/components/schemas/CurrencyCode","example":"GBP"},"beneficiary":{"description":"The account beneficiary.","type":"string","minLength":1}},"component":"CreateAccountRequest"}}/>
+<Resource json={{"type":"object","required":["name","currency"],"properties":{"name":{"description":"The account name.","type":"string"},"currency":{"description":"The account currency.","$ref":"#/components/schemas/CurrencyCode","example":"GBP"},"beneficiary":{"description":"The account beneficiary.","type":"string","minLength":1}},"component":"CreateAccountRequest"}}/>

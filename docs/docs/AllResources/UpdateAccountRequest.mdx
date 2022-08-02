@@ -1,6 +1,6 @@
 
 # UpdateAccountRequest
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"description":"It's only possible to edit the name and beneficiary of an account.\n\nNot providing the `beneficiary` property will result in clearing the existing value (if present).\n","type":"object","required":["name"],"properties":{"name":{"description":"The account name.","type":"string"},"beneficiary":{"description":"The account beneficiary.","type":"string","minLength":1},"bundle_mix_id":{"description":"The bundle mix unique identifier.","type":"string","example":"jvqkOq7vX2K18HHydar0W23ZGJdc91Pa"}},"component":"UpdateAccountRequest"}}/>
+<Resource json={{"description":"It's only possible to edit the name and beneficiary of an account.\n\nNot providing the `beneficiary` property will result in clearing the existing value (if present).\n","type":"object","required":["name"],"properties":{"name":{"description":"The account name.","type":"string"},"beneficiary":{"description":"The account beneficiary.","type":"string","minLength":1},"bundle_mix_id":{"description":"The bundle mix unique identifier.","type":"string","example":"jvqkOq7vX2K18HHydar0W23ZGJdc91Pa"}},"component":"UpdateAccountRequest"}}/>

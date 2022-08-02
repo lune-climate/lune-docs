@@ -1,6 +1,6 @@
 
 # BundleSelectionRequest
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"type":"array","description":"Bundle selection percentages.\n\nThe sum of all percentages must equal 100.\n\nIf not specified, the preconfigured allocation ratios are going to be used.\n\nIf, for each selection, `percentage` is not provided, the selection is divided equally (best effort) between bundles. `percentage` must be provided for all or none of the bundles.\n","items":{"$ref":"#/components/schemas/BundlePercentageRequest"},"example":[{"bundle_id":"BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3","percentage":34},{"bundle_id":"VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B","percentage":66}],"component":"BundleSelectionRequest"}}/>
+<Resource json={{"type":"array","description":"Bundle selection percentages.\n\nThe sum of all percentages must equal 100.\n\nIf not specified, the preconfigured allocation ratios are going to be used.\n\nIf, for each selection, `percentage` is not provided, the selection is divided equally (best effort) between bundles. `percentage` must be provided for all or none of the bundles.\n","items":{"$ref":"#/components/schemas/BundlePercentageRequest"},"example":[{"bundle_id":"BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3","percentage":34},{"bundle_id":"VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B","percentage":66}],"component":"BundleSelectionRequest"}}/>

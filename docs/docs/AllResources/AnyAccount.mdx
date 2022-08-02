@@ -1,6 +1,6 @@
 
 # AnyAccount
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"type":"object","oneOf":[{"$ref":"#/components/schemas/Account"},{"$ref":"#/components/schemas/ClientAccount"}],"discriminator":{"propertyName":"scope","mapping":{"account":"#/components/schemas/Account","client_account":"#/components/schemas/ClientAccount"}},"component":"AnyAccount"}}/>
+<Resource json={{"type":"object","oneOf":[{"$ref":"#/components/schemas/Account"},{"$ref":"#/components/schemas/ClientAccount"}],"discriminator":{"propertyName":"scope","mapping":{"account":"#/components/schemas/Account","client_account":"#/components/schemas/ClientAccount"}},"component":"AnyAccount"}}/>

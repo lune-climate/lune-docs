@@ -1,6 +1,9 @@
+---
 
+sidebar_class_name: get
+---
 # Get an order by idempotency key
 
-import EndpointParser from '@site/src/components/EndpointParser';
+import Endpoint from '@site/src/components/Endpoint';
 
-<EndpointParser json={{"summary":"Get an order by idempotency key","operationId":"getOrderByIdempotencyKey","security":[{"BearerAuth":[]}],"tags":["Orders"],"parameters":[{"name":"idempotencyKey","in":"path","required":true,"description":"The order's idempotency key.\n\nOrder idempotency keys must be unique per account.\n","schema":{"type":"string","example":"sg5knd2"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Order"}}}},"404":{"$ref":"#/components/responses/NotFound"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Orders","endpoint":"get"}}/>
+<Endpoint json={{"summary":"Get an order by idempotency key","operationId":"getOrderByIdempotencyKey","security":[{"BearerAuth":[]}],"tags":["Orders"],"parameters":[{"name":"idempotencyKey","in":"path","required":true,"description":"The order's idempotency key.\n\nOrder idempotency keys must be unique per account.\n","schema":{"type":"string","example":"sg5knd2"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Order"}}}},"404":{"$ref":"#/components/responses/NotFound"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Orders","endpoint":"get"}}/>

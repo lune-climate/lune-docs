@@ -1,6 +1,6 @@
 
 # SourceDestination
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"type":"object","required":["source","destination"],"properties":{"source":{"oneOf":[{"$ref":"#/components/schemas/Address"},{"$ref":"#/components/schemas/GeographicCoordinates"}]},"destination":{"oneOf":[{"$ref":"#/components/schemas/Address"},{"$ref":"#/components/schemas/GeographicCoordinates"}]}},"component":"SourceDestination"}}/>
+<Resource json={{"type":"object","required":["source","destination"],"properties":{"source":{"oneOf":[{"$ref":"#/components/schemas/Address"},{"$ref":"#/components/schemas/GeographicCoordinates"}]},"destination":{"oneOf":[{"$ref":"#/components/schemas/Address"},{"$ref":"#/components/schemas/GeographicCoordinates"}]}},"component":"SourceDestination"}}/>

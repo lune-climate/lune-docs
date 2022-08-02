@@ -1,6 +1,6 @@
 
 # Merchant
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"type":"object","required":["category_code","country_code"],"properties":{"category_code":{"type":"string","description":"An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding\nto the transaction.\n\nSee https://github.com/greggles/mcc-codes for available codes.\n","example":"0763"},"name":{"type":"string","description":"The name of the merchant.","example":"The Corner Store"},"country_code":{"type":"string","description":"The three-letter code of the merchant's country.","example":"GBR"}},"component":"Merchant"}}/>
+<Resource json={{"type":"object","required":["category_code","country_code"],"properties":{"category_code":{"type":"string","description":"An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding\nto the transaction.\n\nSee https://github.com/greggles/mcc-codes for available codes.\n","example":"0763"},"name":{"type":"string","description":"The name of the merchant.","example":"The Corner Store"},"country_code":{"type":"string","description":"The three-letter code of the merchant's country.","example":"GBR"}},"component":"Merchant"}}/>

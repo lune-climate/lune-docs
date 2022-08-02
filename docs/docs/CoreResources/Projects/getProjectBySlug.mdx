@@ -1,6 +1,9 @@
+---
 
+sidebar_class_name: get
+---
 # Get a project by slug
 
-import EndpointParser from '@site/src/components/EndpointParser';
+import Endpoint from '@site/src/components/Endpoint';
 
-<EndpointParser json={{"summary":"Get a project by slug","operationId":"getProjectBySlug","security":[{"BearerAuth":[]}],"tags":["Projects"],"parameters":[{"name":"slug","in":"path","required":true,"description":"The project's unique slug","schema":{"type":"string","example":"alto-mayo"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Project"}}}},"404":{"$ref":"#/components/responses/NotFound"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Projects","endpoint":"get"}}/>
+<Endpoint json={{"summary":"Get a project by slug","operationId":"getProjectBySlug","security":[{"BearerAuth":[]}],"tags":["Projects"],"parameters":[{"name":"slug","in":"path","required":true,"description":"The project's unique slug","schema":{"type":"string","example":"alto-mayo"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Project"}}}},"404":{"$ref":"#/components/responses/NotFound"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Projects","endpoint":"get"}}/>

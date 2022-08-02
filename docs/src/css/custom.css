@@ -28,3 +28,12 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* CSS for sidebar example */
+:root {
+     --doc-sidebar-width: 220px !important;
+}
+
+.menu__list-item.post { background-color: blue; }
+.menu__list-item.get { background-color: green; }
+.menu__list-item.delete { background-color: red; }

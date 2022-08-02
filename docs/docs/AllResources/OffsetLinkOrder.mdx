@@ -1,6 +1,6 @@
 
 # OffsetLinkOrder
 
-import ResourceParser from '@site/src/components/ResourceParser';
+import Resource from '@site/src/components/Resource';
 
-<ResourceParser json={{"type":"object","required":["order_id","created_at","email","bundles"],"properties":{"order_id":{"type":"string","description":"The order's unique identifier","example":"zwjfkXjfksoHXzA1qjANL58GhjwqkxpB"},"created_at":{"$ref":"#/components/schemas/Timestamp"},"email":{"type":"string","description":"The email address of the user that placed an order through the offset link","example":["john@doe.com"]},"bundles":{"type":"array","items":{"type":"object","required":["bundle_id","bundle_name"],"properties":{"bundle_id":{"type":"string","description":"The bundle's unique identifier","example":"va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5"},"bundle_name":{"type":"string","description":"The bundle's name","example":"Latin America Forestry"}}}}},"component":"OffsetLinkOrder"}}/>
+<Resource json={{"type":"object","required":["order_id","created_at","email","bundles"],"properties":{"order_id":{"type":"string","description":"The order's unique identifier","example":"zwjfkXjfksoHXzA1qjANL58GhjwqkxpB"},"created_at":{"$ref":"#/components/schemas/Timestamp"},"email":{"type":"string","description":"The email address of the user that placed an order through the offset link","example":["john@doe.com"]},"bundles":{"type":"array","items":{"type":"object","required":["bundle_id","bundle_name"],"properties":{"bundle_id":{"type":"string","description":"The bundle's unique identifier","example":"va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5"},"bundle_name":{"type":"string","description":"The bundle's name","example":"Latin America Forestry"}}}}},"component":"OffsetLinkOrder"}}/>

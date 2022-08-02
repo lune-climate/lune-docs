@@ -1,6 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 import styles from './styles.module.css'
+import { useColorMode } from '@docusaurus/theme-common'
 
 type FeatureItem = {
     title: string
@@ -56,10 +57,12 @@ function Feature({ title, Svg, description }: FeatureItem) {
 }
 
 export default function HomepageFeatures(): JSX.Element {
+    const { colorMode } = useColorMode()
     return (
         <section className={styles.features}>
             <div className="container">
                 <div className="row">
+                    <p>Color Mode: {colorMode}</p>
                     {FeatureList.map((props, idx) => (
                         <Feature key={idx} {...props} />
                     ))}
