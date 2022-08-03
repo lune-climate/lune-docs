@@ -1,5 +1,6 @@
 import Dereferencer from '@site/src/components/Dereferencer'
 
+// eslint-disable-next-line complexity
 export default function JsonPropertyParser(props: {
     json: any
     name?: string
@@ -10,7 +11,7 @@ export default function JsonPropertyParser(props: {
         const type = props.json.oneOf ? 'oneOf' : props.json.allOf ? 'allOf' : 'anyOf'
         return {
             ...props.json,
-            type: type,
+            type,
             jsons: props.json[type].map((element) => {
                 const derefencedItem = Dereferencer(element)
                 return JsonPropertyParser({

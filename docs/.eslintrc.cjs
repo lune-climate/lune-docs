@@ -10,7 +10,10 @@ module.exports = {
         sourceType: 'module',
     },
     plugins: ['@typescript-eslint', 'simple-import-sort'],
-    ignorePatterns: ['v1Types.ts'],
+    ignorePatterns: [],
+    globals: {
+        JSX: true,
+    },
     rules: {
         'comma-dangle': ['error', 'always-multiline'],
         'space-before-function-paren': [

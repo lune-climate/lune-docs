@@ -3,8 +3,8 @@ import React from 'react'
 
 export default function Dereferencer(element: any, name?: string): any {
     const tokenized = element.toString().split('/')
-    if (element['$ref']) {
-        return Dereferencer(element['$ref'], name)
+    if (element.$ref) {
+        return Dereferencer(element.$ref, name)
     } else if (tokenized.length === 4 && tokenized[0] === '#') {
         const schema = React.useContext(APISchemaContext)
         return {

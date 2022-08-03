@@ -1,7 +1,7 @@
-import React from 'react'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
-import { JsonObjectTable, JsonProperty } from 'lune-ui-lib'
 import ResourceExample from '@site/src/components/ResourceExample'
+import { JsonObjectTable, JsonProperty } from 'lune-ui-lib'
+import React from 'react'
 
 export default function SchemaCombination(json: any): JSX.Element {
     const parsedElement = JsonPropertyParser({ json })

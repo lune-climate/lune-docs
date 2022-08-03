@@ -1,12 +1,12 @@
-import React from 'react'
-import { JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
-import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import Dereferencer from '@site/src/components/Dereferencer'
+import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ParameterParser from '@site/src/components/ParameterParser'
 import ResourceExample from '@site/src/components/ResourceExample'
+import { JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
+import React from 'react'
 
 export default function EndpointParser(props: { json: any }): JSX.Element {
-    let endpointRequestBody = undefined
+    let endpointRequestBody
     // We only have requestBody of `application/json` so we know what to expect
     if (props.json.requestBody) {
         const dereferencedRequestBody = Dereferencer(

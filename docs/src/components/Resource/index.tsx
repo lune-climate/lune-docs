@@ -1,10 +1,9 @@
-import React from 'react'
-
 import { useColorMode } from '@docusaurus/theme-common'
-import { JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ResourceExample from '@site/src/components/ResourceExample'
 import SchemaCombination from '@site/src/components/SchemaCombination'
+import { JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
+import React from 'react'
 
 export default function ResourceParser(props: { json: any }): JSX.Element {
     let resourceProperties: any[]
