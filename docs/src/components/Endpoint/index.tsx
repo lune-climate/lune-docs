@@ -3,7 +3,7 @@ import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ParameterParser from '@site/src/components/ParameterParser'
 import ResourceExample from '@site/src/components/ResourceExample'
-import { JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
+import { ApiReferenceSection, JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
 import React from 'react'
 
 export default function EndpointParser(props: { json: any }): JSX.Element {
@@ -58,6 +58,17 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     return (
         <section>
             <div>Description: {props.json.description}</div>
+            <ApiReferenceSection>
+                {endpointRequestBody && (
+                    <JsonObjectTable>
+                        <JsonProperty json={endpointRequestBody} />
+                    </JsonObjectTable>
+                )}
+                <div>
+                    <Snippet {...curlCall} />
+                    {endpointResponseExample && <Snippet {...endpointResponseExample} />}
+                </div>
+            </ApiReferenceSection>
             <div>Route Parameters</div>
             {routeParameters.length !== 0 && (
                 <JsonObjectTable>
