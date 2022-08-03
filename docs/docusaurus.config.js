@@ -90,6 +90,7 @@ const config = {
                 darkTheme: darkCodeTheme,
             },
         },
+    scripts: [{ src: 'js/lunejs.js', defer: true }],
 }
 
 module.exports = config
