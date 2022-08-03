@@ -25,7 +25,11 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     let endpointSuccessResponse
     let endpointResponseExample
     // For now, only handle json responses (we have application/pdf for certificates as well)
-    if (props.json.responses[200].content['application/json']) {
+    if (
+        props.json.responses[200] &&
+        props.json.responses[200].content &&
+        props.json.responses[200].content['application/json']
+    ) {
         const dereferencedResponseBody = Dereferencer(
             props.json.responses[200].content['application/json'].schema,
         )

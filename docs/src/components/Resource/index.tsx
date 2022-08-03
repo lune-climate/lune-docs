@@ -1,4 +1,4 @@
-import { useColorMode } from '@docusaurus/theme-common'
+import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ResourceExample from '@site/src/components/ResourceExample'
 import SchemaCombination from '@site/src/components/SchemaCombination'
@@ -14,14 +14,21 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
     } else if (props.json.oneOf) {
         return SchemaCombination(props.json)
     } else {
-        resourceProperties = Object.keys(props.json.properties).map((propertyName) => {
-            const element = props.json.properties[propertyName]
-            return JsonPropertyParser({
-                name: propertyName,
-                json: element,
-                required: props.json.required,
-            })
-        })
+        resourceProperties = props.json.properties
+            ? Object.keys(props.json.properties).map((propertyName) => {
+                  const element = Dereferencer(props.json.properties[propertyName])
+                  return JsonPropertyParser({
+                      name: propertyName,
+                      json: element,
+                      required: props.json.required,
+                  })
+              })
+            : [
+                  JsonPropertyParser({
+                      ...props.json,
+                      json: props.json,
+                  }),
+              ]
     }
     const exampleSnippet = {
         header: props.json.component || props.json.name,
@@ -37,8 +44,10 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
         children: JSON.stringify(props.json.endpoints, null, 2),
     }
 
-    const { colorMode } = useColorMode()
-    console.log(`#### colorMode ####: ${JSON.stringify(colorMode)}`)
+    // TODO this is how you can get the colorMode
+    // import { useColorMode } from '@docusaurus/theme-common'
+    // const { colorMode } = useColorMode() // 'light' | 'dark'
+
     return (
         <section>
             <div>Description: {props.json.description}</div>
