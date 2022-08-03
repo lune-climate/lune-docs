@@ -55,8 +55,8 @@ const config = {
                 title: 'Documentation',
                 logo: {
                     alt: 'Lune Logo',
-                    src: 'img/lune-vsmall.jpg',
-                    srcDark: 'img/lune-vsmall.jpg',
+                    src: 'img/lune-logo-512.png',
+                    srcDark: 'img/lune-logo-512-white.png',
                 },
                 items: [
                     {
