@@ -7,12 +7,10 @@ import React from 'react'
 
 export default function ResourceParser(props: { json: any }): JSX.Element {
     let resourceProperties: any[]
-    if (props.json.allOf) {
+    if (props.json.allOf || props.json.oneOf) {
         resourceProperties = [
             { ...JsonPropertyParser({ json: props.json }), name: props.json.component },
         ]
-    } else if (props.json.oneOf) {
-        return SchemaCombination(props.json)
     } else {
         resourceProperties = props.json.properties
             ? Object.keys(props.json.properties).map((propertyName) => {
