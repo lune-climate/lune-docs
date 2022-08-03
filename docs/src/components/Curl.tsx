@@ -1,3 +1,4 @@
+import Dereferencer from '@site/src/components/Dereferencer'
 import ResourceExample from '@site/src/components/ResourceExample'
 
 export default function Curl(
@@ -9,6 +10,7 @@ export default function Curl(
     const requestExample = requestBody ? ResourceExample(requestBody) : undefined
     let endpointParsed = path
     parameters.forEach((parameter) => {
+        const derefencedParameter = Dereferencer(parameter)
         const parameterExample = ResourceExample(parameter)
         if (parameter.in === 'path') {
             endpointParsed = endpointParsed.replace(

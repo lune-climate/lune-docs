@@ -1,6 +1,6 @@
 function createExampleProperty(property): any {
     const example = {}
-    if (property.example && property.type === 'number') {
+    if (property.example && (property.type === 'number' || property.type === 'integer')) {
         example[property.name] = Number(property.example)
     } else if (property.example && property.type === 'boolean') {
         example[property.name] = Boolean(property.example)
@@ -8,7 +8,7 @@ function createExampleProperty(property): any {
         example[property.name] = property.example
     } else if (property.type === 'string') {
         example[property.name] = property.name
-    } else if (property.type === 'number') {
+    } else if (property.type === 'number' || property.type === 'integer') {
         example[property.name] = 1
     } else if (property.type === 'boolean') {
         example[property.name] = true

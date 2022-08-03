@@ -8,7 +8,9 @@ export default function ParameterParser(props: {
     schema: any
 }): any {
     const derefencedParameter = Dereferencer(props, props.name)
+    const derefencedParameterSchema = Dereferencer(props.schema, props.schema?.name)
     return {
+        ...derefencedParameterSchema,
         ...derefencedParameter,
         ...derefencedParameter.schema,
         name: derefencedParameter.name,

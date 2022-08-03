@@ -1,5 +1,17 @@
 import Dereferencer from '@site/src/components/Dereferencer'
 
+// There are cases where a property does not have any name that can be associated with it.
+// This happens on schemaCombinations (allOf, oneOf). As an example:
+// oneOf:
+//   - type: object
+//     properties:
+//       mass:
+//         $ref: '#/components/schemas/Mass'
+//
+// This field does not have a name, but a name is always required. For those cases, just
+// show an empty string
+const DEFAULT_PROPERTY_NAME = ''
+
 // eslint-disable-next-line complexity
 export default function JsonPropertyParser(props: {
     json: any
@@ -15,7 +27,7 @@ export default function JsonPropertyParser(props: {
             jsons: props.json[type].map((element) => {
                 const derefencedItem = Dereferencer(element)
                 return JsonPropertyParser({
-                    name: element.name || derefencedItem.name,
+                    name: element.name || derefencedItem.name || '',
                     json: derefencedItem,
                 })
             }),

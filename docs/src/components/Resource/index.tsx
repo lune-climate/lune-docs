@@ -24,10 +24,12 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
             : [
                   JsonPropertyParser({
                       ...props.json,
+                      name: props.json.component,
                       json: props.json,
                   }),
               ]
     }
+
     const exampleSnippet = {
         header: props.json.component || props.json.name,
         lineNumbers: false,
