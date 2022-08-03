@@ -1,3 +1,5 @@
+import Dereferencer from '@site/src/components/Dereferencer'
+
 export default function ParameterParser(props: {
     name: string
     in: string
@@ -5,11 +7,12 @@ export default function ParameterParser(props: {
     description?: string
     schema: any
 }): any {
+    const derefencedParameter = Dereferencer(props, props.name)
     return {
-        ...props,
-        ...props.schema,
-        name: props.name,
-        required: !!props.required,
-        description: props.description,
+        ...derefencedParameter,
+        ...derefencedParameter.schema,
+        name: derefencedParameter.name,
+        required: !!derefencedParameter.required,
+        description: derefencedParameter.description,
     }
 }

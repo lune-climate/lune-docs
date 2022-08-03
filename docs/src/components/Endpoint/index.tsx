@@ -1,3 +1,4 @@
+import Curl from '@site/src/components/Curl'
 import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ParameterParser from '@site/src/components/ParameterParser'
@@ -21,6 +22,15 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     const parameters = (props.json.parameters || []).map((parameter) => ParameterParser(parameter))
     const routeParameters = parameters.filter((parameter) => parameter.in === 'path')
     const queryParameters = parameters.filter((parameter) => parameter.in === 'query')
+
+    const curlStr = Curl(props.json.path, props.json.method, endpointRequestBody, parameters)
+    const curlCall = {
+        header: `${props.json.method} ${props.json.path}`,
+        language: 'curl',
+        toCopy: curlStr,
+        children: curlStr,
+        lineNumbers: false,
+    }
 
     let endpointSuccessResponse
     let endpointResponseExample
@@ -78,7 +88,8 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
             )}
             <div>ResponseExample</div>
             {endpointResponseExample && <Snippet {...endpointResponseExample} />}
-            <div>Generator of curl would go here</div>
+            <div>Curl</div>
+            <Snippet {...curlCall} />
             <div>Response example would go here</div>
             <div>[DEBUG] Showing full JSON: {JSON.stringify(props.json)}</div>
         </section>

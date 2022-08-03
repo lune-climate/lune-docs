@@ -19,7 +19,7 @@ ${
 `
         : ''
 }
-sidebar_class_name: ${data.endpoint}
+sidebar_class_name: ${data.method}
 ---
 # ${data.summary}
 
@@ -102,9 +102,9 @@ async function main() {
     let path: string
     let endpoints: any
     for ([path, endpoints] of schemaPaths) {
-        let endpoint: string
+        let method: string
         let data: any
-        for ([endpoint, data] of Object.entries(endpoints as any)) {
+        for ([method, data] of Object.entries(endpoints as any)) {
             data.tags.forEach((tag: string) => {
                 const folderDir = `docs/CoreResources/${tag}`
                 // Tag might not have been specified in the tags section. Create directory
@@ -112,7 +112,7 @@ async function main() {
                     fs.mkdirSync(folderDir)
                 }
 
-                const endpointJSON = { ...data, tag: tag, endpoint: endpoint }
+                const endpointJSON = { ...data, tag: tag, method: method, path: path }
                 writeFile(`${folderDir}/${data.operationId}.mdx`, createEndpointMDX(endpointJSON))
             })
         }

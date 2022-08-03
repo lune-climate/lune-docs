@@ -35,5 +35,6 @@
 }
 
 .menu__list-item.post { background-color: blue; }
+.menu__list-item.put { background-color: yellow; }
 .menu__list-item.get { background-color: green; }
 .menu__list-item.delete { background-color: red; }

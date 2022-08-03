@@ -6,4 +6,4 @@ sidebar_class_name: get
 
 import Endpoint from '@site/src/components/Endpoint';
 
-<Endpoint json={{"tags":["Webhooks"],"summary":"List all webhooks","operationId":"listAllWebhooks","security":[{"BearerAuth":[]}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/Webhook"}}}}},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Webhooks","endpoint":"get"}}/>
+<Endpoint json={{"tags":["Webhooks"],"summary":"List all webhooks","operationId":"listAllWebhooks","security":[{"BearerAuth":[]}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/Webhook"}}}}},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Webhooks","method":"get","path":"/webhooks"}}/>

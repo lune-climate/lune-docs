@@ -6,4 +6,4 @@ sidebar_class_name: get
 
 import Endpoint from '@site/src/components/Endpoint';
 
-<Endpoint json={{"summary":"Get an account's bundle selection","operationId":"getBundleSelection","security":[{"BearerAuth":[]}],"tags":["Bundle selections"],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/BundleSelection"}}}},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Bundle selections","endpoint":"get"}}/>
+<Endpoint json={{"summary":"Get an account's bundle selection","operationId":"getBundleSelection","security":[{"BearerAuth":[]}],"tags":["Bundle selections"],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/BundleSelection"}}}},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Bundle selections","method":"get","path":"/bundle-selections"}}/>
