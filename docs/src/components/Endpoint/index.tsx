@@ -20,7 +20,6 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     }
 
     const parameters = (props.json.parameters || []).map((parameter) => ParameterParser(parameter))
-    const routeParameters = parameters.filter((parameter) => parameter.in === 'path')
     const queryParameters = parameters.filter((parameter) => parameter.in === 'query')
 
     const curlStr = Curl(props.json.path, props.json.method, endpointRequestBody, parameters)
@@ -55,56 +54,60 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
         }
     }
 
+    // We never have both queryParameters and requestBody so parameters will show
+    // one or the other (when present)
+    const parametersSection = endpointRequestBody ? (
+        <JsonObjectTable>
+            {endpointRequestBody.jsons.map((json, i) => (
+                <JsonProperty json={json} key={i}></JsonProperty>
+            ))}
+        </JsonObjectTable>
+    ) : queryParameters.length !== 0 ? (
+        <JsonObjectTable>
+            {queryParameters.map((parameters, i) => {
+                return <JsonProperty json={parameters} key={i} />
+            })}
+        </JsonObjectTable>
+    ) : (
+        <>
+            <br />
+            No parameters
+        </>
+    )
+
+    const returnsSection = endpointSuccessResponse ? (
+        <JsonObjectTable>
+            <JsonProperty json={endpointSuccessResponse} />
+        </JsonObjectTable>
+    ) : (
+        <>
+            <br />
+            No return
+        </>
+    )
+
     return (
         <section>
-            <>Description: {props.json.description}</>
+            <>{props.json.description}</>
             <ApiReferenceSection>
-                {endpointRequestBody && (
-                    <JsonObjectTable>
-                        {endpointRequestBody.jsons.map((json, i) => (
-                            <JsonProperty json={json} key={i}></JsonProperty>
-                        ))}
-                    </JsonObjectTable>
-                )}
+                <>
+                    <>
+                        <>Parameters</>
+                        {parametersSection}
+                    </>
+                    <br />
+                    <>
+                        <>Returns</>
+                        {returnsSection}
+                    </>
+                </>
                 <>
                     <Snippet {...curlCall} />
-                    {endpointResponseExample && <Snippet sx={{ marginTop: '16px' }} {...endpointResponseExample} />}
+                    {endpointResponseExample && (
+                        <Snippet sx={{ marginTop: '16px' }} {...endpointResponseExample} />
+                    )}
                 </>
             </ApiReferenceSection>
-            <>Route Parameters</>
-            {routeParameters.length !== 0 && (
-                <JsonObjectTable>
-                    {routeParameters.map((parameters) => {
-                        return <JsonProperty json={parameters} />
-                    })}
-                </JsonObjectTable>
-            )}
-            <>Query Parameters</>
-            {queryParameters.length !== 0 && (
-                <JsonObjectTable>
-                    {queryParameters.map((parameters) => {
-                        return <JsonProperty json={parameters} />
-                    })}
-                </JsonObjectTable>
-            )}
-            <>RequestBody</>
-            {endpointRequestBody && (
-                <JsonObjectTable>
-                    <JsonProperty json={endpointRequestBody} />
-                </JsonObjectTable>
-            )}
-            <>ResponseBody</>
-            {endpointSuccessResponse && (
-                <JsonObjectTable>
-                    <JsonProperty json={endpointSuccessResponse} />
-                </JsonObjectTable>
-            )}
-            <>ResponseExample</>
-            {endpointResponseExample && <Snippet {...endpointResponseExample} />}
-            <>Curl</>
-            <Snippet {...curlCall} />
-            <>Response example would go here</>
-            <>[DEBUG] Showing full JSON: {JSON.stringify(props.json)}</>
         </section>
     )
 }

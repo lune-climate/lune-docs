@@ -1,8 +1,7 @@
 import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ResourceExample from '@site/src/components/ResourceExample'
-import SchemaCombination from '@site/src/components/SchemaCombination'
-import { JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
+import { ApiReferenceSection, JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
 import React from 'react'
 
 export default function ResourceParser(props: { json: any }): JSX.Element {
@@ -44,24 +43,22 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
         children: JSON.stringify(props.json.endpoints, null, 2),
     }
 
-    // TODO this is how you can get the colorMode
-    // import { useColorMode } from '@docusaurus/theme-common'
-    // const { colorMode } = useColorMode() // 'light' | 'dark'
-
     return (
         <section>
-            <>Description: {props.json.description}</>
-            <>Properties</>
-            <JsonObjectTable>
-                {resourceProperties.map((property) => {
-                    return <JsonProperty json={property} />
-                })}
-            </JsonObjectTable>
-            <>Example</>
-            <Snippet {...exampleSnippet} />
-            <>Endpoints</>
-            <Snippet {...endpointsSnippet} />
-            <>[DEBUG] Showing full JSON: {JSON.stringify(props.json)}</>
+            <>{props.json.description}</>
+            <ApiReferenceSection>
+                <>
+                    <JsonObjectTable>
+                        {resourceProperties.map((property) => {
+                            return <JsonProperty json={property} />
+                        })}
+                    </JsonObjectTable>
+                </>
+                <>
+                    <Snippet {...endpointsSnippet} />
+                    <Snippet {...exampleSnippet} />
+                </>
+            </ApiReferenceSection>
         </section>
     )
 }
