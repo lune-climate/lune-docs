@@ -7,7 +7,7 @@ export default function Curl(
     requestBody: any,
     parameters: any[],
 ): string {
-    const requestExample = requestBody ? ResourceExample(requestBody) : undefined
+    const requestBodyExample = requestBody ? ResourceExample(requestBody) : undefined
     let endpointParsed = path
     parameters.forEach((parameter) => {
         const derefencedParameter = Dereferencer(parameter)
@@ -30,9 +30,9 @@ export default function Curl(
     return `curl ${endpointParsed} \\
 -H 'Authorization: Bearer <API_KEY>' \\
 -X ${method.toUpperCase()} ${
-        requestExample
+        requestBodyExample
             ? `\\
--d '${JSON.stringify(requestExample, null, 2)}'
+-d '${JSON.stringify(requestBodyExample, null, 2)}'
 `
             : ''
     }`
