@@ -2,6 +2,7 @@
 const program = require('commander-plus')
 const yaml = require('js-yaml')
 const fs = require('fs')
+const path = require('path')
 
 program.parse(process.argv)
 
@@ -50,6 +51,21 @@ export const APISchemaContext = React.createContext<any>(${JSON.stringify(schema
 }
 
 async function main() {
+    // Clear resources and endpoints
+    const directoriesToClean = ['docs/CoreResources', 'docs/AllResources']
+    directoriesToClean.forEach((directory) => {
+        const filenames = fs.readdirSync(directory)
+        filenames.forEach((file) => {
+            if (file !== '_category_.json') {
+                if (file.endsWith('.mdx') || file.endsWith('.md')) {
+                    fs.unlinkSync(`${directory}/${file}`)
+                } else {
+                    fs.rmdirSync(`${directory}/${file}`, { recursive: true, force: true })
+                }
+            }
+        })
+    })
+
     const schema = yaml.load(fs.readFileSync('static/openapi.yml', 'utf8'))
     const schemaPaths = Object.entries(schema.paths)
 

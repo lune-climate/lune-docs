@@ -1,6 +1,0 @@
-
-# AnyAccount
-
-import Resource from '@site/src/components/Resource';
-
-<Resource json={{"type":"object","oneOf":[{"$ref":"#/components/schemas/Account"},{"$ref":"#/components/schemas/ClientAccount"}],"discriminator":{"propertyName":"scope","mapping":{"account":"#/components/schemas/Account","client_account":"#/components/schemas/ClientAccount"}},"component":"AnyAccount"}}/>

@@ -1,8 +1,0 @@
----
-sidebar_position: 1
----
-# Order
-
-import Resource from '@site/src/components/Resource';
-
-<Resource json={{"type":"object","oneOf":[{"$ref":"#/components/schemas/OrderByQuantity"},{"$ref":"#/components/schemas/OrderByValue"}],"discriminator":{"propertyName":"type","mapping":{"quantity":"#/components/schemas/OrderByQuantity","value":"#/components/schemas/OrderByValue"}},"component":"Order","endpoints":[{"method":"post","endpoint":"/orders/by-mass","operationId":"createOrderByMass"},{"method":"post","endpoint":"/orders/by-value","operationId":"createOrderByValue"},{"method":"post","endpoint":"/orders/by-estimate","operationId":"createOrderByEstimate"},{"method":"get","endpoint":"/orders","operationId":"listOrders"},{"method":"get","endpoint":"/orders/{id}","operationId":"getOrder"},{"method":"get","endpoint":"/orders/{id}/certificate","operationId":"getOrderCertificate"},{"method":"get","endpoint":"/orders/by-idempotency-key/{idempotencyKey}","operationId":"getOrderByIdempotencyKey"},{"method":"post","endpoint":"/orders/by-mass/quote","operationId":"getOrderQuoteByMass"},{"method":"post","endpoint":"/orders/by-value/quote","operationId":"getOrderQuoteByValue"}]}}/>
