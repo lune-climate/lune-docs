@@ -33,7 +33,7 @@
      --doc-sidebar-width: 220px !important;
 }
 
-.menu__list-item.post { background-color: blue; }
-.menu__list-item.put { background-color: yellow; }
-.menu__list-item.get { background-color: green; }
-.menu__list-item.delete { background-color: red; }
+.menu__list-item.post { background-color: aliceblue; }
+.menu__list-item.put { background-color: cornsilk; }
+.menu__list-item.get { background-color: #d6ffe6; }
+.menu__list-item.delete { background-color: lavenderblush; }
