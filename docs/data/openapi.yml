@@ -114,7 +114,6 @@ tags:
   - name: Orders
     description: |
       Get a quote, create and fetch orders.
-    x-components: [Order, OrderBase]
   - name: Projects
     description: Get projects and bundles
   - name: Emission estimates
@@ -1872,7 +1871,71 @@ paths:
       responses:
         '200':
           description: The events have been successfully handled. Any status code of the `2xx` format has the same behaviour. Any header or body are ignored by Lune.
-
+  /sustainability-pages:
+    post:
+      tags:
+        - Sustainability page
+      summary: Create a sustainability page
+      operationId: createSustainabilityPage
+      description:
+        Create a public https://sustainability.lune.co/<slug> page to communicate your climate impact efforts.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SustainabilityPage'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SustainabilityPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    put:
+      tags:
+        - Sustainability page
+      summary: Update a sustainability page
+      operationId: updateSustainabilityPage
+      description:
+        Update the format, layout and status of your public https://sustainability.lune.co/<slug> page.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SustainabilityPage'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SustainabilityPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
 components:
   securitySchemes:
     BearerAuth:
@@ -2069,6 +2132,9 @@ components:
             - unauthorised
             - estimate_not_found
             - estimate_order_already_placed
+            - sustainability_page_slug_not_unique
+            - sustainability_page_exists
+            - pagination_limit_invalid
         message:
           type: string
           description: |
@@ -2113,10 +2179,16 @@ components:
       properties:
         mass:
           description: Mass of CO2 offsets to purchase
+          # We use allOf to make the description field not be ignored.
+          # See: https://swagger.io/docs/specification/using-ref/ section "$ref and Sibling Elements"
           allOf:
             - $ref: '#/components/schemas/Mass'
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
+        quantity_trunc:
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     CreateOrderByQuantityRequest:
       type: object
       description: Order by Quantity details
@@ -2125,6 +2197,8 @@ components:
       properties:
         mass:
           description: Mass of CO2 offsets to purchase
+          # We use allOf to make the description field not be ignored.
+          # See: https://swagger.io/docs/specification/using-ref/ section "$ref and Sibling Elements"
           allOf:
             - $ref: '#/components/schemas/Mass'
         idempotency_key:
@@ -2448,32 +2522,36 @@ components:
 
             This property is currently populated on orders placed through offset links.
           example: 'john@doe.com'
+    OrderByQuantityProperties:
+      type: object
+      required:
+        - requested_quantity
+      properties:
+        requested_quantity:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '1045'
+          description: Requested quantity of CO2 offsets to purchase in tonnes.
     OrderByQuantity:
       title: Order by quantity
       allOf:
         - $ref: '#/components/schemas/OrderBase'
-        - type: object
-          required:
-            - requested_quantity
-          properties:
-            requested_quantity:
-              type: string
-              pattern: '^[0-9]+(\.[0-9]+)?$'
-              example: '1045'
-              description: Requested quantity of CO2 offsets to purchase in tonnes.
+        - $ref: '#/components/schemas/OrderByQuantityProperties'
+    OrderByValueProperties:
+      type: object
+      required:
+        - requested_value
+      properties:
+        requested_value:
+          description: Requested value of CO2 offsets to purchase in the account's currency.
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '7700'
     OrderByValue:
       title: Order by value
       allOf:
         - $ref: '#/components/schemas/OrderBase'
-        - type: object
-          required:
-            - requested_value
-          properties:
-            requested_value:
-              description: Requested value of CO2 offsets to purchase in the account's currency.
-              type: string
-              pattern: '^[0-9]+(\.[0-9]+)?$'
-              example: '7700'
+        - $ref: '#/components/schemas/OrderByValueProperties'
     OrderByEstimate:
       title: Order by emission estimate
       allOf:
@@ -2488,14 +2566,17 @@ components:
               example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
     Order:
       type: object
-      oneOf:
-          - $ref: '#/components/schemas/OrderByQuantity'
-          - $ref: '#/components/schemas/OrderByValue'
-      discriminator:
-        propertyName: type
-        mapping:
-          quantity: '#/components/schemas/OrderByQuantity'
-          value: '#/components/schemas/OrderByValue'
+      allOf:
+        - $ref: '#/components/schemas/OrderBase'
+        - type: object
+          oneOf:
+            - $ref: '#/components/schemas/OrderByQuantityProperties'
+            - $ref: '#/components/schemas/OrderByValueProperties'
+          discriminator:
+            propertyName: type
+            mapping:
+              quantity: '#/components/schemas/OrderByQuantityProperties'
+              value: '#/components/schemas/OrderByValueProperties'
     OrderProject:
       type: object
       required:
@@ -2830,6 +2911,14 @@ components:
           type: string
           example: https://assets.lune.co/bundles/biochar.png
           description: The URL of the media item
+        attribution_text:
+          type: string
+          example: instagram.com/conservationorg
+          description: A short description of where the image or video was sourced
+        attribution_url:
+          type: string
+          example: https://conservationorg.com
+          description: A URL pointing to where the image or video was sourced
     ProjectSummary:
       type: object
       required:
@@ -2870,9 +2959,7 @@ components:
           description: The project's offset type, eg Forest conservation, Afforestation, Direct Air Capture
           example: 'Forest conservation'
         registry_name:
-          type: string
-          description: The project's Verification Standard Entity name or equivalent organization.
-          example: 'Verified Carbon Standard'
+          $ref: '#/components/schemas/Registry'
         registry_link:
           type: string
           description: A link to the registry's project details page.
@@ -4677,16 +4764,6 @@ components:
           type: string
           enum:
             - client_account
-    AnyAccount:
-      type: object
-      oneOf:
-        - $ref: '#/components/schemas/Account'
-        - $ref: '#/components/schemas/ClientAccount'
-      discriminator:
-        propertyName: scope
-        mapping:
-          account: '#/components/schemas/Account'
-          client_account: '#/components/schemas/ClientAccount'
     UpdateAccountRequest:
       description: |
         It's only possible to edit the name and beneficiary of an account.
@@ -4707,3 +4784,69 @@ components:
           description: The bundle mix unique identifier.
           type: string
           example: 'jvqkOq7vX2K18HHydar0W23ZGJdc91Pa'
+    SustainabilityPage:
+      type: object
+      required:
+        - status
+        - slug
+        - title
+        - sections
+      properties:
+        status:
+          type: string
+          enum:
+            - enabled
+            - disabled
+          description: The sustainability page status which determines whether it is visible to the public.
+          example: 'enabled'
+        slug:
+          type: string
+          description: The sustainability page slug. The slug is used to identify the page publicly and should be unique.
+          example: 'acme'
+        title:
+          type: string
+          description: The sustainability page title stat format.
+          enum:
+            - by_volume
+            - by_price
+          example: 'by_volume'
+        description:
+          type: string
+          description: The sustainability page description format consisting of stat equivalents or a custom description.
+          enum:
+            - by_equivalent
+            - by_supported_goals
+            - by_custom_description
+          example: 'by_equivalent'
+        custom_description:
+          type: string
+          description: The sustainability page custom description. Only displayed when `description` is set to `by_custom_description`.
+          example: 'This is a custom description'
+        sections:
+          type: array
+          description: The sustainability page sections that will be displayed in the page. Only a single instance of each section type is allowed and the order is irrelevant.
+          minItems: 1
+          maxItems: 3
+          items:
+            $ref: '#/components/schemas/SustainabilityPageSection'
+          example: ['bundles_breakdown', 'certificates']
+    SustainabilityPageSection:
+      type: string
+      description: The sustainability page section name.
+      enum:
+            - bundles_breakdown
+            - certificates
+            - unsdg
+      example: 'bundles_breakdown'
+    Registry:
+      type: string
+      description: The project's Verification Standard Entity name or equivalent organization.
+      example: 'Verra'
+      enum:
+        - American Carbon Registry
+        - Verra
+        - Puro.earth
+        - Gold Standard
+        - Climate Action Reserve
+        - Woodland Carbon Code
+        - ''
