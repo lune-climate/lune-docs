@@ -37,3 +37,9 @@
 .menu__list-item.put { background-color: cornsilk; }
 .menu__list-item.get { background-color: #d6ffe6; }
 .menu__list-item.delete { background-color: lavenderblush; }
+
+@media (min-width: 997px) {
+    .col.docItemCol_node_modules-\@docusaurus-theme-classic-lib-theme-DocItem-Layout-styles-module {
+        max-width: 100% !important;
+    }
+}
