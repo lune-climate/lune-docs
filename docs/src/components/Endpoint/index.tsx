@@ -57,7 +57,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
 
     return (
         <section>
-            <div>Description: {props.json.description}</div>
+            <>Description: {props.json.description}</>
             <ApiReferenceSection>
                 {endpointRequestBody && (
                     <JsonObjectTable>
@@ -66,12 +66,12 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                         ))}
                     </JsonObjectTable>
                 )}
-                <div>
+                <>
                     <Snippet {...curlCall} />
                     {endpointResponseExample && <Snippet {...endpointResponseExample} />}
-                </div>
+                </>
             </ApiReferenceSection>
-            <div>Route Parameters</div>
+            <>Route Parameters</>
             {routeParameters.length !== 0 && (
                 <JsonObjectTable>
                     {routeParameters.map((parameters) => {
@@ -79,7 +79,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                     })}
                 </JsonObjectTable>
             )}
-            <div>Query Parameters</div>
+            <>Query Parameters</>
             {queryParameters.length !== 0 && (
                 <JsonObjectTable>
                     {queryParameters.map((parameters) => {
@@ -87,24 +87,24 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                     })}
                 </JsonObjectTable>
             )}
-            <div>RequestBody</div>
+            <>RequestBody</>
             {endpointRequestBody && (
                 <JsonObjectTable>
                     <JsonProperty json={endpointRequestBody} />
                 </JsonObjectTable>
             )}
-            <div>ResponseBody</div>
+            <>ResponseBody</>
             {endpointSuccessResponse && (
                 <JsonObjectTable>
                     <JsonProperty json={endpointSuccessResponse} />
                 </JsonObjectTable>
             )}
-            <div>ResponseExample</div>
+            <>ResponseExample</>
             {endpointResponseExample && <Snippet {...endpointResponseExample} />}
-            <div>Curl</div>
+            <>Curl</>
             <Snippet {...curlCall} />
-            <div>Response example would go here</div>
-            <div>[DEBUG] Showing full JSON: {JSON.stringify(props.json)}</div>
+            <>Response example would go here</>
+            <>[DEBUG] Showing full JSON: {JSON.stringify(props.json)}</>
         </section>
     )
 }

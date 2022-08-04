@@ -50,18 +50,18 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
 
     return (
         <section>
-            <div>Description: {props.json.description}</div>
-            <div>Properties</div>
+            <>Description: {props.json.description}</>
+            <>Properties</>
             <JsonObjectTable>
                 {resourceProperties.map((property) => {
                     return <JsonProperty json={property} />
                 })}
             </JsonObjectTable>
-            <div>Example</div>
+            <>Example</>
             <Snippet {...exampleSnippet} />
-            <div>Endpoints</div>
+            <>Endpoints</>
             <Snippet {...endpointsSnippet} />
-            <div>[DEBUG] Showing full JSON: {JSON.stringify(props.json)}</div>
+            <>[DEBUG] Showing full JSON: {JSON.stringify(props.json)}</>
         </section>
     )
 }
