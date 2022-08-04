@@ -61,7 +61,9 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
             <ApiReferenceSection>
                 {endpointRequestBody && (
                     <JsonObjectTable>
-                        <JsonProperty json={endpointRequestBody} />
+                        {endpointRequestBody.jsons.map((json, i) => (
+                            <JsonProperty json={json} key={i}></JsonProperty>
+                        ))}
                     </JsonObjectTable>
                 )}
                 <div>

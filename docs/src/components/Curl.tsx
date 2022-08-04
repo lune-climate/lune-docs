@@ -32,7 +32,7 @@ export default function Curl(
 -X ${method.toUpperCase()} ${
         requestExample
             ? `\\
--d '${JSON.stringify(requestExample)}'
+-d '${JSON.stringify(requestExample, null, 2)}'
 `
             : ''
     }`
