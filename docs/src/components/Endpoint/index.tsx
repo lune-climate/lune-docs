@@ -68,7 +68,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                 )}
                 <>
                     <Snippet {...curlCall} />
-                    {endpointResponseExample && <Snippet {...endpointResponseExample} />}
+                    {endpointResponseExample && <Snippet sx={{ marginTop: '16px' }} {...endpointResponseExample} />}
                 </>
             </ApiReferenceSection>
             <>Route Parameters</>

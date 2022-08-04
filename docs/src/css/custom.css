@@ -6,7 +6,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-code-font-size: 95%;
+  /* --ifm-code-font-size: 90%; */
   --ifm-color-primary: #245cd5;
   --ifm-color-primary-dark: #2053c0;
   --ifm-color-primary-darker: #1f4eb5;
@@ -33,13 +33,22 @@
      --doc-sidebar-width: 220px !important;
 }
 
-.menu__list-item.post { background-color: aliceblue; }
-.menu__list-item.put { background-color: cornsilk; }
-.menu__list-item.get { background-color: #d6ffe6; }
-.menu__list-item.delete { background-color: lavenderblush; }
+:root {
+  --ifm-font-family-base: 'Helvetica Neue'
+}
 
 @media (min-width: 997px) {
     .col.docItemCol_node_modules-\@docusaurus-theme-classic-lib-theme-DocItem-Layout-styles-module {
         max-width: 100% !important;
     }
+}
+
+/* undo all */
+pre {
+    background-color: inherit;
+    border-radius: inherit;
+    color: inherit;
+    font: inherit;
+    overflow: inherit;
+    padding: inherit;
 }
