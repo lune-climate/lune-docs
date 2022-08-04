@@ -50,7 +50,7 @@ export const APISchemaContext = React.createContext<any>(${JSON.stringify(schema
 }
 
 async function main() {
-    const schema = yaml.load(fs.readFileSync('data/openapi.yml', 'utf8'))
+    const schema = yaml.load(fs.readFileSync('static/openapi.yml', 'utf8'))
     const schemaPaths = Object.entries(schema.paths)
 
     // Create directories for `Core Resources` section. Each tag consists of one directory.

@@ -22,3 +22,17 @@ import { Snippet } from 'lune-ui-lib';
 `}/>
 
 **You've just purchased 100.51 tonnes of Carbon Offsets! 🎉**
+
+## API Reference
+
+The OpenAPI schema can be downloaded [here](/openapi.yml).
+
+::: warning
+Please note the API reference is still in **beta**.
+:::
+
+If you encounter any issues, it would be greatly appreciated if you could take one of the following actions:
+* Submit an issue or pull request on [github](https://github.com/lune-climate/lune-docs)
+* Email us: [support@lune.co](mailto:support@lune.co)
+
+🙏
