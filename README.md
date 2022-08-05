@@ -9,7 +9,7 @@ cd docs
 yarn start
 ```
 
-To run production build locally:
+To run production build locally (required for testing search):
 
 ```
 cd docs

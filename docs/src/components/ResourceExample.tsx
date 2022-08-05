@@ -1,4 +1,5 @@
 // TODO I believe the format can be used to provide better examples.
+// eslint-disable-next-line complexity
 function createExampleProperty(property): any {
     const example = {}
     // Always use example when present. Otherwise, if a primitive type is shown, give a best
