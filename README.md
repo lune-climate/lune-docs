@@ -9,6 +9,13 @@ cd docs
 yarn start
 ```
 
+To run production build locally:
+
+```
+cd docs
+yarn build && yarn serve
+```
+
 ## Application
 
 This application is made with Docusaurus:
