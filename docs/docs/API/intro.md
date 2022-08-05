@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 sidebar_label: Quick Start
+hide_table_of_contents: true
 ---
 
 # Intro
