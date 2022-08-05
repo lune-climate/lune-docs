@@ -7,6 +7,8 @@ export default function ParameterParser(props: {
     description?: string
     schema: any
 }): any {
+    // Some parameters are primitives, other have a schema. Handle them both by
+    // trying to derefence both levels and inserting both in the result object.
     const derefencedParameter = Dereferencer(props, props.name)
     const derefencedParameterSchema = Dereferencer(props.schema, props.schema?.name)
     return {

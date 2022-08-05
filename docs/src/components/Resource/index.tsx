@@ -6,6 +6,7 @@ import React from 'react'
 
 export default function ResourceParser(props: { json: any }): JSX.Element {
     let resourceProperties: any[]
+    // We don't have anyOf so no need to handle it
     if (props.json.allOf || props.json.oneOf) {
         resourceProperties = [
             { ...JsonPropertyParser({ json: props.json }), name: props.json.component },

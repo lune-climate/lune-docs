@@ -1,5 +1,8 @@
+// TODO I believe the format can be used to provide better examples.
 function createExampleProperty(property): any {
     const example = {}
+    // Always use example when present. Otherwise, if a primitive type is shown, give a best
+    // guess approach. Last resort, don't include if not required otherwise give parameter name.
     if (property.example && (property.type === 'number' || property.type === 'integer')) {
         example[property.name] = Number(property.example)
     } else if (property.example && property.type === 'boolean') {
@@ -7,11 +10,11 @@ function createExampleProperty(property): any {
     } else if (property.example) {
         example[property.name] = property.example
     } else if (property.type === 'string') {
-        example[property.name] = property.name
+        example[property.name] = property.default || property.name
     } else if (property.type === 'number' || property.type === 'integer') {
-        example[property.name] = 1
+        example[property.name] = property.default || 1
     } else if (property.type === 'boolean') {
-        example[property.name] = true
+        example[property.name] = !!property.default || true
     } else if (!property.required) {
         example[property.name] = undefined
     } else {
@@ -21,6 +24,7 @@ function createExampleProperty(property): any {
 }
 
 export default function ResourceExample(propertiesParsed: any): any {
+    // No matter the type, resolve to example if present.
     if (propertiesParsed.example) {
         return createExampleProperty(propertiesParsed)
     } else if (propertiesParsed.allOf || propertiesParsed.anyOf) {

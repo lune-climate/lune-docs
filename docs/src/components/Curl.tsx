@@ -18,6 +18,7 @@ export default function Curl(
                 parameterExample[parameter.name],
             )
         } else if (parameter.in === 'query') {
+            // Insert ? in the path for the first query paramter
             const endpointWithParamStart =
                 endpointParsed.slice(-1) === '&' ? endpointParsed : endpointParsed.concat('?')
             endpointParsed = `${endpointWithParamStart}${parameter.name}=${
@@ -25,6 +26,7 @@ export default function Curl(
             }&`
         }
     })
+    // Previous parsing has & at the end if a single parameter is inserted. Remove it if present.
     endpointParsed = endpointParsed.slice(-1) === '&' ? endpointParsed.slice(0, -1) : endpointParsed
 
     return `curl ${endpointParsed} \\
