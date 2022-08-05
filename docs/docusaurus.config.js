@@ -110,6 +110,15 @@ const config = {
         },
     staticDirectories: ['static'],
     scripts: [{ src: '/js/lune.js', defer: true }],
+    plugins: [
+        [
+            require.resolve('docusaurus-lunr-search'),
+            {
+                excludeRoutes: ['docs/AllResources/*'],
+                languages: ['en'], // language codes
+            },
+        ],
+    ],
 }
 
 module.exports = config
