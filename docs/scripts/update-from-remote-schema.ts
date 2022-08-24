@@ -6,8 +6,10 @@ const path = require('path')
 
 program.parse(process.argv)
 
-function writeFile(dir: string, data: any): void {
-    fs.writeFileSync(dir, data, (err) => {
+function writeFile(dir: string, data: string): void {
+    // Add new line at the end if not presen
+    const newLineData = data.slice(-1) === '\n' ? data : `${data}\n`
+    fs.writeFileSync(dir, newLineData, (err) => {
         if (err) throw err
     })
 }
