@@ -50,9 +50,28 @@ function createContextAPISchema(schema: any): string {
 export const APISchemaContext = React.createContext<any>(${JSON.stringify(schema)})`
 }
 
+function formatFilename(filename: string): string {
+    // We either receive camelCase, UpperCamelCase, Sentence case or Title Case. Make it all camelCase
+    const camelCase = filename
+        // Convert Sentence case to Title Case
+        .replace(/ ([a-z])/, (v) => v.toUpperCase())
+        // Convert Title Case to UpperCamelCase
+        .replace(' ', '')
+        // Convert UpperCamelCase to camelCase
+        .replace(/^([A-Z])[a-z]/, (v) => v.toLowerCase())
+    return (
+        camelCase
+            .replace(/([A-Z])[a-z]/g, function (v) {
+                return `-${v.toLowerCase()}`
+            })
+            // Make acronyms lowercase
+            .toLowerCase()
+    )
+}
+
 async function main() {
     // Clear resources and endpoints
-    const directoriesToClean = ['docs/CoreResources', 'docs/AllResources']
+    const directoriesToClean = ['docs/core-resources', 'docs/all-resources']
     directoriesToClean.forEach((directory) => {
         const filenames = fs.readdirSync(directory)
         filenames.forEach((file) => {
@@ -71,7 +90,7 @@ async function main() {
 
     // Create directories for `Core Resources` section. Each tag consists of one directory.
     schema.tags.forEach((tag, index) => {
-        const folderDir = `docs/CoreResources/${tag.name}`
+        const folderDir = `docs/core-resources/${formatFilename(tag.name)}`
         if (!fs.existsSync(folderDir)) {
             fs.mkdirSync(folderDir)
         }
@@ -109,7 +128,10 @@ async function main() {
                     return acc
                 }, [] as any[])
                 const resourceJSON = { ...data, component: component, endpoints: linkedEndpoints }
-                writeFile(`${folderDir}/${component}.mdx`, createResourceMDX(resourceJSON, 1))
+                writeFile(
+                    `${folderDir}/${formatFilename(component)}.mdx`,
+                    createResourceMDX(resourceJSON, 1),
+                )
             }
         }
     })
@@ -122,14 +144,21 @@ async function main() {
         let data: any
         for ([method, data] of Object.entries(endpoints as any)) {
             data.tags.forEach((tag: string) => {
-                const folderDir = `docs/CoreResources/${tag}`
+                const folderDir = `docs/core-resources/${formatFilename(tag)}`
                 // Tag might not have been specified in the tags section. Create directory
                 if (!fs.existsSync(folderDir)) {
                     fs.mkdirSync(folderDir)
+                    writeFile(
+                        `${folderDir}/_category_.json`,
+                        JSON.stringify({ label: tag }, null, 2),
+                    )
                 }
 
                 const endpointJSON = { ...data, tag: tag, method: method, path: path }
-                writeFile(`${folderDir}/${data.operationId}.mdx`, createEndpointMDX(endpointJSON))
+                writeFile(
+                    `${folderDir}/${formatFilename(data.operationId)}.mdx`,
+                    createEndpointMDX(endpointJSON),
+                )
             })
         }
     }
@@ -139,7 +168,10 @@ async function main() {
     let data: any
     for ([component, data] of Object.entries(schema.components.schemas)) {
         const resourceJSON = { ...data, component: component }
-        writeFile(`docs/AllResources/${component}.mdx`, createResourceMDX(resourceJSON))
+        writeFile(
+            `docs/all-resources/${formatFilename(component)}.mdx`,
+            createResourceMDX(resourceJSON),
+        )
     }
 
     // Create context containing the whole OpenAPI schema. This allows components to read this global
