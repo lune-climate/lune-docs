@@ -56,3 +56,7 @@ pre {
     overflow: inherit;
     padding: inherit;
 }
+
+.hidden-sidebar {
+    display: none
+}
