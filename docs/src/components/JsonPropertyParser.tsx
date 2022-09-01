@@ -69,6 +69,7 @@ export default function JsonPropertyParser(props: {
                 props.required &&
                 derefencedItem.name &&
                 props.required.includes(derefencedItem.name),
+            $enum: props.json.enum,
             description: derefencedItem.description,
         }
     }
