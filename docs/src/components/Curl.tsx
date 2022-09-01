@@ -30,6 +30,7 @@ export default function Curl(
 
     return `curl ${endpointParsed} \\
 -H 'Authorization: Bearer ${apiKey || '<API_KEY>'}' \\
+-H 'Content-Type: application/json' \\
 -X ${method.toUpperCase()} ${
         requestBodyExample
             ? `\\
