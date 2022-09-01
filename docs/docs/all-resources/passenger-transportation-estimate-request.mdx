@@ -1,0 +1,6 @@
+
+# PassengerTransportationEstimateRequest
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"type":"object","description":"Parameters for estimating emissions for passenger transportation","required":["legs"],"properties":{"passengers":{"description":"Number of passengers the calculation should be applied to.","type":"number","default":1},"legs":{"type":"array","minItems":1,"maxItems":10,"items":{"oneOf":[{"$ref":"#/components/schemas/PassengerRoadEstimateRequest"},{"$ref":"#/components/schemas/PassengerRailEstimateRequest"},{"$ref":"#/components/schemas/PassengerFlightEstimateRequest"}]}},"bundle_selection":{"$ref":"#/components/schemas/BundleSelectionRequest"},"quantity_trunc":{"description":"Selects to which precision to truncate the quantities assigned to each bundle.","example":"t","$ref":"#/components/schemas/MassUnit"}},"component":"PassengerTransportationEstimateRequest"}}/>

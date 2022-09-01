@@ -7,7 +7,7 @@ export const APISchemaContext = React.createContext<any>({
         version: '1.0',
         contact: { name: 'Lune Support', email: 'support@lune.co' },
         termsOfService: 'https://lune.co/terms',
-        description: 'Full documentation can be seen on https://docs.lune.co',
+        description: 'Full documentation can be found on https://docs.lune.co',
     },
     servers: [{ url: 'https://api.lune.co/v1', description: "Lune's REST API" }],
     tags: [
@@ -365,6 +365,27 @@ export const APISchemaContext = React.createContext<any>({
                         content: {
                             'application/json': {
                                 schema: { $ref: '#/components/schemas/CumulativeBundleAnalytics' },
+                            },
+                        },
+                    },
+                    '400': { $ref: '#/components/responses/BadRequest' },
+                    '401': { $ref: '#/components/responses/Unauthorized' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                },
+            },
+        },
+        '/analytics/metrics': {
+            get: {
+                summary: 'Get metrics',
+                operationId: 'getMetrics',
+                security: [{ BearerAuth: [] }],
+                tags: ['Analytics'],
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: { $ref: '#/components/schemas/AnalyticsMetrics' },
                             },
                         },
                     },
@@ -995,6 +1016,44 @@ export const APISchemaContext = React.createContext<any>({
                         content: {
                             'application/json': {
                                 schema: { $ref: '#/components/schemas/EmissionEstimateResponse' },
+                            },
+                        },
+                    },
+                    '400': { $ref: '#/components/responses/BadRequest' },
+                    '401': { $ref: '#/components/responses/Unauthorized' },
+                    '409': { $ref: '#/components/responses/Conflict' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                    '503': { $ref: '#/components/responses/ServiceUnavailable' },
+                },
+            },
+        },
+        '/estimates/passenger-transporation': {
+            post: {
+                summary: 'Create a passenger transportation emission estimate',
+                description:
+                    'Estimate emissions produced by passenger transportation, for instance commercial flight, rail, road.',
+                operationId: 'createPassengerTransportationEstimate',
+                security: [{ BearerAuth: [] }],
+                tags: ['Emission estimates'],
+                requestBody: {
+                    required: true,
+                    content: {
+                        'application/json': {
+                            schema: {
+                                $ref: '#/components/schemas/PassengerTransportationEstimateRequest',
+                            },
+                        },
+                    },
+                },
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    $ref: '#/components/schemas/PassengerTransportationEmissionEstimate',
+                                },
                             },
                         },
                     },
@@ -1685,7 +1744,7 @@ export const APISchemaContext = React.createContext<any>({
                     required: true,
                     content: {
                         'application/json': {
-                            schema: { $ref: '#/components/schemas/SustainabilityPage' },
+                            schema: { $ref: '#/components/schemas/SustainabilityPageRequest' },
                         },
                     },
                 },
@@ -1716,7 +1775,7 @@ export const APISchemaContext = React.createContext<any>({
                     required: true,
                     content: {
                         'application/json': {
-                            schema: { $ref: '#/components/schemas/SustainabilityPage' },
+                            schema: { $ref: '#/components/schemas/SustainabilityPageRequest' },
                         },
                     },
                 },
@@ -1755,6 +1814,43 @@ export const APISchemaContext = React.createContext<any>({
                     },
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
+                    '404': { $ref: '#/components/responses/NotFound' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                },
+            },
+        },
+        '/sustainability-pages/{type}/{slug}': {
+            get: {
+                tags: ['Sustainability page'],
+                summary: 'Get a sustainability page',
+                operationId: 'getPublicSustainabilityPage',
+                description: "Get the current account's public sustainability summary info.",
+                parameters: [
+                    {
+                        name: 'type',
+                        in: 'path',
+                        required: true,
+                        description: 'The type of the sustainability page.',
+                        schema: { $ref: '#/components/schemas/AccountType' },
+                    },
+                    {
+                        name: 'slug',
+                        in: 'path',
+                        required: true,
+                        description: 'The slug of the sustainability page.',
+                        schema: { type: 'string', example: 'acme' },
+                    },
+                ],
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: { $ref: '#/components/schemas/PublicSustainabilityPage' },
+                            },
+                        },
+                    },
+                    '400': { $ref: '#/components/responses/BadRequest' },
                     '404': { $ref: '#/components/responses/NotFound' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
@@ -2005,7 +2101,7 @@ export const APISchemaContext = React.createContext<any>({
                             "Bundle selection to be used for the order.\nFor the order, this property overrides the account's bundle selection.\n",
                         $ref: '#/components/schemas/BundleSelectionRequest',
                     },
-                    metadata: { $ref: '#/components/schemas/Metadata' },
+                    metadata: { $ref: '#/components/schemas/Metadata', default: {} },
                     quantity_trunc: {
                         description:
                             'Selects to which precision to truncate the quantities assigned to each bundle.',
@@ -2057,7 +2153,7 @@ export const APISchemaContext = React.createContext<any>({
                             "Bundle selection to be used for the order.\nFor the order, this property overrides the account's bundle selection.\n",
                         $ref: '#/components/schemas/BundleSelectionRequest',
                     },
-                    metadata: { $ref: '#/components/schemas/Metadata' },
+                    metadata: { $ref: '#/components/schemas/Metadata', default: {} },
                     quantity_trunc: {
                         description:
                             'Selects to which precision to truncate the quantities assigned to each bundle.',
@@ -2083,7 +2179,7 @@ export const APISchemaContext = React.createContext<any>({
                             'Account-unique identifier provided by the client.\n\n`idempotency_key` has two purposes:\n1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.\n2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.\n',
                     },
                     bundle_selection: { $ref: '#/components/schemas/BundleSelectionRequest' },
-                    metadata: { $ref: '#/components/schemas/Metadata' },
+                    metadata: { $ref: '#/components/schemas/Metadata', default: {} },
                     quantity_trunc: {
                         description:
                             'Selects to which precision to truncate the quantities assigned to each bundle.',
@@ -2173,7 +2269,24 @@ export const APISchemaContext = React.createContext<any>({
             OrderBase: {
                 type: 'object',
                 description: 'Order object',
-                required: ['id', 'type', 'status', 'currency', 'created_at', 'metadata'],
+                required: [
+                    'id',
+                    'idempotency_key',
+                    'type',
+                    'status',
+                    'currency',
+                    'offset_cost',
+                    'total_cost',
+                    'commission',
+                    'quantity',
+                    'created_at',
+                    'bundles',
+                    'projects',
+                    'certificate',
+                    'metadata',
+                    'offset_link_id',
+                    'email',
+                ],
                 properties: {
                     id: {
                         type: 'string',
@@ -2186,6 +2299,8 @@ export const APISchemaContext = React.createContext<any>({
                         example: '5bd808a954e',
                         description:
                             'Account-unique identifier provided by the client.\n\n`idempotency_key` has two purposes:\n1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.\n2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.\n',
+                        nullable: true,
+                        default: null,
                     },
                     type: {
                         type: 'string',
@@ -2219,6 +2334,7 @@ export const APISchemaContext = React.createContext<any>({
                             'The net offset cost being purchased. May be lower than `requested_value`.\n\nThis property is set when bundles are assigned to the order.\nUnit: order currency\n',
                         pattern: '^[0-9]+(\\.[0-9]+)?$',
                         example: '7176.00',
+                        nullable: true,
                     },
                     total_cost: {
                         type: 'string',
@@ -2226,6 +2342,7 @@ export const APISchemaContext = React.createContext<any>({
                             'The total cost for the order inclusive of fees.\n\nUnit: order currency\n',
                         pattern: '^[0-9]+(\\.[0-9]+)?$',
                         example: '7696.00',
+                        nullable: true,
                     },
                     commission: {
                         type: 'string',
@@ -2233,12 +2350,14 @@ export const APISchemaContext = React.createContext<any>({
                             "Lune's fee.\n\nThis property is set when bundles are assigned to the order.\nUnit: order currency\n",
                         pattern: '^[0-9]+(\\.[0-9]+)?$',
                         example: '520.00',
+                        nullable: true,
                     },
                     quantity: {
                         type: 'string',
                         pattern: '^[0-9]+(\\.[0-9]+)?$',
                         example: '1040',
                         description: 'Quantity of CO2 offsets purchased in tonnes.',
+                        nullable: true,
                     },
                     created_at: {
                         type: 'string',
@@ -2250,6 +2369,7 @@ export const APISchemaContext = React.createContext<any>({
                         description:
                             "bundles are set when the order's status is `placed`, `paid`, `retiring` or `complete`.\n\nThe bundles associated with the order including their relative quantity and cost breakdown.\n",
                         items: { $ref: '#/components/schemas/OrderBundle' },
+                        nullable: true,
                     },
                     projects: {
                         type: 'array',
@@ -2276,6 +2396,7 @@ export const APISchemaContext = React.createContext<any>({
                                 project_slug: 'alto-mayo',
                             },
                         ],
+                        nullable: true,
                     },
                     certificate: {
                         type: 'string',
@@ -2283,6 +2404,7 @@ export const APISchemaContext = React.createContext<any>({
                             "Carbon credits certificate URL.\n\nThis property is set when an order has state 'complete'\n",
                         example:
                             'https://api.lune.co/v1/orders/08QD7GPaBx5b6Y60ndAONXLvrZljRE2e/certificate',
+                        nullable: true,
                     },
                     metadata: { $ref: '#/components/schemas/Metadata' },
                     offset_link_id: {
@@ -2290,24 +2412,40 @@ export const APISchemaContext = React.createContext<any>({
                         description:
                             'The offset link identifier, if the order was placed through an offset link',
                         example: 'UwjfkXjfksoHXzA1qjANL58GhjwqkxpB',
+                        nullable: true,
                     },
                     email: {
                         type: 'string',
                         description:
                             'End-user email.\n\nThis property is currently populated on orders placed through offset links.\n',
                         example: 'john@doe.com',
+                        nullable: true,
                     },
                 },
             },
             OrderByQuantityProperties: {
                 type: 'object',
-                required: ['requested_quantity'],
+                required: ['requested_quantity', 'requested_value', 'estimate_id'],
                 properties: {
                     requested_quantity: {
                         type: 'string',
                         pattern: '^[0-9]+(\\.[0-9]+)?$',
                         example: '1045',
                         description: 'Requested quantity of CO2 offsets to purchase in tonnes.',
+                    },
+                    requested_value: {
+                        description:
+                            "Requested value of CO2 offsets to purchase in the account's currency.",
+                        type: 'string',
+                        pattern: '^[0-9]+(\\.[0-9]+)?$',
+                        example: '7700',
+                        nullable: true,
+                    },
+                    estimate_id: {
+                        type: 'string',
+                        description: 'The emission calculation unique identifier',
+                        example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6',
+                        nullable: true,
                     },
                 },
             },
@@ -2320,7 +2458,7 @@ export const APISchemaContext = React.createContext<any>({
             },
             OrderByValueProperties: {
                 type: 'object',
-                required: ['requested_value'],
+                required: ['requested_value', 'requested_quantity', 'estimate_id'],
                 properties: {
                     requested_value: {
                         description:
@@ -2328,6 +2466,19 @@ export const APISchemaContext = React.createContext<any>({
                         type: 'string',
                         pattern: '^[0-9]+(\\.[0-9]+)?$',
                         example: '7700',
+                    },
+                    requested_quantity: {
+                        type: 'string',
+                        pattern: '^[0-9]+(\\.[0-9]+)?$',
+                        example: '1045',
+                        description: 'Requested quantity of CO2 offsets to purchase in tonnes.',
+                        nullable: true,
+                    },
+                    estimate_id: {
+                        type: 'string',
+                        description: 'The emission calculation unique identifier',
+                        example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6',
+                        nullable: true,
                     },
                 },
             },
@@ -2344,12 +2495,28 @@ export const APISchemaContext = React.createContext<any>({
                     { $ref: '#/components/schemas/OrderBase' },
                     {
                         type: 'object',
-                        required: ['estimate_id'],
+                        required: ['estimate_id', 'requested_value', 'requested_quantity'],
                         properties: {
                             estimate_id: {
                                 type: 'string',
                                 description: 'The emission calculation unique identifier',
                                 example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6',
+                            },
+                            requested_value: {
+                                description:
+                                    "Requested value of CO2 offsets to purchase in the account's currency.",
+                                type: 'string',
+                                pattern: '^[0-9]+(\\.[0-9]+)?$',
+                                example: '7700',
+                                nullable: true,
+                            },
+                            requested_quantity: {
+                                type: 'string',
+                                pattern: '^[0-9]+(\\.[0-9]+)?$',
+                                example: '1045',
+                                description:
+                                    'Requested quantity of CO2 offsets to purchase in tonnes.',
+                                nullable: true,
                             },
                         },
                     },
@@ -2438,6 +2605,7 @@ export const APISchemaContext = React.createContext<any>({
                     'unit_price',
                     'gross_unit_price',
                     'offset_cost',
+                    'insufficient_available_quantity',
                 ],
                 properties: {
                     bundle_id: {
@@ -2481,6 +2649,7 @@ export const APISchemaContext = React.createContext<any>({
                         description:
                             'If true, there is no inventory necessary to fully satisfy the order for this bundle.\n',
                         example: true,
+                        nullable: true,
                     },
                 },
             },
@@ -2563,7 +2732,7 @@ export const APISchemaContext = React.createContext<any>({
                     { $ref: '#/components/schemas/OrderQuoteBase' },
                     {
                         type: 'object',
-                        required: ['requested_quantity'],
+                        required: ['requested_quantity', 'requested_value'],
                         properties: {
                             requested_quantity: {
                                 type: 'string',
@@ -2571,6 +2740,14 @@ export const APISchemaContext = React.createContext<any>({
                                 example: '1045',
                                 description:
                                     'Requested quantity for the specific bundle (tonnes CO2).\n\nrequested_quantity may be returned as part of an emission estimate response, in which case this property contains the equivalent value as the `mass` property.\n',
+                            },
+                            requested_value: {
+                                description:
+                                    "Requested value of CO2 offsets to purchase in the account's currency.",
+                                type: 'string',
+                                pattern: '^[0-9]+(\\.[0-9]+)?$',
+                                example: '7700',
+                                nullable: true,
                             },
                         },
                     },
@@ -2581,13 +2758,21 @@ export const APISchemaContext = React.createContext<any>({
                     { $ref: '#/components/schemas/OrderQuoteBase' },
                     {
                         type: 'object',
-                        required: ['requested_value'],
+                        required: ['requested_value', 'requested_quantity'],
                         properties: {
                             requested_value: {
                                 description: 'Requested order value inclusive of commission',
                                 type: 'string',
                                 pattern: '^[0-9]+(\\.[0-9]+)?$',
                                 example: '7700',
+                            },
+                            requested_quantity: {
+                                type: 'string',
+                                pattern: '^[0-9]+(\\.[0-9]+)?$',
+                                example: '1045',
+                                description:
+                                    'Requested quantity of CO2 offsets to purchase in tonnes.',
+                                nullable: true,
                             },
                         },
                     },
@@ -2607,7 +2792,22 @@ export const APISchemaContext = React.createContext<any>({
             },
             BundleSummary: {
                 type: 'object',
-                required: ['id', 'name', 'unit_price', 'gross_unit_price', 'currency', 'disabled'],
+                required: [
+                    'id',
+                    'name',
+                    'unit_price',
+                    'gross_unit_price',
+                    'currency',
+                    'background_colour',
+                    'primary_image',
+                    'primary_image_hires',
+                    'small_thumbnail',
+                    'description',
+                    'disabled',
+                    'available_quantity',
+                    'offset_type',
+                    'carbon_permanence',
+                ],
                 properties: {
                     id: {
                         type: 'string',
@@ -2636,26 +2836,31 @@ export const APISchemaContext = React.createContext<any>({
                         type: 'string',
                         description: "A bundle's background colour in hexadecimal format",
                         example: '#AABBCC',
+                        nullable: true,
                     },
                     primary_image: {
                         type: 'string',
                         description: "A bundle's image URL",
                         example: 'https://assets.lune.co/bundles/latin-america-forestry.png',
+                        nullable: true,
                     },
                     primary_image_hires: {
                         type: 'string',
                         description: "A bundle's high resolution image URL",
                         example: 'https://assets.lune.co/bundles/latin-america-hires.jpg',
+                        nullable: true,
                     },
                     small_thumbnail: {
                         type: 'string',
                         description: "A bundle's small thumbnail image URL",
                         example: 'https://assets.lune.co/bundles/latin-america-thumbnail.jpg',
+                        nullable: true,
                     },
                     description: {
                         type: 'string',
                         description: "The bundle's description",
                         example: 'A conglomeration of renewable energy projects around the world',
+                        nullable: true,
                     },
                     disabled: {
                         type: 'boolean',
@@ -2668,18 +2873,21 @@ export const APISchemaContext = React.createContext<any>({
                             'Quantity of CO2 offsets available to purchase (in tonnes).\n\nIf available_quantity is not set, assume there is an unlimited amount of offsets to purchase.\n',
                         pattern: '^[0-9]+(\\.[0-9]+)?$',
                         example: '1000.09',
+                        nullable: true,
                     },
                     offset_type: {
                         type: 'string',
                         description: 'Offset type classification\n',
-                        enum: ['emissions_reduction', 'carbon_removal'],
+                        enum: ['emissions_reduction', 'carbon_removal', null],
                         example: 'emissions_reduction',
+                        nullable: true,
                     },
                     carbon_permanence: {
                         type: 'string',
                         description: "The bundle's carbon storage permanence.",
-                        enum: ['long_term', 'short_term'],
+                        enum: ['long_term', 'short_term', null],
                         example: 'long_term',
+                        nullable: true,
                     },
                 },
             },
@@ -2718,7 +2926,7 @@ export const APISchemaContext = React.createContext<any>({
             },
             Media: {
                 type: 'object',
-                required: ['type', 'url'],
+                required: ['type', 'url', 'attribution_text', 'attribution_url'],
                 properties: {
                     type: {
                         type: 'string',
@@ -2735,11 +2943,13 @@ export const APISchemaContext = React.createContext<any>({
                         type: 'string',
                         example: 'instagram.com/conservationorg',
                         description: 'A short description of where the image or video was sourced',
+                        nullable: true,
                     },
                     attribution_url: {
                         type: 'string',
                         example: 'https://conservationorg.com',
                         description: 'A URL pointing to where the image or video was sourced',
+                        nullable: true,
                     },
                 },
             },
@@ -2753,10 +2963,18 @@ export const APISchemaContext = React.createContext<any>({
                     'description',
                     'project_type',
                     'registry_name',
+                    'registry_link',
                     'latitude',
                     'longitude',
                     'country_name',
                     'country_code',
+                    'region',
+                    'logo',
+                    'primary_image',
+                    'thumbnail_image',
+                    'results',
+                    'un_sdg',
+                    'media',
                     'disabled',
                 ],
                 properties: {
@@ -2788,6 +3006,7 @@ export const APISchemaContext = React.createContext<any>({
                         type: 'string',
                         description: "A link to the registry's project details page.",
                         example: 'https://registry.verra.org/app/projectDetail/VCS/1566',
+                        nullable: true,
                     },
                     latitude: {
                         type: 'number',
@@ -2814,21 +3033,25 @@ export const APISchemaContext = React.createContext<any>({
                         type: 'string',
                         description: "The project's region",
                         example: 'Huancavelica',
+                        nullable: true,
                     },
                     logo: {
                         type: 'string',
                         description: 'A project logo image URL',
                         example: 'https://assets.lune.co/projects/Alto+Mayo+1+logo.png',
+                        nullable: true,
                     },
                     primary_image: {
                         type: 'string',
                         description: 'A project image URL',
                         example: 'https://assets.lune.co/projects/Alto+Mayo+1.png',
+                        nullable: true,
                     },
                     thumbnail_image: {
                         type: 'string',
                         description: 'A project thumbnail image URL',
                         example: 'https://assets.lune.co/projects/Alto+Mayo+1_thumbnail.png',
+                        nullable: true,
                     },
                     results: {
                         description: 'Project results',
@@ -2838,6 +3061,7 @@ export const APISchemaContext = React.createContext<any>({
                             'Reduced deforestation of 75% from baseline levels, the first time a project in Peru reaches such high results',
                             'Co-benefits include: poverty reduction across local communities, education around sustainable farming, conservation of biodiversity',
                         ],
+                        nullable: true,
                     },
                     un_sdg: {
                         description:
@@ -2845,6 +3069,7 @@ export const APISchemaContext = React.createContext<any>({
                         type: 'array',
                         items: { type: 'number' },
                         example: [1, 4, 8, 13, 15],
+                        nullable: true,
                     },
                     disabled: {
                         type: 'boolean',
@@ -2898,6 +3123,9 @@ export const APISchemaContext = React.createContext<any>({
                     'balance',
                     'balance_outstanding',
                     'type',
+                    'logo',
+                    'beneficiary',
+                    'bundle_mix_id',
                 ],
                 properties: {
                     id: {
@@ -2939,17 +3167,20 @@ export const APISchemaContext = React.createContext<any>({
                         type: 'string',
                         description:
                             'Offset link logo URL\n\nThis is the logo URL that appears on the first screen of the offset links flow.\n',
+                        nullable: true,
                     },
                     beneficiary: {
                         type: 'string',
                         description:
                             'Retirement beneficiary\n\nThis is the name that appears on future retirements that are made in this account.\nIf none is present, the organisation beneficiary will be used instead.\n',
                         minLength: 1,
+                        nullable: true,
                     },
                     bundle_mix_id: {
                         type: 'string',
                         description: 'Bundle mix id tied to the account.',
                         example: 'Jvhh30a6272NauKv92J7FG1c6Jfxd2E1',
+                        nullable: true,
                     },
                 },
             },
@@ -2972,6 +3203,23 @@ export const APISchemaContext = React.createContext<any>({
                         example: 'Latin America Forestry',
                     },
                     timeseries: { $ref: '#/components/schemas/QuantityAndValueTimeseries' },
+                },
+            },
+            AnalyticsMetrics: {
+                type: 'object',
+                required: ['number_of_un_sdgs', 'number_of_projects'],
+                properties: {
+                    number_of_un_sdgs: {
+                        type: 'number',
+                        description:
+                            'The number of supported UN Sustainable Development Goals (SDGs).',
+                        example: 10,
+                    },
+                    number_of_projects: {
+                        type: 'number',
+                        description: 'The number of supported carbon offset projects.',
+                        example: 10,
+                    },
                 },
             },
             QuantityAndValueTimeseries: {
@@ -3230,7 +3478,7 @@ export const APISchemaContext = React.createContext<any>({
                 properties: {
                     route: {
                         description:
-                            'Either the flying distance or the start/destination airport code (ICAO or IATA).',
+                            'Either the flight distance or the start/destination airport code (ICAO or IATA).',
                         oneOf: [
                             { $ref: '#/components/schemas/Distance' },
                             { $ref: '#/components/schemas/AirportSourceDestination' },
@@ -3250,6 +3498,130 @@ export const APISchemaContext = React.createContext<any>({
                         $ref: '#/components/schemas/MassUnit',
                     },
                 },
+            },
+            PassengerFlightEstimateRequest: {
+                type: 'object',
+                description: 'Parameters for estimating emissions for commercial plane travel',
+                required: ['route', 'cabin_class'],
+                properties: {
+                    route: {
+                        description:
+                            'Either the flight distance or the start/destination airport code (ICAO or IATA).',
+                        oneOf: [
+                            { $ref: '#/components/schemas/Distance' },
+                            { $ref: '#/components/schemas/AirportSourceDestination' },
+                        ],
+                    },
+                    cabin_class: { $ref: '#/components/schemas/CabinClass' },
+                },
+            },
+            PassengerRailEstimateRequest: {
+                type: 'object',
+                description: 'Parameters for estimating emissions for a passenger train',
+                required: ['route', 'rail_type'],
+                properties: {
+                    route: {
+                        description:
+                            'Either the flight distance or the start/destination address or source and destination',
+                        oneOf: [
+                            { $ref: '#/components/schemas/Distance' },
+                            { $ref: '#/components/schemas/SourceDestination' },
+                        ],
+                    },
+                    rail_type: {
+                        type: 'string',
+                        enum: ['national_rail', 'international_rail', 'light_rail_or_tram'],
+                    },
+                },
+            },
+            PassengerRoadEstimateRequest: {
+                type: 'object',
+                description: 'Parameters for estimating emissions for passenger vehicle',
+                required: ['route', 'vehicle_type'],
+                properties: {
+                    route: {
+                        description:
+                            'Either the flight distance or the start/destination address or source and destination',
+                        oneOf: [
+                            { $ref: '#/components/schemas/Distance' },
+                            { $ref: '#/components/schemas/SourceDestination' },
+                        ],
+                    },
+                    vehicle_type: {
+                        type: 'string',
+                        description:
+                            'car_mini: smallest category of car sometimes referred to as a city car. Examples include: Citroën C1, Fiat/Alfa Romeo 500 and Panda, Peugeot 107, Volkswagen up!, Renault TWINGO, Toyota AYGO, smart fortwo and Hyundai i 10.\ncar_supermini: car that is larger than a city car, but smaller than a small family car. Examples include: Ford Fiesta, Renault CLIO, Volkswagen Polo, Citroën C2 and C3, Opel Corsa, Peugeot 208, and Toyota Yaris.\ncar_lower_medium: small, compact family car. Examples include: Volkswagen Golf, Ford Focus, Opel Astra, Audi A3, BMW 1 Series, Renault Mégane and Toyota Auris.\ncar_upper_medium: classed as a large family car. Examples include: BMW 3 Series, ŠKODA Octavia, Volkswagen Passat, Audi A4, Mercedes Benz C Class and Peugeot 508.\ncar_executive: large cars. Examples include: BMW 5 Series, Audi A5 and A6, Mercedes Benz E Class and Skoda Superb.\ncar_luxury: luxury car which is niche in the European market. Examples include: Jaguar XF, Mercedes-Benz S-Class, .BMW 7 series, Audi A8, Porsche Panamera and Lexus LS.\ncar_sports: sport cars are a small, usually two seater with two doors and designed for speed, high acceleration, and manoeuvrability. Examples include: Mercedes-Benz SLK, Audi TT, Porsche 911 and Boxster, and Peugeot RCZ.\ncar_dual_purpose_4x4: sport utility vehicles (SUVs) which have off-road capabilities and four-wheel drive. Examples include: Suzuki Jimny, Land Rover Discovery and Defender, Toyota Land Cruiser, and Nissan Pathfinder.\ncar_mpv: multipurpose cars. Examples include: Ford C-Max, Renault Scenic, Volkswagen Touran, Opel Zafira, Ford B-Max, and Citroën C3 Picasso and C4 Picasso.\nmotorcycle_small: mopeds/scooters up to 125cc.\nmotorcycle_medium:  125cc to 500cc\nmotorcycle_large: 500cc+\nmotorcycle_average: uUnknown engine size\n',
+                        enum: [
+                            'car_mini',
+                            'car_supermini',
+                            'car_lower_medium',
+                            'car_upper_medium',
+                            'car_executive',
+                            'car_luxury',
+                            'car_sports',
+                            'car_dual_purpose_4x4',
+                            'car_mpv',
+                            'motorcycle_small',
+                            'motorcycle_medium',
+                            'motorcycle_large',
+                            'motorcycle_average',
+                        ],
+                    },
+                },
+            },
+            PassengerTransportationEstimateRequest: {
+                type: 'object',
+                description: 'Parameters for estimating emissions for passenger transportation',
+                required: ['legs'],
+                properties: {
+                    passengers: {
+                        description: 'Number of passengers the calculation should be applied to.',
+                        type: 'number',
+                        default: 1,
+                    },
+                    legs: {
+                        type: 'array',
+                        minItems: 1,
+                        maxItems: 10,
+                        items: {
+                            oneOf: [
+                                { $ref: '#/components/schemas/PassengerRoadEstimateRequest' },
+                                { $ref: '#/components/schemas/PassengerRailEstimateRequest' },
+                                { $ref: '#/components/schemas/PassengerFlightEstimateRequest' },
+                            ],
+                        },
+                    },
+                    bundle_selection: { $ref: '#/components/schemas/BundleSelectionRequest' },
+                    quantity_trunc: {
+                        description:
+                            'Selects to which precision to truncate the quantities assigned to each bundle.',
+                        example: 't',
+                        $ref: '#/components/schemas/MassUnit',
+                    },
+                },
+            },
+            PassengerTransportationEmissionEstimate: {
+                description:
+                    "An emission estimate result for passenger transport involving multiple legs.\n\nLune's API returns both the total emissions and per-leg emissions (in the `legs`\nproperty).\n\nThe ordering of the legs in the estimate is the same as the ordering of the inputs.\n\nAn error with estimating any of the legs will result in the whole estimation process\nfailing completely (we don't provide partial estimates in light of a failure).\n",
+                allOf: [
+                    { $ref: '#/components/schemas/EmissionEstimate' },
+                    {
+                        type: 'object',
+                        required: ['id', 'quote', 'legs'],
+                        properties: {
+                            id: {
+                                type: 'string',
+                                description: 'The emission calculation unique identifier',
+                                example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6',
+                            },
+                            legs: {
+                                type: 'array',
+                                items: { $ref: '#/components/schemas/EmissionEstimate' },
+                            },
+                            quote: { $ref: '#/components/schemas/OrderQuoteByQuantity' },
+                        },
+                    },
+                ],
             },
             CabinClass: {
                 description:
@@ -3355,7 +3727,7 @@ export const APISchemaContext = React.createContext<any>({
             SimpleShippingMethod: {
                 type: 'string',
                 description:
-                    'Vessel sizes:\n* `inland_waterway_motor_vessel_*`:\n\n  * `small` – less than 80 m / 1000 t\n  * `medium` – 85-110 m (1000-2000 t)\n  * `large` – 135 m (2000-3000 t)\n\n* `inland_waterway_coupled_convoy` – 163-185 m\n* `inland_waterway_pushed_convoy_*`:\n\n  * `small` – 2 barges\n  * `medium` – 4-5 barges\n  * `large` – 6 barges\n\n* `inland_waterway_container_vessel_medium` – 110 m\n* `inland_waterway_container_vessel_large` – 135 m\n',
+                    "Vessel sizes:\n* `inland_waterway_motor_vessel_*`:\n\n  * `small` – less than 80 m / 1000 t\n  * `medium` – 85-110 m (1000-2000 t)\n  * `large` – 135 m (2000-3000 t)\n\n* `inland_waterway_coupled_convoy` – 163-185 m\n* `inland_waterway_pushed_convoy_*`:\n\n  * `small` – 2 barges\n  * `medium` – 4-5 barges\n  * `large` – 6 barges\n\n* `inland_waterway_container_vessel_medium` – 110 m\n* `inland_waterway_container_vessel_large` – 135 m\n\n# Road transport\n\nAs far as road transport is concerned we support a variety of trucks (the `truck_*`\nmethods). Our emission estimates assume diesel fuel and average load characteristics\nat the moment, unless a specific type says otherwise.\n\n## Regional differences\n\nTruck types in North America and the rest of the world are categorized differently,\ntherefore they're available here as distinct shipping methods. The North America\ntrucks are prefixed with `truck_na_` while for the rest of the world it's just `truck_`.\n\n## Truck sizes\n\n* Vans (`truck_generic_van`, `truck_na_van`) are under 3.5 tonnes GVW (Gross Vehicle Weight).\n* `truck_generic_urban` is between 3.5 and 7.5 tonnes GVW\n* `truck_generic_mgv` is betwen 7.5 and 20 tonnes\n* `truck_generic_hgv` is above 20 tonnes GVW\n\nFor other truck types the GVW is either in the method name (like `truck_rigid_7_5t` which is\nup to 7.5 tonnes) or is not specified.\n\n## Choosing the right truck type\n\nThe are significant differences in emissions of different truck types. The more precisely\nyou can declare what kind of truck you use, the better.\n\nIf you only know a rough size of the truck you'll do well can choose one of the\n`truck_generic_*` types if outside North America.\n",
                 enum: [
                     'inland_waterway_motor_vessel_small',
                     'inland_waterway_motor_vessel_medium',
@@ -3371,6 +3743,35 @@ export const APISchemaContext = React.createContext<any>({
                     'diesel_freight_train',
                     'electric_freight_train',
                     'diesel_truck',
+                    'truck_generic_van',
+                    'truck_generic_urban',
+                    'truck_generic_mgv',
+                    'truck_generic_hgv',
+                    'truck_rigid_7_5t',
+                    'truck_rigid_12t',
+                    'truck_rigid_20t',
+                    'truck_rigid_26t',
+                    'truck_rigid_32t',
+                    'truck_articulated_34t',
+                    'truck_articulated_40t',
+                    'truck_articulated_44t',
+                    'truck_articulated_60t',
+                    'truck_articulated_72t',
+                    'truck_na_van',
+                    'truck_na_general',
+                    'truck_na_auto_carrier',
+                    'truck_na_dray',
+                    'truck_na_expedited',
+                    'truck_na_flatbed',
+                    'truck_na_heavy_bulk',
+                    'truck_na_dry_van_ltl',
+                    'truck_na_dry_van_tl',
+                    'truck_na_mixed',
+                    'truck_na_moving',
+                    'truck_na_package',
+                    'truck_na_refrigerated',
+                    'truck_na_specialized',
+                    'truck_na_tanker',
                     'plane',
                     'passenger_plane',
                     'cargo_plane',
@@ -3442,8 +3843,9 @@ export const APISchemaContext = React.createContext<any>({
                     vessel_type: { type: 'string', enum: ['container_ship'] },
                     refrigerated: {
                         description:
-                            'A container transport is either refrigerated or "dry" (not refrigerated). Dry transports\nresult in lower emissions.\n\nThis parameter defaults to `false`.\n',
+                            'A container transport is either refrigerated or "dry" (not refrigerated). Dry transports\nresult in lower emissions.\n',
                         type: 'boolean',
+                        default: false,
                     },
                     trade_lane: {
                         type: 'string',
@@ -3595,8 +3997,20 @@ export const APISchemaContext = React.createContext<any>({
                 type: 'object',
                 required: ['lat', 'lon'],
                 properties: {
-                    lat: { description: 'Latitude', type: 'number', minimum: -90, maximum: 90 },
-                    lon: { description: 'Longitude', type: 'number', minimum: -180, maximum: 180 },
+                    lat: {
+                        description: 'Latitude',
+                        type: 'number',
+                        minimum: -90,
+                        maximum: 90,
+                        example: 43.8657,
+                    },
+                    lon: {
+                        description: 'Longitude',
+                        type: 'number',
+                        minimum: -180,
+                        maximum: 180,
+                        example: 10.2513,
+                    },
                 },
             },
             TransactionEstimateRequest: {
@@ -3645,6 +4059,7 @@ export const APISchemaContext = React.createContext<any>({
                     'monthly_restaurant_expenses',
                     'monthly_clothing_expenses',
                     'monthly_furniture_appliances_expenses',
+                    'monthly_other_expenses',
                     'electricity_consumption',
                     'green_electricity_used',
                     'gas_consumption',
@@ -3983,7 +4398,7 @@ export const APISchemaContext = React.createContext<any>({
                     { $ref: '#/components/schemas/EmissionEstimate' },
                     {
                         type: 'object',
-                        required: ['distance'],
+                        required: ['distance', 'methodology'],
                         properties: {
                             distance: { $ref: '#/components/schemas/Distance' },
                             methodology: {
@@ -4005,15 +4420,16 @@ export const APISchemaContext = React.createContext<any>({
                 allOf: [
                     {
                         type: 'object',
-                        required: ['legs'],
+                        required: ['legs', 'distance'],
                         properties: {
                             legs: {
                                 type: 'array',
                                 items: { $ref: '#/components/schemas/ShippingLegEmissionEstimate' },
                             },
+                            distance: { $ref: '#/components/schemas/Distance' },
                         },
                     },
-                    { $ref: '#/components/schemas/SingleShippingEmissionEstimate' },
+                    { $ref: '#/components/schemas/EmissionEstimateResponse' },
                 ],
             },
             PaginatedOffsetLinks: {
@@ -4353,12 +4769,7 @@ export const APISchemaContext = React.createContext<any>({
                 type: 'object',
                 required: ['value', 'currency'],
                 properties: {
-                    value: {
-                        type: 'string',
-                        pattern: '^[0-9]+(\\.[0-9]+)?$',
-                        description: 'An amount of money (the fractional part is optional)',
-                        example: '3.14',
-                    },
+                    value: { $ref: '#/components/schemas/MonetaryAmountValue' },
                     currency: { $ref: '#/components/schemas/CurrencyCode', example: 'GBP' },
                 },
             },
@@ -4366,6 +4777,12 @@ export const APISchemaContext = React.createContext<any>({
                 type: 'string',
                 description:
                     'ISO 4217 3 character currency code.\n\nNote: Lune does not support all currency codes.\n',
+            },
+            MonetaryAmountValue: {
+                type: 'string',
+                pattern: '^[0-9]+(\\.[0-9]+)?$',
+                description: 'An amount of money (the fractional part is optional)',
+                example: '3.14',
             },
             CreateWebhookRequest: {
                 type: 'object',
@@ -4412,7 +4829,7 @@ export const APISchemaContext = React.createContext<any>({
             },
             WebhookEvent: {
                 type: 'object',
-                required: ['api_version', 'event_id', 'event_type', 'data'],
+                required: ['api_version', 'event_id', 'event_type', 'sequence', 'data'],
                 properties: {
                     api_version: {
                         type: 'string',
@@ -4569,58 +4986,326 @@ export const APISchemaContext = React.createContext<any>({
                     },
                 },
             },
-            SustainabilityPage: {
+            SustainabilityPageRequest: {
                 type: 'object',
                 required: ['status', 'slug', 'title', 'sections'],
                 properties: {
-                    status: {
-                        type: 'string',
-                        enum: ['enabled', 'disabled'],
-                        description:
-                            'The sustainability page status which determines whether it is visible to the public.',
-                        example: 'enabled',
+                    status: { $ref: '#/components/schemas/SustainabilityPageStatus' },
+                    slug: { $ref: '#/components/schemas/SustainabilityPageSlug' },
+                    title: { $ref: '#/components/schemas/SustainabilityPageTitle' },
+                    description: { $ref: '#/components/schemas/SustainabilityPageDescription' },
+                    custom_description: {
+                        $ref: '#/components/schemas/SustainabilityPageCustomDescription',
                     },
-                    slug: {
-                        type: 'string',
-                        description:
-                            'The sustainability page slug. The slug is used to identify the page publicly and should be unique.',
-                        example: 'acme',
-                    },
-                    title: {
-                        type: 'string',
-                        description: 'The sustainability page title stat format.',
-                        enum: ['by_volume', 'by_price'],
-                        example: 'by_volume',
-                    },
+                    sections: { $ref: '#/components/schemas/SustainabilityPageSections' },
+                },
+            },
+            SustainabilityPage: {
+                type: 'object',
+                required: [
+                    'status',
+                    'slug',
+                    'title',
+                    'description',
+                    'custom_description',
+                    'sections',
+                ],
+                properties: {
+                    status: { $ref: '#/components/schemas/SustainabilityPageStatus' },
+                    slug: { $ref: '#/components/schemas/SustainabilityPageSlug' },
+                    title: { $ref: '#/components/schemas/SustainabilityPageTitle' },
                     description: {
-                        type: 'string',
-                        description:
-                            'The sustainability page description format consisting of stat equivalents or a custom description.',
-                        enum: ['by_equivalent', 'by_supported_goals', 'by_custom_description'],
-                        example: 'by_equivalent',
+                        oneOf: [
+                            { $ref: '#/components/schemas/SustainabilityPageDescription' },
+                            { type: 'string', enum: [null], nullable: true },
+                        ],
                     },
                     custom_description: {
-                        type: 'string',
-                        description:
-                            'The sustainability page custom description. Only displayed when `description` is set to `by_custom_description`.',
-                        example: 'This is a custom description',
+                        $ref: '#/components/schemas/SustainabilityPageCustomDescription',
+                        nullable: true,
                     },
                     sections: {
-                        type: 'array',
-                        description:
-                            'The sustainability page sections that will be displayed in the page. Only a single instance of each section type is allowed and the order is irrelevant.',
-                        minItems: 1,
-                        maxItems: 3,
-                        items: { $ref: '#/components/schemas/SustainabilityPageSection' },
-                        example: ['bundles_breakdown', 'certificates'],
+                        $ref: '#/components/schemas/SustainabilityPageSections',
+                        nullable: true,
                     },
                 },
+            },
+            SustainabilityPageStatus: {
+                type: 'string',
+                enum: ['enabled', 'disabled'],
+                description:
+                    'The sustainability page status which determines whether it is visible to the public.',
+                example: 'enabled',
+            },
+            SustainabilityPageSlug: {
+                type: 'string',
+                description:
+                    'The sustainability page slug. The slug is used to identify the page publicly and should be unique.',
+                example: 'acme',
+            },
+            SustainabilityPageTitle: {
+                type: 'string',
+                description: 'The sustainability page title stat format.',
+                enum: ['by_volume', 'by_price'],
+                example: 'by_volume',
+            },
+            SustainabilityPageDescription: {
+                type: 'string',
+                description:
+                    'The sustainability page description format consisting of stat equivalents or a custom description.',
+                enum: ['by_equivalent', 'by_supported_goals', 'by_custom_description'],
+                example: 'by_equivalent',
+            },
+            SustainabilityPageCustomDescription: {
+                type: 'string',
+                description:
+                    'The sustainability page custom description. Only displayed when `description` is set to `by_custom_description`.',
+                example: 'This is a custom description',
+                nullable: true,
+            },
+            SustainabilityPageSections: {
+                type: 'array',
+                description:
+                    'The sustainability page sections that will be displayed in the page. Only a single instance of each section type is allowed and the order is irrelevant.',
+                minItems: 0,
+                maxItems: 3,
+                items: { $ref: '#/components/schemas/SustainabilityPageSection' },
+                example: ['bundles_breakdown', 'certificates'],
             },
             SustainabilityPageSection: {
                 type: 'string',
                 description: 'The sustainability page section name.',
                 enum: ['bundles_breakdown', 'certificates', 'unsdg'],
                 example: 'bundles_breakdown',
+            },
+            PublicSustainabilityPage: {
+                type: 'object',
+                required: [
+                    'title',
+                    'description',
+                    'include_certificates',
+                    'bundles',
+                    'un_sdg',
+                    'logo',
+                    'account_name',
+                ],
+                description: 'The public sustainability summary page for a given account.',
+                properties: {
+                    title: {
+                        description: 'The sustainability page title format and info.',
+                        oneOf: [
+                            {
+                                type: 'object',
+                                required: ['format', 'currency', 'value'],
+                                properties: {
+                                    format: { type: 'string', enum: ['by_price'] },
+                                    currency: {
+                                        $ref: '#/components/schemas/CurrencyCode',
+                                        example: 'GBP',
+                                    },
+                                    value: { $ref: '#/components/schemas/MonetaryAmountValue' },
+                                },
+                            },
+                            {
+                                type: 'object',
+                                required: ['format', 'quantity'],
+                                properties: {
+                                    format: { type: 'string', enum: ['by_volume'] },
+                                    quantity: {
+                                        type: 'string',
+                                        description:
+                                            'The total quantity of tCO2 offset by all completed orders.',
+                                        example: '500.667',
+                                        pattern: '^[0-9]+(\\.[0-9]+)?$',
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                    description: {
+                        nullable: true,
+                        oneOf: [
+                            {
+                                type: 'object',
+                                required: ['format', 'flights_nyc_to_london'],
+                                properties: {
+                                    format: { type: 'string', enum: ['by_equivalent'] },
+                                    flights_nyc_to_london: {
+                                        type: 'number',
+                                        description:
+                                            'The number of one-way flights from NYC to London the emissions of which are an equivalent to the CO2 reduction.',
+                                        example: 10,
+                                    },
+                                },
+                            },
+                            {
+                                type: 'object',
+                                required: ['format', 'number_of_un_sdgs', 'number_of_projects'],
+                                properties: {
+                                    format: { type: 'number', enum: ['by_supported_goals'] },
+                                    number_of_un_sdgs: {
+                                        type: 'number',
+                                        description:
+                                            'The number of supported UN Sustainable Development Goals (SDGs).',
+                                        example: 10,
+                                    },
+                                    number_of_projects: {
+                                        type: 'number',
+                                        description:
+                                            'The number of supported carbon offset projects.',
+                                        example: 10,
+                                    },
+                                },
+                            },
+                            {
+                                type: 'object',
+                                required: ['format', 'custom_description'],
+                                properties: {
+                                    format: { type: 'string', enum: ['by_custom_description'] },
+                                    custom_description: {
+                                        type: 'string',
+                                        description:
+                                            'The custom description of the sustainability page provided in the configuration.',
+                                        example: 'This is a custom description',
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                    logo: {
+                        type: 'string',
+                        description: 'The sustainability page logo URL.',
+                        example: 'https://client-assets.lune.co/XheugMiTUHynItnaYSvCF.png',
+                        nullable: true,
+                    },
+                    account_name: {
+                        type: 'string',
+                        description:
+                            'The name of the account for which the sustainability page is generated.',
+                        example: 'Acme',
+                    },
+                    include_certificates: {
+                        type: 'boolean',
+                        description:
+                            'Whether to include the certificates section in the sustainability page.',
+                        example: true,
+                    },
+                    bundles: {
+                        type: 'array',
+                        nullable: true,
+                        description: 'The sustainability page bundle percentages and details.',
+                        items: {
+                            type: 'object',
+                            required: ['percent_of_total', 'bundle', 'quantity'],
+                            properties: {
+                                percent_of_total: {
+                                    type: 'number',
+                                    description:
+                                        'The volume of emissions offset via this bundle as a percentage of all offset emissions.',
+                                    example: 25,
+                                },
+                                quantity: {
+                                    type: 'string',
+                                    description: 'The quantity of tCO2 offset via this bundle.',
+                                    example: '667.667',
+                                    pattern: '^[0-9]+(\\.[0-9]+)?$',
+                                },
+                                bundle: {
+                                    type: 'object',
+                                    required: [
+                                        'name',
+                                        'background_colour',
+                                        'primary_image',
+                                        'primary_image_hires',
+                                        'small_thumbnail',
+                                        'description',
+                                        'offset_type',
+                                        'carbon_permanence',
+                                    ],
+                                    properties: {
+                                        name: {
+                                            type: 'string',
+                                            description: "The bundle's name",
+                                            example: 'Latin America Forestry',
+                                        },
+                                        background_colour: {
+                                            type: 'string',
+                                            description:
+                                                "A bundle's background colour in hexadecimal format",
+                                            example: '#AABBCC',
+                                            nullable: true,
+                                        },
+                                        primary_image: {
+                                            type: 'string',
+                                            description: "A bundle's image URL",
+                                            example:
+                                                'https://assets.lune.co/bundles/latin-america-forestry.png',
+                                            nullable: true,
+                                        },
+                                        primary_image_hires: {
+                                            type: 'string',
+                                            description: "A bundle's high resolution image URL",
+                                            example:
+                                                'https://assets.lune.co/bundles/latin-america-hires.jpg',
+                                            nullable: true,
+                                        },
+                                        small_thumbnail: {
+                                            type: 'string',
+                                            description: "A bundle's small thumbnail image URL",
+                                            example:
+                                                'https://assets.lune.co/bundles/latin-america-thumbnail.jpg',
+                                            nullable: true,
+                                        },
+                                        description: {
+                                            type: 'string',
+                                            description: "The bundle's description",
+                                            example:
+                                                'A conglomeration of renewable energy projects around the world',
+                                            nullable: true,
+                                        },
+                                        offset_type: {
+                                            type: 'string',
+                                            description: 'Offset type classification\n',
+                                            enum: ['emissions_reduction', 'carbon_removal', null],
+                                            example: 'emissions_reduction',
+                                            nullable: true,
+                                        },
+                                        carbon_permanence: {
+                                            type: 'string',
+                                            description: "The bundle's carbon storage permanence.",
+                                            enum: ['long_term', 'short_term', null],
+                                            example: 'long_term',
+                                            nullable: true,
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    un_sdg: {
+                        type: 'array',
+                        nullable: true,
+                        description:
+                            'The list of UN Sustainable Development Goals (SDGs) supported by various projects.',
+                        items: {
+                            type: 'object',
+                            required: ['un_sdg_number', 'occurrences'],
+                            properties: {
+                                un_sdg_number: {
+                                    type: 'number',
+                                    description: 'The number which identifies the specific UN SDG.',
+                                    example: 1,
+                                },
+                                occurrences: {
+                                    type: 'number',
+                                    description:
+                                        'The total number of projects supporting this UN SDG.',
+                                    example: 5,
+                                },
+                            },
+                        },
+                    },
+                },
             },
             Registry: {
                 type: 'string',

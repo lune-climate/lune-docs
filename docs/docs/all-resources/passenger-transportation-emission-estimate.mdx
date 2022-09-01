@@ -1,0 +1,6 @@
+
+# PassengerTransportationEmissionEstimate
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"description":"An emission estimate result for passenger transport involving multiple legs.\n\nLune's API returns both the total emissions and per-leg emissions (in the `legs`\nproperty).\n\nThe ordering of the legs in the estimate is the same as the ordering of the inputs.\n\nAn error with estimating any of the legs will result in the whole estimation process\nfailing completely (we don't provide partial estimates in light of a failure).\n","allOf":[{"$ref":"#/components/schemas/EmissionEstimate"},{"type":"object","required":["id","quote","legs"],"properties":{"id":{"type":"string","description":"The emission calculation unique identifier","example":"90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6"},"legs":{"type":"array","items":{"$ref":"#/components/schemas/EmissionEstimate"}},"quote":{"$ref":"#/components/schemas/OrderQuoteByQuantity"}}}],"component":"PassengerTransportationEmissionEstimate"}}/>

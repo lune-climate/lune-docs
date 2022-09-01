@@ -3,4 +3,4 @@
 
 import Resource from '@site/src/components/Resource';
 
-<Resource json={{"type":"object","required":["requested_value"],"properties":{"requested_value":{"description":"Requested value of CO2 offsets to purchase in the account's currency.","type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"7700"}},"component":"OrderByValueProperties"}}/>
+<Resource json={{"type":"object","required":["requested_value","requested_quantity","estimate_id"],"properties":{"requested_value":{"description":"Requested value of CO2 offsets to purchase in the account's currency.","type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"7700"},"requested_quantity":{"type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"1045","description":"Requested quantity of CO2 offsets to purchase in tonnes.","nullable":true},"estimate_id":{"type":"string","description":"The emission calculation unique identifier","example":"90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6","nullable":true}},"component":"OrderByValueProperties"}}/>

@@ -3,4 +3,4 @@
 
 import Resource from '@site/src/components/Resource';
 
-<Resource json={{"type":"object","required":["value","currency"],"properties":{"value":{"type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","description":"An amount of money (the fractional part is optional)","example":"3.14"},"currency":{"$ref":"#/components/schemas/CurrencyCode","example":"GBP"}},"component":"MonetaryAmount"}}/>
+<Resource json={{"type":"object","required":["value","currency"],"properties":{"value":{"$ref":"#/components/schemas/MonetaryAmountValue"},"currency":{"$ref":"#/components/schemas/CurrencyCode","example":"GBP"}},"component":"MonetaryAmount"}}/>

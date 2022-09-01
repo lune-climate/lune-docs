@@ -1,0 +1,9 @@
+---
+
+sidebar_class_name: get
+---
+# Get a sustainability page
+
+import Endpoint from '@site/src/components/Endpoint';
+
+<Endpoint json={{"tags":["Sustainability page"],"summary":"Get a sustainability page","operationId":"getPublicSustainabilityPage","description":"Get the current account's public sustainability summary info.","parameters":[{"name":"type","in":"path","required":true,"description":"The type of the sustainability page.","schema":{"$ref":"#/components/schemas/AccountType"}},{"name":"slug","in":"path","required":true,"description":"The slug of the sustainability page.","schema":{"type":"string","example":"acme"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PublicSustainabilityPage"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"404":{"$ref":"#/components/responses/NotFound"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Sustainability page","method":"get","path":"/sustainability-pages/{type}/{slug}"}}/>

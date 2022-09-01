@@ -1,0 +1,6 @@
+
+# PassengerFlightEstimateRequest
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"type":"object","description":"Parameters for estimating emissions for commercial plane travel","required":["route","cabin_class"],"properties":{"route":{"description":"Either the flight distance or the start/destination airport code (ICAO or IATA).","oneOf":[{"$ref":"#/components/schemas/Distance"},{"$ref":"#/components/schemas/AirportSourceDestination"}]},"cabin_class":{"$ref":"#/components/schemas/CabinClass"}},"component":"PassengerFlightEstimateRequest"}}/>

@@ -3,4 +3,4 @@
 
 import Resource from '@site/src/components/Resource';
 
-<Resource json={{"title":"Order by emission estimate","allOf":[{"$ref":"#/components/schemas/OrderBase"},{"type":"object","required":["estimate_id"],"properties":{"estimate_id":{"type":"string","description":"The emission calculation unique identifier","example":"90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6"}}}],"component":"OrderByEstimate"}}/>
+<Resource json={{"title":"Order by emission estimate","allOf":[{"$ref":"#/components/schemas/OrderBase"},{"type":"object","required":["estimate_id","requested_value","requested_quantity"],"properties":{"estimate_id":{"type":"string","description":"The emission calculation unique identifier","example":"90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6"},"requested_value":{"description":"Requested value of CO2 offsets to purchase in the account's currency.","type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"7700","nullable":true},"requested_quantity":{"type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"1045","description":"Requested quantity of CO2 offsets to purchase in tonnes.","nullable":true}}}],"component":"OrderByEstimate"}}/>
