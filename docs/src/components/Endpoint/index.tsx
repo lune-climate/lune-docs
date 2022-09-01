@@ -1,12 +1,17 @@
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Curl from '@site/src/components/Curl'
 import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ParameterParser from '@site/src/components/ParameterParser'
 import ResourceExample from '@site/src/components/ResourceExample'
+import useApiKey from '@site/src/hooks/useApiKey'
 import { ApiReferenceSection, JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
 import React from 'react'
 
 export default function EndpointParser(props: { json: any }): JSX.Element {
+    const { siteConfig } = useDocusaurusContext()
+    const { apiKey, fetchFromDashboard } = useApiKey(siteConfig.customFields.DASHBOARD_DOMAIN)
+
     let endpointRequestBody
     // We only have requestBody of `application/json` so we know what to expect
     if (props.json.requestBody) {
@@ -22,7 +27,13 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     const parameters = (props.json.parameters || []).map((parameter) => ParameterParser(parameter))
     const queryParameters = parameters.filter((parameter) => parameter.in === 'query')
 
-    const curlStr = Curl(props.json.path, props.json.method, endpointRequestBody, parameters)
+    const curlStr = Curl(
+        props.json.path,
+        props.json.method,
+        endpointRequestBody,
+        parameters,
+        apiKey,
+    )
     const curlCall = {
         header: `${props.json.method} ${props.json.path}`,
         language: 'curl',
@@ -102,6 +113,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                     </>
                 </>
                 <>
+                    <button onClick={fetchFromDashboard}>Refresh API Key token</button>
                     <Snippet {...curlCall} />
                     {endpointResponseExample && (
                         <Snippet sx={{ marginTop: '16px' }} {...endpointResponseExample} />

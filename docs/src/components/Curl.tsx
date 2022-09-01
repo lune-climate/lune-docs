@@ -5,6 +5,7 @@ export default function Curl(
     method: string,
     requestBody: any,
     parameters: any[],
+    apiKey?: string,
 ): string {
     const requestBodyExample = requestBody ? ResourceExample(requestBody) : undefined
     let endpointParsed = path
@@ -28,7 +29,7 @@ export default function Curl(
     endpointParsed = endpointParsed.slice(-1) === '&' ? endpointParsed.slice(0, -1) : endpointParsed
 
     return `curl ${endpointParsed} \\
--H 'Authorization: Bearer <API_KEY>' \\
+-H 'Authorization: Bearer ${apiKey || '<API_KEY>'} \\
 -X ${method.toUpperCase()} ${
         requestBodyExample
             ? `\\
