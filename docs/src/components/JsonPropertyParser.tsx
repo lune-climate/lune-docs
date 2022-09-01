@@ -23,6 +23,7 @@ export default function JsonPropertyParser(props: {
         const type = props.json.oneOf ? 'oneOf' : props.json.allOf ? 'allOf' : 'anyOf'
         return {
             ...props.json,
+            name: props.name,
             type,
             jsons: props.json[type].map((element) => {
                 const derefencedItem = Dereferencer(element)

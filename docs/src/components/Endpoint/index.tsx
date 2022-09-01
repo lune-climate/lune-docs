@@ -28,7 +28,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     const queryParameters = parameters.filter((parameter) => parameter.in === 'query')
 
     const curlStr = Curl(
-        props.json.path,
+        `${siteConfig.customFields.DASHBOARD_DOMAIN}${props.json.path}`,
         props.json.method,
         endpointRequestBody,
         parameters,

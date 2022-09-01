@@ -7,7 +7,7 @@ export default function Curl(
     parameters: any[],
     apiKey?: string,
 ): string {
-    const requestBodyExample = requestBody ? ResourceExample(requestBody) : undefined
+    const requestBodyExample = requestBody ? ResourceExample(requestBody, true) : undefined
     let endpointParsed = path
     parameters.forEach((parameter) => {
         const parameterExample = ResourceExample(parameter)
