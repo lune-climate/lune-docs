@@ -27,7 +27,7 @@ export default function useApiKey(dashboardDomain: string) {
         setApiKey(newApiKey)
     }
 
-    const refetchFromDashboard = async () => {
+    const fetchFromDashboard = async () => {
         if (!isLoading) {
             // This creates an IFrame to fetch the test API key from the dashboard localStorage
             // The IFrame is removed after the message has been received.
@@ -59,6 +59,6 @@ export default function useApiKey(dashboardDomain: string) {
     return {
         apiKey,
         setApiKey: saveApiKey,
-        refetchFromDashboard,
+        fetchFromDashboard,
     }
 }
