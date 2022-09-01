@@ -6,7 +6,7 @@ export default function useApiKey(dashboardDomain: string) {
         return {
             apiKey: undefined,
             setApiKey: () => {},
-            refetchFromDashboard: () => {},
+            fetchFromDashboard: () => {},
         }
     }
 
