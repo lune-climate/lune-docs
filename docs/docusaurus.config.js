@@ -25,6 +25,7 @@ const config = {
 
     customFields: {
         DASHBOARD_DOMAIN: process.env.REACT_APP_DASHBOARD_DOMAIN,
+        API_DOMAIN: process.env.REACT_APP_API_DOMAIN,
     },
 
     presets: [
