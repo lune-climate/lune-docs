@@ -70,13 +70,13 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     const parametersSection = endpointRequestBody ? (
         <JsonObjectTable>
             {endpointRequestBody.jsons.map((json, i) => (
-                <JsonProperty json={json} key={i}></JsonProperty>
+                <JsonProperty json={json} key={i} topLevelDividers />
             ))}
         </JsonObjectTable>
     ) : queryParameters.length !== 0 ? (
         <JsonObjectTable>
             {queryParameters.map((parameters, i) => {
-                return <JsonProperty json={parameters} key={i} />
+                return <JsonProperty json={parameters} key={i} topLevelDividers />
             })}
         </JsonObjectTable>
     ) : (
@@ -88,7 +88,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
 
     const returnsSection = endpointSuccessResponse ? (
         <JsonObjectTable>
-            <JsonProperty json={endpointSuccessResponse} />
+            <JsonProperty json={endpointSuccessResponse} topLevelDividers />
         </JsonObjectTable>
     ) : (
         <>

@@ -51,7 +51,7 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
                 <>
                     <JsonObjectTable>
                         {resourceProperties.map((property) => {
-                            return <JsonProperty json={property} />
+                            return <JsonProperty json={property} topLevelDividers />
                         })}
                     </JsonObjectTable>
                 </>
