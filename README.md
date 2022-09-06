@@ -2,10 +2,38 @@
 
 The documentation app is in docs/.
 
+```
+cd docs
+```
+
+Ensure you have the right version of `node` installed (see `.nvmrc`).
+
+
+## nvm
+
+You can use `nvm` to manage node versions.
+
+Check if you have `nvm` already, otherwise install it using one of the following methods:
+* `brew install nvm`
+
+Now, still in `docs/`, install the correct node version:
+
+```
+nvm install
+```
+
+## Start the app
+
+To use the correct node version:
+
+```
+nvm use
+```
+
+
 To start the documentation app in development mode:
 
 ```
-cd docs
 yarn start
 ```
 
