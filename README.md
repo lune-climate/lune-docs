@@ -1,11 +1,5 @@
 # Run the docs app
 
-The documentation app is in docs/.
-
-```
-cd docs
-```
-
 Ensure you have the right version of `node` installed (see `.nvmrc`).
 
 
@@ -16,7 +10,7 @@ You can use `nvm` to manage node versions.
 Check if you have `nvm` already, otherwise install it using one of the following methods:
 * `brew install nvm`
 
-Now, still in `docs/`, install the correct node version:
+Now install the correct node version:
 
 ```
 nvm install
@@ -40,7 +34,6 @@ yarn start
 To run production build locally (required for testing search):
 
 ```
-cd docs
 yarn build && yarn serve
 ```
 
