@@ -37,7 +37,7 @@
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "commander-plus": "^0.0.6",
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.0.2",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "latest",
