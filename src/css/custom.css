@@ -16,8 +16,10 @@
   --ifm-color-primary-lightest: #608ae4;
 
   --ifm-table-border-color: #ffffff; /* White */
-  --ifm-table-stripe-background: #ffffff; /* White */
+  --ifm-table-stripe-background: 'inherit';
   --ifm-table-border-width: 0px;
+
+  --ifm-table-cell-padding: 2px;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -59,4 +61,8 @@ pre {
 
 .hidden-sidebar {
     display: none
+}
+
+.endpointsTable {
+    margin-bottom: 0px;
 }

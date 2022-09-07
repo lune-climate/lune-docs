@@ -4,6 +4,25 @@ import ResourceExample from '@site/src/components/ResourceExample'
 import { ApiReferenceSection, JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
 import React from 'react'
 
+function formatPath(operationId: string): string {
+    // We either receive camelCase, UpperCamelCase, Sentence case or Title Case. Make it all camelCase
+    const camelCase = operationId
+        // Convert Sentence case to Title Case
+        .replace(/ ([a-z])/, (v) => v.toUpperCase())
+        // Convert Title Case to UpperCamelCase
+        .replace(' ', '')
+        // Convert UpperCamelCase to camelCase
+        .replace(/^([A-Z])[a-z]/, (v) => v.toLowerCase())
+    return (
+        camelCase
+            .replace(/([A-Z])[a-z]/g, function (v) {
+                return `-${v.toLowerCase()}`
+            })
+            // Make acronyms lowercase
+            .toLowerCase()
+    )
+}
+
 export default function ResourceParser(props: { json: any }): JSX.Element {
     let resourceProperties: any[]
     // We don't have anyOf so no need to handle it
@@ -40,23 +59,38 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
     const endpointsSnippet = {
         header: 'Endpoints',
         lineNumbers: false,
-        language: 'json',
-        children: JSON.stringify(props.json.endpoints, null, 2),
     }
 
     return (
         <section>
             <>{props.json.description}</>
             <ApiReferenceSection>
+                <JsonObjectTable>
+                    {resourceProperties.map((property) => {
+                        return <JsonProperty json={property} topLevelDividers />
+                    })}
+                </JsonObjectTable>
                 <>
-                    <JsonObjectTable>
-                        {resourceProperties.map((property) => {
-                            return <JsonProperty json={property} topLevelDividers />
-                        })}
-                    </JsonObjectTable>
-                </>
-                <>
-                    <Snippet {...endpointsSnippet} />
+                    {props.json.endpoints && (
+                        <Snippet {...endpointsSnippet} sx={{ marginBottom: '16px' }}>
+                            <table className="endpointsTable">
+                                {props.json.endpoints.map((endpoint, i) => (
+                                    <tr key={i}>
+                                        <td align="right">
+                                            <a href={`${formatPath(endpoint.operationId)}`}>
+                                                {endpoint.method.toUpperCase()}
+                                            </a>
+                                        </td>
+                                        <td align="left">
+                                            <a href={`${formatPath(endpoint.operationId)}`}>
+                                                {endpoint.endpoint}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </table>
+                        </Snippet>
+                    )}
                     <Snippet {...exampleSnippet} />
                 </>
             </ApiReferenceSection>
