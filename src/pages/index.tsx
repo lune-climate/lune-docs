@@ -2,5 +2,5 @@ import { Redirect } from '@docusaurus/router'
 import React from 'react'
 
 export default function Home(): JSX.Element {
-    return <Redirect to="api/intro" />
+    return <Redirect to="api/quickstart" />
 }
