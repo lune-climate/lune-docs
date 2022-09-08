@@ -49,6 +49,7 @@ export default function JsonPropertyParser(props: {
             name: props.name,
             type: props.json.type,
             description: props.json.description,
+            required: props.required,
             jsons: Object.keys(props.json.properties || []).map((property) => {
                 const derefencedItem = Dereferencer(props.json.properties[property], property)
                 return JsonPropertyParser({
