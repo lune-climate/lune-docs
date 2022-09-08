@@ -49,7 +49,7 @@ const config = {
         {
             colorMode: {
                 defaultMode: 'light',
-                disableSwitch: false,
+                disableSwitch: true,
                 respectPrefersColorScheme: true,
             },
             // meta tag, in particular og:image and twitter:image
