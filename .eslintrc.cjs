@@ -33,13 +33,12 @@ module.exports = {
             { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
         ],
         'simple-import-sort/imports': 'error',
-        complexity: ['error', { max: 14 }],
 
         // To support TS overloads
         // https://github.com/typescript-eslint/typescript-eslint/blob/6fd476c32c4757cb9f4c442f0cd92875671eed30/packages/eslint-plugin/docs/rules/no-redeclare.md
         'no-redeclare': 'off',
         '@typescript-eslint/no-redeclare': ['error'],
-        'complexity': ['error', { 'max': 16 }],
+        complexity: ['error', { max: 17 }],
     },
     overrides: [
         {
