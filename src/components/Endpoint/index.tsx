@@ -30,6 +30,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
 
     const parameters = (props.json.parameters || []).map((parameter) => ParameterParser(parameter))
     const queryParameters = parameters.filter((parameter) => parameter.in === 'query')
+    const pathParameters = parameters.filter((parameter) => parameter.in === 'path')
 
     const curlStr = Curl(
         `${siteConfig.customFields.API_DOMAIN}${props.json.path}`,
@@ -39,7 +40,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
         apiKey,
     )
     const curlCall = {
-        header: `${props.json.method} ${props.json.path}`,
+        header: `${props.json.method.toUpperCase()} ${props.json.path}`,
         language: 'curl',
         toCopy: curlStr,
         children: curlStr,
@@ -62,36 +63,18 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
             json: dereferencedResponseBody,
         })
         endpointResponseExample = {
-            header: endpointSuccessResponse.name,
+            header: 'Response',
             language: 'json',
             children: JSON.stringify(ResourceExample(endpointSuccessResponse), null, 2),
             lineNumbers: false,
         }
     }
 
-    // We never have both queryParameters and requestBody so parameters will show
-    // one or the other (when present)
-    const parametersSection = endpointRequestBody ? (
-        <JsonObjectTable>
-            {endpointRequestBody.jsons.map((json, i) => (
-                <JsonProperty json={json} key={i} topLevelDividers />
-            ))}
-        </JsonObjectTable>
-    ) : queryParameters.length !== 0 ? (
-        <JsonObjectTable>
-            {queryParameters.map((parameters, i) => {
-                return <JsonProperty json={parameters} key={i} topLevelDividers />
-            })}
-        </JsonObjectTable>
-    ) : (
-        <>
-            <br />
-            No parameters
-        </>
-    )
+    const noParameters =
+        pathParameters.length === 0 && queryParameters.length === 0 && !endpointRequestBody
 
     const returnsSection = endpointSuccessResponse ? (
-        <JsonObjectTable>
+        <JsonObjectTable title="Returns">
             <JsonProperty json={endpointSuccessResponse} topLevelDividers />
         </JsonObjectTable>
     ) : (
@@ -103,18 +86,45 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
 
     return (
         <section>
-            <>{props.json.description}</>
+            {props.json.description && (
+                <div style={{ marginBottom: '64px' }}>{props.json.description}</div>
+            )}
             <ApiReferenceSection>
                 <>
-                    <>
-                        <>Parameters</>
-                        {parametersSection}
-                    </>
-                    <br />
-                    <>
-                        <>Returns</>
-                        {returnsSection}
-                    </>
+                    {pathParameters.length !== 0 && (
+                        <JsonObjectTable title="Path Parameters">
+                            {pathParameters.map((parameters, i) => (
+                                <JsonProperty json={parameters} key={i} topLevelDividers />
+                            ))}
+                        </JsonObjectTable>
+                    )}
+
+                    {queryParameters.length !== 0 && (
+                        <JsonObjectTable title="Query Parameters">
+                            {queryParameters.map((parameters, i) => (
+                                <JsonProperty json={parameters} key={i} topLevelDividers />
+                            ))}
+                        </JsonObjectTable>
+                    )}
+
+                    {endpointRequestBody && (
+                        <JsonObjectTable title="Parameters">
+                            {endpointRequestBody.jsons.map((json, i) => (
+                                <JsonProperty json={json} key={i} topLevelDividers />
+                            ))}
+                        </JsonObjectTable>
+                    )}
+
+                    {noParameters && (
+                        <JsonObjectTable title="No Parameters">
+                            <></>
+                            <></>
+                        </JsonObjectTable>
+                    )}
+
+                    {endpointSuccessResponse && (
+                        <div style={{ marginTop: '64px' }}>{returnsSection}</div>
+                    )}
                 </>
                 <>
                     <Snippet {...curlCall} />
