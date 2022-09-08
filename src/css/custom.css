@@ -34,11 +34,6 @@
   --ifm-color-primary-lightest: #f6f8fd;
 }
 
-/* CSS for sidebar example */
-:root {
-     --doc-sidebar-width: 220px !important;
-}
-
 :root {
   --ifm-font-family-base: 'Helvetica Neue'
 }
