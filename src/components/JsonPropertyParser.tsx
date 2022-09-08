@@ -17,7 +17,7 @@ export default function JsonPropertyParser(props: {
     json: any
     name?: string
     type?: string
-    required?: string[]
+    required?: string[] | boolean
 }): any {
     if (props.json.oneOf || props.json.allOf || props.json.anyOf) {
         const type = props.json.oneOf ? 'oneOf' : props.json.allOf ? 'allOf' : 'anyOf'
@@ -39,7 +39,9 @@ export default function JsonPropertyParser(props: {
             ...props,
             name: props.name,
             type: props.json.type,
-            required: props.required && props.name && props.required.includes(props.name),
+            required:
+                props.required === true ||
+                (props.required && props.name && props.required.includes(props.name)),
             description: props.json.description,
             jsons: [JsonPropertyParser({ ...derefencedItem, json: derefencedItem })],
         }
@@ -67,9 +69,10 @@ export default function JsonPropertyParser(props: {
             name: derefencedItem.name,
             type: derefencedItem.type,
             required:
-                props.required &&
-                derefencedItem.name &&
-                props.required.includes(derefencedItem.name),
+                props.required === true ||
+                (props.required &&
+                    derefencedItem.name &&
+                    props.required.includes(derefencedItem.name)),
             $enum: props.json.enum,
             description: derefencedItem.description,
         }

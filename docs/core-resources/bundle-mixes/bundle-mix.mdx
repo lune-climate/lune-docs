@@ -1,0 +1,8 @@
+---
+sidebar_position: 1
+---
+# BundleMix
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"type":"object","description":"Predefined bundle selections, for example following Oxford Offsetting Principles.\nBundle selection for a particular Bundle mix may change over time.\n","required":["id","identifier","label","bundle_selection"],"properties":{"id":{"type":"string","description":"Bundle mix unique identifier.","example":"A7hPO9C01RnzPkYxJgAHxq112roXlWO5"},"identifier":{"type":"string","description":"Identifier of the bundle mix.","example":"oxford-offsetting-principles"},"label":{"type":"string","description":"Human readable name of the bundle mix.","example":"Oxford Offseting Principles"},"bundle_selection":{"$ref":"#/components/schemas/BundleSelection"}},"component":"BundleMix","endpoints":[{"method":"get","endpoint":"/bundle-mixes","operationId":"listAllBundleMixes"}]}}/>

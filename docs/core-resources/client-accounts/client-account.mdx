@@ -1,0 +1,8 @@
+---
+sidebar_position: 1
+---
+# ClientAccount
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"description":"Account used when you operate an account on behalf of a third party.","allOf":[{"$ref":"#/components/schemas/AccountBase"}],"type":"object","required":["scope"],"properties":{"scope":{"type":"string","enum":["client_account"]}},"component":"ClientAccount","endpoints":[{"method":"post","endpoint":"/accounts/client","operationId":"createClientAccount"},{"method":"get","endpoint":"/accounts/client","operationId":"listClientAccounts"},{"method":"put","endpoint":"/accounts/client/{id}","operationId":"updateClientAccount"}]}}/>

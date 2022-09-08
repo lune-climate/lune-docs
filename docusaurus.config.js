@@ -36,6 +36,21 @@ const config = {
                 docs: {
                     sidebarPath: require.resolve('./sidebars.js'),
                     routeBasePath: '/',
+                    // We don't use category indexes, and we have files with the same name as
+                    // the category that we don't want to be treated as indexes. Fully disable these.
+                    async sidebarItemsGenerator({
+                        isCategoryIndex: defaultCategoryIndexMatcher, // The default matcher implementation, given below
+                        defaultSidebarItemsGenerator,
+                        ...args
+                    }) {
+                        return defaultSidebarItemsGenerator({
+                            ...args,
+                            isCategoryIndex() {
+                                // No doc will be automatically picked as category index
+                                return false
+                            },
+                        })
+                    },
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),

@@ -1,0 +1,8 @@
+---
+sidebar_position: 1
+---
+# Account
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"description":"Account used for your regular operations.","allOf":[{"$ref":"#/components/schemas/AccountBase"}],"type":"object","required":["scope","sibling_id"],"properties":{"scope":{"type":"string","enum":["account"]},"sibling_id":{"type":"string","description":"Account id of the paired account.\n\nA live account points to its sibling test account and vice versa.\n","example":"gGdqQ0AyQJ72NauCCndfaQLNhc6Jfxc1"}},"component":"Account","endpoints":[{"method":"get","endpoint":"/accounts/me","operationId":"getAccount"},{"method":"post","endpoint":"/accounts","operationId":"createAccountPair"},{"method":"get","endpoint":"/accounts","operationId":"listAccounts"},{"method":"put","endpoint":"/accounts/{id}","operationId":"updateAccount"}]}}/>

@@ -13,24 +13,56 @@ export const APISchemaContext = React.createContext<any>({
     tags: [
         {
             name: 'Orders',
-            description: 'Get a quote, create and fetch orders.\n',
+            description: 'Get a quote, create and fetch orders.',
             'x-components': ['Order'],
         },
-        { name: 'Projects', description: 'Get projects and bundles', 'x-components': ['Project'] },
+        { name: 'Projects', description: 'Get projects and bundles.', 'x-components': ['Project'] },
         {
             name: 'Emission estimates',
             description: 'Estimate CO2 emissions (caused by shipping goods for example).',
             'x-components': ['EmissionEstimate'],
         },
         {
+            name: 'Bundle selections',
+            description: 'Configure how orders should be partitioned into bundles.',
+            'x-components': ['BundleSelection'],
+        },
+        {
+            name: 'Bundle mixes',
+            description: 'Pre configured bundle selections.',
+            'x-components': ['BundleMix'],
+        },
+        {
+            name: 'Accounts',
+            description: 'Get, create, update accounts.',
+            'x-components': ['Account'],
+        },
+        {
+            name: 'Client accounts',
+            description: 'Get, create, update client accounts.',
+            'x-components': ['ClientAccount'],
+        },
+        {
+            name: 'Sustainability page',
+            description: 'Share your impact via a public page.',
+            'x-components': ['SustainabilityPage'],
+        },
+        { name: 'Analytics', description: 'Get account analytics.', 'x-components': ['Analytics'] },
+        {
             name: 'Offset links',
             description: 'Provide your customers with links to fund a bundle of their choice.',
             'x-components': ['OffsetLink'],
         },
+        { name: 'Activity', description: 'Get account activity.', 'x-components': ['Activity'] },
         {
             name: 'Webhooks',
             description: 'A way to get notified about order state changes.',
             'x-components': ['Webhook'],
+        },
+        {
+            name: 'Webhook request',
+            description: 'Webhook request response example.',
+            'x-components': ['WebhookRequest'],
         },
     ],
     paths: {
@@ -85,7 +117,7 @@ export const APISchemaContext = React.createContext<any>({
                 summary: 'Create a client account',
                 operationId: 'createClientAccount',
                 security: [{ BearerAuth: [] }],
-                tags: ['Client Accounts'],
+                tags: ['Client accounts'],
                 requestBody: {
                     required: true,
                     content: {
@@ -113,16 +145,10 @@ export const APISchemaContext = React.createContext<any>({
                 summary: 'List client accounts',
                 operationId: 'listClientAccounts',
                 security: [{ BearerAuth: [] }],
-                tags: ['Client Accounts'],
+                tags: ['Client accounts'],
                 parameters: [
                     { $ref: '#/components/parameters/LimitPagination' },
                     { $ref: '#/components/parameters/AfterPagination' },
-                    {
-                        name: 'type',
-                        in: 'query',
-                        description: 'Filter accounts based on type.',
-                        schema: { $ref: '#/components/schemas/AccountType' },
-                    },
                     {
                         name: 'name',
                         in: 'query',
@@ -155,7 +181,7 @@ export const APISchemaContext = React.createContext<any>({
                 summary: 'Update a client account',
                 operationId: 'updateClientAccount',
                 security: [{ BearerAuth: [] }],
-                tags: ['Client Accounts'],
+                tags: ['Client accounts'],
                 parameters: [
                     {
                         name: 'id',
@@ -227,12 +253,6 @@ export const APISchemaContext = React.createContext<any>({
                 parameters: [
                     { $ref: '#/components/parameters/LimitPagination' },
                     { $ref: '#/components/parameters/AfterPagination' },
-                    {
-                        name: 'type',
-                        in: 'query',
-                        description: 'Filter accounts based on type.',
-                        schema: { $ref: '#/components/schemas/AccountType' },
-                    },
                     {
                         name: 'name',
                         in: 'query',
@@ -649,6 +669,61 @@ export const APISchemaContext = React.createContext<any>({
                     { $ref: '#/components/parameters/LimitPagination' },
                     { $ref: '#/components/parameters/AfterPagination' },
                     {
+                        name: 'account_id',
+                        in: 'query',
+                        description:
+                            "Account ids used to filter the orders.\n\nWhen omitted, the API Key's default account or Lune-Account's header is used.\n",
+                        schema: {
+                            type: 'array',
+                            items: { type: 'string' },
+                            example: [
+                                'ke36CG3wK72raAe6ZPyEDQzgWldPBO40',
+                                'rKqngNM0G65a9p4XMl5pDQ4xdXWBe81J',
+                            ],
+                        },
+                    },
+                    {
+                        name: 'from',
+                        in: 'query',
+                        description: 'Return orders created on or after `from`.\n',
+                        schema: {
+                            type: 'string',
+                            format: 'date-time',
+                            example: '2022-09-01T12:15:00.000Z',
+                        },
+                    },
+                    {
+                        name: 'through',
+                        in: 'query',
+                        description: 'Return orders created on or before `through`.\n',
+                        schema: {
+                            type: 'string',
+                            format: 'date-time',
+                            example: '2022-09-06T12:15:00.000Z',
+                        },
+                    },
+                    {
+                        name: 'status',
+                        in: 'query',
+                        description: 'Order statuses used to filter the orders.\n',
+                        schema: {
+                            type: 'array',
+                            items: {
+                                type: 'string',
+                                enum: [
+                                    'received',
+                                    'placed',
+                                    'paid',
+                                    'retiring',
+                                    'cancelled',
+                                    'complete',
+                                    'failed',
+                                ],
+                            },
+                            example: ['placed', 'retiring'],
+                        },
+                    },
+                    {
                         name: 'offset_link_id',
                         in: 'query',
                         description:
@@ -665,6 +740,7 @@ export const APISchemaContext = React.createContext<any>({
                             },
                         },
                     },
+                    '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
@@ -1711,7 +1787,7 @@ export const APISchemaContext = React.createContext<any>({
         },
         '/WebhookRequest': {
             post: {
-                tags: ['Webhook Request'],
+                tags: ['Webhook request'],
                 summary: 'Webhook request',
                 operationId: 'webhookRequest',
                 description:
@@ -2033,6 +2109,7 @@ export const APISchemaContext = React.createContext<any>({
                             'sustainability_page_slug_not_unique',
                             'sustainability_page_exists',
                             'pagination_limit_invalid',
+                            'invalid_selected_account_id',
                         ],
                     },
                     message: {
