@@ -50,7 +50,7 @@ const config = {
             colorMode: {
                 defaultMode: 'light',
                 disableSwitch: true,
-                respectPrefersColorScheme: true,
+                respectPrefersColorScheme: false,
             },
             // meta tag, in particular og:image and twitter:image
             image: 'img/lune-icon-512.png',
