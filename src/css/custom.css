@@ -39,7 +39,7 @@
 }
 
 @media (min-width: 997px) {
-    .col.docItemCol_node_modules-\@docusaurus-theme-classic-lib-theme-DocItem-Layout-styles-module {
+    .col[class*='docItemCol'] {
         max-width: 100% !important;
     }
 }
