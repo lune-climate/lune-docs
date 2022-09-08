@@ -28,14 +28,20 @@ export default function Curl(
     // Previous parsing has & at the end if a single parameter is inserted. Remove it if present.
     endpointParsed = endpointParsed.slice(-1) === '&' ? endpointParsed.slice(0, -1) : endpointParsed
 
-    return `curl ${endpointParsed} \\
--H 'Authorization: Bearer ${apiKey || '<API_KEY>'}' \\
+    // Content-type is required only for non get endpoints. RequestBody is always optional.
+    const extraData =
+        method.toUpperCase() === 'GET'
+            ? ''
+            : ` \\
 -H 'Content-Type: application/json' \\
 -X ${method.toUpperCase()} ${
-        requestBodyExample
-            ? `\\
+                  requestBodyExample
+                      ? `\\
 -d '${JSON.stringify(requestBodyExample, null, 2)}'
 `
-            : ''
-    }`
+                      : ''
+              }`
+
+    return `curl ${endpointParsed} \\
+-H 'Authorization: Bearer ${apiKey || '<API_KEY>'}'${extraData}`
 }
