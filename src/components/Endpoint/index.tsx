@@ -1,17 +1,21 @@
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Curl from '@site/src/components/Curl'
 import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ParameterParser from '@site/src/components/ParameterParser'
 import ResourceExample from '@site/src/components/ResourceExample'
-import useApiKey from '@site/src/hooks/useApiKey'
 import { ApiReferenceSection, JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
 import React from 'react'
 
 export default function EndpointParser(props: { json: any }): JSX.Element {
     const { siteConfig } = useDocusaurusContext()
-    const { apiKey, fetchFromDashboard } = useApiKey(siteConfig.customFields.DASHBOARD_DOMAIN)
-
+    const apiKey = ExecutionEnvironment.canUseDOM
+        ? document.cookie
+              .split('; ')
+              .find((row) => row.startsWith('docs_test_api_key='))
+              ?.split('=')[1]
+        : undefined
     let endpointRequestBody
     // We only have requestBody of `application/json` so we know what to expect
     if (props.json.requestBody) {
@@ -113,7 +117,6 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                     </>
                 </>
                 <>
-                    <button onClick={fetchFromDashboard}>Refresh API Key token</button>
                     <Snippet {...curlCall} />
                     {endpointResponseExample && (
                         <Snippet sx={{ marginTop: '16px' }} {...endpointResponseExample} />
