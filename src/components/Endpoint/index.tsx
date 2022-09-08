@@ -41,7 +41,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     )
     const curlCall = {
         header: `${props.json.method.toUpperCase()} ${props.json.path}`,
-        language: 'curl',
+        language: 'bash',
         toCopy: curlStr,
         children: curlStr,
         lineNumbers: false,
