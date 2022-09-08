@@ -42,6 +42,6 @@ export default function Curl(
                       : ''
               }`
 
-    return `curl ${endpointParsed} \\
+    return `curl '${endpointParsed}' \\
 -H 'Authorization: Bearer ${apiKey || '<API_KEY>'}'${extraData}`
 }
