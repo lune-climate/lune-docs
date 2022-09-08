@@ -124,6 +124,7 @@ const config = {
                 languages: ['en'], // language codes
             },
         ],
+        require.resolve('./plugins/custom-webpack-plugin'),
     ],
 }
 
