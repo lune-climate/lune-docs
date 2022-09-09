@@ -1,3 +1,4 @@
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ResourceExample from '@site/src/components/ResourceExample'
@@ -61,6 +62,12 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
         lineNumbers: false,
     }
 
+    const possibleTrailingSlash = ExecutionEnvironment.canUseDOM
+        ? window.location.href.slice(-1) === '/'
+            ? '../'
+            : ''
+        : ''
+
     return (
         <section>
             <>{props.json.description}</>
@@ -77,12 +84,20 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
                                 {props.json.endpoints.map((endpoint, i) => (
                                     <tr key={i}>
                                         <td align="right">
-                                            <a href={`${formatPath(endpoint.operationId)}`}>
+                                            <a
+                                                href={`${possibleTrailingSlash}${formatPath(
+                                                    endpoint.operationId,
+                                                )}`}
+                                            >
                                                 {endpoint.method.toUpperCase()}
                                             </a>
                                         </td>
                                         <td align="left">
-                                            <a href={`${formatPath(endpoint.operationId)}`}>
+                                            <a
+                                                href={`${possibleTrailingSlash}${formatPath(
+                                                    endpoint.operationId,
+                                                )}`}
+                                            >
                                                 {endpoint.endpoint}
                                             </a>
                                         </td>
