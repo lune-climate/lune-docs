@@ -1,5 +1,5 @@
 ---
-sidebar_position: 9
+sidebar_position: 8
 sidebar_label: Webhooks
 ---
 
@@ -60,9 +60,7 @@ tampered with it.
 
 The header has the following format:
 
-```
-timestamp=TIMESTAMP,account=ACCOUNT_ID,v1=HMAC_VALUE,...
-```
+**timestamp=TIMESTAMP,account=ACCOUNT_ID,v1=HMAC_VALUE,...**
 
 Where:
 * `TIMESTAMP` is the current [Unix epoch](https://en.wikipedia.org/wiki/Unix_time). It is used to
@@ -71,9 +69,7 @@ verify the message has an acceptable age.
 webhooks pointed to the same URL.
 * `HMAC_VALUE` is the value calculated in the following way:
 
-```
-HMAC-256(SECRET, TIMESTAMP + "." + BODY)
-```
+**HMAC-256(SECRET, TIMESTAMP + "." + BODY)**
 
 * `HMAC-256` is the HMAC version using the SHA-256 hashing algorithm
 * `SECRET` is a per-webhook secret generated when the webhook is created. The secret can be
@@ -102,13 +98,14 @@ returning a non-2xx HTTP status code.
 The request itself consist of two headers and the payload. One of the headers is the previously mentioned HMAC header, the other is the *Content-Type* which is *application/json*.
 
 For testing purposes, if you want to produce an example request, this can be simulated with
-```
-curl <WEBHOOK_URL> \
-  -H 'Lune-HMAC: <THE_HEADER_VALUE>' \
-  -H 'Content-Type: application/json' \
-  -X POST \
-  -d '{"events":[{"event_type":"order.received", "event_id": 1, "data": {"type": "quantity", "requested_quantity": "1000", "id": "va1BER4JZqnzPkYxJgALg0GeQDoXlWO5", "status": "received","currency": "GBP","created_at": "1985-04-12T23:20:50.52Z","metadata": {}}, "api_version": "v1"},{"event_type": "order.placed”, "event_id": 2, "data": {"type": "quantity", "requested_quantity": "1000", "id": "va1BER4JZqnzPkYxJgALg0GeQDoXlWO5", "status": "received","currency": "GBP","created_at": "1985-04-12T23:20:50.52Z","metadata": {}}, "api_version": "v1"}]}'
-```
+
+import { Snippet } from 'lune-ui-lib';
+
+<Snippet header="Sample request" language="bash" children={`curl https://api.lune.co/v1/orders/by-mass \\
+  -H 'Authorization: Bearer <API_KEY>' \\
+  -X POST \\
+  -d '{"mass": { "amount": "100.510", "unit": "t"} }'
+`}/>
 
 where `WEBHOOK_URL` is your webhook endpoint and `THE_HEADER_VALUE` of form `timestamp=...,v1=...`
 can be produced using the algorithm above.
@@ -118,4 +115,4 @@ Lune may introduce events with new `event_type`s. Your code should ignore unknow
 to make sure it remains future-proof.
 
 # The payload format
-The `/WebhookRequest` mock endpoint documents the data format that the webhook endpoints should expect.
+The <a href="../core-resources/webhook-request">WebhookRequest</a> mock endpoint documents the data format that the webhook endpoints should expect.
