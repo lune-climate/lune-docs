@@ -24,7 +24,8 @@ export const APISchemaContext = React.createContext<any>({
         },
         {
             name: 'Bundle selections',
-            description: 'Configure how orders should be partitioned into bundles.',
+            description:
+                'Bundle selections define how an order is being split across a set of project bundles.',
             'x-components': ['BundleSelection'],
         },
         {

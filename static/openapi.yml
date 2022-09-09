@@ -23,7 +23,7 @@ tags:
     description: Estimate CO2 emissions (caused by shipping goods for example).
     x-components: ["EmissionEstimate"]
   - name: Bundle selections
-    description: Configure how orders should be partitioned into bundles.
+    description: Bundle selections define how an order is being split across a set of project bundles.
     x-components: ["BundleSelection"]
   - name: Bundle mixes
     description: Pre configured bundle selections.
