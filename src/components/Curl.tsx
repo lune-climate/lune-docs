@@ -11,6 +11,21 @@ export default function Curl(
     let endpointParsed = path
     parameters.forEach((parameter) => {
         const parameterExample = ResourceExample(parameter)
+        // We need to correctly encode parameters that are arrays since this is query/path parameters.
+        // From `account_id=1,2` we want to instead `account_id=1&account_id=2`
+        if (parameterExample[parameter.name].constructor === Array) {
+            const examples = parameterExample[parameter.name]
+            // We don't want to duplicate the parameter.name for the first element since it's
+            // automatically added below if it's a query param.
+            const newExample = `${encodeURIComponent(examples[0])}${examples
+                .slice(1)
+                .map((example) => {
+                    return `&${parameter.name}=${encodeURIComponent(example)}`
+                })}`
+            parameterExample[parameter.name] = newExample
+        } else {
+            parameterExample[parameter.name] = encodeURIComponent(parameterExample[parameter.name])
+        }
         if (parameter.in === 'path') {
             endpointParsed = endpointParsed.replace(
                 `{${parameter.name}}`,
