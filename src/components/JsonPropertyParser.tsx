@@ -39,6 +39,7 @@ export default function JsonPropertyParser(props: {
             ...props,
             name: props.name,
             type: props.json.type,
+            example: props.json.example,
             required:
                 props.required === true ||
                 (props.required && props.name && props.required.includes(props.name)),
@@ -50,6 +51,7 @@ export default function JsonPropertyParser(props: {
             ...props,
             name: props.name,
             type: props.json.type,
+            example: props.json.example,
             description: props.json.description,
             required: props.required,
             jsons: Object.keys(props.json.properties || []).map((property) => {
@@ -68,6 +70,7 @@ export default function JsonPropertyParser(props: {
             jsons: (derefencedItem.jsons || []).concat(derefencedItem.additionalProperties || []),
             name: derefencedItem.name,
             type: derefencedItem.type,
+            example: derefencedItem.example,
             required:
                 props.required === true ||
                 (props.required &&

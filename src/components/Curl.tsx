@@ -13,7 +13,10 @@ export default function Curl(
         const parameterExample = ResourceExample(parameter)
         // We need to correctly encode parameters that are arrays since this is query/path parameters.
         // From `account_id=1,2` we want to instead `account_id=1&account_id=2`
-        if (parameterExample[parameter.name].constructor === Array) {
+        if (
+            parameterExample[parameter.name] &&
+            parameterExample[parameter.name].constructor === Array
+        ) {
             const examples = parameterExample[parameter.name]
             // We don't want to duplicate the parameter.name for the first element since it's
             // automatically added below if it's a query param.

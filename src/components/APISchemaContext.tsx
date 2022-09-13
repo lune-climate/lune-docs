@@ -670,61 +670,6 @@ export const APISchemaContext = React.createContext<any>({
                     { $ref: '#/components/parameters/LimitPagination' },
                     { $ref: '#/components/parameters/AfterPagination' },
                     {
-                        name: 'account_id',
-                        in: 'query',
-                        description:
-                            "Account ids used to filter the orders.\n\nWhen omitted, the API Key's default account or Lune-Account's header is used.\n",
-                        schema: {
-                            type: 'array',
-                            items: { type: 'string' },
-                            example: [
-                                'ke36CG3wK72raAe6ZPyEDQzgWldPBO40',
-                                'rKqngNM0G65a9p4XMl5pDQ4xdXWBe81J',
-                            ],
-                        },
-                    },
-                    {
-                        name: 'from',
-                        in: 'query',
-                        description: 'Return orders created on or after `from`.\n',
-                        schema: {
-                            type: 'string',
-                            format: 'date-time',
-                            example: '2022-09-01T12:15:00.000Z',
-                        },
-                    },
-                    {
-                        name: 'through',
-                        in: 'query',
-                        description: 'Return orders created on or before `through`.\n',
-                        schema: {
-                            type: 'string',
-                            format: 'date-time',
-                            example: '2022-09-06T12:15:00.000Z',
-                        },
-                    },
-                    {
-                        name: 'status',
-                        in: 'query',
-                        description: 'Order statuses used to filter the orders.\n',
-                        schema: {
-                            type: 'array',
-                            items: {
-                                type: 'string',
-                                enum: [
-                                    'received',
-                                    'placed',
-                                    'paid',
-                                    'retiring',
-                                    'cancelled',
-                                    'complete',
-                                    'failed',
-                                ],
-                            },
-                            example: ['placed', 'retiring'],
-                        },
-                    },
-                    {
                         name: 'offset_link_id',
                         in: 'query',
                         description:
@@ -1105,7 +1050,7 @@ export const APISchemaContext = React.createContext<any>({
                 },
             },
         },
-        '/estimates/passenger-transporation': {
+        '/estimates/passenger-transportation': {
             post: {
                 summary: 'Create a passenger transportation emission estimate',
                 description:
@@ -1490,7 +1435,7 @@ export const APISchemaContext = React.createContext<any>({
                         },
                     },
                     '401': { $ref: '#/components/responses/Unauthorized' },
-                    '404': { $ref: '#/components/responses/NotFound' },
+                    '404': { $ref: '#/components/responses/NotFoundWithErrors' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -1527,7 +1472,7 @@ export const APISchemaContext = React.createContext<any>({
                     },
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
-                    '404': { $ref: '#/components/responses/NotFound' },
+                    '404': { $ref: '#/components/responses/NotFoundWithErrors' },
                     '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
@@ -1553,6 +1498,7 @@ export const APISchemaContext = React.createContext<any>({
                         },
                     },
                     '401': { $ref: '#/components/responses/Unauthorized' },
+                    '404': { $ref: '#/components/responses/NotFoundWithErrors' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -1611,7 +1557,7 @@ export const APISchemaContext = React.createContext<any>({
                         },
                     },
                     '401': { $ref: '#/components/responses/Unauthorized' },
-                    '404': { $ref: '#/components/responses/NotFound' },
+                    '404': { $ref: '#/components/responses/NotFoundWithErrors' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -2087,7 +2033,6 @@ export const APISchemaContext = React.createContext<any>({
                         example: 'account_suspended',
                         enum: [
                             'account_suspended',
-                            'invalid_selected_account_id',
                             'bundle_selection_ratios_invalid',
                             'bundle_selection_bundle_invalid',
                             'order_idempotency_already_exists',
@@ -2110,7 +2055,6 @@ export const APISchemaContext = React.createContext<any>({
                             'sustainability_page_slug_not_unique',
                             'sustainability_page_exists',
                             'pagination_limit_invalid',
-                            'invalid_selected_account_id',
                         ],
                     },
                     message: {
@@ -4724,7 +4668,7 @@ export const APISchemaContext = React.createContext<any>({
             },
             OffsetLinkRequest: {
                 type: 'object',
-                required: ['name', 'use_logo'],
+                required: ['name', 'bundles', 'use_logo'],
                 properties: {
                     name: {
                         type: 'string',
@@ -4750,6 +4694,7 @@ export const APISchemaContext = React.createContext<any>({
                         minItems: 1,
                         maxItems: 24,
                         uniqueItems: true,
+                        example: ['BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'],
                     },
                     value: { $ref: '#/components/schemas/Money' },
                     emails: {
@@ -4800,6 +4745,7 @@ export const APISchemaContext = React.createContext<any>({
                         minItems: 1,
                         maxItems: 24,
                         uniqueItems: true,
+                        example: ['BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'],
                     },
                     value: { $ref: '#/components/schemas/Money' },
                     emails: {
@@ -4842,6 +4788,7 @@ export const APISchemaContext = React.createContext<any>({
                 pattern:
                     '^https:\\/\\/[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&\\/\\/=]*)$',
                 description: 'An HTTPS URL',
+                example: 'https://lune.co',
             },
             MonetaryAmount: {
                 type: 'object',
@@ -4855,6 +4802,7 @@ export const APISchemaContext = React.createContext<any>({
                 type: 'string',
                 description:
                     'ISO 4217 3 character currency code.\n\nNote: Lune does not support all currency codes.\n',
+                example: 'GBP',
             },
             MonetaryAmountValue: {
                 type: 'string',
@@ -4869,6 +4817,7 @@ export const APISchemaContext = React.createContext<any>({
             },
             UpdateWebhookRequest: {
                 type: 'object',
+                required: ['url', 'enabled'],
                 properties: {
                     url: { $ref: '#/components/schemas/Url' },
                     enabled: {

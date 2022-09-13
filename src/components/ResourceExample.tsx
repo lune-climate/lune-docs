@@ -1,7 +1,21 @@
+import Dereferencer from '@site/src/components/Dereferencer'
+
+// Check if it's a high level resource/reference, not an inline property
+function isHighLevelElement(property: any): boolean {
+    const ref = property.$ref || (property.json && property.json.$ref)
+    return (
+        (ref && Dereferencer(ref).name === property.name) ||
+        property.name === '' ||
+        !property.name ||
+        // High level components are not be a ref, but are still to be treated as such
+        property.name === property.component
+    )
+}
+
 // TODO I believe the format can be used to provide better examples.
 // eslint-disable-next-line complexity
 function createRawExampleProperty(property: any, omitNotRequired: boolean): any {
-    if (omitNotRequired && !property.required) {
+    if (omitNotRequired && !property.required && !isHighLevelElement(property)) {
         return undefined
     }
     // Always use example when present. Otherwise, if a primitive type is shown, give a best
@@ -28,12 +42,27 @@ function createRawExampleProperty(property: any, omitNotRequired: boolean): any 
 }
 
 function createExampleProperty(property: any, omitNotRequired: boolean): any {
-    if (omitNotRequired && !property.required) {
+    if (isHighLevelElement(property)) {
+        return createRawExampleProperty(property, omitNotRequired)
+    } else if (omitNotRequired && !property.required) {
         return {}
     }
     const example = {}
     example[property.name] = createRawExampleProperty(property, omitNotRequired)
     return example
+}
+
+function processPropertyWithChildren(property: any, children: any[] | any) {
+    // Due to omitNotRequired, children objects might be empty, which means we don't
+    // want to show this property as a whole. Object.keys works for objects or arrays
+    const processedChildren = Object.keys(children).length === 0 ? undefined : children
+    if (isHighLevelElement(property)) {
+        return processedChildren
+    } else {
+        return {
+            [property.name]: processedChildren,
+        }
+    }
 }
 
 // eslint-disable-next-line complexity
@@ -49,43 +78,30 @@ export default function ResourceExample(
             {},
             ...propertiesParsed.jsons.map((property) => ResourceExample(property, omitNotRequired)),
         )
-        // Check if it's a high level resource/reference, not an inline property
-        if (propertiesParsed.component || propertiesParsed.$ref) {
-            return children
-        } else {
-            return {
-                [propertiesParsed.name]: children,
-            }
-        }
+        return processPropertyWithChildren(propertiesParsed, children)
     } else if (propertiesParsed.oneOf) {
-        return ResourceExample(propertiesParsed.jsons[0], omitNotRequired)
+        // The first one is picked just to be deterministic
+        const first = ResourceExample(propertiesParsed.jsons[0], omitNotRequired)
+        return processPropertyWithChildren(propertiesParsed, first)
     } else if (propertiesParsed.type === 'array') {
-        if (['object', 'allOf', 'anyOf'].includes(propertiesParsed.jsons[0].type)) {
-            return {
-                [propertiesParsed.name]: [
-                    Object.assign(
-                        {},
-                        ...propertiesParsed.jsons.map((property) =>
-                            ResourceExample(property, omitNotRequired),
-                        ),
-                    ),
-                ],
-            }
-        } else {
-            return {
-                [propertiesParsed.name]: propertiesParsed.jsons.map((property) =>
-                    createRawExampleProperty(property, omitNotRequired),
-                ),
-            }
-        }
+        const children = propertiesParsed.jsons.map((property) =>
+            ResourceExample(property, omitNotRequired),
+        )
+        return processPropertyWithChildren(propertiesParsed, children)
     } else if (propertiesParsed.type === 'object') {
-        const properties = (propertiesParsed.jsons || []).concat(
+        const allProperties = (propertiesParsed.jsons || []).concat(
             propertiesParsed.additionalProperties || [],
         )
-        return Object.assign(
+        const properties = isHighLevelElement(propertiesParsed)
+            ? omitNotRequired && propertiesParsed.required
+                ? allProperties.filter((p) => propertiesParsed.required.includes(p.name))
+                : allProperties
+            : allProperties
+        const children = Object.assign(
             {},
             ...properties.map((property) => ResourceExample(property, omitNotRequired)),
         )
+        return processPropertyWithChildren(propertiesParsed, children)
     } else if (propertiesParsed.type) {
         // it's a leaf in the JSON, we can create an example
         return createExampleProperty(propertiesParsed, omitNotRequired)

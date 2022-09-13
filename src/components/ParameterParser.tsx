@@ -24,5 +24,8 @@ export default function ParameterParser(props: {
         name: derefencedParameter.name,
         required: !!derefencedParameter.required,
         description: derefencedParameter.description,
+        // We never want to treat high level parameters as references since we derefence everything here.
+        $ref: undefined,
+        ref: undefined,
     }
 }

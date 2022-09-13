@@ -6,10 +6,11 @@ export default function Dereferencer(element: any, name?: string): any {
     if (!element) {
         return undefined
     }
-    const tokenized = element.toString().split('/')
     if (element.$ref) {
         return Dereferencer(element.$ref, name)
-    } else if (tokenized.length === 4 && tokenized[0] === '#') {
+    }
+    const tokenized = element.toString().split('/')
+    if (tokenized.length === 4 && tokenized[0] === '#') {
         const schema = React.useContext(APISchemaContext)
         const schemaElement = {
             ...tokenized.slice(1).reduce((acc, current) => acc[current], schema),
