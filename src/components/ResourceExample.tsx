@@ -65,7 +65,6 @@ function processPropertyWithChildren(property: any, children: any[] | any) {
     }
 }
 
-// eslint-disable-next-line complexity
 export default function ResourceExample(
     propertiesParsed: any,
     omitNotRequired: boolean = false,

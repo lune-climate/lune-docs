@@ -12,7 +12,6 @@ import Dereferencer from '@site/src/components/Dereferencer'
 // show an empty string
 const DEFAULT_PROPERTY_NAME = ''
 
-// eslint-disable-next-line complexity
 export default function JsonPropertyParser(props: {
     json: any
     name?: string

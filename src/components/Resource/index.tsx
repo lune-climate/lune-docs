@@ -1,28 +1,9 @@
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ResourceExample from '@site/src/components/ResourceExample'
+import { formatPath, getRelativePathPrefix } from '@site/src/utils'
 import { ApiReferenceSection, JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
 import React from 'react'
-
-function formatPath(operationId: string): string {
-    // We either receive camelCase, UpperCamelCase, Sentence case or Title Case. Make it all camelCase
-    const camelCase = operationId
-        // Convert Sentence case to Title Case
-        .replace(/ ([a-z])/, (v) => v.toUpperCase())
-        // Convert Title Case to UpperCamelCase
-        .replace(' ', '')
-        // Convert UpperCamelCase to camelCase
-        .replace(/^([A-Z])[a-z]/, (v) => v.toLowerCase())
-    return (
-        camelCase
-            .replace(/([A-Z])[a-z]/g, function (v) {
-                return `-${v.toLowerCase()}`
-            })
-            // Make acronyms lowercase
-            .toLowerCase()
-    )
-}
 
 export default function ResourceParser(props: { json: any }): JSX.Element {
     let resourceProperties: any[]
@@ -62,11 +43,7 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
         lineNumbers: false,
     }
 
-    const possibleTrailingSlash = ExecutionEnvironment.canUseDOM
-        ? window.location.href.slice(-1) === '/'
-            ? '../'
-            : ''
-        : ''
+    const hrefPrefix = getRelativePathPrefix()
 
     return (
         <section>
@@ -85,7 +62,7 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
                                     <tr key={i}>
                                         <td align="right">
                                             <a
-                                                href={`${possibleTrailingSlash}${formatPath(
+                                                href={`${hrefPrefix}${formatPath(
                                                     endpoint.operationId,
                                                 )}`}
                                             >
@@ -94,7 +71,7 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
                                         </td>
                                         <td align="left">
                                             <a
-                                                href={`${possibleTrailingSlash}${formatPath(
+                                                href={`${hrefPrefix}${formatPath(
                                                     endpoint.operationId,
                                                 )}`}
                                             >

@@ -1,23 +1,18 @@
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Curl from '@site/src/components/Curl'
 import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ParameterParser from '@site/src/components/ParameterParser'
 import ResourceExample from '@site/src/components/ResourceExample'
+import { getApiDomain, getApiKey } from '@site/src/utils'
 import { ApiReferenceSection, JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
 import React from 'react'
 
 export default function EndpointParser(props: { json: any }): JSX.Element {
-    const { siteConfig } = useDocusaurusContext()
-    const apiKey = ExecutionEnvironment.canUseDOM
-        ? document.cookie
-              .split('; ')
-              .find((row) => row.startsWith('docs_test_api_key='))
-              ?.split('=')[1]
-        : undefined
+    const apiDomain = getApiDomain()
+    const apiKey = getApiKey()
+
     let endpointRequestBody
-    // We only have requestBody of `application/json` so we know what to expect
+    // When existent, only requestBody of type `application/json` exists in the schema
     if (props.json.requestBody) {
         const dereferencedRequestBody = Dereferencer(
             props.json.requestBody.content['application/json'].schema,
@@ -32,51 +27,63 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     const queryParameters = parameters.filter((parameter) => parameter.in === 'query')
     const pathParameters = parameters.filter((parameter) => parameter.in === 'path')
 
-    const curlStr = Curl(
-        `${siteConfig.customFields.API_DOMAIN}${props.json.path}`,
+    const endpointCurlString = Curl(
+        `${apiDomain}${props.json.path}`,
         props.json.method,
         endpointRequestBody,
         parameters,
         apiKey,
     )
-    const curlCall = {
+    const endpointCurl = {
         header: `${props.json.method.toUpperCase()} ${props.json.path}`,
         language: 'bash',
-        toCopy: curlStr,
-        children: curlStr,
+        toCopy: endpointCurlString,
+        children: endpointCurlString,
         lineNumbers: false,
     }
 
-    let endpointSuccessResponse
+    let endpointResponseType
+    let endpointResponse
     let endpointResponseExample
-    // For now, only handle json responses (we have application/pdf for certificates as well)
-    if (
-        props.json.responses[200] &&
-        props.json.responses[200].content &&
-        props.json.responses[200].content['application/json']
-    ) {
-        const dereferencedResponseBody = Dereferencer(
-            props.json.responses[200].content['application/json'].schema,
-        )
-        endpointSuccessResponse = JsonPropertyParser({
-            ...dereferencedResponseBody,
-            json: dereferencedResponseBody,
-        })
-        endpointResponseExample = {
-            header: 'Response',
-            language: 'json',
-            children: JSON.stringify(ResourceExample(endpointSuccessResponse), null, 2),
-            lineNumbers: false,
+    if (props.json.responses[200] && props.json.responses[200].content) {
+        if (props.json.responses[200].content['application/pdf']) {
+            endpointResponseType = 'pdf'
+            endpointResponse = 'A binary PDF file is returned.'
+        } else if (props.json.responses[200].content['application/json']) {
+            endpointResponseType = 'json'
+            const dereferencedResponseBody = Dereferencer(
+                props.json.responses[200].content['application/json'].schema,
+            )
+            endpointResponse = JsonPropertyParser({
+                ...dereferencedResponseBody,
+                json: dereferencedResponseBody,
+            })
+            endpointResponseExample = {
+                header: 'Response',
+                language: 'json',
+                children: JSON.stringify(ResourceExample(endpointResponse), null, 2),
+                lineNumbers: false,
+            }
+        } else {
+            throw Error(
+                `Unsupported response type ${JSON.stringify(props.json.responses[200].content)}`,
+            )
         }
     }
 
     const noParameters =
         pathParameters.length === 0 && queryParameters.length === 0 && !endpointRequestBody
 
-    const returnsSection = endpointSuccessResponse ? (
-        <JsonObjectTable title="Returns">
-            <JsonProperty json={endpointSuccessResponse} topLevelDividers />
-        </JsonObjectTable>
+    const returnsSection = endpointResponseType ? (
+        endpointResponseType === 'json' ? (
+            <JsonObjectTable title="Returns">
+                <JsonProperty json={endpointResponse} topLevelDividers />
+            </JsonObjectTable>
+        ) : (
+            <JsonObjectTable title="Returns">
+                <p>{endpointResponse}</p>
+            </JsonObjectTable>
+        )
     ) : (
         <>
             <br />
@@ -122,12 +129,10 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                         </JsonObjectTable>
                     )}
 
-                    {endpointSuccessResponse && (
-                        <div style={{ marginTop: '64px' }}>{returnsSection}</div>
-                    )}
+                    {endpointResponse && <div style={{ marginTop: '64px' }}>{returnsSection}</div>}
                 </>
                 <>
-                    <Snippet {...curlCall} />
+                    <Snippet {...endpointCurl} />
                     {endpointResponseExample && (
                         <Snippet sx={{ marginTop: '16px' }} {...endpointResponseExample} />
                     )}

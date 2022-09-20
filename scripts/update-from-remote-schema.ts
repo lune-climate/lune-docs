@@ -7,7 +7,7 @@ const path = require('path')
 program.parse(process.argv)
 
 function writeFile(dir: string, data: string): void {
-    // Add new line at the end if not presen
+    // Add new line at the end if not present
     const newLineData = data.slice(-1) === '\n' ? data : `${data}\n`
     fs.writeFileSync(dir, newLineData, (err) => {
         if (err) throw err
@@ -52,6 +52,8 @@ function createContextAPISchema(schema: any): string {
 export const APISchemaContext = React.createContext<any>(${JSON.stringify(schema)})`
 }
 
+// NOTE: This method has a duplicate in src/utils. Due to this being a script, there are issues trying to
+// import from there (due to docusaurus environment). Make sure changes here are reflected there if needed.
 function formatFilename(filename: string): string {
     // We either receive camelCase, UpperCamelCase, Sentence case or Title Case. Make it all camelCase
     const camelCase = filename
