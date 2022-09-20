@@ -31,11 +31,12 @@ import Endpoint from '@site/src/components/Endpoint';
 <Endpoint json={${JSON.stringify(data)}}/>`
 }
 
-function createResourceMDX(data: any, sidebarPosition?: number): string {
+function createResourceMDX(data: any, label: string, sidebarPosition?: number): string {
     return `${
         sidebarPosition
             ? `---
 sidebar_position: 1
+sidebar_label: ${label}
 ---`
             : ''
     }
@@ -132,10 +133,13 @@ async function main() {
                     return acc
                 }, [] as any[])
                 const resourceJSON = { ...data, component: component, endpoints: linkedEndpoints }
-                writeFile(
-                    `${folderDir}/${formatFilename(component)}.mdx`,
-                    createResourceMDX(resourceJSON, 1),
-                )
+                const filename = formatFilename(component)
+                // Sentence case conversion to present on sidebar
+                const label = component
+                    .replace(/([A-Z])/g, (v) => ` ${v.toLowerCase()}`)
+                    .replace(/^ ([a-z])/, (v) => v.toUpperCase())
+                    .slice(1)
+                writeFile(`${folderDir}/${filename}.mdx`, createResourceMDX(resourceJSON, label, 1))
             }
         }
     })
@@ -172,10 +176,13 @@ async function main() {
     let data: any
     for ([component, data] of Object.entries(schema.components.schemas)) {
         const resourceJSON = { ...data, component: component }
-        writeFile(
-            `docs/all-resources/${formatFilename(component)}.mdx`,
-            createResourceMDX(resourceJSON),
-        )
+        const filename = formatFilename(component)
+        // Sentence case conversion to present on sidebar
+        const label = component
+            .replace(/([A-Z])/g, (v) => ` ${v.toLowerCase()}`)
+            .replace(/^ ([a-z])/, (v) => v.toUpperCase())
+            .slice(1)
+        writeFile(`docs/all-resources/${filename}.mdx`, createResourceMDX(resourceJSON, label))
     }
 
     // Create context containing the whole OpenAPI schema. This allows components to read this global
