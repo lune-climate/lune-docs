@@ -15,6 +15,7 @@ const DEFAULT_PROPERTY_NAME = ''
 export default function JsonPropertyParser(props: {
     json: any
     name?: string
+    component?: string
     type?: string
     required?: string[] | boolean
 }): any {
@@ -22,6 +23,7 @@ export default function JsonPropertyParser(props: {
         const type = props.json.oneOf ? 'oneOf' : props.json.allOf ? 'allOf' : 'anyOf'
         return {
             ...props.json,
+            $ref: props.json.$ref || `#/components/schemas/${props.json.component}`,
             name: props.name,
             type,
             jsons: props.json[type].map((element) => {
@@ -50,6 +52,7 @@ export default function JsonPropertyParser(props: {
             ...props,
             name: props.name,
             type: props.json.type,
+            $ref: props.json.$ref || `#/components/schemas/${props.json.component}`,
             example: props.json.example,
             description: props.json.description,
             required: props.required,

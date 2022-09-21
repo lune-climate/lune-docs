@@ -105,12 +105,9 @@ export default function ResourceExample(
         // it's a leaf in the JSON, we can create an example
         return createExampleProperty(propertiesParsed, omitNotRequired)
     } else {
-        // Only one property so it might not be an object. Check accordingly
-        if (
-            (propertiesParsed as any[]).length === 1 &&
-            !['object', 'allOf', 'anyOf'].includes(propertiesParsed[0].type)
-        ) {
-            return createRawExampleProperty(propertiesParsed[0], omitNotRequired)
+        // If we're referring to a single high level element we don't want to resolve it as an object.
+        if ((propertiesParsed as any[]).length === 1 && isHighLevelElement(propertiesParsed)) {
+            return ResourceExample(propertiesParsed[0])
         } else {
             return Object.assign(
                 {},
