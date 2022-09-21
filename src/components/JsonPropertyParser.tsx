@@ -12,6 +12,8 @@ import Dereferencer from '@site/src/components/Dereferencer'
 // show an empty string
 const DEFAULT_PROPERTY_NAME = ''
 
+// TODO break this complexity further
+// eslint-disable-next-line complexity
 export default function JsonPropertyParser(props: {
     json: any
     name?: string
@@ -23,7 +25,9 @@ export default function JsonPropertyParser(props: {
         const type = props.json.oneOf ? 'oneOf' : props.json.allOf ? 'allOf' : 'anyOf'
         return {
             ...props.json,
-            $ref: props.json.$ref || `#/components/schemas/${props.json.component}`,
+            $ref:
+                props.json.$ref ||
+                (props.json.component && `#/components/schemas/${props.json.component}`),
             name: props.name,
             type,
             jsons: props.json[type].map((element) => {
@@ -40,6 +44,9 @@ export default function JsonPropertyParser(props: {
             ...props,
             name: props.name,
             type: props.json.type,
+            $ref:
+                props.json.$ref ||
+                (props.json.component && `#/components/schemas/${props.json.component}`),
             example: props.json.example,
             required:
                 props.required === true ||
