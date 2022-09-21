@@ -3654,6 +3654,7 @@ components:
           Providing this value will improve the estimation process. If the shipping spans
           multiple countries you can either make multiple per-country estimations or choose
           the country with the largest share of the route.
+      example: PRT
     MultiLegShippingEstimateRequest:
       type: object
       description: Parameters for estimating multi-leg shipping emissions

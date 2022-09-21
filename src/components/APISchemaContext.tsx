@@ -3682,6 +3682,7 @@ export const APISchemaContext = React.createContext<any>({
                 type: 'string',
                 description:
                     'The three-letter code of the country where the shipping takes place, if applicable.\n\nProviding this value will improve the estimation process. If the shipping spans\nmultiple countries you can either make multiple per-country estimations or choose\nthe country with the largest share of the route.\n',
+                example: 'PRT',
             },
             MultiLegShippingEstimateRequest: {
                 type: 'object',
