@@ -61,3 +61,6 @@ pre {
 .endpointsTable {
     margin-bottom: 0px;
 }
+
+/* Make sure we have the lune-ui-lib global CSS included */
+@import "lune-ui-lib/dist/esm/index.css"
