@@ -24,6 +24,11 @@ To use the correct node version:
 nvm use
 ```
 
+Update dependencies (this is not always needed, but if the app breaks please run it):
+
+```
+yarn install
+```
 
 To start the documentation app in development mode:
 
