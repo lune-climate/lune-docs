@@ -1,0 +1,9 @@
+---
+
+sidebar_class_name: get
+---
+# List all bundle portfolios
+
+import Endpoint from '@site/src/components/Endpoint';
+
+<Endpoint json={{"summary":"List all bundle portfolios","operationId":"listAllBundlePortfolios","security":[{"BearerAuth":[]}],"tags":["Bundle portfolios"],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/BundlePortfolio"}}}}},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Bundle portfolios","method":"get","path":"/bundle-portfolios"}}/>

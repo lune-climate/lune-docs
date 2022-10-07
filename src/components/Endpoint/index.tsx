@@ -94,10 +94,12 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     return (
         <section>
             {props.json.description && (
-                <div style={{ marginBottom: '64px' }}>{props.json.description}</div>
+                <div className="body3 pageDescription" style={{ marginBottom: '64px' }}>
+                    {props.json.description}
+                </div>
             )}
             <ApiReferenceSection>
-                <>
+                <div className="sections">
                     {pathParameters.length !== 0 && (
                         <JsonObjectTable title="Path Parameters">
                             {pathParameters.map((parameters, i) => (
@@ -129,8 +131,8 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                         </JsonObjectTable>
                     )}
 
-                    {endpointResponse && <div style={{ marginTop: '64px' }}>{returnsSection}</div>}
-                </>
+                    {endpointResponse && <div>{returnsSection}</div>}
+                </div>
                 <>
                     <Snippet {...endpointCurl} />
                     {endpointResponseExample && (

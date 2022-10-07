@@ -29,9 +29,9 @@ export const APISchemaContext = React.createContext<any>({
             'x-components': ['BundleSelection'],
         },
         {
-            name: 'Bundle mixes',
-            description: 'Pre configured bundle selections.',
-            'x-components': ['BundleMix'],
+            name: 'Bundle portfolios',
+            description: 'A bundle portfolio is a preconfigured bundle selection managed by Lune.',
+            'x-components': ['BundlePortfolio'],
         },
         {
             name: 'Accounts',
@@ -889,12 +889,12 @@ export const APISchemaContext = React.createContext<any>({
                 },
             },
         },
-        '/bundle-mixes': {
+        '/bundle-portfolios': {
             get: {
-                summary: 'List all bundle mixes',
-                operationId: 'listAllBundleMixes',
+                summary: 'List all bundle portfolios',
+                operationId: 'listAllBundlePortfolios',
                 security: [{ BearerAuth: [] }],
-                tags: ['Bundle mixes'],
+                tags: ['Bundle portfolios'],
                 responses: {
                     '200': {
                         description: 'OK',
@@ -902,11 +902,38 @@ export const APISchemaContext = React.createContext<any>({
                             'application/json': {
                                 schema: {
                                     type: 'array',
-                                    items: { $ref: '#/components/schemas/BundleMix' },
+                                    items: { $ref: '#/components/schemas/BundlePortfolio' },
                                 },
                             },
                         },
                     },
+                    '401': { $ref: '#/components/responses/Unauthorized' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                },
+            },
+            put: {
+                summary: "Update an account's bundle portfolio",
+                operationId: 'updateBundlePortfolio',
+                security: [{ BearerAuth: [] }],
+                tags: ['Bundle portfolios'],
+                requestBody: {
+                    required: true,
+                    content: {
+                        'application/json': {
+                            schema: { $ref: '#/components/schemas/SetBundlePortfolioRequest' },
+                        },
+                    },
+                },
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: { $ref: '#/components/schemas/BundlePortfolio' },
+                            },
+                        },
+                    },
+                    '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
@@ -1435,7 +1462,7 @@ export const APISchemaContext = React.createContext<any>({
                         },
                     },
                     '401': { $ref: '#/components/responses/Unauthorized' },
-                    '404': { $ref: '#/components/responses/NotFoundWithErrors' },
+                    '404': { $ref: '#/components/responses/NotFound' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -1472,7 +1499,7 @@ export const APISchemaContext = React.createContext<any>({
                     },
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
-                    '404': { $ref: '#/components/responses/NotFoundWithErrors' },
+                    '404': { $ref: '#/components/responses/NotFound' },
                     '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
@@ -1498,7 +1525,7 @@ export const APISchemaContext = React.createContext<any>({
                         },
                     },
                     '401': { $ref: '#/components/responses/Unauthorized' },
-                    '404': { $ref: '#/components/responses/NotFoundWithErrors' },
+                    '404': { $ref: '#/components/responses/NotFound' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -1557,7 +1584,7 @@ export const APISchemaContext = React.createContext<any>({
                         },
                     },
                     '401': { $ref: '#/components/responses/Unauthorized' },
-                    '404': { $ref: '#/components/responses/NotFoundWithErrors' },
+                    '404': { $ref: '#/components/responses/NotFound' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -2264,7 +2291,32 @@ export const APISchemaContext = React.createContext<any>({
                     },
                 },
             },
-            BundleMix: {
+            SetBundlePortfolioRequest: {
+                oneOf: [
+                    {
+                        type: 'object',
+                        required: ['bundle_portfolio_id'],
+                        properties: {
+                            bundle_portfolio_id: {
+                                type: 'string',
+                                example: 'j85vWbLVZNlOayV94P8AM1K29RgJq4xX',
+                            },
+                        },
+                    },
+                    {
+                        type: 'object',
+                        required: ['slug'],
+                        properties: {
+                            slug: {
+                                type: 'string',
+                                description: 'Slug of the bundle portfolio.',
+                                example: 'oxford-offsetting-principles',
+                            },
+                        },
+                    },
+                ],
+            },
+            BundlePortfolio: {
                 type: 'object',
                 description:
                     'Predefined bundle selections, for example following Oxford Offsetting Principles.\nBundle selection for a particular Bundle mix may change over time.\n',
@@ -2277,12 +2329,12 @@ export const APISchemaContext = React.createContext<any>({
                     },
                     identifier: {
                         type: 'string',
-                        description: 'Identifier of the bundle mix.',
+                        description: 'Identifier of the bundle portfolio.',
                         example: 'oxford-offsetting-principles',
                     },
                     label: {
                         type: 'string',
-                        description: 'Human readable name of the bundle mix.',
+                        description: 'Human readable name of the bundle portfolio.',
                         example: 'Oxford Offseting Principles',
                     },
                     bundle_selection: { $ref: '#/components/schemas/BundleSelection' },
@@ -4904,7 +4956,7 @@ export const APISchemaContext = React.createContext<any>({
             },
             CreateClientAccountRequest: {
                 type: 'object',
-                required: ['name', 'currency', 'type'],
+                required: ['name', 'currency'],
                 properties: {
                     name: { description: 'The account name.', type: 'string' },
                     currency: {
@@ -4912,7 +4964,6 @@ export const APISchemaContext = React.createContext<any>({
                         $ref: '#/components/schemas/CurrencyCode',
                         example: 'GBP',
                     },
-                    type: { $ref: '#/components/schemas/AccountType' },
                     beneficiary: { description: 'The account beneficiary.', type: 'string' },
                 },
             },

@@ -115,4 +115,4 @@ Lune may introduce events with new `event_type`s. Your code should ignore unknow
 to make sure it remains future-proof.
 
 # The payload format
-The <a href="../core-resources/webhook-request">WebhookRequest</a> mock endpoint documents the data format that the webhook endpoints should expect.
+The <a href="../resources/webhook-request">WebhookRequest</a> mock endpoint documents the data format that the webhook endpoints should expect.

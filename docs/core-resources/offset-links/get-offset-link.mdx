@@ -1,9 +1,0 @@
----
-
-sidebar_class_name: get
----
-# Get an offset link
-
-import Endpoint from '@site/src/components/Endpoint';
-
-<Endpoint json={{"tags":["Offset links"],"summary":"Get an offset link","operationId":"getOffsetLink","security":[{"BearerAuth":[]}],"parameters":[{"name":"id","in":"path","required":true,"description":"The offset links's unique identifier","schema":{"type":"string","example":"1vE213P96LbXNap56NAqVoM7knOedQg5"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/OffsetLink"}}}},"401":{"$ref":"#/components/responses/Unauthorized"},"404":{"$ref":"#/components/responses/NotFoundWithErrors"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Offset links","method":"get","path":"/offset-links/{id}"}}/>

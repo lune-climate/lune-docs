@@ -20,6 +20,8 @@
   --ifm-table-border-width: 0px;
 
   --ifm-table-cell-padding: 2px;
+
+  --ifm-font-family-base: 'Helvetica Neue';
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -34,14 +36,43 @@
   --ifm-color-primary-lightest: #f6f8fd;
 }
 
-:root {
-  --ifm-font-family-base: 'Helvetica Neue'
+/* maps to lune-ui-lib h4 */
+.markdown h1 {
+    font-size: 36px;
+}
+
+/* maps to lune-ui-lib h5 */
+.markdown h2 {
+    font-size: 24px;
+}
+
+/* maps to lune-ui-lib h6 */
+.markdown h3 {
+    font-size: 18px;
+}
+
+.body3 {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
 }
 
 @media (min-width: 997px) {
-    .col[class*='docItemCol'] {
-        max-width: 100% !important;
-    }
+  .col[class*='docItemCol'] {
+    max-width: 100% !important;
+  }
+  .pageDescription {
+    margin-bottom: 60px;
+  }
+}
+
+@media screen and (max-width: 996px) {
+  .pageDescription {
+    margin-bottom: 32px;
+  }
 }
 
 /* undo all */
@@ -58,7 +89,51 @@ pre {
     display: none
 }
 
+.menu__link {
+    color: #212121; /* Grey900 */
+}
+
+.menu__link--sublist-caret::after {
+    background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
+    transform: rotate(0deg);
+    opacity: 50%;
+}
+
+.menu__list-item--collapsed .menu__link--sublist:after {
+    transform: rotate(180deg);
+}
+
+.theme-doc-sidebar-item-category-level-2 .menu__link,
+.theme-doc-sidebar-item-link-level-2  .menu__link {
+    font-size: 14px;
+    font-weight: 400;
+}
+
 .endpointsTable {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    margin-bottom: 0px;
+    color: #616161; /* Grey700 */
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+.endpointsTable a {
+    color: #616161; /* Grey700 */
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+.endpointsTable .row {
+    display: table-row;
+}
+.endpointsTable .cell {
+    display: table-cell;
+}
+
+.sections >*  {
+    margin-bottom: 120px;
+}
+.sections >*:last-child  {
     margin-bottom: 0px;
 }
 

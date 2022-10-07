@@ -46,8 +46,10 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
     const hrefPrefix = getRelativePathPrefix()
 
     return (
-        <section>
-            <>{props.json.description}</>
+        <section className="page">
+            {props.json.description && (
+                <div className="body3 pageDescription">{props.json.description}</div>
+            )}
             <ApiReferenceSection>
                 <JsonObjectTable>
                     {resourceProperties.map((property) => {
@@ -57,30 +59,42 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
                 <>
                     {props.json.endpoints && (
                         <Snippet {...endpointsSnippet} sx={{ marginBottom: '16px' }}>
-                            <table className="endpointsTable">
+                            <div className="endpointsTable">
                                 {props.json.endpoints.map((endpoint, i) => (
-                                    <tr key={i}>
-                                        <td align="right">
-                                            <a
-                                                href={`${hrefPrefix}${formatPath(
-                                                    endpoint.operationId,
-                                                )}`}
+                                    <div
+                                        key={i}
+                                        className="row"
+                                        style={{
+                                            border: 'solid 1px black',
+                                        }}
+                                    >
+                                        <a
+                                            key={i}
+                                            href={`${hrefPrefix}${formatPath(
+                                                endpoint.operationId,
+                                            )}`}
+                                        >
+                                            <div
+                                                className="cell"
+                                                style={{
+                                                    textAlign: 'right',
+                                                    width: '50px',
+                                                }}
                                             >
                                                 {endpoint.method.toUpperCase()}
-                                            </a>
-                                        </td>
-                                        <td align="left">
-                                            <a
-                                                href={`${hrefPrefix}${formatPath(
-                                                    endpoint.operationId,
-                                                )}`}
+                                            </div>
+                                            <div
+                                                className="cell"
+                                                style={{
+                                                    textAlign: 'left',
+                                                }}
                                             >
-                                                {endpoint.endpoint}
-                                            </a>
-                                        </td>
-                                    </tr>
+                                                &nbsp;{endpoint.endpoint}
+                                            </div>
+                                        </a>
+                                    </div>
                                 ))}
-                            </table>
+                            </div>
                         </Snippet>
                     )}
                     <Snippet {...exampleSnippet} />

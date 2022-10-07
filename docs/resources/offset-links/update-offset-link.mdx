@@ -1,0 +1,9 @@
+---
+
+sidebar_class_name: put
+---
+# Update an offset link
+
+import Endpoint from '@site/src/components/Endpoint';
+
+<Endpoint json={{"tags":["Offset links"],"summary":"Update an offset link","operationId":"updateOffsetLink","security":[{"BearerAuth":[]}],"parameters":[{"name":"id","in":"path","required":true,"description":"The offset links's unique identifier","schema":{"type":"string","example":"1vE213P96LbXNap56NAqVoM7knOedQg5"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/OffsetLinkUpdateRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/OffsetLink"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"404":{"$ref":"#/components/responses/NotFound"},"415":{"$ref":"#/components/responses/UnsupportedMediaType"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Offset links","method":"put","path":"/offset-links/{id}"}}/>

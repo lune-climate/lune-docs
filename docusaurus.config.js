@@ -130,7 +130,10 @@ const config = {
             },
         },
     staticDirectories: ['static'],
-    scripts: [{ src: '/js/lune.js', defer: true }],
+    scripts: [
+      { src: '/js/lune.js', defer: true },
+      ...(process.env.ENABLE_PLAUSIBLE ? [{ defer: true, 'data-domain': 'docs.lune.co', src: 'https://plausible.io/js/plausible.js' }] : [])
+    ],
     plugins: [
         [
             require.resolve('docusaurus-lunr-search'),
