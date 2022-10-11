@@ -2319,12 +2319,12 @@ export const APISchemaContext = React.createContext<any>({
             BundlePortfolio: {
                 type: 'object',
                 description:
-                    'Predefined bundle selections, for example following Oxford Offsetting Principles.\nBundle selection for a particular Bundle mix may change over time.\n',
+                    'Predefined bundle selections, for example following Oxford Offsetting Principles.\nBundle selection for a particular Bundle portfolio may change over time.\n',
                 required: ['id', 'identifier', 'label', 'bundle_selection'],
                 properties: {
                     id: {
                         type: 'string',
-                        description: 'Bundle mix unique identifier.',
+                        description: 'Bundle portfolio unique identifier.',
                         example: 'A7hPO9C01RnzPkYxJgAHxq112roXlWO5',
                     },
                     identifier: {
@@ -3199,7 +3199,7 @@ export const APISchemaContext = React.createContext<any>({
                     'type',
                     'logo',
                     'beneficiary',
-                    'bundle_mix_id',
+                    'bundle_portfolio_id',
                 ],
                 properties: {
                     id: {
@@ -3250,9 +3250,9 @@ export const APISchemaContext = React.createContext<any>({
                         minLength: 1,
                         nullable: true,
                     },
-                    bundle_mix_id: {
+                    bundle_portfolio_id: {
                         type: 'string',
-                        description: 'Bundle mix id tied to the account.',
+                        description: 'Bundle portfolio id tied to the account.',
                         example: 'Jvhh30a6272NauKv92J7FG1c6Jfxd2E1',
                         nullable: true,
                     },
@@ -5058,8 +5058,8 @@ export const APISchemaContext = React.createContext<any>({
                         type: 'string',
                         minLength: 1,
                     },
-                    bundle_mix_id: {
-                        description: 'The bundle mix unique identifier.',
+                    bundle_portfolio_id: {
+                        description: 'The bundle portfolio unique identifier.',
                         type: 'string',
                         example: 'jvqkOq7vX2K18HHydar0W23ZGJdc91Pa',
                     },

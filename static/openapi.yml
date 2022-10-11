@@ -2326,7 +2326,7 @@ components:
       type: object
       description: |
         Predefined bundle selections, for example following Oxford Offsetting Principles.
-        Bundle selection for a particular Bundle mix may change over time.
+        Bundle selection for a particular Bundle portfolio may change over time.
       required:
         - id
         - identifier
@@ -2335,7 +2335,7 @@ components:
       properties:
         id:
           type: string
-          description: Bundle mix unique identifier.
+          description: Bundle portfolio unique identifier.
           example: 'A7hPO9C01RnzPkYxJgAHxq112roXlWO5'
         identifier:
           type: string
@@ -3151,7 +3151,7 @@ components:
         - type
         - logo
         - beneficiary
-        - bundle_mix_id
+        - bundle_portfolio_id
       properties:
         id:
           type: string
@@ -3205,9 +3205,9 @@ components:
             If none is present, the organisation beneficiary will be used instead.
           minLength: 1
           nullable: true
-        bundle_mix_id:
+        bundle_portfolio_id:
           type: string
-          description: Bundle mix id tied to the account.
+          description: Bundle portfolio id tied to the account.
           example: 'Jvhh30a6272NauKv92J7FG1c6Jfxd2E1'
           nullable: true
     CumulativeBundleAnalytics:
@@ -5095,8 +5095,8 @@ components:
           description: The account beneficiary.
           type: string
           minLength: 1
-        bundle_mix_id:
-          description: The bundle mix unique identifier.
+        bundle_portfolio_id:
+          description: The bundle portfolio unique identifier.
           type: string
           example: 'jvqkOq7vX2K18HHydar0W23ZGJdc91Pa'
     SustainabilityPageRequest:
