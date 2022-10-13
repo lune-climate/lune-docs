@@ -947,7 +947,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmissionEstimateResponse'
+                $ref: '#/components/schemas/ElectricityEmissionEstimate'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -982,7 +982,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmissionEstimateResponse'
+                $ref: '#/components/schemas/ElectricityEmissionEstimate'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -1020,7 +1020,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmissionEstimateResponse'
+                $ref: '#/components/schemas/ElectricityEmissionEstimate'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1056,7 +1056,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmissionEstimateResponse'
+                $ref: '#/components/schemas/FlightEmissionEstimate'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1332,7 +1332,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmissionEstimateResponse'
+                $ref: '#/components/schemas/TransactionEmissionEstimate'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1408,7 +1408,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmissionEstimateResponse'
+                $ref: '#/components/schemas/IndividualEmissionEstimate'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -2306,22 +2306,13 @@ components:
           example: 43
           description: Selection percentage
     SetBundlePortfolioRequest:
-      oneOf:
-        - type: object
-          required:
-            - bundle_portfolio_id
-          properties:
-            bundle_portfolio_id:
-              type: string
-              example: 'j85vWbLVZNlOayV94P8AM1K29RgJq4xX'
-        - type: object
-          required:
-            - slug
-          properties:
-            slug:
-              type: string
-              description: Slug of the bundle portfolio.
-              example: 'oxford-offsetting-principles'
+      type: object
+      required:
+        - bundle_portfolio_id
+      properties:
+        bundle_portfolio_id:
+          type: string
+          example: 'j85vWbLVZNlOayV94P8AM1K29RgJq4xX'
     BundlePortfolio:
       type: object
       description: |
@@ -3629,6 +3620,7 @@ components:
             - id
             - quote
             - legs
+            - request
           properties:
             id:
               type: string
@@ -3640,6 +3632,8 @@ components:
                 $ref: '#/components/schemas/EmissionEstimate'
             quote:
               $ref: '#/components/schemas/OrderQuoteByQuantity'
+            request:
+              $ref: '#/components/schemas/PassengerTransportationEstimateRequest'
     CabinClass:
        description: Cabin of class to be used for the specified passengers.
 
@@ -4475,6 +4469,42 @@ components:
               example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
             quote:
               $ref: '#/components/schemas/OrderQuoteByQuantity'
+    ElectricityEmissionEstimate:
+      allOf:
+        - $ref: '#/components/schemas/EmissionEstimateResponse'
+        - type: object
+          required:
+            - request
+          properties:
+            request:
+              $ref: '#/components/schemas/ElectricityEstimateRequest'
+    FlightEmissionEstimate:
+      allOf:
+        - $ref: '#/components/schemas/EmissionEstimateResponse'
+        - type: object
+          required:
+            - request
+          properties:
+            request:
+              $ref: '#/components/schemas/FlightEstimateRequest'
+    IndividualEmissionEstimate:
+      allOf:
+        - $ref: '#/components/schemas/EmissionEstimateResponse'
+        - type: object
+          required:
+            - request
+          properties:
+            request:
+              $ref: '#/components/schemas/IndividualEstimateRequest'
+    TransactionEmissionEstimate:
+      allOf:
+        - $ref: '#/components/schemas/EmissionEstimateResponse'
+        - type: object
+          required:
+            - request
+          properties:
+            request:
+              $ref: '#/components/schemas/TransactionEstimateRequest'
     SingleShippingEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/ShippingLegEmissionEstimate'
@@ -4482,6 +4512,7 @@ components:
           required:
             - id
             - quote
+            - request
           properties:
             id:
               type: string
@@ -4489,6 +4520,8 @@ components:
               example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
             quote:
               $ref: '#/components/schemas/OrderQuoteByQuantity'
+            request: 
+              $ref: '#/components/schemas/ShippingEstimateRequest'
     ShippingLegEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimate'
@@ -4525,6 +4558,7 @@ components:
           required:
             - legs
             - distance
+            - request
           properties:
             legs:
               type: array
@@ -4532,6 +4566,8 @@ components:
                 $ref: '#/components/schemas/ShippingLegEmissionEstimate'
             distance:
               $ref: '#/components/schemas/Distance'
+            request: 
+              $ref: '#/components/schemas/MultiLegShippingEstimateRequest'
         - $ref: '#/components/schemas/EmissionEstimateResponse'
     PaginatedOffsetLinks:
       allOf:
@@ -4549,11 +4585,14 @@ components:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
         - type: object
           required:
+            - request
             - components
             - scope1
             - scope2
             - scope3
           properties:
+            request:
+              $ref: '#/components/schemas/CompanyEstimateRequest'
             scope1:
               description: Scope 1 emissions. Direct emissions from owned or controlled sources.
               $ref: '#/components/schemas/Mass'
@@ -4571,6 +4610,7 @@ components:
                 - travel_and_commute
                 - food_and_drink
                 - tech
+                - remote_employee
               properties:
                 material_and_waste:
                   description: Emissions associated with buying equipment and generating waste.
@@ -4586,6 +4626,9 @@ components:
                   $ref: '#/components/schemas/Mass'
                 tech:
                   description: Emissions associated with operating computer systems.
+                  $ref: '#/components/schemas/Mass'
+                remote_employee:
+                  description: Emissions associated with remote employees (electricity, heating etc.)
                   $ref: '#/components/schemas/Mass'
     OffsetLink:
       type: object

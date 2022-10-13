@@ -959,7 +959,9 @@ export const APISchemaContext = React.createContext<any>({
                         description: 'OK',
                         content: {
                             'application/json': {
-                                schema: { $ref: '#/components/schemas/EmissionEstimateResponse' },
+                                schema: {
+                                    $ref: '#/components/schemas/ElectricityEmissionEstimate',
+                                },
                             },
                         },
                     },
@@ -992,7 +994,9 @@ export const APISchemaContext = React.createContext<any>({
                         description: 'OK',
                         content: {
                             'application/json': {
-                                schema: { $ref: '#/components/schemas/EmissionEstimateResponse' },
+                                schema: {
+                                    $ref: '#/components/schemas/ElectricityEmissionEstimate',
+                                },
                             },
                         },
                     },
@@ -1030,7 +1034,9 @@ export const APISchemaContext = React.createContext<any>({
                         description: 'Estimation updated successfully.\n',
                         content: {
                             'application/json': {
-                                schema: { $ref: '#/components/schemas/EmissionEstimateResponse' },
+                                schema: {
+                                    $ref: '#/components/schemas/ElectricityEmissionEstimate',
+                                },
                             },
                         },
                     },
@@ -1064,7 +1070,7 @@ export const APISchemaContext = React.createContext<any>({
                         description: 'OK',
                         content: {
                             'application/json': {
-                                schema: { $ref: '#/components/schemas/EmissionEstimateResponse' },
+                                schema: { $ref: '#/components/schemas/FlightEmissionEstimate' },
                             },
                         },
                     },
@@ -1356,7 +1362,9 @@ export const APISchemaContext = React.createContext<any>({
                         description: 'OK',
                         content: {
                             'application/json': {
-                                schema: { $ref: '#/components/schemas/EmissionEstimateResponse' },
+                                schema: {
+                                    $ref: '#/components/schemas/TransactionEmissionEstimate',
+                                },
                             },
                         },
                     },
@@ -1424,7 +1432,7 @@ export const APISchemaContext = React.createContext<any>({
                         description: 'OK',
                         content: {
                             'application/json': {
-                                schema: { $ref: '#/components/schemas/EmissionEstimateResponse' },
+                                schema: { $ref: '#/components/schemas/IndividualEmissionEstimate' },
                             },
                         },
                     },
@@ -2292,29 +2300,14 @@ export const APISchemaContext = React.createContext<any>({
                 },
             },
             SetBundlePortfolioRequest: {
-                oneOf: [
-                    {
-                        type: 'object',
-                        required: ['bundle_portfolio_id'],
-                        properties: {
-                            bundle_portfolio_id: {
-                                type: 'string',
-                                example: 'j85vWbLVZNlOayV94P8AM1K29RgJq4xX',
-                            },
-                        },
+                type: 'object',
+                required: ['bundle_portfolio_id'],
+                properties: {
+                    bundle_portfolio_id: {
+                        type: 'string',
+                        example: 'j85vWbLVZNlOayV94P8AM1K29RgJq4xX',
                     },
-                    {
-                        type: 'object',
-                        required: ['slug'],
-                        properties: {
-                            slug: {
-                                type: 'string',
-                                description: 'Slug of the bundle portfolio.',
-                                example: 'oxford-offsetting-principles',
-                            },
-                        },
-                    },
-                ],
+                },
             },
             BundlePortfolio: {
                 type: 'object',
@@ -3681,7 +3674,7 @@ export const APISchemaContext = React.createContext<any>({
                     { $ref: '#/components/schemas/EmissionEstimate' },
                     {
                         type: 'object',
-                        required: ['id', 'quote', 'legs'],
+                        required: ['id', 'quote', 'legs', 'request'],
                         properties: {
                             id: {
                                 type: 'string',
@@ -3693,6 +3686,9 @@ export const APISchemaContext = React.createContext<any>({
                                 items: { $ref: '#/components/schemas/EmissionEstimate' },
                             },
                             quote: { $ref: '#/components/schemas/OrderQuoteByQuantity' },
+                            request: {
+                                $ref: '#/components/schemas/PassengerTransportationEstimateRequest',
+                            },
                         },
                     },
                 ],
@@ -4451,12 +4447,60 @@ export const APISchemaContext = React.createContext<any>({
                     },
                 ],
             },
+            ElectricityEmissionEstimate: {
+                allOf: [
+                    { $ref: '#/components/schemas/EmissionEstimateResponse' },
+                    {
+                        type: 'object',
+                        required: ['request'],
+                        properties: {
+                            request: { $ref: '#/components/schemas/ElectricityEstimateRequest' },
+                        },
+                    },
+                ],
+            },
+            FlightEmissionEstimate: {
+                allOf: [
+                    { $ref: '#/components/schemas/EmissionEstimateResponse' },
+                    {
+                        type: 'object',
+                        required: ['request'],
+                        properties: {
+                            request: { $ref: '#/components/schemas/FlightEstimateRequest' },
+                        },
+                    },
+                ],
+            },
+            IndividualEmissionEstimate: {
+                allOf: [
+                    { $ref: '#/components/schemas/EmissionEstimateResponse' },
+                    {
+                        type: 'object',
+                        required: ['request'],
+                        properties: {
+                            request: { $ref: '#/components/schemas/IndividualEstimateRequest' },
+                        },
+                    },
+                ],
+            },
+            TransactionEmissionEstimate: {
+                allOf: [
+                    { $ref: '#/components/schemas/EmissionEstimateResponse' },
+                    {
+                        type: 'object',
+                        required: ['request'],
+                        properties: {
+                            request: { $ref: '#/components/schemas/TransactionEstimateRequest' },
+                        },
+                    },
+                ],
+            },
             SingleShippingEmissionEstimate: {
                 allOf: [
                     { $ref: '#/components/schemas/ShippingLegEmissionEstimate' },
                     {
                         type: 'object',
-                        required: ['id', 'quote'],
+                        required: ['id', 'quote', 'request'],
                         properties: {
                             id: {
                                 type: 'string',
@@ -4464,6 +4508,7 @@ export const APISchemaContext = React.createContext<any>({
                                 example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6',
                             },
                             quote: { $ref: '#/components/schemas/OrderQuoteByQuantity' },
+                            request: { $ref: '#/components/schemas/ShippingEstimateRequest' },
                         },
                     },
                 ],
@@ -4495,13 +4540,16 @@ export const APISchemaContext = React.createContext<any>({
                 allOf: [
                     {
                         type: 'object',
-                        required: ['legs', 'distance'],
+                        required: ['legs', 'distance', 'request'],
                         properties: {
                             legs: {
                                 type: 'array',
                                 items: { $ref: '#/components/schemas/ShippingLegEmissionEstimate' },
                             },
                             distance: { $ref: '#/components/schemas/Distance' },
+                            request: {
+                                $ref: '#/components/schemas/MultiLegShippingEstimateRequest',
+                            },
                         },
                     },
                     { $ref: '#/components/schemas/EmissionEstimateResponse' },
@@ -4527,8 +4575,9 @@ export const APISchemaContext = React.createContext<any>({
                     { $ref: '#/components/schemas/EmissionEstimateResponse' },
                     {
                         type: 'object',
-                        required: ['components', 'scope1', 'scope2', 'scope3'],
+                        required: ['request', 'components', 'scope1', 'scope2', 'scope3'],
                         properties: {
+                            request: { $ref: '#/components/schemas/CompanyEstimateRequest' },
                             scope1: {
                                 description:
                                     'Scope 1 emissions. Direct emissions from owned or controlled sources.',
@@ -4552,6 +4601,7 @@ export const APISchemaContext = React.createContext<any>({
                                     'travel_and_commute',
                                     'food_and_drink',
                                     'tech',
+                                    'remote_employee',
                                 ],
                                 properties: {
                                     material_and_waste: {
@@ -4576,6 +4626,11 @@ export const APISchemaContext = React.createContext<any>({
                                     tech: {
                                         description:
                                             'Emissions associated with operating computer systems.',
+                                        $ref: '#/components/schemas/Mass',
+                                    },
+                                    remote_employee: {
+                                        description:
+                                            'Emissions associated with remote employees (electricity, heating etc.)',
                                         $ref: '#/components/schemas/Mass',
                                     },
                                 },
