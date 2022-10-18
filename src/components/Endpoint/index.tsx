@@ -31,7 +31,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
         `${apiDomain}${props.json.path}`,
         props.json.method,
         endpointRequestBody,
-        parameters,
+        pathParameters,
         apiKey,
     )
     const endpointCurl = {

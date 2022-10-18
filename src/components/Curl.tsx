@@ -1,5 +1,9 @@
 import ResourceExample from '@site/src/components/ResourceExample'
 
+const indent = (str: string, count: number, space: string = ' '): string => {
+    return str.replace(/^/gm, space.repeat(count))
+}
+
 export default function Curl(
     path: string,
     method: string,
@@ -34,13 +38,6 @@ export default function Curl(
                 `{${parameter.name}}`,
                 parameterExample[parameter.name],
             )
-        } else if (parameter.in === 'query') {
-            // Insert ? in the path for the first query paramter
-            const endpointWithParamStart =
-                endpointParsed.slice(-1) === '&' ? endpointParsed : endpointParsed.concat('?')
-            endpointParsed = `${endpointWithParamStart}${parameter.name}=${
-                parameterExample[parameter.name]
-            }&`
         }
     })
     // Previous parsing has & at the end if a single parameter is inserted. Remove it if present.
@@ -61,5 +58,5 @@ export default function Curl(
               }`
 
     return `curl '${endpointParsed}' \\
--H 'Authorization: Bearer ${apiKey || '<API_KEY>'}'${extraData}`
+${indent(`-H 'Authorization: Bearer ${apiKey || '<API_KEY>'}'${extraData}`, 2)}`
 }
