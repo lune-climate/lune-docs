@@ -1377,6 +1377,80 @@ export const APISchemaContext = React.createContext<any>({
                 },
             },
         },
+        '/estimates/transactions/{id}': {
+            get: {
+                summary: 'Get a transaction emission estimate',
+                operationId: 'getTransactionEstimate',
+                security: [{ BearerAuth: [] }],
+                tags: ['Emission estimates'],
+                parameters: [
+                    {
+                        name: 'id',
+                        in: 'path',
+                        required: true,
+                        description: "The estimate's unique identifier",
+                        schema: { type: 'string', example: 'Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj' },
+                    },
+                ],
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    $ref: '#/components/schemas/TransactionEmissionEstimate',
+                                },
+                            },
+                        },
+                    },
+                    '401': { $ref: '#/components/responses/Unauthorized' },
+                    '404': { $ref: '#/components/responses/NotFoundWithErrors' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                    '503': { $ref: '#/components/responses/ServiceUnavailable' },
+                },
+            },
+            put: {
+                summary: 'Update a transaction emission estimate',
+                operationId: 'updateTransactionEstimate',
+                security: [{ BearerAuth: [] }],
+                tags: ['Emission estimates'],
+                parameters: [
+                    {
+                        name: 'id',
+                        in: 'path',
+                        required: true,
+                        description: "The estimate's unique identifier",
+                        schema: { type: 'string', example: 'Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj' },
+                    },
+                ],
+                requestBody: {
+                    required: true,
+                    content: {
+                        'application/json': {
+                            schema: { $ref: '#/components/schemas/TransactionEstimateRequest' },
+                        },
+                    },
+                },
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    $ref: '#/components/schemas/TransactionEmissionEstimate',
+                                },
+                            },
+                        },
+                    },
+                    '400': { $ref: '#/components/responses/BadRequest' },
+                    '401': { $ref: '#/components/responses/Unauthorized' },
+                    '404': { $ref: '#/components/responses/NotFound' },
+                    '409': { $ref: '#/components/responses/Conflict' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                    '503': { $ref: '#/components/responses/ServiceUnavailable' },
+                },
+            },
+        },
         '/estimates/company': {
             post: {
                 summary: 'Create a company emission estimate',
@@ -1406,6 +1480,76 @@ export const APISchemaContext = React.createContext<any>({
                     '401': { $ref: '#/components/responses/Unauthorized' },
                     '409': { $ref: '#/components/responses/Conflict' },
                     '415': { $ref: '#/components/responses/UnsupportedMediaType' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                    '503': { $ref: '#/components/responses/ServiceUnavailable' },
+                },
+            },
+        },
+        '/estimates/company/{id}': {
+            get: {
+                summary: 'Get a company emission estimate',
+                operationId: 'getCompanyEstimate',
+                security: [{ BearerAuth: [] }],
+                tags: ['Emission estimates'],
+                parameters: [
+                    {
+                        name: 'id',
+                        in: 'path',
+                        required: true,
+                        description: "The estimate's unique identifier",
+                        schema: { type: 'string', example: 'Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj' },
+                    },
+                ],
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: { $ref: '#/components/schemas/CompanyEmissionEstimate' },
+                            },
+                        },
+                    },
+                    '401': { $ref: '#/components/responses/Unauthorized' },
+                    '404': { $ref: '#/components/responses/NotFoundWithErrors' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                    '503': { $ref: '#/components/responses/ServiceUnavailable' },
+                },
+            },
+            put: {
+                summary: 'Update a company emissions estimate',
+                operationId: 'updateCompanyEstimate',
+                security: [{ BearerAuth: [] }],
+                tags: ['Emission estimates'],
+                parameters: [
+                    {
+                        name: 'id',
+                        in: 'path',
+                        required: true,
+                        description: "The estimate's unique identifier",
+                        schema: { type: 'string', example: 'Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj' },
+                    },
+                ],
+                requestBody: {
+                    required: true,
+                    content: {
+                        'application/json': {
+                            schema: { $ref: '#/components/schemas/CompanyEstimateRequest' },
+                        },
+                    },
+                },
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: { $ref: '#/components/schemas/CompanyEmissionEstimate' },
+                            },
+                        },
+                    },
+                    '400': { $ref: '#/components/responses/BadRequest' },
+                    '401': { $ref: '#/components/responses/Unauthorized' },
+                    '404': { $ref: '#/components/responses/NotFound' },
+                    '409': { $ref: '#/components/responses/Conflict' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                     '503': { $ref: '#/components/responses/ServiceUnavailable' },
                 },
@@ -3564,6 +3708,10 @@ export const APISchemaContext = React.createContext<any>({
                         example: 't',
                         $ref: '#/components/schemas/MassUnit',
                     },
+                    name: {
+                        description: 'A name used to reference this calculation.',
+                        type: 'string',
+                    },
                 },
             },
             PassengerFlightEstimateRequest: {
@@ -3665,6 +3813,7 @@ export const APISchemaContext = React.createContext<any>({
                         example: 't',
                         $ref: '#/components/schemas/MassUnit',
                     },
+                    name: { description: 'A name to reference this calculation.', type: 'string' },
                 },
             },
             PassengerTransportationEmissionEstimate: {
@@ -3709,6 +3858,7 @@ export const APISchemaContext = React.createContext<any>({
                     route: { $ref: '#/components/schemas/ShippingRoute' },
                     method: { $ref: '#/components/schemas/ShippingMethod' },
                     country_code: { $ref: '#/components/schemas/ShippingCountryCode' },
+                    name: { description: 'A name to reference this calculation.', type: 'string' },
                     bundle_selection: { $ref: '#/components/schemas/BundleSelectionRequest' },
                     quantity_trunc: {
                         description:
@@ -3752,6 +3902,7 @@ export const APISchemaContext = React.createContext<any>({
                             },
                         },
                     },
+                    name: { description: 'A name to reference this calculation.', type: 'string' },
                     bundle_selection: { $ref: '#/components/schemas/BundleSelectionRequest' },
                     quantity_trunc: {
                         description:
@@ -4136,6 +4287,7 @@ export const APISchemaContext = React.createContext<any>({
                     'gas_consumption',
                 ],
                 properties: {
+                    name: { description: 'A name to reference this calculation.', type: 'string' },
                     country_code: {
                         type: 'string',
                         description:
@@ -4243,6 +4395,7 @@ export const APISchemaContext = React.createContext<any>({
                     'Parameters for estimating emissions associated with operating a company.\n\nAll relevant values are yearly values.\n',
                 type: 'object',
                 required: [
+                    'months',
                     'employees',
                     'remote_employees_percentage',
                     'office_area',
@@ -4264,6 +4417,11 @@ export const APISchemaContext = React.createContext<any>({
                     'recycled_garbage_percentage',
                 ],
                 properties: {
+                    months: {
+                        type: 'integer',
+                        description: 'Number of months covered by the emission estimate',
+                        minimum: 1,
+                    },
                     employees: { type: 'integer', description: 'Number of employees', minimum: 0 },
                     remote_employees_percentage: {
                         description: 'Share of employees working remotely (in percent)',
@@ -4363,6 +4521,7 @@ export const APISchemaContext = React.createContext<any>({
                         example: 't',
                         $ref: '#/components/schemas/MassUnit',
                     },
+                    name: { description: 'A name to reference this calculation.', type: 'string' },
                 },
             },
             CompanyCloudUse: {
@@ -5127,7 +5286,12 @@ export const APISchemaContext = React.createContext<any>({
                     status: { $ref: '#/components/schemas/SustainabilityPageStatus' },
                     slug: { $ref: '#/components/schemas/SustainabilityPageSlug' },
                     title: { $ref: '#/components/schemas/SustainabilityPageTitle' },
-                    description: { $ref: '#/components/schemas/SustainabilityPageDescription' },
+                    description: {
+                        oneOf: [
+                            { $ref: '#/components/schemas/SustainabilityPageDescription' },
+                            { type: 'string', enum: [null], nullable: true },
+                        ],
+                    },
                     custom_description: {
                         $ref: '#/components/schemas/SustainabilityPageCustomDescription',
                     },

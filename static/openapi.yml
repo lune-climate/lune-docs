@@ -1345,6 +1345,77 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+  /estimates/transactions/{id}:
+    get:
+      summary: Get a transaction emission estimate
+      operationId: getTransactionEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The estimate's unique identifier
+          schema:
+            type: string
+            example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionEmissionEstimate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFoundWithErrors'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    put:
+     summary: Update a transaction emission estimate
+     operationId: updateTransactionEstimate
+     security:
+       - BearerAuth: []
+     tags:
+       - Emission estimates
+     parameters:
+       - name: id
+         in: path
+         required: true
+         description: The estimate's unique identifier
+         schema:
+           type: string
+           example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+     requestBody:
+         required: true
+         content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/TransactionEstimateRequest'
+     responses:
+       '200':
+         description: OK
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/TransactionEmissionEstimate'
+       '400':
+         $ref: '#/components/responses/BadRequest'
+       '401':
+         $ref: '#/components/responses/Unauthorized'
+       '404':
+         $ref: '#/components/responses/NotFound'
+       '409':
+         $ref: '#/components/responses/Conflict'
+       '429':
+         $ref: '#/components/responses/TooManyRequests'
+       '503':
+         $ref: '#/components/responses/ServiceUnavailable'
   /estimates/company:
     post:
       summary: Create a company emission estimate
@@ -1380,6 +1451,77 @@ paths:
           $ref: '#/components/responses/Conflict'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /estimates/company/{id}:
+    get:
+      summary: Get a company emission estimate
+      operationId: getCompanyEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The estimate's unique identifier
+          schema:
+            type: string
+            example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyEmissionEstimate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFoundWithErrors'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    put:
+      summary: Update a company emissions estimate
+      operationId: updateCompanyEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The estimate's unique identifier
+          schema:
+            type: string
+            example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyEstimateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyEmissionEstimate'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
         '429':
           $ref: '#/components/responses/TooManyRequests'
         '503':
@@ -3503,6 +3645,9 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+        name:
+          description: A name used to reference this calculation.
+          type: string
     PassengerFlightEstimateRequest:
       type: object
       description: Parameters for estimating emissions for commercial plane travel
@@ -3602,6 +3747,9 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+        name:
+          description: A name to reference this calculation.
+          type: string
     PassengerTransportationEmissionEstimate:
       description: |
         An emission estimate result for passenger transport involving multiple legs.
@@ -3663,6 +3811,9 @@ components:
           $ref: '#/components/schemas/ShippingMethod'
         country_code:
           $ref: '#/components/schemas/ShippingCountryCode'
+        name:
+          description: A name to reference this calculation.
+          type: string
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
@@ -3717,6 +3868,9 @@ components:
                 $ref: '#/components/schemas/ShippingMethod'
               country_code:
                 $ref: '#/components/schemas/ShippingCountryCode'
+        name:
+          description: A name to reference this calculation.
+          type: string
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
@@ -4163,6 +4317,9 @@ components:
         - green_electricity_used
         - gas_consumption
       properties:
+        name:
+          description: A name to reference this calculation.
+          type: string
         country_code:
           type: string
           description: The three-letter country code of the country where the company is located.
@@ -4269,6 +4426,7 @@ components:
         All relevant values are yearly values.
       type: object
       required:
+        - months
         - employees
         - remote_employees_percentage
         - office_area
@@ -4289,6 +4447,10 @@ components:
         - garbage
         - recycled_garbage_percentage
       properties:
+        months:
+          type: integer
+          description: Number of months covered by the emission estimate
+          minimum: 1
         employees:
           type: integer
           description: Number of employees
@@ -4376,6 +4538,9 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+        name:
+          description: A name to reference this calculation.
+          type: string
     CompanyCloudUse:
       type: object
       description: Company's use of cloud services
@@ -5157,7 +5322,15 @@ components:
         title:
           $ref: '#/components/schemas/SustainabilityPageTitle'
         description:
-          $ref: '#/components/schemas/SustainabilityPageDescription'
+          oneOf:
+            - $ref: '#/components/schemas/SustainabilityPageDescription'
+            # This is a hack. Since SustainabilityPageDescription is an enum we need to also have a
+            # null enum member in order for this property to be trully nullable from the point of view
+            # of the OpenAPI middleware.
+            - type: string
+              enum:
+                - null
+              nullable: true
         custom_description:
           $ref: '#/components/schemas/SustainabilityPageCustomDescription'
         sections:
