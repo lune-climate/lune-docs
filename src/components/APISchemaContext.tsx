@@ -3667,6 +3667,7 @@ export const APISchemaContext = React.createContext<any>({
                 description: 'Parameters for estimating electricity emissions',
                 required: ['consumption'],
                 properties: {
+                    name: { description: 'A name to reference this calculation.', type: 'string' },
                     consumption: { $ref: '#/components/schemas/ElectricityConsumption' },
                     country_code: {
                         type: 'string',
@@ -4241,6 +4242,7 @@ export const APISchemaContext = React.createContext<any>({
                     'Parameters for estimating emissions associated with purchasing goods or services.',
                 required: ['value', 'merchant'],
                 properties: {
+                    name: { description: 'A name to reference this calculation.', type: 'string' },
                     value: {
                         description:
                             'Monetary value of the transaction. This should exclude shipping and taxes.',
