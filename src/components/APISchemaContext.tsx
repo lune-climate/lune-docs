@@ -3935,6 +3935,7 @@ export const APISchemaContext = React.createContext<any>({
                                 type: 'string',
                                 enum: ['lightweight', 'average', 'heavyweight', 'container_only'],
                             },
+                            mass: { $ref: '#/components/schemas/Mass' },
                         },
                     },
                 ],

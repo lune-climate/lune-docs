@@ -3894,6 +3894,7 @@ components:
           properties:
             mass:
               $ref: '#/components/schemas/Mass'
+        # This variant handles both containers and containers+mass case
         - type: object
           required:
             - containers
@@ -3909,6 +3910,8 @@ components:
                 - average
                 - heavyweight
                 - container_only
+            mass:
+              $ref: '#/components/schemas/Mass'
     ShippingMethod:
       oneOf:
         - $ref: '#/components/schemas/SimpleShippingMethod'
