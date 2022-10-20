@@ -62,8 +62,15 @@
 
 @media (min-width: 997px) {
   .col[class*='docItemCol'] {
-    max-width: 100% !important;
+      max-width: 100% !important;
   }
+
+  /* this ensure that pages that have a page nav have
+   * space for it */
+  .col[class*='docItemCol']:has(+ .col) {
+      max-width: 75% !important;
+  }
+
   .pageDescription {
     margin-bottom: 60px;
   }
