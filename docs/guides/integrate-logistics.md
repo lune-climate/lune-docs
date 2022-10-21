@@ -25,11 +25,11 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 ## Concepts
 
 - **Client account** - You must create a client account for each of your clients to define their basic characteristics, such as name, currency, and beneficiary.  Clients will be provided a Lune default Project bundle
-- **Lune defaults** - Lune has provided a default Project bundle for each of our clients.  Every order will be placed against the following projects ratios:
-  - Conserving forests in Asia 95%
-  - Ocean Carbon Removal 5%
+- **Lune defaults** - Lune has provided a default Project bundle for each of our clients.  Every order will be placed against the following projects and ratios:
+  - Conserving forests in Asia - 95%
+  - Ocean Carbon Removal - 5%
 - **Project bundle** - Group of offsetting projects with similar characteristics., e.g., _Conserving forests in Asia_ and _Ocean Carbon Removal_
-- **Offsetting preferences page** - Fetch and store bundle ids in your code base to present your customers with offsetting options for use in their booking flow
+- **Offsetting preferences page** - Your clients will [decide whether to offset CO₂ emissions](#store-a-clients-offsetting-decision) on this page
 
 ## API flow
 
@@ -107,7 +107,7 @@ You can access the dedicated client account page by appending the `id` to `/clie
 
 ## Store a client's offsetting decision
 
-On the Offsetting preferences page, your clients will be able to select whether to offset the emissions from their logistics operation:
+On the Offsetting preferences page, your clients will be able to select whether to offset the CO₂ emissions from their logistics operation:
 
 ![offsetting-decision](/img/offsetting-decision.png)
 
