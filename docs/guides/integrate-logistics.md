@@ -20,7 +20,7 @@ to integrate CO₂ emissions estimations and offsetting into an existing end-use
 
 Feel free to contact our [support team](mailto:support@lune.com) if you encounter any issues integrating our logistics use case.
 
-**NOTE**: Lune is (Smart Freight Centre)[https://www.notion.so/luneco/Shipping-Emission-Calculations-f591e8b57c72421ebb4790a88ef8d0e9] accredited following the GLEC Framework.
+**NOTE**: Lune is [Smart Freight Centre](https://www.notion.so/luneco/Shipping-Emission-Calculations-f591e8b57c72421ebb4790a88ef8d0e9) accredited, following the GLEC Framework.
 
 ## Concepts
 
