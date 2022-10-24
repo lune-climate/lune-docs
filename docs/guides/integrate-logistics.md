@@ -2,18 +2,20 @@
 
 ## Intro
 
-Lune provides a single [API](/api/quickstart) for use in-app and web channels to fetch, mutate, and deliver the data necessary to calculate and offset the climate impact from logistics operations.
+### The Lune API
 
-Our API-first approach allows our customers to embed carbon emission estimates into shipment booking and confirmation flows to deliver a unique and programmatically driven experience that brings climate into logistics.
+Lune provides a single [API](/api/quickstart) for use in-app and web channels to fetch, mutate, and deliver the data necessary to offset CO₂ emissions across a range of verticals.
 
-## Overview
+Our API-first approach allows our customers to embed offsetting into logistics, payments, and Fintech platforms to deliver a unique and programmatically driven experience that brings climate into client operations.
+
+### Overview
 
 In this guide, you will learn how to interact with the Lune API to
 
 1.  Calculate emissions for shipments
 2.  Offset emissions for shipments
 
-## Who is this guide for?
+### Who is this guide for?
 
 This guide is primarily aimed at Product Managers and developers looking
 to integrate CO₂ emissions estimations and offsetting into an existing end-user experience.
@@ -22,7 +24,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 **NOTE**: Lune is [Smart Freight Centre](https://www.notion.so/luneco/Shipping-Emission-Calculations-f591e8b57c72421ebb4790a88ef8d0e9) accredited, following the GLEC Framework.
 
-## Concepts
+### Concepts
 
 - **Client account** - You must create a client account for each of your clients to define their basic characteristics, such as name, currency, and beneficiary.  Clients will be provided a Lune default Project bundle
 - **Lune defaults** - Lune has provided a default Project bundle for each of our clients.  Every order will be placed against the following projects and ratios:
