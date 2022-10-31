@@ -1,0 +1,6 @@
+
+# ShippingSourceDestination
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"type":"object","required":["source","destination"],"properties":{"source":{"oneOf":[{"$ref":"#/components/schemas/Address"},{"$ref":"#/components/schemas/GeographicCoordinates"},{"$ref":"#/components/schemas/SeaportCode"}]},"destination":{"oneOf":[{"$ref":"#/components/schemas/Address"},{"$ref":"#/components/schemas/GeographicCoordinates"},{"$ref":"#/components/schemas/SeaportCode"}]}},"component":"ShippingSourceDestination"}}/>

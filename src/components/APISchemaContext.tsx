@@ -1377,6 +1377,44 @@ export const APISchemaContext = React.createContext<any>({
                 },
             },
         },
+        '/estimates/transactions/batch': {
+            post: {
+                summary: 'Create a batch transaction emission estimate',
+                description:
+                    'Perform multiple transaction emissions estimate in one request.\n\nEach estimate is handled individually.\n\nThe response contains estimates or errors in the same orders as the request.\n',
+                operationId: 'createBatchTransactionEstimate',
+                security: [{ BearerAuth: [] }],
+                tags: ['Emission estimates'],
+                requestBody: {
+                    required: true,
+                    content: {
+                        'application/json': {
+                            schema: {
+                                $ref: '#/components/schemas/BatchTransactionEstimateRequest',
+                            },
+                        },
+                    },
+                },
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    $ref: '#/components/schemas/BatchTransactionEmissionEstimate',
+                                },
+                            },
+                        },
+                    },
+                    '400': { $ref: '#/components/responses/BadRequest' },
+                    '401': { $ref: '#/components/responses/Unauthorized' },
+                    '409': { $ref: '#/components/responses/Conflict' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                    '503': { $ref: '#/components/responses/ServiceUnavailable' },
+                },
+            },
+        },
         '/estimates/transactions/{id}': {
             get: {
                 summary: 'Get a transaction emission estimate',
@@ -2171,7 +2209,7 @@ export const APISchemaContext = React.createContext<any>({
                     amount: { type: 'string', pattern: '^[0-9]+(\\.[0-9]+)?$', example: '40.501' },
                     unit: {
                         type: 'string',
-                        enum: ['km', 'mi'],
+                        enum: ['km', 'mi', 'nm'],
                         example: 'km',
                         description: 'Unit, `km` for kilometers, `mi` for miles',
                     },
@@ -2222,6 +2260,7 @@ export const APISchemaContext = React.createContext<any>({
                             'validation_error',
                             'bundle_selection_ratios_invalid_format',
                             'address_not_found',
+                            'port_not_found',
                             'offset_link_constraint_required',
                             'offset_link_bundles_size_invalid',
                             'webhook_limit_reached',
@@ -3874,7 +3913,7 @@ export const APISchemaContext = React.createContext<any>({
                     "Either the shipping distance or the start/destination address pair.\n\nNote that for sea transport the source/destination pair should be as close to\nlocations of existing and well-known ports as possible. Coordinates or addresses\nthat lie far from the shore line or coordinates deep into the sea or ocean will\nresult in inaccurate calculations.\n\nWhen transporting goods over unusual routes or between unusual points it's better\nto provide us the distance directly to ensure better calculations.\n",
                 oneOf: [
                     { $ref: '#/components/schemas/Distance' },
-                    { $ref: '#/components/schemas/SourceDestination' },
+                    { $ref: '#/components/schemas/ShippingSourceDestination' },
                 ],
             },
             ShippingCountryCode: {
@@ -3919,6 +3958,7 @@ export const APISchemaContext = React.createContext<any>({
                 oneOf: [
                     {
                         type: 'object',
+                        additionalProperties: false,
                         required: ['mass'],
                         properties: { mass: { $ref: '#/components/schemas/Mass' } },
                     },
@@ -4170,6 +4210,39 @@ export const APISchemaContext = React.createContext<any>({
                     },
                 },
             },
+            SeaportCode: {
+                type: 'object',
+                required: ['locode'],
+                properties: {
+                    locode: {
+                        type: 'string',
+                        pattern: '^[A-Z]{5}$',
+                        description:
+                            "Sea shipping port's UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)",
+                        example: 'ESBCN',
+                    },
+                },
+            },
+            ShippingSourceDestination: {
+                type: 'object',
+                required: ['source', 'destination'],
+                properties: {
+                    source: {
+                        oneOf: [
+                            { $ref: '#/components/schemas/Address' },
+                            { $ref: '#/components/schemas/GeographicCoordinates' },
+                            { $ref: '#/components/schemas/SeaportCode' },
+                        ],
+                    },
+                    destination: {
+                        oneOf: [
+                            { $ref: '#/components/schemas/Address' },
+                            { $ref: '#/components/schemas/GeographicCoordinates' },
+                            { $ref: '#/components/schemas/SeaportCode' },
+                        ],
+                    },
+                },
+            },
             SourceDestination: {
                 type: 'object',
                 required: ['source', 'destination'],
@@ -4235,6 +4308,14 @@ export const APISchemaContext = React.createContext<any>({
                         maximum: 180,
                         example: 10.2513,
                     },
+                },
+            },
+            BatchTransactionEstimateRequest: {
+                type: 'array',
+                items: {
+                    $ref: '#/components/schemas/TransactionEstimateRequest',
+                    minItems: 1,
+                    maxItems: 100,
                 },
             },
             TransactionEstimateRequest: {
@@ -4644,6 +4725,15 @@ export const APISchemaContext = React.createContext<any>({
                         },
                     },
                 ],
+            },
+            BatchTransactionEmissionEstimate: {
+                type: 'array',
+                items: {
+                    oneOf: [
+                        { $ref: '#/components/schemas/TransactionEmissionEstimate' },
+                        { $ref: '#/components/schemas/Errors' },
+                    ],
+                },
             },
             TransactionEmissionEstimate: {
                 allOf: [

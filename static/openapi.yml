@@ -1345,6 +1345,45 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+  /estimates/transactions/batch:
+    post:
+      summary: Create a batch transaction emission estimate
+      description: |
+        Perform multiple transaction emissions estimate in one request.
+
+        Each estimate is handled individually.
+
+        The response contains estimates or errors in the same orders as the request.
+      operationId: createBatchTransactionEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchTransactionEstimateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchTransactionEmissionEstimate'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/transactions/{id}:
     get:
       summary: Get a transaction emission estimate
@@ -2158,6 +2197,7 @@ components:
           enum:
             - km
             - mi
+            - nm
           example: 'km'
           description: Unit, `km` for kilometers, `mi` for miles
     Area:
@@ -2210,6 +2250,7 @@ components:
             - validation_error
             - bundle_selection_ratios_invalid_format
             - address_not_found
+            - port_not_found
             - offset_link_constraint_required
             - offset_link_bundles_size_invalid
             - webhook_limit_reached
@@ -3836,7 +3877,7 @@ components:
         to provide us the distance directly to ensure better calculations.
       oneOf:
         - $ref: '#/components/schemas/Distance'
-        - $ref: '#/components/schemas/SourceDestination'
+        - $ref: '#/components/schemas/ShippingSourceDestination'
     ShippingCountryCode:
       type: string
       description: |
@@ -3889,6 +3930,7 @@ components:
         in TEUs.
       oneOf:
         - type: object
+          additionalProperties: false
           required:
             - mass
           properties:
@@ -4218,7 +4260,32 @@ components:
           pattern: ^[A-Z]{4}[A-Z]?$
           description: Airport ICAO code. For a full list of options (https://openflights.org/data.html)
           example: LPPR
-
+    SeaportCode:
+      type: object
+      required:
+          - locode
+      properties:
+        locode:
+          type: string
+          pattern: ^[A-Z]{5}$
+          description: Sea shipping port's UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          example: ESBCN
+    ShippingSourceDestination:
+      type: object
+      required:
+        - source
+        - destination
+      properties:
+        source:
+          oneOf:
+            - $ref: '#/components/schemas/Address'
+            - $ref: '#/components/schemas/GeographicCoordinates'
+            - $ref: '#/components/schemas/SeaportCode'
+        destination:
+          oneOf:
+            - $ref: '#/components/schemas/Address'
+            - $ref: '#/components/schemas/GeographicCoordinates'
+            - $ref: '#/components/schemas/SeaportCode'
     SourceDestination:
       type: object
       required:
@@ -4278,6 +4345,12 @@ components:
           minimum: -180.0
           maximum: 180.0
           example: 10.2513
+    BatchTransactionEstimateRequest:
+      type: array
+      items:
+        $ref: '#/components/schemas/TransactionEstimateRequest'
+        minItems: 1
+        maxItems: 100
     TransactionEstimateRequest:
       type: object
       description: Parameters for estimating emissions associated with purchasing goods or services.
@@ -4670,6 +4743,12 @@ components:
           properties:
             request:
               $ref: '#/components/schemas/IndividualEstimateRequest'
+    BatchTransactionEmissionEstimate:
+      type: array
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/TransactionEmissionEstimate'
+          - $ref: '#/components/schemas/Errors'
     TransactionEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'

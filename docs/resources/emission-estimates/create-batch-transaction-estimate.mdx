@@ -1,0 +1,9 @@
+---
+
+sidebar_class_name: post
+---
+# Create a batch transaction emission estimate
+
+import Endpoint from '@site/src/components/Endpoint';
+
+<Endpoint json={{"summary":"Create a batch transaction emission estimate","description":"Perform multiple transaction emissions estimate in one request.\n\nEach estimate is handled individually.\n\nThe response contains estimates or errors in the same orders as the request.\n","operationId":"createBatchTransactionEstimate","security":[{"BearerAuth":[]}],"tags":["Emission estimates"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/BatchTransactionEstimateRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/BatchTransactionEmissionEstimate"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"409":{"$ref":"#/components/responses/Conflict"},"415":{"$ref":"#/components/responses/UnsupportedMediaType"},"429":{"$ref":"#/components/responses/TooManyRequests"},"503":{"$ref":"#/components/responses/ServiceUnavailable"}},"tag":"Emission estimates","method":"post","path":"/estimates/transactions/batch"}}/>
