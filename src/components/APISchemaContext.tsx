@@ -2261,6 +2261,7 @@ export const APISchemaContext = React.createContext<any>({
                             'bundle_selection_ratios_invalid_format',
                             'address_not_found',
                             'port_not_found',
+                            'airport_invalid',
                             'offset_link_constraint_required',
                             'offset_link_bundles_size_invalid',
                             'webhook_limit_reached',
@@ -4232,6 +4233,7 @@ export const APISchemaContext = React.createContext<any>({
                             { $ref: '#/components/schemas/Address' },
                             { $ref: '#/components/schemas/GeographicCoordinates' },
                             { $ref: '#/components/schemas/SeaportCode' },
+                            { $ref: '#/components/schemas/AirportCode' },
                         ],
                     },
                     destination: {
@@ -4239,6 +4241,7 @@ export const APISchemaContext = React.createContext<any>({
                             { $ref: '#/components/schemas/Address' },
                             { $ref: '#/components/schemas/GeographicCoordinates' },
                             { $ref: '#/components/schemas/SeaportCode' },
+                            { $ref: '#/components/schemas/AirportCode' },
                         ],
                     },
                 },
