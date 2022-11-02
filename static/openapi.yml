@@ -4511,7 +4511,6 @@ components:
         All relevant values are yearly values.
       type: object
       required:
-        - months
         - employees
         - remote_employees_percentage
         - office_area
@@ -4536,6 +4535,7 @@ components:
           type: integer
           description: Number of months covered by the emission estimate
           minimum: 1
+          default: 12
         employees:
           type: integer
           description: Number of employees
@@ -4866,7 +4866,6 @@ components:
                 - travel_and_commute
                 - food_and_drink
                 - tech
-                - remote_employee
               properties:
                 material_and_waste:
                   description: Emissions associated with buying equipment and generating waste.

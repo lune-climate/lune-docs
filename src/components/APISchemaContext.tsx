@@ -4482,7 +4482,6 @@ export const APISchemaContext = React.createContext<any>({
                     'Parameters for estimating emissions associated with operating a company.\n\nAll relevant values are yearly values.\n',
                 type: 'object',
                 required: [
-                    'months',
                     'employees',
                     'remote_employees_percentage',
                     'office_area',
@@ -4508,6 +4507,7 @@ export const APISchemaContext = React.createContext<any>({
                         type: 'integer',
                         description: 'Number of months covered by the emission estimate',
                         minimum: 1,
+                        default: 12,
                     },
                     employees: { type: 'integer', description: 'Number of employees', minimum: 0 },
                     remote_employees_percentage: {
@@ -4856,7 +4856,6 @@ export const APISchemaContext = React.createContext<any>({
                                     'travel_and_commute',
                                     'food_and_drink',
                                     'tech',
-                                    'remote_employee',
                                 ],
                                 properties: {
                                     material_and_waste: {
