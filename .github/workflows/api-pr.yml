@@ -1,0 +1,38 @@
+on:
+  push:
+    branches:
+    - api-schema-update
+
+jobs:
+  api-update:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [17.x]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use node version ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Lint
+      run: yarn lint
+
+    - name: API Reference update
+      run: yarn api-reference
+
+    - name: pull-request
+      uses: repo-sync/pull-request@v2
+      with:
+        destination_branch: "master"
+        github_token: ${{ secrets.API_TOKEN_GITHUB }}
+        pr_title: "Update API reference"
+        pr_body: "Pick up latest API schema"
+        pr_reviewer: "lune-climate/engineering"
