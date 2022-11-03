@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 2
 sidebar_label: Authentication
 ---
 
@@ -7,20 +7,31 @@ sidebar_label: Authentication
 
 The Lune API uses API Keys to authenticate requests.
 
-An API key corresponds to a specific account (a user can have access to multiple accounts, including test accounts, see the <a href="live-test-accounts">Live and test accounts section</a>).
-
-You can view and manage your keys from the Lune Dashboard.
-
-Please keep the keys secret.
-
-If a key is compromised you can delete and re-create a new one at any time.
-
-API keys are used as Bearer tokens included in the Authorization header.
+API keys are used as Bearer tokens and must be included in the Authorization header.
 
 `Authorization: Bearer <API_KEY>`
 
-An API key corresponds to a specific account but can target other accounts from the organisation that owns the API key.
-Only a subset of accounts can be targeted, depending on the type of account the API key is associated with.
-If a live account is associated, any live accounts can be targeted but not test accounts. Vice-versa for test accounts.
-Accounts matching the type of account the API key is associated with can be targeted with the `Lune-Account` header.
-Provide a different account ID in the header and that account will be used to perform the API call.
+
+## Creating an API Key
+
+Head over to the [Dashboard](https://dashboard.lune.co/developers) to create an API Key.
+
+API Keys created with test mode enabled can only perform test operations and will never affect your live environment.
+Use Test API Keys with confidence while you build your app.
+
+API Keys created with test mode disabled perform live operations.
+Use in your production app.
+Keep your keys safe.
+
+Note: only *admin*s can create API Keys.
+
+## Accessing Client Accounts
+
+API Keys operate on a default account.
+You can, however, perform API requests on any account in your organisation as long as the account's mode, test or live, is consistent with the API Key's mode.
+
+This enables you to operate on [Client Accounts](/resources/client-accounts/client-account) without generating new API Keys.
+
+To operate on an API Key's non-default account, include the following header in your requests:
+
+`Lune-Account: <ACCOUNT_ID>`
