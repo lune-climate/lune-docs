@@ -4216,16 +4216,30 @@ components:
             - disaggregated_intra_middle_east
             - disaggregated_other
     IdentifiedVesselShippingMethod:
-      type: object
-      required:
-        - vessel_imo_number
-      properties:
-        vessel_imo_number:
-          description: |
-            The ship's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
-          type: string
-          pattern: '^[0-9]{7}$'
-
+      description: |
+        This method uses the vessel's IMO number emission factors when found, falling back to trade lane emissions factors if provided.
+      oneOf:
+        - type: object
+          additionalProperties: false
+          required:
+            - vessel_imo_number
+          properties:
+            vessel_imo_number:
+              description: |
+                The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+              type: string
+              pattern: '^[0-9]{7}$'
+        - allOf:
+          - type: object
+            required:
+              - vessel_imo_number
+            properties:
+              vessel_imo_number:
+                description: |
+                  The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+                type: string
+                pattern: '^[0-9]{7}$'
+          - $ref: '#/components/schemas/ContainerShippingMethod'
     AirportSourceDestination:
       type: object
       required:
@@ -4822,6 +4836,7 @@ components:
                 type: string
                 enum:
                   - imo_unavailable_container_ship_fallback
+                  - imo_unavailable_container_ship_trade_lane_fallback
     MultiLegShippingEmissionEstimate:
       description: |
         An emission estimate result for a transport involving multiple legs.
