@@ -143,7 +143,7 @@ curl https://api.lune.co/v1/orders/by-value \
 
 ### Sample response
 
-A successful 200 request will result in the value that the client will contribute to CO₂ emission offsetting (taken from the chosen percentage of the transctions cost).
+A successful 200 request will result in the value that the client will contribute to CO₂ emission offsetting (taken from the chosen percentage of the transaction cost).
 
 ```js
 {
