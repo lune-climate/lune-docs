@@ -4220,7 +4220,6 @@ components:
         This method uses the vessel's IMO number emission factors when found, falling back to trade lane emissions factors if provided.
       oneOf:
         - type: object
-          additionalProperties: false
           required:
             - vessel_imo_number
           properties:
