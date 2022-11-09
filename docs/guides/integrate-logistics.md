@@ -117,6 +117,8 @@ Store this decision in your database.
 
 ## Calculating CO₂ emissions for a shipment
 
+![logisticscalcs](/img/logisticscalcs.png)
+
 To present an [estimate of CO₂ emissions for a given shipping route](/resources/emission-estimates/create-multi-leg-shipping-estimate), pass in the journey details (e.g., route source and destination for one or more journey legs, shipment mode, load).
 
 ### Sample request
