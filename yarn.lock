@@ -3985,10 +3985,10 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-docusaurus-lunr-search@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/docusaurus-lunr-search/-/docusaurus-lunr-search-2.3.1.tgz#a2a12c38c282b8ef650406e3ebcec722a8c427b7"
-  integrity sha512-2F+M8lA6HLTg9c7oaZKbi5CcukFP7NUkIZhLOxUFHJf6yF6L10dfogInkdI2KIeFWebmZLz2JvAbHIIvw7rcEA==
+docusaurus-lunr-search@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/docusaurus-lunr-search/-/docusaurus-lunr-search-2.3.2.tgz#9991ef51addb0bf09ac80a06cb5729f28939332d"
+  integrity sha512-Ngvm2kXwliWThqAThXI1912rOKHlFL7BjIc+OVNUfzkjpk5ar4TFEh+EUaaMOLw4V0BBko3CW0Ym7prqqm3jLQ==
   dependencies:
     autocomplete.js "^0.37.0"
     classnames "^2.2.6"
