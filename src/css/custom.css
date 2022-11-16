@@ -51,7 +51,7 @@
     font-size: 18px;
 }
 
-.body3 {
+li, p, .body3 {
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -141,6 +141,20 @@ pre {
     margin-bottom: 120px;
 }
 .sections >*:last-child  {
+    margin-bottom: 0px;
+}
+
+.paragraphSections >*  {
+    margin-bottom: 72px;
+}
+.paragraphSections >*:last-child  {
+    margin-bottom: 0px;
+}
+
+.miniSections >*  {
+    margin-bottom: 24px;
+}
+.miniSections >*:last-child  {
     margin-bottom: 0px;
 }
 
