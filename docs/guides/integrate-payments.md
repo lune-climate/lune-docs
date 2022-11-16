@@ -10,7 +10,7 @@ Our API-first approach allows our customers to embed offsetting into logistics, 
 
 ## Overview
 
-In this guide, you will learn how to interact with the Lune API to enable merchants to contribute a percentage of a transaction value towards carbon removal at checkout.
+In this guide, you will learn how to interact with the Lune API to calculate the CO₂ emissions associated with each transaction and provide customers with the possibility of offsetting those emissions.
 
 ## Who is this guide for?
 
@@ -21,7 +21,10 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 ## Concepts
 
-- **Client account** - You must create a client account for each client to define their basic characteristics, such as name, currency, and beneficiary.  Clients will be provided Lune default Project bundles
+- **Client account** - You must create a client account for each client to define their basic characteristics, such as name, currency, and beneficiary.  Clients will be provided Lune defaults
+- **Lune defaults** - Lune has provided a default Project bundle for each of our clients.  Every order will be placed against the following projects and ratios:
+  - Conserving forests in Asia - 95%
+  - Ocean Carbon Removal - 5%
 - **Project bundle** - Group of offsetting projects with similar characteristics., e.g., _Conserving forests in Asia_ and _Ocean Carbon Removal_
 - **Offsetting preferences page** - Present your customers with offsetting options for use in their payments flow
 
