@@ -107,6 +107,8 @@ To calculate an [estimate of CO₂ emissions](/resources/emission-estimates/crea
 
 **NOTE**: Lune is in the process of rolling out support for merchant-level emissions calculations.
 
+**NOTE**: To prevent batch failure, each transaction is processed individually. Within the response, any failed transactionsctions will be returned with an error code and message.
+
 ### Sample request
 
 ```js
@@ -227,82 +229,75 @@ A successful 200 request will result in an estimate of CO₂ emissions for each 
 **Where**:
 
 - `mass.amount` is the calculated amount of CO₂ emissions for the transaction
-- `quote.bundles` is a container object for the Project bundles that will offset the emissions associated with the transaction and includes the bundle id, bundle name, and unit price
-- `quote.estimated_total_cost` is the total cost of offsetting the CO₂ emissions in the client's currency
+- `quote.bundles` is a container object for the Project bundles that will be used to offset the emissions associated with the transaction and includes the bundle id, bundle name, and unit price
+- `quote.estimated_total_cost` is the total cost of offsetting the CO₂ emissions for that transaction in the client's currency
 
-## Offsetting shipment emissions
+## Offsetting emissions
 
-For clients that have [opted to offset their emissions](#store-a-clients-offsetting-decision) in their Offsetting preferences page, when they book a shipment, you can present a [confirmation of a booking](/resources/orders/create-order-by-estimate), including the amount of CO₂ emissions that will be offset, the Lune default Project bundle, and the total cost of offsetting the CO₂ emissions.  To do this, pass in the estimate id:
-
-![order-confirmation](/img/order-confirmation.png)
+To [calculate the cost of offsetting the emissions](/resources/orders/get-order-quote-by-mass) from those transactions, pass in the total CO₂ emissions as returned in `mass.amount` in each transaction object in the above response.
 
 ### Sample request
 
 ```js
-curl https://api.lune.co/v1/orders/by-estimate \
--s \
--H 'Content-Type: application/json' \
--H "Authorization: Bearer $API_KEY" \
--H "Lune-Account: <CLIENT_ACCOUNT_ID>" \
--X POST \
--d '
-    {
-      "estimate_id": "08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2"
-    }'
+curl https://api.lune.co/v1/orders/by-mass/quote \
+        -H 'Content-Type: application/json' \
+        -H "Authorization: Bearer $API_KEY" \
+        -H "Lune-Account: <CLIENT_ACCOUNT_ID>" \
+        -X POST \
+        -d '
+{
+  "mass": {
+    "amount": "259.111",
+    "unit": "kg"
+  }
+}'
 ```
 
 **Where**:
 
-- `<CLIENT_ACCOUNT_ID>` is the unique identifier for the client
-- `estimate_id` is the unique identifier for the emissions estimate
+- `mass.amount` is the total amount of CO₂ emissions for the transactions to be offset
 
 ### Sample response
 
-A successful request will return an order summary, which can be displayed as part of your confirmation flow.
+A successful 200 request will return the total cost of offsetting the CO₂ emissions.
 
 ```js
 {
-  "id": "a1BER4JZqnzPkYxLKQeYLg0GeQDoXlWO",
-  "metadata": {},
-  "idempotency_key": null,
-  "type": "quantity",
-  "status": "placed",
   "currency": "USD",
-  "offset_cost": "27.11",
-  "total_cost": "30.13",
-  "commission": "3.02",
-  "quantity": "1.105697",
-  "created_at": "2022-10-19T16:58:44.558Z",
+  "estimated_quantity": "0.25911",
+  "estimated_offset_cost": "6.39",
+  "estimated_total_cost": "7.1",
+  "estimated_commission": "0.71",
+  "requested_quantity": "0.259111",
+  "requested_value": null,
   "bundles": [
     {
       "bundle_id": "q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8",
       "bundle_name": "Conserving forests in Asia",
-      "quantity": "1.050413",
-      "unit_price": "12.65",
-      "gross_unit_price": "14.06",
-      "offset_cost": "13.29",
+      "quantity": "0.246155",
+      "unit_price": "12.8",
+      "gross_unit_price": "14.22",
+      "offset_cost": "3.15",
       "insufficient_available_quantity": null
     },
     {
       "bundle_id": "xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w",
       "bundle_name": "Ocean Carbon Removal",
-      "quantity": "0.055284",
+      "quantity": "0.012955",
       "unit_price": "250",
       "gross_unit_price": "277.78",
-      "offset_cost": "13.82",
-      "insufficient_available_quantity": false
+      "offset_cost": "3.24",
+      "insufficient_available_quantity": null
     }
-  ],
-  "projects": [],
-  "certificate": null,
-  "offset_link_id": null,
-  "email": null,
-  "estimate_id": "08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2",
-  "requested_quantity": "1.105698",
-  "requested_value": null
+  ]
 }
 ```
 
 **Where**:
 
-- `id` is the unique identifier for the booking
+- `estimated_total_cost` is the total cost of offsetting the CO₂ emissions in the client's currency
+- `bundles` is a container object for the Project bundles that will be used to offset the emissions associated with the transactions and includes the bundle id, bundle name, and unit price
+
+## Payment processing
+
+By providing customers with the option to offset emissions, it is possible to display the value as reported in 
