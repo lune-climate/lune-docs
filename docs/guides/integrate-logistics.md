@@ -25,7 +25,7 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 <div>
 
-### Overview
+## Overview
 
 In this guide, you will learn how to interact with the Lune API to
 
@@ -36,7 +36,7 @@ In this guide, you will learn how to interact with the Lune API to
 
 <div>
 
-### Who is this guide for?
+## Who is this guide for?
 
 This guide is primarily aimed at Product Managers and developers looking
 to integrate CO₂ emissions estimations and offsetting into an existing end-user experience.
@@ -52,7 +52,7 @@ Lune is [Smart Freight Centre](https://www.notion.so/luneco/Shipping-Emission-Ca
 </div>
 <div>
 
-### Concepts
+## Concepts
 
 - **Client account** - You must create a client account for each of your clients to define their basic characteristics, such as name, currency, and beneficiary.  Clients will be provided a Lune default Project bundle
 - **Lune defaults** - Lune has provided a default Project bundle for each of our clients.  Every order will be placed against the following projects and ratios:
