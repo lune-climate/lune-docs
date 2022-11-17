@@ -107,7 +107,7 @@ To calculate an [estimate of CO₂ emissions](/resources/emission-estimates/crea
 
 **NOTE**: Lune is in the process of rolling out support for merchant-level emissions calculations.
 
-**NOTE**: To prevent batch failure, each transaction is processed individually. Within the response, any failed transactionsctions will be returned with an error code and message.
+**NOTE**: To prevent batch failure, each transaction is processed individually. Within the response, any failed transactions will be returned with an error code and message.
 
 ### Sample request
 
@@ -259,7 +259,9 @@ curl https://api.lune.co/v1/orders/by-mass/quote \
 
 ### Sample response
 
-A successful 200 request will return the total cost of offsetting the CO₂ emissions.
+A successful 200 request will return the total cost of offsetting the CO₂ emissions, along with options for offsetting (Lune defaults) which can be presented in-app:
+
+![monthly-emissions](/img/monthly-emissions.png)
 
 ```js
 {
@@ -300,4 +302,10 @@ A successful 200 request will return the total cost of offsetting the CO₂ emis
 
 ## Payment processing
 
-By providing customers with the option to offset emissions, it is possible to display the value as reported in 
+To complete the offsetting process, clients can forward customers to a checkout step and present the:
+
+- Emissions for the processed transactions in tonnes
+- Cost of offsetting a tonne of CO₂ for the chosen Project bundle
+- Total cost of offsetting CO₂ emissions
+
+![payment-processing](/img/checkout.png)
