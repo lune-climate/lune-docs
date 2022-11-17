@@ -2,6 +2,7 @@
 hide_table_of_contents: true
 ---
 
+import LuneApiSection from '@site/src/md/luneapi.md';
 import ApiKeySection from '@site/src/md/apikey.md';
 import ClientAccountSection from '@site/src/md/clientaccount.md';
 import Snippet  from '@site/src/components/Snippet';
@@ -18,11 +19,7 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 <div>
 
-### The Lune API
-
-Lune provides a single [API](/api/quickstart) for use in-app and web channels to fetch, mutate, and deliver the data necessary to offset CO₂ emissions across a range of verticals.
-
-Our API-first approach allows our customers to embed offsetting into logistics, payments, and Fintech platforms to deliver a unique and programmatically driven experience that brings climate into client operations.
+<LuneApiSection />
 
 </div>
 
