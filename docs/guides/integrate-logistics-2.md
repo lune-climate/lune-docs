@@ -3,6 +3,7 @@ hide_table_of_contents: true
 ---
 
 import Snippet  from '@site/src/components/Snippet';
+import Tip from '@site/src/components/Tip';
 import { indent } from '@site/src/utils';
 import { ApiReferenceSection } from 'lune-ui-lib'
 
@@ -43,7 +44,11 @@ to integrate CO₂ emissions estimations and offsetting into an existing end-use
 
 Feel free to contact our [support team](mailto:support@lune.com) if you encounter any issues integrating our logistics use case.
 
-**NOTE**: Lune is [Smart Freight Centre](https://www.notion.so/luneco/Shipping-Emission-Calculations-f591e8b57c72421ebb4790a88ef8d0e9) accredited, following the GLEC Framework.
+<Tip>
+
+Lune is [Smart Freight Centre](https://www.notion.so/luneco/Shipping-Emission-Calculations-f591e8b57c72421ebb4790a88ef8d0e9) accredited, following the GLEC Framework.
+
+</Tip>
 
 </div>
 <div>
@@ -81,13 +86,13 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 First, head over to the Lune dashboard and generate a new API key.
 
-1) Navigate to [https://dashboard.lune.co/developers](https://dashboard.lune.co/developers)
+1. Navigate to [https://dashboard.lune.co/developers](https://dashboard.lune.co/developers)
 
-2) Select **New Test API Key**, enter a value in the _Name_ field, and select an account from _Default account_
+2. Select **New Test API Key**, enter a value in the _Name_ field, and select an account from _Default account_
 
-3) Select **Save**
+3. Select **Save**
 
-4) Copy your API key, as you'll need it to interact with the Lune API
+4. Copy your API key, as you'll need it to interact with the Lune API
 
 </>
 <>
@@ -108,7 +113,11 @@ First, head over to the Lune dashboard and generate a new API key.
 
 A [client account](/resources/client-accounts/create-client-account) is required for each of your clients and defines their basic characteristics, for example, the currency used to display emission offsetting prices.
 
-**INFO**: Store and map the client id map to your client in your code base.
+<Tip>
+
+Store and map the client id map to your client in your code base.
+
+</Tip>
 
 </div>
 <div>
@@ -134,8 +143,11 @@ A successful request will return a unique id, which you will need to pass in lat
 
 Following a successful response, a client account will be added to your dashboard:
 
+<Tip>
 
 You can access the dedicated client account page by appending the `id` to `/client-account` e.g., `https://dashboard.lune.co/settings/client-accounts/K4enjo9g08vx3MpjnbpPrEZ57XJkDVdb`.
+
+</Tip>
 
 </div>
 </div>
@@ -615,7 +627,7 @@ A successful request will return an order summary, which can be displayed as par
   "estimate_id": "08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2",
   "requested_quantity": "1.105698",
   "requested_value": null
-    }`}
+}`}
 />
 
 ![order-confirmation](/img/logistics-confirmation.png)
