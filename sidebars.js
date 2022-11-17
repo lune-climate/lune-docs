@@ -69,8 +69,8 @@ const sidebars = {
             },
             {
               type: 'link',
-              label: `Present a client's offsetting decision`,
-              href: '/guides/integrate-payments#present-a-clients-offsetting-decision',
+              label: `Store a client's offsetting decision`,
+              href: '/guides/integrate-payments#store-a-clients-offsetting-decision',
             },
             {
               type: 'link',
