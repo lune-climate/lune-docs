@@ -20,7 +20,7 @@ const sidebars = {
       items: [
         {
           type: 'category',
-          label: 'Integrate Logistics',
+          label: 'Sustainable Logistics',
           link: {
             type: 'doc',
             id: 'guides/integrate-logistics',
@@ -51,7 +51,7 @@ const sidebars = {
 
         {
           type: 'category',
-          label: 'Integrate Payments',
+          label: 'Payments Contribution',
           link: {
             type: 'doc',
             id: 'guides/integrate-payments',

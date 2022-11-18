@@ -9,7 +9,7 @@ import Snippet  from '@site/src/components/Snippet';
 import Tip from '@site/src/components/Tip';
 import { ApiReferenceSection } from 'lune-ui-lib'
 
-# Integrate Payments
+# Payments Contribution
 
 <div className="sections">
 
