@@ -103,13 +103,13 @@ pre {
 .menu__list-item-collapsible button.clean-btn.menu__caret::before {
     background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
     opacity: 50%;
-    transform: rotate(180deg);
+    transform: rotate(0deg);
 }
 
 .menu__list-item--collapsed button.clean-btn.menu__caret::before {
     background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
     opacity: 50%;
-    transform: rotate(0deg);
+    transform: rotate(180deg);
 }
 
 .menu__link--sublist-caret::after {
