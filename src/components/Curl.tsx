@@ -1,8 +1,5 @@
 import ResourceExample from '@site/src/components/ResourceExample'
-
-const indent = (str: string, count: number, space: string = ' '): string => {
-    return str.replace(/^/gm, space.repeat(count))
-}
+import { indent } from '@site/src/utils'
 
 export default function Curl(
     path: string,

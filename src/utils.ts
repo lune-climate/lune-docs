@@ -43,3 +43,7 @@ export function getRelativePathPrefix(): string {
             : ''
         : ''
 }
+
+export const indent = (str: string, count: number, space: string = ' '): string => {
+    return str.replace(/^/gm, space.repeat(count))
+}

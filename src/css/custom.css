@@ -51,7 +51,7 @@
     font-size: 18px;
 }
 
-.body3 {
+li, p, .body3 {
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -100,6 +100,18 @@ pre {
     color: #212121; /* Grey900 */
 }
 
+.menu__list-item-collapsible button.clean-btn.menu__caret::before {
+    background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
+    opacity: 50%;
+    transform: rotate(180deg);
+}
+
+.menu__list-item--collapsed button.clean-btn.menu__caret::before {
+    background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
+    opacity: 50%;
+    transform: rotate(0deg);
+}
+
 .menu__link--sublist-caret::after {
     background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
     transform: rotate(0deg);
@@ -142,6 +154,25 @@ pre {
 }
 .sections >*:last-child  {
     margin-bottom: 0px;
+}
+
+.paragraphSections >*  {
+    margin-bottom: 72px;
+}
+.paragraphSections >*:last-child  {
+    margin-bottom: 0px;
+}
+
+.miniSections >*  {
+    margin-bottom: 24px;
+}
+.miniSections >*:last-child  {
+    margin-bottom: 0px;
+}
+
+code {
+    border: 0.063rem solid rgba(0,0,0,.1);
+    border-radius: 0.25rem;
 }
 
 /* Make sure we have the lune-ui-lib global CSS included */
