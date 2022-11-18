@@ -3095,6 +3095,12 @@ export const APISchemaContext = React.createContext<any>({
                         example: 'https://assets.lune.co/bundles/latin-america-forestry.png',
                         nullable: true,
                     },
+                    large_image: {
+                        type: 'string',
+                        description: "A bundle's larger image URL",
+                        example: 'https://assets.lune.co/bundles/latin-america-forestry-lg.png',
+                        nullable: true,
+                    },
                     primary_image_hires: {
                         type: 'string',
                         description: "A bundle's high resolution image URL",
@@ -4159,16 +4165,39 @@ export const APISchemaContext = React.createContext<any>({
                 },
             },
             IdentifiedVesselShippingMethod: {
-                type: 'object',
-                required: ['vessel_imo_number'],
-                properties: {
-                    vessel_imo_number: {
-                        description:
-                            "The ship's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.\n",
-                        type: 'string',
-                        pattern: '^[0-9]{7}$',
+                description:
+                    "This method uses the vessel's IMO number emission factors when found, falling back to trade lane emissions factors if provided.\n",
+                oneOf: [
+                    {
+                        type: 'object',
+                        required: ['vessel_imo_number'],
+                        properties: {
+                            vessel_imo_number: {
+                                description:
+                                    "The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.\n",
+                                type: 'string',
+                                pattern: '^[0-9]{7}$',
+                            },
+                        },
                     },
-                },
+                    {
+                        allOf: [
+                            {
+                                type: 'object',
+                                required: ['vessel_imo_number'],
+                                properties: {
+                                    vessel_imo_number: {
+                                        description:
+                                            "The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.\n",
+                                        type: 'string',
+                                        pattern: '^[0-9]{7}$',
+                                    },
+                                },
+                            },
+                            { $ref: '#/components/schemas/ContainerShippingMethod' },
+                        ],
+                    },
+                ],
             },
             AirportSourceDestination: {
                 type: 'object',
@@ -4634,26 +4663,54 @@ export const APISchemaContext = React.createContext<any>({
             },
             IntegerPercentage: { type: 'integer', minimum: 0, maximum: 100 },
             Merchant: {
-                type: 'object',
-                required: ['category_code', 'country_code'],
-                properties: {
-                    category_code: {
-                        type: 'string',
-                        description:
-                            'An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding\nto the transaction.\n\nSee https://github.com/greggles/mcc-codes for available codes.\n',
-                        example: '0763',
+                allOf: [
+                    {
+                        type: 'object',
+                        required: ['country_code'],
+                        properties: {
+                            name: {
+                                type: 'string',
+                                description: 'The name of the merchant.',
+                                example: 'The Corner Store',
+                            },
+                            country_code: {
+                                type: 'string',
+                                description: "The three-letter code of the merchant's country.",
+                                example: 'GBR',
+                            },
+                        },
                     },
-                    name: {
-                        type: 'string',
-                        description: 'The name of the merchant.',
-                        example: 'The Corner Store',
+                    {
+                        oneOf: [
+                            {
+                                type: 'object',
+                                required: ['category_code'],
+                                properties: {
+                                    category_code: {
+                                        type: 'string',
+                                        description:
+                                            'An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding\nto the transaction.\n\nSee https://github.com/greggles/mcc-codes for available codes.\n',
+                                        example: '0763',
+                                    },
+                                },
+                            },
+                            {
+                                type: 'object',
+                                required: ['coicop_code'],
+                                properties: {
+                                    coicop_code: {
+                                        type: 'string',
+                                        pattern:
+                                            '^(0[1-9])|(1[0-5])(\\.[0-9]+(\\.[0-9]+(\\.[0-9]+)?)?)?$',
+                                        description:
+                                            'A Classification of Individual Consumption According to Purpose\n(https://en.wikipedia.org/wiki/Classification_of_Individual_Consumption_According_to_Purpose)\ncode indicating the type of goods or services purchased.\n\nIt is the responsibility of the API user to provide a valid code here. We validate only\nthe top level identifier (the number before the first dot). If an invalid code is provided\nwe fall back to the division-level emission defaults (so for example 14.999999 will fall\nback to 14).\n',
+                                        example: '09.5',
+                                    },
+                                },
+                            },
+                        ],
                     },
-                    country_code: {
-                        type: 'string',
-                        description: "The three-letter code of the merchant's country.",
-                        example: 'GBR',
-                    },
-                },
+                ],
             },
             Diet: {
                 description:
@@ -4782,7 +4839,10 @@ export const APISchemaContext = React.createContext<any>({
                                     'Summary of the methodology used to calculate emissions or any value which is a prerequisite.\n\n`imo_unavailable_container_ship_fallback`: the vessel IMO was not found, therefore a generic container ship emission factor has been used.\n',
                                 items: {
                                     type: 'string',
-                                    enum: ['imo_unavailable_container_ship_fallback'],
+                                    enum: [
+                                        'imo_unavailable_container_ship_fallback',
+                                        'imo_unavailable_container_ship_trade_lane_fallback',
+                                    ],
                                 },
                             },
                         },
