@@ -7,7 +7,7 @@ require('dotenv').config()
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: 'Lune Docs',
+    title: 'Lune Documentation',
     tagline: 'Learn how to use Lune to make your product or service climate positive',
     url: 'https://docs.lune.co',
     baseUrl: '/',
@@ -84,11 +84,11 @@ const config = {
             //  },
 
             navbar: {
-                title: 'Documentation',
+                title: 'Lune Documentation',
                 logo: {
                     alt: 'Lune Logo',
-                    src: 'img/lune-logo-512.png',
-                    srcDark: 'img/lune-logo-512-white.png',
+                    src: 'img/lune-logo.png',
+                    srcDark: 'img/lune-logo.png',
                 },
                 items: [
                     {
