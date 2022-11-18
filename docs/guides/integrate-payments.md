@@ -53,7 +53,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 </div>
 <>
 
-![payments-intro](/img/payments-intro.png)
+![payments-intro](/img/payments-checkout.png)
 
 </>
 </ApiReferenceSection>
