@@ -10,7 +10,10 @@ Our API-first approach allows our customers to embed offsetting into logistics, 
 
 ### Overview
 
-In this guide, you will learn how to interact with the Lune API to calculate emissions for financial transactions and offset those emissions.
+In this guide, you will learn how to interact with the Lune API to:
+
+- Calculate emissions for financial transactions
+- Offset those emissions.
 
 ### Who is this guide for?
 
@@ -170,6 +173,7 @@ A successful 200 request will result in an estimate of CO₂ emissions for each 
 
 ![transaction-calc](/img/transaction-calc.png)
 
+**NOTE**: The following example shows the CO₂ emissions estimate for one of the three transactions from the request above.
 
 ```js
 
@@ -222,8 +226,6 @@ A successful 200 request will result in an estimate of CO₂ emissions for each 
     }
   }
 ]
-
-
 ```
 
 **Where**:
@@ -232,9 +234,11 @@ A successful 200 request will result in an estimate of CO₂ emissions for each 
 - `quote.bundles` is a container object for the Project bundles that will be used to offset the emissions associated with the transaction and includes the bundle id, bundle name, and unit price
 - `quote.estimated_total_cost` is the total cost of offsetting the CO₂ emissions for that transaction in the client's currency
 
+**NOTE**: Calculate the sum of emissions (`mass.amount`+`mass.amount`) from the `transaction`response and store it.  This is the amount that will need to be offset in the next request.
+
 ## Offsetting emissions
 
-To [calculate the cost of offsetting the emissions](/resources/orders/get-order-quote-by-mass) from those transactions, pass in the total CO₂ emissions as returned in `mass.amount` in each transaction object in the above response.
+To [calculate the cost of offsetting emissions](/resources/orders/get-order-quote-by-mass) for transactions, pass in the calculated sum of emissions.
 
 ### Sample request
 
@@ -299,13 +303,3 @@ A successful 200 request will return the total cost of offsetting the CO₂ emis
 
 - `estimated_total_cost` is the total cost of offsetting the CO₂ emissions in the client's currency
 - `bundles` is a container object for the Project bundles that will be used to offset the emissions associated with the transactions and includes the bundle id, bundle name, and unit price
-
-## Payment processing
-
-To complete the offsetting process, clients can forward customers to a checkout step and present the:
-
-- Emissions for the processed transactions in tonnes
-- Cost of offsetting a tonne of CO₂ for the chosen Project bundle
-- Total cost of offsetting CO₂ emissions
-
-![payment-processing](/img/checkout.png)
