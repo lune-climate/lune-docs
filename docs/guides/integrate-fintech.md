@@ -306,8 +306,81 @@ A successful 200 request will return the total cost of offsetting the CO₂ emis
 
 ## Offset emissions
 
-To [offset emissions](/resources/orders/), pass in the value from returned in `estimate_total_cost` in the above request.
+To [offset emissions](/resources/orders/create-order-by-mass), pass in the value from returned in `estimate_total_cost` from the response above.
 
+### Sample request
 
+```js
+curl https://api.lune.co/v1/orders/by-mass \
+        -H 'Content-Type: application/json' \
+        -H "Authorization: Bearer $API_KEY" \
+        -H "Lune-Account: <CLIENT_ACCOUNT_ID>" \
+        -X POST \
+        -d '
+{
+  "mass": {
+    "amount": "259.111",
+    "unit": "kg"
+  }
+}'
+```
 
-this amount in To [display the emissions which have not yet been offset and the cost](/resources/orders/get-order-quote-by-mass), pass in the calculated sum of emissions.
+**Where**:
+
+- `mass.amount` is the total amount of CO₂ in tonnes to offset
+
+### Sample response
+
+```js
+{
+  "id": "dk23N8xjQLEnvY0XPgbYgX79RB4zDKOl",
+  "metadata": {},
+  "idempotency_key": null,
+  "type": "quantity",
+  "status": "placed",
+  "currency": "USD",
+  "offset_cost": "6.54",
+  "total_cost": "7.27",
+  "commission": "0.73",
+  "quantity": "0.25911",
+  "created_at": "2022-11-17T18:05:04.057Z",
+  "bundles": [
+    {
+      "bundle_id": "q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8",
+      "bundle_name": "Conserving forests in Asia",
+      "quantity": "0.246155",
+      "unit_price": "13.39",
+      "gross_unit_price": "14.88",
+      "offset_cost": "3.3",
+      "insufficient_available_quantity": null
+    },
+    {
+      "bundle_id": "xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w",
+      "bundle_name": "Ocean Carbon Removal",
+      "quantity": "0.012955",
+      "unit_price": "250",
+      "gross_unit_price": "277.78",
+      "offset_cost": "3.24",
+      "insufficient_available_quantity": false
+    }
+  ],
+  "projects": [],
+  "certificate": null,
+  "offset_link_id": null,
+  "email": null,
+  "estimate_id": null,
+  "requested_quantity": "0.259111",
+  "requested_value": null
+}
+```
+
+**Where**:
+
+- `id` is the unique identifier for the booking
+- `idempotency_key` is a unique token that you submit as a request header, that guarantee that only one order will be created regardless of how many times a request is sent to us
+- `status`is the order status.  `placed` means the order has been validated and accepted and will be fulfilled
+- `offset_cost` is the cost of purchasing the offsets
+- `total_cost` is the total cost of purchasing the offsets, including Lune's fee
+- `commission` is Lune's fee
+- `quantity` is the total quantity of offsets purchased, expressed in tonnes
+- `bundles.bundle_id` are the Lune default project bundles against which CO₂ emissions will be offset
