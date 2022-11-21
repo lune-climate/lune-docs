@@ -236,9 +236,9 @@ A successful 200 request will result in an estimate of CO₂ emissions for each 
 
 **NOTE**: Calculate the sum of emissions (`mass.amount`+`mass.amount`) from the `transaction`response and store it.  This is the amount that will need to be offset in the next request.
 
-## Offsetting emissions
+## Displaying emissions and the cost
 
-To [calculate the cost of offsetting emissions](/resources/orders/get-order-quote-by-mass) for transactions, pass in the calculated sum of emissions.
+To [display the emissions which have not yet been offset and the cost](/resources/orders/get-order-quote-by-mass), pass in the calculated sum of emissions.
 
 ### Sample request
 
@@ -303,3 +303,11 @@ A successful 200 request will return the total cost of offsetting the CO₂ emis
 
 - `estimated_total_cost` is the total cost of offsetting the CO₂ emissions in the client's currency
 - `bundles` is a container object for the Project bundles that will be used to offset the emissions associated with the transactions and includes the bundle id, bundle name, and unit price
+
+## Offset emissions
+
+To [offset emissions](/resources/orders/), pass in the value from returned in `estimate_total_cost` in the above request.
+
+
+
+this amount in To [display the emissions which have not yet been offset and the cost](/resources/orders/get-order-quote-by-mass), pass in the calculated sum of emissions.
