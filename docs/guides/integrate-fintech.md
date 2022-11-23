@@ -1,28 +1,49 @@
-# Integrate Financial Services
+---
+hide_table_of_contents: true
+---
 
-## Intro
+import LuneApiSection from '@site/src/md/luneapi.md';
+import ApiKeySection from '@site/src/md/apikey.md';
+import ClientAccountSection from '@site/src/md/clientaccount.md';
+import Snippet  from '@site/src/components/Snippet';
+import Tip from '@site/src/components/Tip';
+import { indent } from '@site/src/utils';
+import { ApiReferenceSection } from 'lune-ui-lib'
 
-### The Lune API
+# Fintech Offsetting
+<div className="sections">
 
-Lune provides a single [API](/api/quickstart) for use in-app and web channels to fetch, mutate, and deliver the data necessary to offset CO₂ emissions across a range of verticals.
+<ApiReferenceSection>
+<div className="paragraphSections">
 
-Our API-first approach allows our customers to embed offsetting into logistics, payments, and Fintech platforms to deliver a unique and programmatically driven experience that brings climate into client operations.
+<div>
 
-### Overview
+<LuneApiSection />
+
+</div>
+<div>
+
+## Overview
 
 In this guide, you will learn how to interact with the Lune API to:
 
-- Calculate emissions for financial transactions
-- Offset those emissions.
+1. Calculate emissions for financial transactions
+2. Offset those emissions.
 
-### Who is this guide for?
+</div>
+<div>
+
+## Who is this guide for?
 
 This guide is primarily aimed at Product Managers and developers looking
 to integrate CO₂ emissions estimations and offsetting into an existing end-user experience.
 
 Feel free to contact our [support team](mailto:support@lune.com) if you encounter any issues integrating our logistics use case.
 
-### Concepts
+</div>
+<div>
+
+## Concepts
 
 - **Client account** - You must create a client account for each of your clients to define their basic characteristics, such as name, currency, and beneficiary.  Clients will be provided a Lune defaults
 - **Lune defaults** - Lune has provided a default Project bundle for each of our clients.  Every order will be placed against the following projects and ratios:
@@ -30,154 +51,150 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
   - Ocean Carbon Removal - 5%
 - **Project bundle** - Group of offsetting projects with similar characteristics., e.g., _Conserving forests in Asia_ and _Ocean Carbon Removal_
 
+</div>
+</div>
+
+<>
+
+![fintech-transactions](/img/fintech-transactions.png)
+
+</>
+
+</ApiReferenceSection>
+
+<div>
+
 ## API flow
 
-![payments-flow](/img/logistics-flow.png)
+![fintech-apiflow](/img/fintech-apiflow.png)
 
-## Getting an API key
+</div>
 
-First, head over to the Lune dashboard and generate a new API key.
+<ApiKeySection />
 
-1) Navigate to [https://dashboard.lune.co/developers](https://dashboard.lune.co/developers)
+<ClientAccountSection />
 
-2) Select **New Test API Key**, enter a value in the _Name_ field, and select an account from _Default account_
+<ApiReferenceSection>
 
-3) Select **Save**
+<div className="paragraphSections">
 
-4) Copy your API key, as you'll need it to interact with the Lune API
-
-## Create a client account
-
-A [client account](/resources/client-accounts/create-client-account) is required for each of your clients and defines their basic characteristics, for example, the currency used to display emissions.
-
-**INFO**: Store and map the client id map to your client in your code base.
-
-### Sample request
-
-You can optionally pass in `beneficiary` to link a client account to the legal entity receiving the carbon offset.
-
-```js
-curl "https://api.lune.co/v1/accounts/client" \
-    -s \
-    -X POST \
-    -H "Authorization: Bearer $API_KEY" \
-    -H "Content-Type: application/json" \
-    -d '
-{
-    "name": "MY TEST COMPANY",
-    "currency": "USD",
-    "beneficiary": "MY TEST COMPANY INC"
-}'
-```
-
-### Sample response
-
-A successful request will return a unique id, which you will need to pass in later interactions with the Lune API.
-
-```js
-{
-    "id": "K4enjo9g08vx3MpjnbpPrEZ57XJkDVdb",
-    "name": "MY TEST COMPANY",
-    "currency": "USD",
-    "balance": "0",
-    "balance_outstanding": "0",
-    "type": "test",
-    "scope": "client_account",
-    "beneficiary": "MY TEST COMPANY INC",
-    "organisation_id": "42O097M13DKvo5pmlJYZjmVlGzqJwXbE",
-    "bundle_portfolio_id": null,
-    "logo": null
-}
-```
-
-**Where**:
-
-- `id` is the unique identifier for each of your clients, which you must map in your code base
-- `name` is a name that you will use to identify your client and present offsetting options to
-- `currency` defines the currency used to display the price for each offsetting option
-- `type` defines the type of account.  Use `test` for your playground
-- `beneficiary` is the legal entity shown on the Carbon Offset Certificate and carbon registries
-
-Following a successful response, a client account will be added to your dashboard:
-
-![new-client-account](/img/new-client-account.png)
-
-You can access the dedicated client account page by appending the `id` to `/client-account` e.g., `https://dashboard.lune.co/settings/client-accounts/K4enjo9g08vx3MpjnbpPrEZ57XJkDVdb`.
+<div>
 
 ## Calculate emissions for transactions
 
 To calculate an [estimate of CO₂ emissions](/resources/emission-estimates/create-batch-transaction-estimate/) for up to 100 transactions, pass in the transaction amount, the MCC (Merchant Category Code), and Merchant country for each transaction.
 
-**NOTE**: Lune is in the process of rolling out support for merchant-level emissions calculations.
+<Tip>
 
-**NOTE**: To prevent batch failure, each transaction is processed individually. Within the response, any failed transactions will be returned with an error code and message.
+Lune is in the process of rolling out support for merchant-level emissions calculations.
+
+</Tip>
+
+<Tip>
+
+To prevent batch failure, each transaction is processed individually.
+
+Within the response, any failed transactions will be returned with an error code and message.
+
+</Tip>
+
+</div>
+<div>
 
 ### Sample request
 
-```js
-curl https://api.lune.co/v1/estimates/transactions/batch \
-    -s \
-	-H 'Content-Type: application/json' \
-	-H "Authorization: Bearer $API_KEY" \
-	-H "Lune-Account: <CLIENT_ACCOUNT_ID>" \
-	-X POST \
-	-d '[
-      {
-        "value": {
-          "value": "8.99",
-          "currency": "USD"
-        },
-        "merchant": {
-          "category_code": "5411",
-          "name": "Starbucks",
-          "country_code": "USA"
-        }
-      },
-      {
-        "value": {
-          "value": "120",
-          "currency": "USD"
-        },
-        "merchant": {
-          "category_code": "3001",
-          "name": "British Airways",
-          "country_code": "USA"
-        }
-      },
-      {
-        "value": {
-          "value": "8.99",
-          "currency": "USD"
-        },
-        "merchant": {
-          "category_code": "5818",
-          "name": "Netflix",
-          "country_code": "USA"
-        }
-      }
-    ]'
-```
-
 **Where**:
 
-- `<CLIENT_ACCOUNT_ID>` is the unique identifier for the client
+- `$CLIENT_ACCOUNT_ID` is the unique identifier for the client
 - `value.value` defines the shipment load; in this example, 40 tonnes
 - `value.currency` is the currency in which the transaction was completed
 - `merchant.category_code` is the Merchant Category Code (MCC) used to classify the type of goods and services that are transacted
 - `merchant.name` is the name of merchant in the transaction
 - `merchant.country_code` is the 3-character (which standard? ISO) country code for the country in which the transaction was completed
 
+</div>
+<div>
+
 ### Sample response
 
-A successful 200 request will result in an estimate of CO₂ emissions for each transaction, which can be presented in-app:
+A successful 200 response will result in an estimate of CO₂ emissions for each transaction, which can be presented in-app.
 
-![transaction-calc](/img/transaction-calc.png)
+<Tip>
 
-**NOTE**: The following example shows the CO₂ emissions estimate for one of the three transactions from the request above.
+The following example shows the CO₂ emissions estimate for one of the three transactions from the request above.
 
-```js
+</Tip>
 
-[
+**Where**:
+
+- `mass.amount` is the calculated amount of CO₂ emissions for the transaction
+- `mass.unit` is the mass unit
+- `quote.bundles` is a container object for the Project bundles that will be used to offset the emissions associated with the transaction and includes the bundle id, bundle name, and unit price
+- `quote.estimated_total_cost` is the total cost of offsetting the CO₂ emissions for that transaction in the client's currency
+
+<Tip>
+
+Calculate the sum of emissions from the `transaction` response and store it.  This is the amount that will need to be offset in the next request.
+
+<br />
+
+Convert `mass.amount`s to the same unit before summing.
+
+</Tip>
+
+</div>
+</div>
+
+<div className="miniSections">
+
+<Snippet
+    header="Sample request"
+    language="bash"
+    code={`curl https://api.lune.co/v1/estimates/transactions/batch \\
+  -H 'Content-Type: application/json' \\
+  -H "Authorization: Bearer $API_KEY" \\
+  -H "Lune-Account: $CLIENT_ACCOUNT_ID" \\
+  -X POST \\
+  -d '[
+    {
+      "value": {
+        "value": "8.99",
+        "currency": "USD"
+      },
+      "merchant": {
+        "category_code": "5411",
+        "name": "Starbucks",
+        "country_code": "USA"
+      }
+    },
+    {
+      "value": {
+        "value": "120",
+        "currency": "USD"
+      },
+      "merchant": {
+        "category_code": "3001",
+        "name": "British Airways",
+        "country_code": "USA"
+      }
+    },
+    {
+      "value": {
+        "value": "8.99",
+        "currency": "USD"
+      },
+      "merchant": {
+        "category_code": "5818",
+        "name": "Netflix",
+        "country_code": "USA"
+      }
+    }
+  ]'`} />
+
+<Snippet
+    header="Sample response"
+    language="json"
+    code={`[
   {
     "mass": {
       "unit": "t",
@@ -225,50 +242,69 @@ A successful 200 request will result in an estimate of CO₂ emissions for each 
       }
     }
   }
-]
-```
+]`} />
 
-**Where**:
+![fintech-transactions](/img/fintech-transactions.png)
 
-- `mass.amount` is the calculated amount of CO₂ emissions for the transaction
-- `quote.bundles` is a container object for the Project bundles that will be used to offset the emissions associated with the transaction and includes the bundle id, bundle name, and unit price
-- `quote.estimated_total_cost` is the total cost of offsetting the CO₂ emissions for that transaction in the client's currency
+</div>
+</ApiReferenceSection>
 
-**NOTE**: Calculate the sum of emissions (`mass.amount`+`mass.amount`) from the `transaction`response and store it.  This is the amount that will need to be offset in the next request.
+
+<ApiReferenceSection>
+<div className="paragraphSections">
+
+<div>
 
 ## Displaying emissions and the cost
 
 To [display the emissions which have not yet been offset and the cost](/resources/orders/get-order-quote-by-mass), pass in the calculated sum of emissions.
 
-### Sample request
+</div>
+<div>
 
-```js
-curl https://api.lune.co/v1/orders/by-mass/quote \
-        -H 'Content-Type: application/json' \
-        -H "Authorization: Bearer $API_KEY" \
-        -H "Lune-Account: <CLIENT_ACCOUNT_ID>" \
-        -X POST \
-        -d '
-{
-  "mass": {
-    "amount": "259.111",
-    "unit": "kg"
-  }
-}'
-```
+### Sample request
 
 **Where**:
 
 - `mass.amount` is the total amount of CO₂ emissions for the transactions to be offset
+- `mass.unit` is the mass unit
+
+</div>
+<div>
 
 ### Sample response
 
 A successful 200 request will return the total cost of offsetting the CO₂ emissions, along with options for offsetting (Lune defaults) which can be presented in-app:
 
-![monthly-emissions](/img/monthly-emissions.png)
+**Where**:
 
-```js
-{
+- `estimated_total_cost` is the total cost of offsetting the CO₂ emissions in the client's currency
+- `bundles` is a container object for the Project bundles that will be used to offset the emissions associated with the transactions and includes the bundle id, bundle name, and unit price
+
+</div>
+</div>
+
+<div className="miniSections">
+
+<Snippet
+    header="Sample request"
+    language="bash"
+    code={`curl https://api.lune.co/v1/orders/by-mass/quote \\
+  -H 'Content-Type: application/json' \\
+  -H "Authorization: Bearer $API_KEY" \\
+  -H "Lune-Account: $CLIENT_ACCOUNT_ID" \\
+  -X POST \\
+  -d '{
+    "mass": {
+      "amount": "259.111",
+      "unit": "kg"
+    }
+  }'`} />
+
+<Snippet
+    header="Sample response"
+    language="json"
+    code={`{
   "currency": "USD",
   "estimated_quantity": "0.25911",
   "estimated_offset_cost": "6.39",
@@ -296,43 +332,75 @@ A successful 200 request will return the total cost of offsetting the CO₂ emis
       "insufficient_available_quantity": null
     }
   ]
-}
-```
+}`} />
 
-**Where**:
+![fintech-offsetnow](/img/fintech-offsetnow.png)
 
-- `estimated_total_cost` is the total cost of offsetting the CO₂ emissions in the client's currency
-- `bundles` is a container object for the Project bundles that will be used to offset the emissions associated with the transactions and includes the bundle id, bundle name, and unit price
+</div>
+
+</ApiReferenceSection>
+
+<ApiReferenceSection>
+
+<div className="paragraphSections">
+
+<div>
 
 ## Offset emissions
 
-To [offset emissions](/resources/orders/create-order-by-mass), pass in the value from returned in `estimate_total_cost` from the response above.
+To [offset emissions](/resources/orders/create-order-by-mass), pass in the calculated sum of emissions.
+
+
+</div>
+<div>
 
 ### Sample request
-
-```js
-curl https://api.lune.co/v1/orders/by-mass \
-        -H 'Content-Type: application/json' \
-        -H "Authorization: Bearer $API_KEY" \
-        -H "Lune-Account: <CLIENT_ACCOUNT_ID>" \
-        -X POST \
-        -d '
-{
-  "mass": {
-    "amount": "259.111",
-    "unit": "kg"
-  }
-}'
-```
 
 **Where**:
 
 - `mass.amount` is the total amount of CO₂ in tonnes to offset
+- `mass.unit` is the mass unit
+
+</div>
+<div>
 
 ### Sample response
 
-```js
-{
+**Where**:
+
+- `id` is the unique identifier for the booking
+- `idempotency_key` is a unique token that you submit as a request header, that guarantee that only one order will be created regardless of how many times a request is sent to us
+- `status`is the order status.  `placed` means the order has been validated and accepted and will be fulfilled
+- `offset_cost` is the cost of purchasing the offsets
+- `total_cost` is the total cost of purchasing the offsets, including Lune's fee
+- `commission` is Lune's fee
+- `quantity` is the total quantity of offsets purchased, expressed in tonnes
+- `bundles.bundle_id` are the Lune default project bundles against which CO₂ emissions will be offset
+
+</div>
+</div>
+
+<div className="miniSections">
+
+<Snippet
+    header="Sample request"
+    language="bash"
+    code={`curl https://api.lune.co/v1/orders/by-mass \\
+  -H 'Content-Type: application/json' \\
+  -H "Authorization: Bearer $API_KEY" \\
+  -H "Lune-Account: $CLIENT_ACCOUNT_ID" \\
+  -X POST \
+  -d '{
+  "mass": {
+    "amount": "259.111",
+    "unit": "kg"
+  }
+}'`} />
+
+<Snippet
+    header="Sample response"
+    language="json"
+    code={`{
   "id": "dk23N8xjQLEnvY0XPgbYgX79RB4zDKOl",
   "metadata": {},
   "idempotency_key": null,
@@ -371,16 +439,12 @@ curl https://api.lune.co/v1/orders/by-mass \
   "estimate_id": null,
   "requested_quantity": "0.259111",
   "requested_value": null
-}
-```
+}`} />
 
-**Where**:
+![fintech-offsetnow](/img/fintech-confirmation.png)
 
-- `id` is the unique identifier for the booking
-- `idempotency_key` is a unique token that you submit as a request header, that guarantee that only one order will be created regardless of how many times a request is sent to us
-- `status`is the order status.  `placed` means the order has been validated and accepted and will be fulfilled
-- `offset_cost` is the cost of purchasing the offsets
-- `total_cost` is the total cost of purchasing the offsets, including Lune's fee
-- `commission` is Lune's fee
-- `quantity` is the total quantity of offsets purchased, expressed in tonnes
-- `bundles.bundle_id` are the Lune default project bundles against which CO₂ emissions will be offset
+</div>
+
+</ApiReferenceSection>
+
+</div>
