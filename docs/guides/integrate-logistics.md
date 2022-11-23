@@ -54,7 +54,7 @@ Lune is [Smart Freight Centre](https://www.notion.so/luneco/Shipping-Emission-Ca
 
 ## Concepts
 
-- **Client account** - You must create a client account for each of your clients to define their basic characteristics, such as name, currency, and beneficiary.  Clients will be provided a Lune defaults
+- **Client account** - You must create a client account for each of your clients to define their basic characteristics, such as name, currency, and beneficiary.  Clients will be provided Lune defaults
 - **Lune defaults** - Lune has provided a default Project bundle for each of our clients.  Every order will be placed against the following projects and ratios:
   - Conserving forests in Asia - 95%
   - Ocean Carbon Removal - 5%
