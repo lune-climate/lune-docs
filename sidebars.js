@@ -82,7 +82,7 @@ const sidebars = {
 
         {
           type: 'category',
-          label: 'Fintech Offsetting',
+          label: 'Green Banking',
           link: {
             type: 'doc',
             id: 'guides/integrate-fintech',
