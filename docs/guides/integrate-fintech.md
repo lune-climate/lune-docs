@@ -110,7 +110,7 @@ Within the response, any failed transactions will be returned with an error code
 - `value.currency` is the currency in which the transaction was completed
 - `merchant.category_code` is the Merchant Category Code (MCC) used to classify the type of goods and services that are transacted
 - `merchant.name` is the name of merchant in the transaction
-- `merchant.country_code` is the 3-character (which standard? ISO) country code for the country in which the transaction was completed
+- `merchant.country_code` is the 3-character (ISO 3166) country code for the country in which the transaction was completed
 
 </div>
 <div>
@@ -369,8 +369,8 @@ To [offset emissions](/resources/orders/create-order-by-mass), pass in the calcu
 **Where**:
 
 - `id` is the unique identifier for the booking
-- `idempotency_key` is a unique token that you submit as a request header, that guarantee that only one order will be created regardless of how many times a request is sent to us
-- `status`is the order status.  `placed` means the order has been validated and accepted and will be fulfilled
+- `idempotency_key` is a unique token that you submit as a request header, that guarantees that only one order will be created regardless of how many times a request is sent to us
+- `status`is the order status.  `placed` means the order has been validated, accepted and will be fulfilled
 - `offset_cost` is the cost of purchasing the offsets
 - `total_cost` is the total cost of purchasing the offsets, including Lune's fee
 - `commission` is Lune's fee
