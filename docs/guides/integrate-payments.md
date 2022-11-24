@@ -45,7 +45,10 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 ## Concepts
 
-- **Client account** - You must create a client account for each client to define their basic characteristics, such as name, currency, and beneficiary.  Clients will be provided Lune default Project bundles
+- **Client account** - You must create a client account for each client to define their basic characteristics, such as name, currency, and beneficiary.  Clients will be provided Lune defaults
+- **Lune defaults** - Lune has provided a default Project bundle for each of our clients.  Every order will be placed against the following projects and ratios:
+  - Conserving forests in Asia - 95%
+  - Ocean Carbon Removal - 5%
 - **Project bundle** - Group of offsetting projects with similar characteristics., e.g., _Conserving forests in Asia_ and _Ocean Carbon Removal_
 - **Offsetting preferences page** - Present your customers with offsetting options for use in their payments flow
 

@@ -80,6 +80,42 @@ const sidebars = {
           ]
         },
 
+        {
+          type: 'category',
+          label: 'Fintech Offsetting',
+          link: {
+            type: 'doc',
+            id: 'guides/integrate-fintech',
+          },
+          items: [
+            {
+              type: 'link',
+              label: 'Overview',
+              href: '/guides/integrate-fintech#overview',
+            },
+            {
+              type: 'link',
+              label: 'Create a client account',
+              href: '/guides/integrate-fintech#create-a-client-account',
+            },
+            {
+              type: 'link',
+              label: 'Calculate emissions for transactions',
+              href: '/guides/integrate-fintech#calculate-emissions-for-transactions',
+            },
+            {
+              type: 'link',
+              label: 'Displaying emissions and the cost',
+              href: '/guides/integrate-fintech#displaying-emissions-and-the-cost',
+            },
+            {
+              type: 'link',
+              label: 'Offset emissions',
+              href: '/guides/integrate-fintech#offset-emissions',
+            }
+          ]
+        },
+
       ],
     },
     {

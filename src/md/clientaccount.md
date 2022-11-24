@@ -15,7 +15,7 @@ A [client account](/resources/client-accounts/create-client-account) is required
 
 <Tip>
 
-Store and map the client id map to your client in your code base.
+Store and map the client account id to your client in your database.
 
 </Tip>
 
