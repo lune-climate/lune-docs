@@ -5511,6 +5511,7 @@ components:
       type: string
       description: The sustainability page slug. The slug is used to identify the page publicly and should be unique.
       example: 'acme'
+      pattern: '^[a-z0-9.-]+$'
     SustainabilityPageTitle:
       type: string
       description: The sustainability page title stat format.
