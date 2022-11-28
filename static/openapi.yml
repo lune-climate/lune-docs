@@ -3829,7 +3829,7 @@ components:
               items:
                 $ref: '#/components/schemas/EmissionEstimate'
             quote:
-              $ref: '#/components/schemas/OrderQuoteByQuantity'
+              $ref: '#/components/schemas/EstimateQuote'
             request:
               $ref: '#/components/schemas/PassengerTransportationEstimateRequest'
     CabinClass:
@@ -4760,7 +4760,7 @@ components:
               description: The emission calculation unique identifier
               example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
             quote:
-              $ref: '#/components/schemas/OrderQuoteByQuantity'
+              $ref: '#/components/schemas/EstimateQuote'
     ElectricityEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
@@ -4817,7 +4817,7 @@ components:
               description: The emission calculation unique identifier
               example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
             quote:
-              $ref: '#/components/schemas/OrderQuoteByQuantity'
+              $ref: '#/components/schemas/EstimateQuote'
             request: 
               $ref: '#/components/schemas/ShippingEstimateRequest'
     ShippingLegEmissionEstimate:
@@ -5768,3 +5768,7 @@ components:
         - Climate Action Reserve
         - Woodland Carbon Code
         - ''
+    EstimateQuote:
+      oneOf:
+        - $ref: '#/components/schemas/Errors'
+        - $ref: '#/components/schemas/OrderQuoteByQuantity'
