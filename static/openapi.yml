@@ -52,6 +52,9 @@ tags:
   - name: Webhook request
     description: Webhook request response example.
     x-components: ["WebhookRequest"]
+  - name: Payments
+    description: Get payments.
+    x-components: ["Payment"]
 
 paths:
   /activity:
@@ -2057,6 +2060,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PublicSustainabilityPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /payments/by-temporary-id/{temporary_id}:
+    get:
+      description: |
+        Get a specific payment by a temporary id.
+        
+        The temporary id will remain valid for 15min from the payment's creation after which the endpoint will return a 404.
+      operationId: getPaymentByTemporaryId
+      tags:
+        - Payments
+      parameters:
+        - name: temporary_id
+          in: path
+          required: true
+          description: The payment's temporary id
+          schema:
+            type: string
+            format: uuid
+            example: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
         '400':
           $ref: '#/components/responses/BadRequest'
         '404':
@@ -5772,3 +5806,22 @@ components:
       oneOf:
         - $ref: '#/components/schemas/Errors'
         - $ref: '#/components/schemas/OrderQuoteByQuantity'
+    Payment:
+      oneOf:
+        - $ref: '#/components/schemas/OrderPayment'
+      discriminator:
+        propertyName: type
+        mapping:
+          order: '#/components/schemas/OrderPayment'
+    OrderPayment:
+      type: object
+      required:
+        - type
+        - order
+      properties:
+        order:
+          $ref: '#/components/schemas/Order'
+        type:
+          type: string
+          enum:
+            - order
