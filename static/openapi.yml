@@ -40,6 +40,9 @@ tags:
   - name: Analytics
     description: Get account analytics.
     x-components: ["Analytics"]
+  - name: Payments
+    description: Get payments.
+    x-components: ["Payment"]
   - name: Offset links
     description: Provide your customers with links to fund a bundle of their choice.
     x-components: ["OffsetLink"]
@@ -1792,7 +1795,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Webhook'
+                $ref: '#/components/schemas/WebhookFullSecret'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1914,7 +1917,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Webhook'
+                $ref: '#/components/schemas/WebhookFullSecret'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -2057,6 +2060,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PublicSustainabilityPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /payments/by-temporary-id/{temporary_id}:
+    get:
+      summary: Get a payment by a temporary id.
+      description: |
+        Get a specific payment by a temporary id.
+
+        The temporary id will remain valid for 15min from the payment's creation after which the endpoint will return a 404.
+      operationId: getPaymentByTemporaryId
+      tags:
+        - Payments
+      parameters:
+        - name: temporary_id
+          in: path
+          required: true
+          description: The payment's temporary id
+          schema:
+            type: string
+            format: uuid
+            example: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
         '400':
           $ref: '#/components/responses/BadRequest'
         '404':
@@ -5244,13 +5279,14 @@ components:
             webhooks. When updating a webhook and the value is not explicitly specified the existing value
             will be used.
           type: boolean
-    Webhook:
+    WebhookBase:
       type: object
       required:
         - id
         - url
         - enabled
-        - secret
+        - account_type
+        - created_at
       properties:
         id:
           description: The webhook's unique identifier
@@ -5261,9 +5297,35 @@ components:
         enabled:
           description: Determines if events should be sent to the webhook or not.
           type: boolean
-        secret:
-          description: The secret key used to generate the webhook payload HMAC.
-          type: string
+        account_type:
+          description: |
+            For events related to an account, this property refers to the accounts' type.
+
+            A webhook does not mix live and test events.
+          $ref: '#/components/schemas/AccountType'
+        created_at:
+          description: The webhook's creation timestamp.
+          $ref: '#/components/schemas/Timestamp'
+    Webhook:
+      allOf:
+        - $ref: '#/components/schemas/WebhookBase'
+        - type: object
+          required:
+            - secret
+          properties:
+            secret:
+              description: The last 4 characters of the secret key used to generate the webhook payload HMAC.
+              type: string
+    WebhookFullSecret:
+      allOf:
+        - $ref: '#/components/schemas/WebhookBase'
+        - type: object
+          required:
+            - secret
+          properties:
+            secret:
+              description: The secret key used to generate the webhook payload HMAC.
+              type: string
     WebhookRequest:
       type: object
       required:
@@ -5772,3 +5834,22 @@ components:
       oneOf:
         - $ref: '#/components/schemas/Errors'
         - $ref: '#/components/schemas/OrderQuoteByQuantity'
+    Payment:
+      oneOf:
+        - $ref: '#/components/schemas/OrderPayment'
+      discriminator:
+        propertyName: type
+        mapping:
+          order: '#/components/schemas/OrderPayment'
+    OrderPayment:
+      type: object
+      required:
+        - type
+        - order
+      properties:
+        order:
+          $ref: '#/components/schemas/Order'
+        type:
+          type: string
+          enum:
+            - order
