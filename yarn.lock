@@ -8848,10 +8848,10 @@ ts-node@^10.9.1:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
-ts-unused-exports@^8.0.3:
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/ts-unused-exports/-/ts-unused-exports-8.0.3.tgz#b92836331b786e6d82c9cb6b54339a032a9d8a5b"
-  integrity sha512-x5oVuhCYo4j4nelcT1mmDFLs4T/aHRMGVln/Q142XPlTl3SBESlncZ4d95xVsZGEmdvpx53e5bMktrMzAdCCgw==
+ts-unused-exports@^8.0.4:
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/ts-unused-exports/-/ts-unused-exports-8.0.4.tgz#5336ec853383e268b8d1df978bdac82a3b844003"
+  integrity sha512-RI0m+I4VBI14Ov7dyVJH7Z30hVF/ZNTOHxRLMtSsA3LMigh/v9oi51TM3rCbIg+MaKvayPwqhSkrPAIEB8FnvA==
   dependencies:
     chalk "^4.0.0"
     tsconfig-paths "^3.9.0"
