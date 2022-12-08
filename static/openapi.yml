@@ -1336,6 +1336,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionEmissionEstimate'
+        '204':
+          description: No content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyObject'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1410,6 +1416,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionEmissionEstimate'
+        '204':
+          description: No content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyObject'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -4758,6 +4770,17 @@ components:
                   we fall back to the division-level emission defaults (so for example 14.999999 will fall
                   back to 14).
                 example: "09.5"
+          - type: object
+            required:
+              - fuzzy_search_term
+            properties:
+              fuzzy_search_term:
+                type: string
+                description: |
+                  The search term to query.
+
+                  Search is resolved using fuzzy matching.
+                example: Bananas
     Diet:
       description: |
         A diet followed by an individual.
@@ -4829,6 +4852,7 @@ components:
         oneOf:
           - $ref: '#/components/schemas/TransactionEmissionEstimate'
           - $ref: '#/components/schemas/Errors'
+          - $ref: '#/components/schemas/EmptyObject'
     TransactionEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
@@ -4838,6 +4862,12 @@ components:
           properties:
             request:
               $ref: '#/components/schemas/TransactionEstimateRequest'
+            search_term_match:
+              type: string
+              description: |
+                The most accurate term matching the search.
+
+                The emission factor for this term is used to compute the emission estimate.
     SingleShippingEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/ShippingLegEmissionEstimate'
@@ -5853,3 +5883,6 @@ components:
           type: string
           enum:
             - order
+    EmptyObject:
+      type: object
+      additionalProperties: false
