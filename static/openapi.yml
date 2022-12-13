@@ -4753,25 +4753,6 @@ components:
                 example: "0763"
           - type: object
             required:
-              - coicop_code
-            properties:
-              coicop_code:
-                type: string
-                # We don't validate the codes too hard here, not worth the effort. The top level identifier
-                # is validated though.
-                pattern: '^(0[1-9])|(1[0-5])(\.[0-9]+(\.[0-9]+(\.[0-9]+)?)?)?$'
-                description: |
-                  A Classification of Individual Consumption According to Purpose
-                  (https://en.wikipedia.org/wiki/Classification_of_Individual_Consumption_According_to_Purpose)
-                  code indicating the type of goods or services purchased.
-
-                  It is the responsibility of the API user to provide a valid code here. We validate only
-                  the top level identifier (the number before the first dot). If an invalid code is provided
-                  we fall back to the division-level emission defaults (so for example 14.999999 will fall
-                  back to 14).
-                example: "09.5"
-          - type: object
-            required:
               - fuzzy_search_term
             properties:
               fuzzy_search_term:
