@@ -2361,6 +2361,11 @@ components:
           pattern: '^[0-9]+(\.[0-9]+)?$'
     OrderQuoteByQuantityRequest:
       type: object
+      oneOf:
+          - $ref: '#/components/schemas/OrderQuoteByQuantityWithBundlePercentage'
+          - $ref: '#/components/schemas/OrderQuoteByQuantityWithBundleMass'
+    OrderQuoteByQuantityWithBundlePercentage:
+      type: object
       description: Order by Quantity details
       required:
         - mass
@@ -2377,7 +2382,26 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+    OrderQuoteByQuantityWithBundleMass:
+      type: object
+      description: Order by Quantity details
+      required:
+        - bundle_masses
+      properties:
+        bundle_masses:
+          type: array
+          items:
+            $ref: '#/components/schemas/BundleMass'
+        quantity_trunc:
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     CreateOrderByQuantityRequest:
+      type: object
+      oneOf:
+          - $ref: '#/components/schemas/CreateOrderByQuantityWithBundlePercentage'
+          - $ref: '#/components/schemas/CreateOrderByQuantityWithBundleMass'
+    CreateOrderByQuantityWithBundlePercentage:
       type: object
       description: Order by Quantity details
       required:
@@ -2404,6 +2428,33 @@ components:
             Bundle selection to be used for the order.
             For the order, this property overrides the account's bundle selection.
           $ref: '#/components/schemas/BundleSelectionRequest'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+          default: {}
+        quantity_trunc:
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
+    CreateOrderByQuantityWithBundleMass:
+      type: object
+      description: Order by Quantity details
+      required:
+        - bundle_masses
+      properties:
+        bundle_masses:
+          type: array
+          items:
+            $ref: '#/components/schemas/BundleMass'
+        idempotency_key:
+          type: string
+          maxLength: 100
+          example: 5bd808a954e
+          description: |
+            Account-unique identifier provided by the client.
+
+            `idempotency_key` has two purposes:
+            1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.
+            2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.
         metadata:
           $ref: '#/components/schemas/Metadata'
           default: {}
@@ -2548,6 +2599,19 @@ components:
           type: integer
           example: 43
           description: Selection percentage
+    BundleMass:
+      type: object
+      description: Maps a bundle's unique identifier to a mass
+      required:
+        - bundle_id
+        - mass
+      properties:
+        bundle_id:
+          type: string
+          example: 'BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'
+          description: The bundle's unique identifier
+        mass:
+          $ref: '#/components/schemas/Mass'
     SetBundlePortfolioRequest:
       type: object
       required:
