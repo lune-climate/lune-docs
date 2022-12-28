@@ -8,10 +8,6 @@ import Tip from '@site/src/components/Tip';
 
 Before interacting with the Lune API, you'll need to provision your access through an API key.  API keys are used as bearer tokens and must be included in the Authorization header.
 
-```html
-Authorization: Bearer <API_KEY>
-```
-
 API keys can be created in both "live" and "test" modes; there are some important differences between these modes, which we'll look at in depth in this article.  
 
 Once created, your API key can then be used to work with accounts and client accounts.  We'll also cover the differences between these account types and why you would choose to work with client accounts.
@@ -37,11 +33,26 @@ and completing orders.
 
 ### Your dedicated test API key
 
-To work in test mode, you'll need a dedicated test API key.  So, once you've enabled test mode, head over to the [Developers](dashboard.lune.co/developers) page and create a test API key.
+To work in test mode, you'll need a dedicated test API key.  So, once you've enabled test mode, head over to the [Developers](dashboard.lune.co/developers) page and create a test API key.  
 
-### Using your test API key
+When creating a new key, you'll need to select a default account.  When generating requests against this default account, you can simply pass in your bearer token in the Authorization header:
 
+```html
+Authorization: Bearer <API_KEY>
+```
 
+But you can also use your test API key for any other test account by including the account Id in your header:
+
+```html
+Authorization: Bearer <API_KEY>
+Lune-Account: <ACCOUNT_ID>
+```
+
+<Tip>
+
+Test API keys can be used to generate requests for any test accounts (created in test mode) and any test client accounts (created programmatically using a test API key).
+
+</Tip>
 
 ## Accounts and API keys
 
