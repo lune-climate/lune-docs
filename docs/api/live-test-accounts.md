@@ -12,6 +12,8 @@ API keys can be created in both "live" and "test" modes; there are some importan
 
 Once created, your API key can then be used to work with accounts and client accounts.  We'll also cover the differences between these account types and why you would choose to work with client accounts.
 
+![accounts-summary](/img/accounts-summary.png)
+
 ## Live and test modes
 
 Lune offers both live and test modes through a single endpoint.  Test mode is provides you with a safe environment to test your interactions with the Lune API.  
