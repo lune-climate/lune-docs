@@ -6,19 +6,27 @@ import Tip from '@site/src/components/Tip';
 
 # Modes, accounts, and API keys
 
-Before interacting with the Lune API, you'll need to provision your access through an API key.  API keys can be created in both "live" and "test" modes; there are some important differences between these modes, which we'll look at in depth in this article.  
+Before interacting with the Lune API, you'll need to provision your access through an API key.  API keys are used as bearer tokens and must be included in the Authorization header.
+
+```html
+Authorization: Bearer <API_KEY>
+```
+
+API keys can be created in both "live" and "test" modes; there are some important differences between these modes, which we'll look at in depth in this article.  
 
 Once created, your API key can then be used to work with accounts and client accounts.  We'll also cover the differences between these account types and why you would choose to work with client accounts.
 
 ## Live and test modes
 
-Lune offers both live and test modes through a single endpoint.  The test mode is essentially a sandbox that provides you with a safe environment to test your interactions with the Lune API.  
+Lune offers both live and test modes through a single endpoint.  Test mode is provides you with a safe environment to test your interactions with the Lune API.  
 
 You'll find the toggle to turn on test mode on your [dashboard](dashboard.lune.co).
 
 ![test-mode](/img/test-mode.png)
 
-The test mode can be used as an effective sandbox to:
+### Working in test mode
+
+The test mode can be used as an effective sandbox whilst building your app to:
 
 - Calculate emissions
 - Place orders to offset emissions
@@ -27,13 +35,24 @@ The test mode can be used as an effective sandbox to:
 The test mode therefore enables you to interact with the Lune API in the same way as you would with in live mode, without being charged and without retiring
 and completing orders.
 
+### Your dedicated test API key
+
 To work in test mode, you'll need a dedicated test API key.  So, once you've enabled test mode, head over to the [Developers](dashboard.lune.co/developers) page and create a test API key.
 
-<Tip>
+### Using your test API key
+
+
+
+## Accounts and API keys
+
+Lune offers clients the possibility to work with accounts and client accounts.  Whether you
 
 Your test API key can be used with multiple test accounts and multiple test client accounts but cannot be used with live accounts.
 
 </Tip>
+
+### Formulating requests in test mode
+
 
 
 Test accounts behave similarly (you can place orders, get quotes, fetch orders and activity), but there's no real money or real offsets involved. The purpose of test accounts is to be able to experiment with the API with no consequences.
