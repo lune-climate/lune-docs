@@ -1336,6 +1336,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionEmissionEstimate'
+        '204':
+          description: No content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyObject'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1410,6 +1416,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionEmissionEstimate'
+        '204':
+          description: No content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyObject'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -1763,6 +1775,18 @@ paths:
       operationId: listAllWebhooks
       security:
         - BearerAuth: []
+      parameters:
+        - name: account_id
+          in: query
+          required: false
+          description: |
+            Filter by account identifiers: return webhooks which push events for the given account identifiers.
+          schema:
+            type: array
+            items:
+              type: string
+              example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+              description: An account's unique identifier
       responses:
         '200':
           description: OK
@@ -2337,6 +2361,11 @@ components:
           pattern: '^[0-9]+(\.[0-9]+)?$'
     OrderQuoteByQuantityRequest:
       type: object
+      oneOf:
+          - $ref: '#/components/schemas/OrderQuoteByQuantityWithBundlePercentage'
+          - $ref: '#/components/schemas/OrderQuoteByQuantityWithBundleMass'
+    OrderQuoteByQuantityWithBundlePercentage:
+      type: object
       description: Order by Quantity details
       required:
         - mass
@@ -2353,7 +2382,26 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+    OrderQuoteByQuantityWithBundleMass:
+      type: object
+      description: Order by Quantity details
+      required:
+        - bundle_masses
+      properties:
+        bundle_masses:
+          type: array
+          items:
+            $ref: '#/components/schemas/BundleMass'
+        quantity_trunc:
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
     CreateOrderByQuantityRequest:
+      type: object
+      oneOf:
+          - $ref: '#/components/schemas/CreateOrderByQuantityWithBundlePercentage'
+          - $ref: '#/components/schemas/CreateOrderByQuantityWithBundleMass'
+    CreateOrderByQuantityWithBundlePercentage:
       type: object
       description: Order by Quantity details
       required:
@@ -2380,6 +2428,33 @@ components:
             Bundle selection to be used for the order.
             For the order, this property overrides the account's bundle selection.
           $ref: '#/components/schemas/BundleSelectionRequest'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+          default: {}
+        quantity_trunc:
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
+    CreateOrderByQuantityWithBundleMass:
+      type: object
+      description: Order by Quantity details
+      required:
+        - bundle_masses
+      properties:
+        bundle_masses:
+          type: array
+          items:
+            $ref: '#/components/schemas/BundleMass'
+        idempotency_key:
+          type: string
+          maxLength: 100
+          example: 5bd808a954e
+          description: |
+            Account-unique identifier provided by the client.
+
+            `idempotency_key` has two purposes:
+            1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.
+            2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.
         metadata:
           $ref: '#/components/schemas/Metadata'
           default: {}
@@ -2524,6 +2599,19 @@ components:
           type: integer
           example: 43
           description: Selection percentage
+    BundleMass:
+      type: object
+      description: Maps a bundle's unique identifier to a mass
+      required:
+        - bundle_id
+        - mass
+      properties:
+        bundle_id:
+          type: string
+          example: 'BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'
+          description: The bundle's unique identifier
+        mass:
+          $ref: '#/components/schemas/Mass'
     SetBundlePortfolioRequest:
       type: object
       required:
@@ -4741,23 +4829,15 @@ components:
                 example: "0763"
           - type: object
             required:
-              - coicop_code
+              - fuzzy_search_term
             properties:
-              coicop_code:
+              fuzzy_search_term:
                 type: string
-                # We don't validate the codes too hard here, not worth the effort. The top level identifier
-                # is validated though.
-                pattern: '^(0[1-9])|(1[0-5])(\.[0-9]+(\.[0-9]+(\.[0-9]+)?)?)?$'
                 description: |
-                  A Classification of Individual Consumption According to Purpose
-                  (https://en.wikipedia.org/wiki/Classification_of_Individual_Consumption_According_to_Purpose)
-                  code indicating the type of goods or services purchased.
+                  The search term to query.
 
-                  It is the responsibility of the API user to provide a valid code here. We validate only
-                  the top level identifier (the number before the first dot). If an invalid code is provided
-                  we fall back to the division-level emission defaults (so for example 14.999999 will fall
-                  back to 14).
-                example: "09.5"
+                  Search is resolved using fuzzy matching.
+                example: Bananas
     Diet:
       description: |
         A diet followed by an individual.
@@ -4829,6 +4909,7 @@ components:
         oneOf:
           - $ref: '#/components/schemas/TransactionEmissionEstimate'
           - $ref: '#/components/schemas/Errors'
+          - $ref: '#/components/schemas/EmptyObject'
     TransactionEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
@@ -4838,6 +4919,12 @@ components:
           properties:
             request:
               $ref: '#/components/schemas/TransactionEstimateRequest'
+            search_term_match:
+              type: string
+              description: |
+                The most accurate term matching the search.
+
+                The emission factor for this term is used to compute the emission estimate.
     SingleShippingEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/ShippingLegEmissionEstimate'
@@ -5265,6 +5352,17 @@ components:
       properties:
         url:
           $ref: "#/components/schemas/Url"
+        account_ids:
+          description: |
+            The created webhook will exclusively push events which belong to the given account identifiers.
+
+            Act as a filter: if not set, events belonging to all the organisation's accounts are pushed.
+          type: array
+          minItems: 1
+          items:
+            type: string
+            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+            description: An account's unique identifier
     UpdateWebhookRequest:
       type: object
       required:
@@ -5279,6 +5377,17 @@ components:
             webhooks. When updating a webhook and the value is not explicitly specified the existing value
             will be used.
           type: boolean
+        account_ids:
+          description: |
+            The updated webhook will exclusively push events which belong to the given account identifiers.
+
+            If not set, the previous account identifiers filter remains unchanged.
+          type: array
+          minItems: 1
+          items:
+            type: string
+            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+            description: An account's unique identifier
     WebhookBase:
       type: object
       required:
@@ -5303,6 +5412,16 @@ components:
 
             A webhook does not mix live and test events.
           $ref: '#/components/schemas/AccountType'
+        account_ids:
+          description: |
+            The webhook will exclusively push events which belong to account identifiers.
+
+            Acts as a filter: if not set, events belonging to all the organisation's accounts are pushed.
+          type: array
+          items:
+            type: string
+            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+            description: An account's unique identifier
         created_at:
           description: The webhook's creation timestamp.
           $ref: '#/components/schemas/Timestamp'
@@ -5853,3 +5972,6 @@ components:
           type: string
           enum:
             - order
+    EmptyObject:
+      type: object
+      additionalProperties: false
