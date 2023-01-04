@@ -18,6 +18,32 @@ const sidebars = {
       type: 'category',
       label: 'Guides',
       items: [
+
+        {
+          type: 'category',
+          label: 'Getting started integration',
+          link: {
+            type: 'doc',
+            id: 'guides/getting-started-integration',
+          },
+          items: [
+            {
+              type: 'link',
+              label: 'Overview',
+              href: '/guides/getting-started-integration#overview',
+            },
+            {
+              type: 'link',
+              label: 'Offset your product',
+              href: '/guides/getting-started-integration#offset-your-product',
+            },
+            {
+              type: 'link',
+              label: 'Round up',
+              href: '/guides/getting-started-integration#round-up',
+            },
+          ]
+        },
         {
           type: 'category',
           label: 'Sustainable Logistics',
