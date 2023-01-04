@@ -116,6 +116,32 @@ const sidebars = {
           ]
         },
 
+        {
+          type: 'category',
+          label: 'Share your impact',
+          link: {
+            type: 'doc',
+            id: 'guides/share-your-impact',
+          },
+          items: [
+            {
+              type: 'link',
+              label: 'Overview',
+              href: '/guides/share-your-impact#overview',
+            },
+            {
+              type: 'link',
+              label: 'Create your own Sustainability page',
+              href: '/guides/share-your-impact#create-your-own-sustainability-page',
+            },
+            {
+              type: 'link',
+              label: 'Create a Sustainability page for your clients',
+              href: '/guides/share-your-impact#create-a-sustainability-page-for-your-clients',
+            },
+          ]
+        },
+
       ],
     },
     {
