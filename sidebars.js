@@ -16,12 +16,12 @@ const sidebars = {
   mySidebar: [
     {
       type: 'category',
-      label: 'Guides',
+      label: 'Integration guides',
       items: [
 
         {
           type: 'category',
-          label: 'Getting started integration',
+          label: 'Getting started',
           link: {
             type: 'doc',
             id: 'guides/getting-started-integration',
