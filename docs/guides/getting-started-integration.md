@@ -25,11 +25,11 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 ## Overview
 
-This guide is designed to help you get started with working with the Lune API.  It is suitable for both consumer or eCommerce apps.
+This guide is designed to help you get started with the Lune API.  It is suitable for both consumer and eCommerce apps.
 
 In this guide, you will learn how to use a single API call to:
-1. Offset your product
-2. Round up &mdash; contribute your spare change towards carbon removal
+1.  Offset your product
+2.  Round up &mdash; contribute your spare change toward carbon removal
 
 <Tip>
 
@@ -110,7 +110,7 @@ For each product, store its emissions in your database.
 
 ## Offsetting emissions
 
-On successful checkout [place an order by mass](/resources/orders/create-order-by-mass).
+On successful checkout, [place an order by mass](/resources/orders/create-order-by-mass).
 
 
 </div>
@@ -245,7 +245,7 @@ Calculate the amount required to round up your checkout cost to the nearest unit
 
 ## Offsetting emissions
 
-On successful checkout [place an order by value](/resources/orders/create-order-by-value).
+On successful checkout, [place an order by value](/resources/orders/create-order-by-value).
 
 
 </div>
@@ -255,7 +255,7 @@ On successful checkout [place an order by value](/resources/orders/create-order-
 
 **Where**:
 
-* `value` is the rounded up carbon removal contribution
+* `value` is the rounded-up carbon removal contribution
 
 </div>
 <div>
