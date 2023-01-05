@@ -28,7 +28,7 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 In this guide, you will learn how to set up a public sustainability page to:
 
 1. Share your climate impact
-2. Enable your clients to share their climate impact.
+2. Enable your clients to share their climate impact
 
 A sample Sustainability page can be seen [here](https://sustainability.lune.co/lune-example-impact).
 
@@ -37,10 +37,7 @@ A sample Sustainability page can be seen [here](https://sustainability.lune.co/l
 
 ## Who is this guide for?
 
-This guide is aimed at
-
-* Head of Sustainability or Growth Specialists to manage their Sustainability page via the Lune dashboard
-* and developers to automatically integrate sustainability pages into an existing end-user experience
+This guide is aimed at heads of Sustainability or Growth Specialists to manage their Sustainability page via the Lune dashboard and developers looking to automatically integrate sustainability pages into an existing end-user experience.
 
 Feel free to contact our [support team](mailto:support@lune.com) if you encounter any issues integrating our payments use case.
 
@@ -49,9 +46,9 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 ## Concepts
 
-- **Beneficiary** - Legal entity that can claim the offsetting benefits and is listed in the official public registry.
-- **Certificate** - Proof of retired carbon credits in the name of the Beneficiary. Can be used in Net Zero audits.
-- **Client account** - Customers that wish to provide a Sustainability page to their clients must create a client account for each client to define their basic characteristics, such as name, currency, and beneficiary.
+- **Beneficiary** - Legal entity that can claim the offsetting benefits and is listed in the official public registry
+- **Certificate** - Proof of retired carbon credits in the beneficiary's name. Can be used in Net Zero audits
+- **Client account** - Customers that wish to provide a Sustainability page to their clients must create a client account for each client to define their basic characteristics, such as name, currency, and beneficiary
 
 </div>
 </div>
@@ -66,21 +63,21 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 <>
 
-## Create your own sustainability page
+## Create your sustainability page
 
 Head over to the Lune dashboard.
 
 1. Navigate to https://dashboard.lune.co/share-your-impact
 
-2. Create or edit the page's public URL. The public URL may be changed if not already taken.
+2. Create or edit the page's public URL. The public URL may be changed if not already taken
 
-3. Decide what title, description and sections you'd like to display. You may opt to display your own description if you prefer.
+3. Decide what title, description, and sections you'd like to display. You may opt to display your own description if you prefer
 
-4. The Sustainability page is published by pressing `Save`.
+4. The Sustainability page is published by pressing `Save`
 
 <Tip>
 
-A Sustainability page is always linked to an Account or Client Account
+A Sustainability page is always linked to an account or client account.
 
 </Tip>
 
@@ -88,7 +85,7 @@ A Sustainability page is always linked to an Account or Client Account
 
 A Sustainability page is created by default on an account's first order.
 
-You may disable the page if you do not wish to share your impact
+You may disable the page if you do not wish to share your impact.
 
 </Tip>
 
@@ -107,11 +104,11 @@ You may disable the page if you do not wish to share your impact
 
 ## Certificates
 
-Certificates contain links to the official entry to registry's retirement ledger.
+Certificates contain links to the official entry in the registry's retirement ledger.
 
-The account's `beneficiary` is used to set the certificate's and the registry's entity claiming the offsetting benefits.
+The account's `beneficiary` defines the entity in the certificate's and the registry's entity claiming the offsetting benefits.
 
-A certificate may list credits as
+A certificate may list credits as:
 
 * `Retired` - the carbon credits have been fully retired
 * `Allocated, pending retirement` - the carbon credits have been purchased but cannot be retired yet.
@@ -165,7 +162,7 @@ A Sustainability page is created by default on an account's first order.
 
 <Tip>
 
-When using Client Accounts, store the Sustainability page's slug in your database in order to point your clients to the page.
+When using Client Accounts, store the Sustainability page's slug in your database to point your clients to the page.
 
 </Tip>
 
@@ -193,8 +190,9 @@ Sustainability pages for test accounts include a `/test/` prefix before `slug`.
 A 200 response code confirms the Sustainability page has been created.
 
 A 409 response code is returned when:
-* a Sustainability page already exists
-* the `slug` is not available
+
+* A Sustainability page already exists
+* The `slug` is not available
 
 </div>
 
@@ -260,7 +258,7 @@ You can also [update a Sustainability page](/resources/sustainability-page/updat
 
 The request's payload is equivalent to the [create a Sustainability page](#create-a-sustainability-page) request.
 
-Use `PUT` a request instead of a `POST`.
+Use a `PUT` request instead of a `POST`.
 
 </div>
 <div>
@@ -269,7 +267,7 @@ Use `PUT` a request instead of a `POST`.
 
 A 200 response code confirms the Sustainability page has been updated.
 
-A 409 response code is returned when `slug` is not available
+A 409 response code is returned when `slug` is not available.
 
 </div>
 
