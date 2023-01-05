@@ -5,39 +5,34 @@ sidebar_label: Payment - flow of funds
 
 # Payment - flow of funds
 
-## Context
+## Payment flows
 
-Lune provides two types of payment flows: **direct invoicing** and **Lune Pay**.
+Lune provides two payment flows, **direct invoicing** and **Lune Pay**.  
 
-The flow that customers decide to implement depends on their use case.
+### Direct invoicing
 
-Customers fall into the following categories:
+Customers get invoiced by Lune. Customers receive and settle their invoices according to their terms. Invoices contain an itemized breakdown of charges by Account and Client Account. When customers opt to pay by credit card, the card is charged automatically.
 
-1. Customers who purchase carbon credits **for themselves**. They also pay for their credits and their company name is displayed as the official beneficiary when credits are retired.
+You can manage your billing preferences on the [Lune dashboard](https://dashboard.lune.co/settings/billing).
 
-2. Customers who operate a **B2B platform business**, for example, a digital logistics company or a payments company. The platform business is Lune's customer. However, carbon credits are purchased and ultimately paid for by their customers who are also businesses. Their customers' have a Lune Client Account and their company's name also appears as the official beneficiary when credits are retired.
+### Lune Pay
 
-3. Customers who operate a **B2C platform business**, for example, a consumer neobank app. The platform business is Lune's customer. However, carbon credits are purchased and ultimately paid for by their users. Integration does not require Client Accounts. The official beneficiary when credits are retired is usually "Neobank's customers".
+Lune Pay is a hosted payment page that can be used for one-time or recurring payments. Customers can use Lune Pay if they wish to charge their customers directly. Every Lune Pay payment is linked to an Account or Client Account.
 
+Lune Pay enables customers to stay out of the flow of funds required to settle Lune invoices.
 
-## Direct invoicing
+## Which payment flow should be used?
 
-Customers get invoiced by Lune. Customers receive and settle their invoices according to its terms. Invoices contain an itemised breakdown of charges by Account and Client Account. When customers opt to pay by credit card, the card is charged automatically.
+The decision as to which flow to implement ultimately depends on the use case.
 
-Manage your billing preferences on the [Lune dashboard](https://dashboard.lune.co/settings/billing).
+### Use case 1 - Customers purchase carbon credits for themselves
 
+Customers also pay for their credits, and their company name is displayed as the official beneficiary when credits are retired - Use **direct invoicing**.
 
-## Lune Pay
+### Use case 2 - Customers that operate a b2b platform business
 
-Lune Pay is a hosted payment page which can be used for one time or recurring payments. A customer can opt to use Lune Pay if it wishes to charge their customers' directly. Every Lune Pay payment is segregated to an Account or Client Account.
+Examples include a digital logistics company or a payments company. The platform business is Lune's customer. However, carbon credits are purchased and ultimately paid for by their customers. Their customers have a Lune Client Account, and their company's name also appears as the official beneficiary when credits are retired - Use **Lune Pay** and use a Client Account for each of their customers.
 
-Lune Pay enables customer to never touch any funds required to settle Lune invoices.
+### Use case 3 - Customers that operate a b2c platform business
 
-
-## Which payment flow should one use?
-
-1. Customers who purchase carbon credits **for themselves** should use **direct invoicing**.
-
-2. **B2B platform businesses** should use **Lune Pay** and use a Client Account for each of their customers.
-
-3. **B2C platform businesses** should use Lune Pay if they prefer to stay out of the flow of funds. Otherwise, both options have merits.
+Examples include a consumer Neobank app. The platform business is Lune's customer. However, carbon credits are purchased and ultimately paid for by their users. Integration does not require Client Accounts. The official beneficiary when credits are retired is usually Neobank's customers - Use **Lune Pay** where there is a preference to stay out of the flow of funds; otherwise, use **direct invoicing**.
