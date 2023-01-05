@@ -185,7 +185,7 @@ Sustainability pages for test accounts include a `/test/` prefix before `slug`.
 
 ### Sample response
 
-A `200` response code confirms the Sustainability page has been created.  A `409` response code is returned when:
+A 200 response code confirms the Sustainability page has been created.  A 409 response code is returned when:
 
 * A Sustainability page already exists
 * The `slug` is not available
@@ -259,7 +259,7 @@ Use a `PUT` request and the payload used to [create a Sustainability page](#crea
 
 ### Sample response
 
-A `200` response code confirms the Sustainability page has been updated.  A `409` response code is returned when `slug` is not available.
+A 200 response code confirms the Sustainability page has been updated.  A 409 response code is returned when `slug` is not available.
 
 </div>
 
@@ -332,7 +332,7 @@ You can [retrieve a Sustainability page](/resources/sustainability-page/get-publ
 
 ### Sample response
 
-A `404` response code is returned when the Sustainability page has not been created.
+A 404 response code is returned when the Sustainability page has not been created.
 
 </div>
 
