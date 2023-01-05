@@ -9,7 +9,7 @@ import Snippet  from '@site/src/components/Snippet';
 import Tip from '@site/src/components/Tip';
 import { ApiReferenceSection } from 'lune-ui-lib'
 
-# Getting started integration
+# Getting started
 
 <div className="sections">
 
@@ -20,19 +20,22 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 <LuneApiSection />
 
-The following guide is suited for consumer or eCommerce apps.
-
 </div>
 <div>
 
 ## Overview
 
-In this guide, you will learn how to interact with the Lune API to implement a simple feature with just one API call.
+This guide is designed to help you get started with working with the Lune API.  It is suitable for both consumer or eCommerce apps.
 
-The guide described two examples. Feel free to implement the examples as-is or make them your own.
-
+In this guide, you will learn how to use a single API call to:
 1. Offset your product
-2. Round up: contribute your spare change towards carbon removal
+2. Round up &mdash; contribute your spare change towards carbon removal
+
+<Tip>
+
+Feel free to implement the examples in this guide or make your own.
+
+</Tip>
 
 </div>
 <div>
