@@ -63,7 +63,33 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 <>
 
-## Create a sustainability page for your account
+<ApiReferenceSection>
+
+<>
+
+## A few words about certificates
+
+Certificates contain links to the official entry in the registry's retirement ledger.
+
+The account's `beneficiary` is the entity in the certificate and the registry claiming the offsetting benefits.
+
+A certificate may list credits as:
+
+* `Retired` - the carbon credits have been fully retired
+* `Allocated, pending retirement` - the carbon credits have been purchased but cannot be retired yet.
+
+<br />
+
+</>
+<>
+
+![Certificate](/img/certificate.png)
+
+</>
+
+</ApiReferenceSection>
+
+## Create a Sustainability page for your account
 
 Head over to the Lune dashboard.
 
@@ -73,7 +99,7 @@ Head over to the Lune dashboard.
 
 3. Decide what title, description, and sections you'd like to display. You may opt to display your own description if you prefer
 
-4. The Sustainability page is published by pressing `Save`
+4. Click **Save** to publish the Sustainability page
 
 <Tip>
 
@@ -98,38 +124,14 @@ You may disable the page if you do not wish to share your impact.
 
 </ApiReferenceSection>
 
-<ApiReferenceSection>
 
-<>
-
-## Certificates
-
-Certificates contain links to the official entry in the registry's retirement ledger.
-
-The account's `beneficiary` is the entity in the certificate and the registry claiming the offsetting benefits.
-
-A certificate may list credits as:
-
-* `Retired` - the carbon credits have been fully retired
-* `Allocated, pending retirement` - the carbon credits have been purchased but cannot be retired yet.
-
-<br />
-
-</>
-<>
-
-![Certificate](/img/certificate.png)
-
-</>
-
-</ApiReferenceSection>
 
 
 <div>
 
-## Create a sustainability page for your clients
+## Create a Sustainability page for your clients
 
-## API flow
+### API flow
 
 ![api-flow](/img/payments-apiflow.png)
 
@@ -146,9 +148,9 @@ A certificate may list credits as:
 
 <div>
 
-## Create a Sustainability page
+### Create the Sustainability page
 
-You can [create a Sustainability page](/resources/sustainability-page/create-sustainability-page) via the API.
+You can [create the Sustainability page](/resources/sustainability-page/create-sustainability-page) via the API.
 
 <Tip>
 
@@ -183,9 +185,7 @@ Sustainability pages for test accounts include a `/test/` prefix before `slug`.
 
 ### Sample response
 
-A 200 response code confirms the Sustainability page has been created.
-
-A 409 response code is returned when:
+A `200` response code confirms the Sustainability page has been created.  A `409` response code is returned when:
 
 * A Sustainability page already exists
 * The `slug` is not available
@@ -252,18 +252,14 @@ You can also [update a Sustainability page](/resources/sustainability-page/updat
 
 ### Sample request
 
-The request's payload is equivalent to the [create a Sustainability page](#create-a-sustainability-page) request.
-
-Use a `PUT` request instead of a `POST`.
+Use a `PUT` request and the payload used to [create a Sustainability page](#create-a-sustainability-page).
 
 </div>
 <div>
 
 ### Sample response
 
-A 200 response code confirms the Sustainability page has been updated.
-
-A 409 response code is returned when `slug` is not available.
+A `200` response code confirms the Sustainability page has been updated.  A `409` response code is returned when `slug` is not available.
 
 </div>
 
@@ -336,7 +332,7 @@ You can [retrieve a Sustainability page](/resources/sustainability-page/get-publ
 
 ### Sample response
 
-A 404 response code is returned when the Sustainability page has not been created.
+A `404` response code is returned when the Sustainability page has not been created.
 
 </div>
 
