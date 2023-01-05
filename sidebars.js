@@ -118,7 +118,7 @@ const sidebars = {
 
         {
           type: 'category',
-          label: 'Share your impact',
+          label: 'Share your climate impact',
           link: {
             type: 'doc',
             id: 'guides/share-your-impact',
