@@ -9,7 +9,7 @@ import Snippet  from '@site/src/components/Snippet';
 import Tip from '@site/src/components/Tip';
 import { ApiReferenceSection } from 'lune-ui-lib'
 
-# Share your impact
+# Share your climate impact
 
 <div className="sections">
 
@@ -25,10 +25,10 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 ## Overview
 
-In this guide, you will learn how to set up a public Sustainability to
+In this guide, you will learn how to set up a public sustainability page to:
 
-1. To share your overall climate impact
-2. To enable your clients to share their climate impact.
+1. Share your climate impact
+2. Enable your clients to share their climate impact.
 
 A sample Sustainability page can be seen [here](https://sustainability.lune.co/lune-example-impact).
 
