@@ -63,7 +63,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 <>
 
-## Create your sustainability page
+## Create a sustainability page for your account
 
 Head over to the Lune dashboard.
 
@@ -106,7 +106,7 @@ You may disable the page if you do not wish to share your impact.
 
 Certificates contain links to the official entry in the registry's retirement ledger.
 
-The account's `beneficiary` defines the entity in the certificate's and the registry's entity claiming the offsetting benefits.
+The account's `beneficiary` is the entity in the certificate and the registry claiming the offsetting benefits.
 
 A certificate may list credits as:
 
@@ -114,10 +114,6 @@ A certificate may list credits as:
 * `Allocated, pending retirement` - the carbon credits have been purchased but cannot be retired yet.
 
 <br />
-
-If you require a Sustainability page to share your own impact, this guide terminates here.
-
-Alternatively, if you wish to integrate Sustainability pages for your clients, continue reading.
 
 </>
 <>
