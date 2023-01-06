@@ -3,6 +3,8 @@ sidebar_position: 3
 sidebar_label: Payment - flow of funds
 ---
 
+import LunePaySection from '@site/src/md/lunepay.md';
+
 # Payment - flow of funds
 
 ## Payment flows
@@ -17,9 +19,7 @@ You can manage your billing preferences on the [Lune dashboard](https://dashboar
 
 ### Lune Pay
 
-Lune Pay is a hosted payment page that can be used for one-time or recurring payments. Customers can use Lune Pay if they wish to charge their customers directly. Every Lune Pay payment is linked to an Account or Client Account.
-
-Lune Pay enables customers to stay out of the flow of funds required to settle Lune invoices.
+<LunePaySection />
 
 ## Which payment flow should be used?
 
