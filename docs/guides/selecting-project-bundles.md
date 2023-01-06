@@ -4,6 +4,7 @@ hide_table_of_contents: true
 
 import LuneApiSection from '@site/src/md/luneapi.md';
 import ApiKeySection from '@site/src/md/apikey.md';
+import Concepts from '@site/src/md/concepts.md';
 import ClientAccountSection from '@site/src/md/clientaccount.md';
 import Snippet  from '@site/src/components/Snippet';
 import Tip from '@site/src/components/Tip';
@@ -24,27 +25,28 @@ Our API-first approach ensures customers retain programmatic control over the en
 
 ## Overview
 
+By default, and as a starting point for each of our customers, Lune provides a default Project bundle, referred to as "Lune defaults".  Using these defaults means that each order to offset CO₂ emissions will be placed against the following projects and ratios:
+
+- Conserving forests in Asia - 95%
+- Ocean Carbon Removal - 5%
+
+For more advanced use cases, it is overwrite the Lune defaults by defining a Project bundle or Bundle portfolio for an Account or Client account.
+
 In this guide, you will learn how to interact with the Lune API to:
 
-1. Create a client account for each of your clients
-2. Get the available project bundles and bundle portfolios
-3. Define the default project bundle or bundle portfolio
-4. Store each client's offsetting choice
-5. Present an estimate of CO₂ emissions for a given shipping route and confirm a booking
+1. Get the available Project bundles and Bundle portfolios
+2. Define a default Project bundle or Bundle portfolio for an Account or Client account
+
 
 ## Who is this guide for?
 
-This guide is primarily aimed at Product Managers (tell the story, what is the guide for from a story perspective) and developers looking
-to integrate CO₂ emissions estimations and offsetting into an existing end-user experience.
+This guide is primarily aimed at Product Managers and developers looking to integrate CO₂ emissions estimations and offsetting into an existing end-user experience.
 
 Feel free to contact our [support team](mailto:support@lune.com) if you encounter any issues integrating our logistics use case.
 
 ## Concepts
 
-- **Client account** - You must create a client account for each of your clients to define their basic characteristics, such as name, currency, and beneficiary
-- **Project bundle** - One of Lune's offsetting projects, e.g., _Conserving forests in Asia_
-- **Bundle portfolio** - A combination of offsetting projects with a preset allocation
-- **Offsetting preferences page** - Fetch and store bundle ids in your code base to present your customers with offsetting options for use in their booking flow
+<Concepts />
 
 ## API flow
 
