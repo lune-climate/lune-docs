@@ -8,6 +8,8 @@ import ClientAccountSection from '@site/src/md/clientaccount.md';
 import Snippet  from '@site/src/components/Snippet';
 import Tip from '@site/src/components/Tip';
 import { ApiReferenceSection } from 'lune-ui-lib'
+import ReactPlayer from 'react-player'
+
 
 # Getting started
 
@@ -59,11 +61,11 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 </div>
 </div>
-<>
 
-![payments-intro](/img/payments-checkout.png)
+<div className="react-player-vertical-wrapper">
+<ReactPlayer className="react-player"playing muted url='/videos/offset-roundup.mov' width="100%" height="100%" />
+</div>
 
-</>
 </ApiReferenceSection>
 
 <ApiKeySection />
