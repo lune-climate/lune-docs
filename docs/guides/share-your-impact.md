@@ -52,6 +52,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 </div>
 </div>
+
 <>
 
 ![Sustainability page](/img/sustainability-page.png)
@@ -61,11 +62,9 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 <ApiReferenceSection>
 
-<>
+<div className="paragraphSections">
 
-<ApiReferenceSection>
-
-<>
+<div>
 
 ## A few words about certificates
 
@@ -80,7 +79,9 @@ A certificate may list credits as:
 
 <br />
 
-</>
+</div>
+</div>
+
 <>
 
 ![Certificate](/img/certificate.png)
@@ -89,7 +90,15 @@ A certificate may list credits as:
 
 </ApiReferenceSection>
 
+<ApiReferenceSection>
+
+<div className="paragraphSections">
+
+<div>
+
 ## Create a Sustainability page for your account
+
+<div>
 
 Head over to the Lune dashboard.
 
@@ -115,7 +124,10 @@ You may disable the page if you do not wish to share your impact.
 
 </Tip>
 
-</>
+</div>
+</div>
+</div>
+
 <>
 
 ![Dashboard sustainability page](/img/dashboard-sustainability-page.png)
@@ -123,8 +135,6 @@ You may disable the page if you do not wish to share your impact.
 </>
 
 </ApiReferenceSection>
-
-
 
 
 <div>
