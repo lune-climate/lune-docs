@@ -131,10 +131,6 @@ You may disable the page if you do not wish to share your impact.
 
 ## Create a Sustainability page for your clients
 
-### API flow
-
-![api-flow](/img/payments-apiflow.png)
-
 </div>
 
 
