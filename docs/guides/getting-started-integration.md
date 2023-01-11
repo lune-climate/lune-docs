@@ -30,8 +30,8 @@ import ReactPlayer from 'react-player'
 This guide is designed to help you get started with the Lune API.  It is suitable for both consumer and eCommerce apps.
 
 In this guide, you will learn how to use a single API call to:
-1.  Offset your product
-2.  Round up &mdash; contribute your spare change toward carbon removal
+*  Offset your product
+*  Round up &mdash; contribute your spare change toward carbon removal
 
 <Tip>
 
@@ -76,7 +76,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 ## API flow
 
-![api-flow](/img/payments-apiflow.png)
+![api-flow](/img/offset-your-product-apiflow.png)
 
 </div>
 
@@ -98,7 +98,7 @@ For each product, store its emissions in your database.
 
 <>
 
-![offsetting-decision](/img/getting-started-everyday-purchases.png)
+![offsetting-decision](/img/estimate-product-emissions.png)
 
 </>
 
@@ -218,7 +218,7 @@ A 200 response code confirms the order has been successfully placed.
 
 ## API flow
 
-![api-flow](/img/payments-apiflow.png)
+![api-flow](/img/round-up-apiflow.png)
 
 </div>
 
@@ -233,7 +233,7 @@ Calculate the amount required to round up your checkout cost to the nearest unit
 
 <>
 
-![payments-intro](/img/payments-checkout.png)
+![payments-intro](/img/round-up-calculate-contribution.png)
 
 </>
 
