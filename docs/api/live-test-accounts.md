@@ -5,6 +5,7 @@ hide_table_of_contents: true
 ---
 import Tip from '@site/src/components/Tip';
 import { ApiReferenceSection } from 'lune-ui-lib'
+import ReactPlayer from 'react-player'
 
 # Modes, accounts, and API keys
 
@@ -126,11 +127,8 @@ Lune-Account: <ACCOUNT_ID>
 
 ```html
 Authorization: Bearer <API_KEY>
-Lune-Account: <CLIENT_ACCT_ID>
+Lune-Account: <CLIENT_ACCOUNT_ID>
 ```
-
-</div>
-<div>
 
 <Tip>
 
@@ -142,11 +140,10 @@ You can generate API requests on any account/client account in your organization
 </div>
 
 
-<>
 
-![test-mode](/img/test-mode.png)
-
-</>
+<div className="react-player-test-mode-wrapper">
+<ReactPlayer loop className="react-player"playing muted url='/videos/test-mode.mov' width="100%" height="100%" />
+</div>
 
 </ApiReferenceSection>
 
