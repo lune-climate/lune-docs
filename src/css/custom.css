@@ -175,9 +175,14 @@ code {
     border-radius: 0.25rem;
 }
 
-.react-player-vertical-wrapper {
+.react-player-getting-started-wrapper {
   position: relative;
   padding-top: 140%; /* Player ratio: 100 / (650 / 908) */
+}
+
+.react-player-test-mode-wrapper {
+  position: relative;
+  padding-top: 72%; /* Player ratio: 100 / (640 / 460) */
 }
 
 .react-player {
