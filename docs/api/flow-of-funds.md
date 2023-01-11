@@ -85,7 +85,7 @@ Your company pays for its credits, and your company name is displayed as the off
 
 ## 2. Your business customers purchase carbon credits through you (B2B)
 
-Examples include a digital logistics company or a payments company. Your companuy is Lune's customer. However, carbon credits are purchased and ultimately paid for by your customers. Your customers have a Lune Client Account, and their company's name also appears as the official beneficiary when credits are retired - Use **Lune Pay** and use a Client Account for each of yout customers.
+Examples include a digital logistics company or a payments company. Your companuy is Lune's customer. However, carbon credits are purchased and ultimately paid for by your customers. Your customers have a Lune Client Account, and their company's name also appears as the official beneficiary when credits are retired - Use **Lune Pay** and use a Client Account for each of your customers.
 
 </div>
 </div>
