@@ -21,14 +21,14 @@ You can manage your billing preferences on the [Lune dashboard](https://dashboar
 
 The decision as to which flow to implement ultimately depends on the use case.
 
-### Use case 1 - Customers purchase carbon credits for themselves
+### Use case 1 - You purchase carbon credits for your company
 
-Customers also pay for their credits, and their company name is displayed as the official beneficiary when credits are retired - Use **direct invoicing**.
+Your company pays for its credits, and your company name is displayed as the official beneficiary when credits are retired - Use **direct invoicing**.
 
-### Use case 2 - Customers that operate a b2b platform business
+### Use case 2 - Your business customers (B2B) purchase carbon credits through you
 
-Examples include a digital logistics company or a payments company. The platform business is Lune's customer. However, carbon credits are purchased and ultimately paid for by their customers. Their customers have a Lune Client Account, and their company's name also appears as the official beneficiary when credits are retired - Use **Lune Pay** and use a Client Account for each of their customers.
+Examples include a digital logistics company or a payments company. Your companuy is Lune's customer. However, carbon credits are purchased and ultimately paid for by your customers. Your customers have a Lune Client Account, and their company's name also appears as the official beneficiary when credits are retired - Use **Lune Pay** and use a Client Account for each of yout customers.
 
-### Use case 3 - Customers that operate a b2c platform business
+### Use case 3 - Your consumer customers (B2C) purchase carbon credits through you
 
-Examples include a consumer Neobank app. The platform business is Lune's customer. However, carbon credits are purchased and ultimately paid for by their users. Integration does not require Client Accounts. The official beneficiary when credits are retired is usually Neobank's customers - Use **Lune Pay** where there is a preference to stay out of the flow of funds; otherwise, use **direct invoicing**.
+Examples include a consumer Neobank app. Your company is Lune's customer. However, carbon credits are purchased and ultimately paid for by your users. Integration does not require Client Accounts. The official beneficiary when credits are retired is usually 'Neobank's customers' - Use **Lune Pay** where there is a preference to stay out of the flow of funds; otherwise, use **direct invoicing**.
