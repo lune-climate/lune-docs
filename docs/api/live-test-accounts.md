@@ -68,7 +68,8 @@ Once created, your API key can then be used to work with accounts and client acc
 <div className="paragraphSections">
 
 <div>
-Lune offers both live and test modes through a single endpoint.  Test mode provides you with a safe environment to test your interactions with the Lune API.  
+
+Lune offers both live and test modes through a single endpoint.  Test mode provides you with a safe environment to test your interactions with the Lune API.
 
 You'll find the toggle to turn on test mode on your [dashboard](https://dashboard.lune.co).
 
