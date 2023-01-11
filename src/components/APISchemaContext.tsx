@@ -49,6 +49,7 @@ export const APISchemaContext = React.createContext<any>({
             'x-components': ['SustainabilityPage'],
         },
         { name: 'Analytics', description: 'Get account analytics.', 'x-components': ['Analytics'] },
+        { name: 'Payments', description: 'Get payments.', 'x-components': ['Payment'] },
         {
             name: 'Offset links',
             description: 'Provide your customers with links to fund a bundle of their choice.',
@@ -1368,6 +1369,14 @@ export const APISchemaContext = React.createContext<any>({
                             },
                         },
                     },
+                    '204': {
+                        description: 'No content',
+                        content: {
+                            'application/json': {
+                                schema: { $ref: '#/components/schemas/EmptyObject' },
+                            },
+                        },
+                    },
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
                     '409': { $ref: '#/components/responses/Conflict' },
@@ -1438,6 +1447,14 @@ export const APISchemaContext = React.createContext<any>({
                                 schema: {
                                     $ref: '#/components/schemas/TransactionEmissionEstimate',
                                 },
+                            },
+                        },
+                    },
+                    '204': {
+                        description: 'No content',
+                        content: {
+                            'application/json': {
+                                schema: { $ref: '#/components/schemas/EmptyObject' },
                             },
                         },
                     },
@@ -1785,6 +1802,23 @@ export const APISchemaContext = React.createContext<any>({
                 summary: 'List all webhooks',
                 operationId: 'listAllWebhooks',
                 security: [{ BearerAuth: [] }],
+                parameters: [
+                    {
+                        name: 'account_id',
+                        in: 'query',
+                        required: false,
+                        description:
+                            'Filter by account identifiers: return webhooks which push events for the given account identifiers.\n',
+                        schema: {
+                            type: 'array',
+                            items: {
+                                type: 'string',
+                                example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz',
+                                description: "An account's unique identifier",
+                            },
+                        },
+                    },
+                ],
                 responses: {
                     '200': {
                         description: 'OK',
@@ -1819,7 +1853,7 @@ export const APISchemaContext = React.createContext<any>({
                         description: 'OK',
                         content: {
                             'application/json': {
-                                schema: { $ref: '#/components/schemas/Webhook' },
+                                schema: { $ref: '#/components/schemas/WebhookFullSecret' },
                             },
                         },
                     },
@@ -1939,7 +1973,7 @@ export const APISchemaContext = React.createContext<any>({
                         description: 'OK',
                         content: {
                             'application/json': {
-                                schema: { $ref: '#/components/schemas/Webhook' },
+                                schema: { $ref: '#/components/schemas/WebhookFullSecret' },
                             },
                         },
                     },
@@ -2087,6 +2121,41 @@ export const APISchemaContext = React.createContext<any>({
                         content: {
                             'application/json': {
                                 schema: { $ref: '#/components/schemas/PublicSustainabilityPage' },
+                            },
+                        },
+                    },
+                    '400': { $ref: '#/components/responses/BadRequest' },
+                    '404': { $ref: '#/components/responses/NotFound' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                },
+            },
+        },
+        '/payments/by-temporary-id/{temporary_id}': {
+            get: {
+                summary: 'Get a payment by a temporary id',
+                description:
+                    "Get a specific payment by a temporary id.\n\nThe temporary id will remain valid for 15min from the payment's creation after which the endpoint will return a 404.\n",
+                operationId: 'getPaymentByTemporaryId',
+                tags: ['Payments'],
+                parameters: [
+                    {
+                        name: 'temporary_id',
+                        in: 'path',
+                        required: true,
+                        description: "The payment's temporary id",
+                        schema: {
+                            type: 'string',
+                            format: 'uuid',
+                            example: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
+                        },
+                    },
+                ],
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: { $ref: '#/components/schemas/Payment' },
                             },
                         },
                     },
@@ -2305,6 +2374,13 @@ export const APISchemaContext = React.createContext<any>({
             },
             OrderQuoteByQuantityRequest: {
                 type: 'object',
+                oneOf: [
+                    { $ref: '#/components/schemas/OrderQuoteByQuantityWithBundlePercentage' },
+                    { $ref: '#/components/schemas/OrderQuoteByQuantityWithBundleMass' },
+                ],
+            },
+            OrderQuoteByQuantityWithBundlePercentage: {
+                type: 'object',
                 description: 'Order by Quantity details',
                 required: ['mass'],
                 properties: {
@@ -2321,7 +2397,31 @@ export const APISchemaContext = React.createContext<any>({
                     },
                 },
             },
+            OrderQuoteByQuantityWithBundleMass: {
+                type: 'object',
+                description: 'Order by Quantity details',
+                required: ['bundle_masses'],
+                properties: {
+                    bundle_masses: {
+                        type: 'array',
+                        items: { $ref: '#/components/schemas/BundleMass' },
+                    },
+                    quantity_trunc: {
+                        description:
+                            'Selects to which precision to truncate the quantities assigned to each bundle.',
+                        example: 't',
+                        $ref: '#/components/schemas/MassUnit',
+                    },
+                },
+            },
             CreateOrderByQuantityRequest: {
+                type: 'object',
+                oneOf: [
+                    { $ref: '#/components/schemas/CreateOrderByQuantityWithBundlePercentage' },
+                    { $ref: '#/components/schemas/CreateOrderByQuantityWithBundleMass' },
+                ],
+            },
+            CreateOrderByQuantityWithBundlePercentage: {
                 type: 'object',
                 description: 'Order by Quantity details',
                 required: ['mass'],
@@ -2341,6 +2441,31 @@ export const APISchemaContext = React.createContext<any>({
                         description:
                             "Bundle selection to be used for the order.\nFor the order, this property overrides the account's bundle selection.\n",
                         $ref: '#/components/schemas/BundleSelectionRequest',
+                    },
+                    metadata: { $ref: '#/components/schemas/Metadata', default: {} },
+                    quantity_trunc: {
+                        description:
+                            'Selects to which precision to truncate the quantities assigned to each bundle.',
+                        example: 't',
+                        $ref: '#/components/schemas/MassUnit',
+                    },
+                },
+            },
+            CreateOrderByQuantityWithBundleMass: {
+                type: 'object',
+                description: 'Order by Quantity details',
+                required: ['bundle_masses'],
+                properties: {
+                    bundle_masses: {
+                        type: 'array',
+                        items: { $ref: '#/components/schemas/BundleMass' },
+                    },
+                    idempotency_key: {
+                        type: 'string',
+                        maxLength: 100,
+                        example: '5bd808a954e',
+                        description:
+                            'Account-unique identifier provided by the client.\n\n`idempotency_key` has two purposes:\n1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.\n2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.\n',
                     },
                     metadata: { $ref: '#/components/schemas/Metadata', default: {} },
                     quantity_trunc: {
@@ -2481,6 +2606,19 @@ export const APISchemaContext = React.createContext<any>({
                         example: 43,
                         description: 'Selection percentage',
                     },
+                },
+            },
+            BundleMass: {
+                type: 'object',
+                description: "Maps a bundle's unique identifier to a mass",
+                required: ['bundle_id', 'mass'],
+                properties: {
+                    bundle_id: {
+                        type: 'string',
+                        example: 'BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3',
+                        description: "The bundle's unique identifier",
+                    },
+                    mass: { $ref: '#/components/schemas/Mass' },
                 },
             },
             SetBundlePortfolioRequest: {
@@ -3881,7 +4019,7 @@ export const APISchemaContext = React.createContext<any>({
                                 type: 'array',
                                 items: { $ref: '#/components/schemas/EmissionEstimate' },
                             },
-                            quote: { $ref: '#/components/schemas/OrderQuoteByQuantity' },
+                            quote: { $ref: '#/components/schemas/EstimateQuote' },
                             request: {
                                 $ref: '#/components/schemas/PassengerTransportationEstimateRequest',
                             },
@@ -4696,15 +4834,13 @@ export const APISchemaContext = React.createContext<any>({
                             },
                             {
                                 type: 'object',
-                                required: ['coicop_code'],
+                                required: ['fuzzy_search_term'],
                                 properties: {
-                                    coicop_code: {
+                                    fuzzy_search_term: {
                                         type: 'string',
-                                        pattern:
-                                            '^(0[1-9])|(1[0-5])(\\.[0-9]+(\\.[0-9]+(\\.[0-9]+)?)?)?$',
                                         description:
-                                            'A Classification of Individual Consumption According to Purpose\n(https://en.wikipedia.org/wiki/Classification_of_Individual_Consumption_According_to_Purpose)\ncode indicating the type of goods or services purchased.\n\nIt is the responsibility of the API user to provide a valid code here. We validate only\nthe top level identifier (the number before the first dot). If an invalid code is provided\nwe fall back to the division-level emission defaults (so for example 14.999999 will fall\nback to 14).\n',
-                                        example: '09.5',
+                                            'The search term to query.\n\nSearch is resolved using fuzzy matching.\n',
+                                        example: 'Bananas',
                                     },
                                 },
                             },
@@ -4745,7 +4881,7 @@ export const APISchemaContext = React.createContext<any>({
                                 description: 'The emission calculation unique identifier',
                                 example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6',
                             },
-                            quote: { $ref: '#/components/schemas/OrderQuoteByQuantity' },
+                            quote: { $ref: '#/components/schemas/EstimateQuote' },
                         },
                     },
                 ],
@@ -4792,6 +4928,7 @@ export const APISchemaContext = React.createContext<any>({
                     oneOf: [
                         { $ref: '#/components/schemas/TransactionEmissionEstimate' },
                         { $ref: '#/components/schemas/Errors' },
+                        { $ref: '#/components/schemas/EmptyObject' },
                     ],
                 },
             },
@@ -4803,6 +4940,11 @@ export const APISchemaContext = React.createContext<any>({
                         required: ['request'],
                         properties: {
                             request: { $ref: '#/components/schemas/TransactionEstimateRequest' },
+                            search_term_match: {
+                                type: 'string',
+                                description:
+                                    'The most accurate term matching the search.\n\nThe emission factor for this term is used to compute the emission estimate.\n',
+                            },
                         },
                     },
                 ],
@@ -4819,7 +4961,7 @@ export const APISchemaContext = React.createContext<any>({
                                 description: 'The emission calculation unique identifier',
                                 example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6',
                             },
-                            quote: { $ref: '#/components/schemas/OrderQuoteByQuantity' },
+                            quote: { $ref: '#/components/schemas/EstimateQuote' },
                             request: { $ref: '#/components/schemas/ShippingEstimateRequest' },
                         },
                     },
@@ -5235,7 +5377,20 @@ export const APISchemaContext = React.createContext<any>({
             CreateWebhookRequest: {
                 type: 'object',
                 required: ['url'],
-                properties: { url: { $ref: '#/components/schemas/Url' } },
+                properties: {
+                    url: { $ref: '#/components/schemas/Url' },
+                    account_ids: {
+                        description:
+                            "The created webhook will exclusively push events which belong to the given account identifiers.\n\nAct as a filter: if not set, events belonging to all the organisation's accounts are pushed.\n",
+                        type: 'array',
+                        minItems: 1,
+                        items: {
+                            type: 'string',
+                            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz',
+                            description: "An account's unique identifier",
+                        },
+                    },
+                },
             },
             UpdateWebhookRequest: {
                 type: 'object',
@@ -5247,11 +5402,22 @@ export const APISchemaContext = React.createContext<any>({
                             'Determines if events should be sent to the webhook or not. Defaults to `true` for newly created\nwebhooks. When updating a webhook and the value is not explicitly specified the existing value\nwill be used.\n',
                         type: 'boolean',
                     },
+                    account_ids: {
+                        description:
+                            'The updated webhook will exclusively push events which belong to the given account identifiers.\n\nIf not set, the previous account identifiers filter remains unchanged.\n',
+                        type: 'array',
+                        minItems: 1,
+                        items: {
+                            type: 'string',
+                            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz',
+                            description: "An account's unique identifier",
+                        },
+                    },
                 },
             },
-            Webhook: {
+            WebhookBase: {
                 type: 'object',
-                required: ['id', 'url', 'enabled', 'secret'],
+                required: ['id', 'url', 'enabled', 'account_type', 'created_at'],
                 properties: {
                     id: {
                         description: "The webhook's unique identifier",
@@ -5263,11 +5429,58 @@ export const APISchemaContext = React.createContext<any>({
                         description: 'Determines if events should be sent to the webhook or not.',
                         type: 'boolean',
                     },
-                    secret: {
-                        description: 'The secret key used to generate the webhook payload HMAC.',
-                        type: 'string',
+                    account_type: {
+                        description:
+                            "For events related to an account, this property refers to the accounts' type.\n\nA webhook does not mix live and test events.\n",
+                        $ref: '#/components/schemas/AccountType',
+                    },
+                    account_ids: {
+                        description:
+                            "The webhook will exclusively push events which belong to account identifiers.\n\nActs as a filter: if not set, events belonging to all the organisation's accounts are pushed.\n",
+                        type: 'array',
+                        items: {
+                            type: 'string',
+                            example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz',
+                            description: "An account's unique identifier",
+                        },
+                    },
+                    created_at: {
+                        description: "The webhook's creation timestamp.",
+                        $ref: '#/components/schemas/Timestamp',
                     },
                 },
+            },
+            Webhook: {
+                allOf: [
+                    { $ref: '#/components/schemas/WebhookBase' },
+                    {
+                        type: 'object',
+                        required: ['secret'],
+                        properties: {
+                            secret: {
+                                description:
+                                    'The last 4 characters of the secret key used to generate the webhook payload HMAC.',
+                                type: 'string',
+                            },
+                        },
+                    },
+                ],
+            },
+            WebhookFullSecret: {
+                allOf: [
+                    { $ref: '#/components/schemas/WebhookBase' },
+                    {
+                        type: 'object',
+                        required: ['secret'],
+                        properties: {
+                            secret: {
+                                description:
+                                    'The secret key used to generate the webhook payload HMAC.',
+                                type: 'string',
+                            },
+                        },
+                    },
+                ],
             },
             WebhookRequest: {
                 type: 'object',
@@ -5495,6 +5708,7 @@ export const APISchemaContext = React.createContext<any>({
                 description:
                     'The sustainability page slug. The slug is used to identify the page publicly and should be unique.',
                 example: 'acme',
+                pattern: '^[a-z0-9.-]+$',
             },
             SustainabilityPageTitle: {
                 type: 'string',
@@ -5775,6 +5989,28 @@ export const APISchemaContext = React.createContext<any>({
                     '',
                 ],
             },
+            EstimateQuote: {
+                oneOf: [
+                    { $ref: '#/components/schemas/Errors' },
+                    { $ref: '#/components/schemas/OrderQuoteByQuantity' },
+                ],
+            },
+            Payment: {
+                oneOf: [{ $ref: '#/components/schemas/OrderPayment' }],
+                discriminator: {
+                    propertyName: 'type',
+                    mapping: { order: '#/components/schemas/OrderPayment' },
+                },
+            },
+            OrderPayment: {
+                type: 'object',
+                required: ['type', 'order'],
+                properties: {
+                    order: { $ref: '#/components/schemas/Order' },
+                    type: { type: 'string', enum: ['order'] },
+                },
+            },
+            EmptyObject: { type: 'object', additionalProperties: false },
         },
     },
 })

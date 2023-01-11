@@ -3,4 +3,4 @@
 
 import Resource from '@site/src/components/Resource';
 
-<Resource json={{"allOf":[{"$ref":"#/components/schemas/EmissionEstimateResponse"},{"type":"object","required":["request"],"properties":{"request":{"$ref":"#/components/schemas/TransactionEstimateRequest"}}}],"component":"TransactionEmissionEstimate"}}/>
+<Resource json={{"allOf":[{"$ref":"#/components/schemas/EmissionEstimateResponse"},{"type":"object","required":["request"],"properties":{"request":{"$ref":"#/components/schemas/TransactionEstimateRequest"},"search_term_match":{"type":"string","description":"The most accurate term matching the search.\n\nThe emission factor for this term is used to compute the emission estimate.\n"}}}],"component":"TransactionEmissionEstimate"}}/>

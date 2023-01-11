@@ -19,6 +19,9 @@ Store and map the client account id to your client in your database.
 
 </Tip>
 
+Client accounts are optional but recommended for B2B businesses and discouraged for B2C businesses. [Learn](/api/live-test-accounts#accounts) how to use either.
+
+
 </div>
 <div>
 
