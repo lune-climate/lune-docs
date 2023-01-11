@@ -27,8 +27,8 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 In this guide, you will learn how to set up a public sustainability page to:
 
-1. Share your climate impact
-2. Enable your clients to share their climate impact
+* Share your climate impact
+* Enable your clients to share their climate impact
 
 A sample Sustainability page can be seen [here](https://sustainability.lune.co/lune-example-impact).
 
