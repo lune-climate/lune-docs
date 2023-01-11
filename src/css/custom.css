@@ -175,5 +175,18 @@ code {
     border-radius: 0.25rem;
 }
 
+.react-player-vertical-wrapper {
+  position: relative;
+  padding-top: 140%; /* Player ratio: 100 / (650 / 908) */
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* Make sure we have the lune-ui-lib global CSS included */
 @import "lune-ui-lib/dist/esm/index.css"
