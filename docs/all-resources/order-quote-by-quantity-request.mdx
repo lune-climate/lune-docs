@@ -3,4 +3,4 @@
 
 import Resource from '@site/src/components/Resource';
 
-<Resource json={{"type":"object","description":"Order by Quantity details","required":["mass"],"properties":{"mass":{"description":"Mass of CO2 offsets to purchase","allOf":[{"$ref":"#/components/schemas/Mass"}]},"bundle_selection":{"$ref":"#/components/schemas/BundleSelectionRequest"},"quantity_trunc":{"description":"Selects to which precision to truncate the quantities assigned to each bundle.","example":"t","$ref":"#/components/schemas/MassUnit"}},"component":"OrderQuoteByQuantityRequest"}}/>
+<Resource json={{"type":"object","oneOf":[{"$ref":"#/components/schemas/OrderQuoteByQuantityWithBundlePercentage"},{"$ref":"#/components/schemas/OrderQuoteByQuantityWithBundleMass"}],"component":"OrderQuoteByQuantityRequest"}}/>

@@ -104,8 +104,8 @@ To work in test mode, you'll need a dedicated test API key.  So, once you've ena
 
 Depending on the use case, Lune clients will work with Accounts or Client accounts.  Let's summmarize the differences:
 
-- Client accounts are designed for b2b customers working with multi-tenancy applications whereas Accounts are designed for consumer apps in the eCommerce vertical
-- Client accounts are created programmatically.  The API key (created in live or test mode) determines whether the Client account is a live or test account  
+- Client accounts are designed for B2B customers working with multi-tenancy applications whereas Accounts are designed for consumer apps in the eCommerce vertical
+- Client accounts are created programmatically.  The API key (created in live or test mode) determines whether the Client account is a live or test account
 
 ### Default accounts
 
