@@ -3,8 +3,6 @@ sidebar_position: 3
 sidebar_label: Payment - flow of funds
 ---
 
-import LunePaySection from '@site/src/md/lunepay.md';
-
 # Payment - flow of funds
 
 ## Payment flows
@@ -18,8 +16,6 @@ Customers get invoiced by Lune. Customers receive and settle their invoices acco
 You can manage your billing preferences on the [Lune dashboard](https://dashboard.lune.co/settings/billing).
 
 ### Lune Pay
-
-<LunePaySection />
 
 ## Which payment flow should be used?
 
