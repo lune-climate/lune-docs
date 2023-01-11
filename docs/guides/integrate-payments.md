@@ -25,7 +25,7 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 ## Overview
 
-In this guide, you will learn how to interact with the Lune API to
+In this guide, you will learn how to interact with the Lune API to:
 
 1. Enable merchants to opt-in to contribute a percentage of a transaction value towards carbon removal at checkout
 2. Purchase carbon removal credits
