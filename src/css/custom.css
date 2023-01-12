@@ -177,12 +177,12 @@ code {
 
 .react-player-getting-started-wrapper {
   position: relative;
-  padding-top: 140%; /* Player ratio: 100 / (650 / 908) */
+  padding-top: 141%; /* Player ratio: 100 / ( 1276 / 1798 ) */
 }
 
 .react-player-test-mode-wrapper {
   position: relative;
-  padding-top: 72%; /* Player ratio: 100 / (640 / 460) */
+  padding-top: 70%; /* Player ratio: 100 / ( 2556 / 1780) */
 }
 
 .react-player {
