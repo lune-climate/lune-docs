@@ -3,4 +3,4 @@
 
 import Resource from '@site/src/components/Resource';
 
-<Resource json={{"allOf":[{"$ref":"#/components/schemas/ShippingLegEmissionEstimate"},{"type":"object","required":["id","quote","request"],"properties":{"id":{"type":"string","description":"The emission calculation unique identifier","example":"90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6"},"quote":{"$ref":"#/components/schemas/OrderQuoteByQuantity"},"request":{"$ref":"#/components/schemas/ShippingEstimateRequest"}}}],"component":"SingleShippingEmissionEstimate"}}/>
+<Resource json={{"allOf":[{"$ref":"#/components/schemas/ShippingLegEmissionEstimate"},{"type":"object","required":["id","quote","request"],"properties":{"id":{"type":"string","description":"The emission calculation unique identifier","example":"90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6"},"quote":{"$ref":"#/components/schemas/EstimateQuote"},"request":{"$ref":"#/components/schemas/ShippingEstimateRequest"}}}],"component":"SingleShippingEmissionEstimate"}}/>

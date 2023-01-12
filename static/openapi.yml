@@ -2092,7 +2092,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
   /payments/by-temporary-id/{temporary_id}:
     get:
-      summary: Get a payment by a temporary id.
+      summary: Get a payment by a temporary id
       description: |
         Get a specific payment by a temporary id.
 

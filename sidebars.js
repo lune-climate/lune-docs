@@ -16,8 +16,34 @@ const sidebars = {
   mySidebar: [
     {
       type: 'category',
-      label: 'Guides',
+      label: 'Integration guides',
       items: [
+
+        {
+          type: 'category',
+          label: 'Getting started',
+          link: {
+            type: 'doc',
+            id: 'guides/getting-started-integration',
+          },
+          items: [
+            {
+              type: 'link',
+              label: 'Overview',
+              href: '/guides/getting-started-integration#overview',
+            },
+            {
+              type: 'link',
+              label: 'Offset your product',
+              href: '/guides/getting-started-integration#offset-your-product',
+            },
+            {
+              type: 'link',
+              label: 'Round up',
+              href: '/guides/getting-started-integration#round-up',
+            },
+          ]
+        },
         {
           type: 'category',
           label: 'Sustainable Logistics',
@@ -113,6 +139,32 @@ const sidebars = {
               label: 'Offset emissions',
               href: '/guides/integrate-fintech#offset-emissions',
             }
+          ]
+        },
+
+        {
+          type: 'category',
+          label: 'Share your climate impact',
+          link: {
+            type: 'doc',
+            id: 'guides/share-your-impact',
+          },
+          items: [
+            {
+              type: 'link',
+              label: 'Overview',
+              href: '/guides/share-your-impact#overview',
+            },
+            {
+              type: 'link',
+              label: 'Create your own Sustainability page',
+              href: '/guides/share-your-impact#create-your-own-sustainability-page',
+            },
+            {
+              type: 'link',
+              label: 'Create a Sustainability page for your clients',
+              href: '/guides/share-your-impact#create-a-sustainability-page-for-your-clients',
+            },
           ]
         },
 
