@@ -143,7 +143,7 @@ You can generate API requests on any account/client account in your organization
 
 
 <div className="react-player-test-mode-wrapper">
-<ReactPlayer loop className="react-player"playing muted url='/videos/test-mode.mov' width="100%" height="100%" />
+<ReactPlayer loop className="react-player"playing muted url='/videos/test-mode.mp4' width="100%" height="100%" />
 </div>
 
 </ApiReferenceSection>
