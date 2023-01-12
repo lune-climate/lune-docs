@@ -21,11 +21,11 @@ Lune provides a single [API](/api/quickstart) to fetch, mutate, and deliver the 
 
 With booking and confirmation flows, our customers can plug the Lune API into an app, website, or product to deliver a unique and programmatically driven experience that brings climate into logistics decisions.
 
-Our API-first approach ensures customers retain programmatic control over the end-user experience, deciding, for example, where and how to best to present Project bundles and Bundle portfolios, offsetting options, and CO₂ emission estimations.
+Our API-first approach ensures customers retain programmatic control over the end-user experience, deciding, for example, where and how to best present Project bundles and Bundle portfolios, offsetting options, and CO₂ emission estimations.
 
 ## Overview
 
-By default, and as a starting point for each of our customers, Lune provides a default Project bundle, referred to as "Lune defaults" for each Account and Client Account.  
+By default, and as a starting point for each of our customers, Lune provides a default Project bundle, referred to as "Lune defaults," for each Account and Client Account.  
 
 Using these defaults means that each order to offset CO₂ emissions will be placed against the following projects and ratios:
 
@@ -36,8 +36,8 @@ For more advanced use cases, it is possible to overwrite the Lune defaults by de
 
 In this guide, you will learn how to interact with the Lune API to:
 
-1. Get the available Project bundles and Bundle portfolios
-2. Define a default Project bundle or Bundle portfolio for an Account or Client account
+1.  Get the available Project bundles and Bundle portfolios
+2.  Define a default Project bundle or Bundle portfolio for an Account or Client account
 
 ## Who is this guide for?
 
@@ -72,7 +72,7 @@ First, head over to the Lune dashboard and generate a new API key.
 If you are working with an Account, there is no need to create a client account.  You can skip this step and jump to [Working with Accounts]().
 </Tip>
 
-If you are working with a Client account, before moving forward you will need to create a [client account](/resources/client-accounts/create-client-account) for each of your clients to define their basic characteristics.
+If you are working with a Client account, before moving forward, you will need to create a [client account](/resources/client-accounts/create-client-account) for each of your clients to define their basic characteristics.
 
 <Tip>
 
@@ -130,7 +130,7 @@ Following a successful response, a client account will be added to your dashboar
 
 ![new-client-account](/img/new-client-account.png)
 
-You can access the dedicated client account page by appending the `id` to `/client-account` e.g. `https://dashboard.lune.co/settings/client-accounts/K4enjo9g08vx3MpjnbpPrEZ57XJkDVdb`.
+You can access the dedicated client account page by appending the `id` to `/client-account` e.g., `https://dashboard.lune.co/settings/client-accounts/K4enjo9g08vx3MpjnbpPrEZ57XJkDVdb`.
 
 ### Fetching Project bundles and Bundle portfolios
 
@@ -153,7 +153,7 @@ curl https://api.lune.co/v1/bundles \
 
 #### Sample response (truncated)
 
-A successful request will return a container object `data` for each available bundle, and the details of each offsetting project in the bundle in `data.projects`.
+A successful request will return a container object `data` for each available bundle and the details of each offsetting project in the bundle in `data.projects`.
 
 ```js
 {
@@ -169,7 +169,7 @@ A successful request will return a container object `data` for each available bu
             "primary_image": "https://assets.lune.co/bundles/global-renewables.png",
             "primary_image_hires": "https://assets.lune.co/bundles/global-renewables.png",
             "small_thumbnail": null,
-            "description": "Renewable energy projects, e.g. in Central America or India, help the regions shift away from fossil fuels, avoiding carbon emissions as well as creating job opportunities in local communities.",
+            "description": "Renewable energy projects, e.g., in Central America or India, help the regions shift away from fossil fuels, avoiding carbon emissions as well as creating job opportunities in local communities.",
             "disabled": false,
             "available_quantity": "10166.510933",
             "offset_type": "emissions_reduction",
@@ -499,3 +499,8 @@ A successful request will return the `id` for the chosen portfolio and the `bund
     ]
 }
 ```
+
+- `id` is the unique identifier of the bundle portfolio that you will you need to store in your code base if you intend to present the bundle to your customers
+- `label` is the name of the bundle portfolio as displayed on your account page, e.g., *Innovative*
+- `bundle_selection.bundle_id` is the unique identifier of a project that forms part of the bundle portfolio
+-  `bundle_selection.percentage` is the allocation assigned to a project in a bundle portfolio and which must always equal to 100
