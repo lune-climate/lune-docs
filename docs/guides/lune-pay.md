@@ -101,7 +101,7 @@ Successful payments credit the Client Account identified by `<CLIENT_ACCOUNT_ID>
 Lune Pay can be configured by providing several optional query parameters:
 
 - `quantity` is used to prefill the mass to offset in tCO₂
-- `redurect_url` is the url to redirect to once the payment completes
+- `redirect_url` is the url to redirect to once the payment completes
 - `redirect_label` is your company/service name.  It is used to populate a 'Back to <redirect_label>' button
 - `external_id` is a customer-defined id.  It serves two purposes:
   1. It enforces flow uniqueness.  If a customer has completed a payment with a specific `external_id`, it cannot complete additional payments with the same `external_id`
