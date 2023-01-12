@@ -65,11 +65,11 @@ First, head over to the Lune dashboard and generate a new API key.
 
 4) Copy your API key, as you'll need it to interact with the Lune API
 
-## Working with Client accounts
+## Creating a Client account
 
 <Tip>
 
-If you are working with an Account, there is no need to create a client account.  You can skip this step.
+If you are working with an Account, there is no need to create a client account.  You can skip this step and jump to [Working with Accounts]().
 </Tip>
 
 If you are working with a Client account, before moving forward you will need to create a [client account](/resources/client-accounts/create-client-account) for each of your clients to define their basic characteristics.
@@ -132,15 +132,15 @@ Following a successful response, a client account will be added to your dashboar
 
 You can access the dedicated client account page by appending the `id` to `/client-account` e.g. `https://dashboard.lune.co/settings/client-accounts/K4enjo9g08vx3MpjnbpPrEZ57XJkDVdb`.
 
-### Fetching project bundles and bundle portfolios
+### Fetching Project bundles and Bundle portfolios
 
-By [fetching project bundles](/resources/projects/list-bundles) and [bundles portfolios](/resources/bundle-portfolios/list-all-bundle-portfolios) and storing the id of one or more of those bundles, you can present your clients with a choice of CO₂ offsetting options.  
+By [fetching Project bundles](/resources/projects/list-bundles) and [Bundle portfolios](/resources/bundle-portfolios/list-all-bundle-portfolios) and storing the id of one or more of those bundles, you can present your clients with a choice of CO₂ offsetting options.  
 
 Equally, you may choose to store the id of a single bundle.  This is the equivalent of overriding the Lune defaults for your client.
 
 <Tip>
 
-Lune recommends fetching project bundles and bundle portfolios daily to ensure the presentation of titles, labels, prices, and assets is based on the latest available data.
+Lune recommends fetching Project bundles and Bundle portfolios daily to ensure the presentation of titles, labels, prices, and assets is based on the latest available data.
 
 </Tip>
 
@@ -315,11 +315,11 @@ A successful request will return an object for each bundle in the bundle portfol
 - `bundle_selection.bundle_id` is the unique identifier of a project that forms part of the bundle portfolio
 -  `bundle_selection.percentage` is the allocation assigned to a project in a bundle portfolio and which must always equal to 100
 
-### Storing a clients offsetting selection
+### Storing the offsetting selection
 
 Where you have provided your clients with a choice of offsetting options, you will need to store each [client's offsetting selection](/resources/bundle-selections/update-bundle-selection).  
 
-To do this, pass in the project bundle `id` or bundle portfolio `id` along with the client's unique identifier.
+To do this, pass in the Project bundle `id` or Bundle portfolio `id` along with the client's unique identifier.
 
 <Tip>
 
@@ -347,11 +347,11 @@ curl "https://api.lune.co/v1/bundle-selections" \
 **Where**:
 
 - `<CLIENT_ACCOUNT_ID>` - is the unique identifier for the client
-- `bundle_id`- is a unique identifier for the project selected in the Offsetting preferences page as the default offsetting option
+- `bundle_id` - is the unique identifier for the chosen Project bundle
 
 #### Sample response
 
-A successful request will return the `bundle_id` for the project selected in the Offsetting preferences page.  
+A successful request will return the `bundle_id` for the chosen project.  
 
 ```js
 [
@@ -381,11 +381,11 @@ curl "https://api.lune.co/v1/bundle-portfolios" \
 **Where**:
 
 - `<CLIENT_ACCOUNT_ID>` - is the unique identifier for the client
-- `bundle_portfolio_id`- is a unique identifier for the bundle portfolio selected in the Offsetting preferences page as the default offsetting option
+- `bundle_portfolio_id`- is the unique identifier for the chosen Bundle portfolio
 
 #### Sample response
 
-A successful request will return the `id` for the project portfolio selected in the Offsetting preferences page and the `bundle_id` for each bundle in the portfolio.
+A successful request will return the `id` for the chosen portfolio and the `bundle_id` for each bundle in the portfolio.
 
 ```js
 {
@@ -409,231 +409,93 @@ A successful request will return the `id` for the project portfolio selected in 
 }
 ```
 
-## Working with accounts
+## Working with Accounts
 
-Booking a shipment and offsetting CO₂ emissions
+When working with an Account, Lune recommends viewing the Project bundles in your [dashboard](https://dashboard.lune.co/) and Bundle portfolios in your [account page](https://dashboard.lune.co/settings/accounts).  
 
-To present an [estimate of CO₂ emissions for a given shipping route](/resources/emission-estimates/create-multi-leg-shipping-estimate), pass in the journey details (e.g., route source and destination for one or more journey legs, shipment mode, load).
+This is the equivalent of fetching Project bundles and Bundle portfolios via the Lune API.
 
-### Sample request
+### Storing the offsetting decision
+
+As per Client accounts, you will need to store the [offsetting selection](/resources/bundle-selections/update-bundle-selection) for your account.
+
+To do this, pass in the Project bundle `id` or Bundle portfolio `id` along with your Lune account Id.
+
+#### Sample request - Project bundles
 
 ```js
-curl https://api.lune.co/v1/estimates/shipping/multi-leg \
-    -H 'Content-Type: application/json' \
+curl "https://api.lune.co/v1/bundle-selections" \
+    -X PUT \
     -H "Authorization: Bearer $API_KEY" \
-    -H "Lune-Account: <CLIENT_ACCOUNT_ID>" \
-    -X POST \
+    -H "Lune-Account: <ACCOUNT_ID>" \
+    -H "Content-Type: application/json" \
     -d '
-{
-    "shipment": { "mass": { "amount": "40.0", "unit": "t" } },
-    "legs": [{
-        "route": {
-            "source": {
-                "lat": 51.4402,
-                "lon": 6.7652
-            },
-            "destination": {
-                "lat": 51.94995,
-                "lon": 4.1453
-            }
-        },
-        "method": "inland_waterway_pushed_convoy_small"
-    }, {
-        "route": {
-            "source": {
-                "lat": 51.94995,
-                "lon": 4.1453
-            },
-            "destination": {
-                "lat": 52.3676,
-                "lon": 4.9041
-            }
-        },
-        "method": "electric_freight_train"
-    }]
-}'
-```
-
-**Where**:
-
-- `<CLIENT_ACCOUNT_ID>` is the unique identifier for the client
-- `shipment` defines the shipment load; in this example, 40 tonnes
-- `legs` is a container object for one or more journey legs
-- `route` is the source and destination for each leg in the chosen journey, which can either be the shipping distance or the start/destination address pair (physical address or coordinates)
-- `method` is the chosen form of transport
-
-
-### Sample response
-
-A successful 200 request will result in an estimate of offsetting costs for the chosen journey.
-
-```js
-{
-    "id": "9aKx7b6nNXMk3YvaJPyD1mlW5Od2eLZE",
-    "legs": [
+    [
         {
-            "mass": {
-                "unit": "t",
-                "amount": "0.158841"
-            },
-            "distance": {
-                "unit": "km",
-                "amount": "233.5892"
-            },
-            "methodology": []
-        },
-        {
-            "mass": {
-                "unit": "t",
-                "amount": "0.062328"
-            },
-            "distance": {
-                "unit": "km",
-                "amount": "104.0857"
-            },
-            "methodology": []
+            "bundle_id": "BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3"
         }
-    ],
-    "mass": {
-        "unit": "t",
-        "amount": "0.221169"
-    },
-    "quote": {
-        "bundles": [
-            {
-                "quantity": "0.022116",
-                "bundle_id": "xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w",
-                "unit_price": "223.18",
-                "bundle_name": "Ocean Carbon Removal",
-                "offset_cost": "4.94",
-                "gross_unit_price": "247.98",
-                "insufficient_available_quantity": null
-            },
-            {
-                "quantity": "0.022116",
-                "bundle_id": "Dj85vWbLVZNlOayVxpM1K29RgJq4xXze",
-                "unit_price": "357.08",
-                "bundle_name": "Direct Air Capture",
-                "offset_cost": "7.9",
-                "gross_unit_price": "396.76",
-                "insufficient_available_quantity": null
-            },
-            {
-                "quantity": "0.176935",
-                "bundle_id": "15xRmEXZq0NnJLpPnydPr7akGOjV9g3z",
-                "unit_price": "35.71",
-                "bundle_name": "Biotech-Enhanced Reforestation",
-                "offset_cost": "6.32",
-                "gross_unit_price": "39.68",
-                "insufficient_available_quantity": null
-            }
-        ],
-        "currency": "USD",
-        "requested_value": null,
-        "estimated_quantity": "0.221167",
-        "requested_quantity": "0.221169",
-        "estimated_commission": "2.13",
-        "estimated_total_cost": "21.29",
-        "estimated_offset_cost": "19.16"
-    },
-    "distance": {
-        "unit": "km",
-        "amount": "337.6749"
-    }
-}
+    ]'
 ```
 
-**Where**:
+- `<ACCOUNT_ID>` - is the unique identifier for your account
+- `bundle_id`- is the unique identifier for the chosen Project bundle
 
-- `id` is the unique identifier for the CO₂ emissions estimate
-- `legs` is a container object for one or more journey legs, which includes the CO₂ emissions `legs.mass.amount` and distance per leg
-- `mass.amount` is the aggregated CO₂ emissions for the chosen journey
-- `quote.bundles` is a container object that confirms the client's offsetting selection and provides the details of each bundle, including the bundle id, bundle name, and unit price
-- `quote.estimated_total_cost` is the total cost of offsetting the CO₂ emissions in the client's currency
-- `distance` is the total distance for the chosen journey
+#### Sample response
 
-## Confirming a booking
-
-To present a [confirmation of a booking](/resources/orders/create-order-by-estimate), including the carbon offset, bundle selection (or bundle portfolio), and the total cost of offsetting the CO₂ emissions, pass in the estimate id.
-
-![order-confirmation](/img/order-confirmation.png)
-
-### Sample request
+A successful request will return the `bundle_id` for the chosen project.  
 
 ```js
-curl https://api.lune.co/v1/orders/by-estimate \
--s \
--H 'Content-Type: application/json' \
--H "Authorization: Bearer $API_KEY" \
--H "Lune-Account: <CLIENT_ACCOUNT_ID>" \
--X POST \
--d '
+[
     {
-      "estimate_id": "a1BER4JZqnzPkYxNgvALg0GeQDoXlWO5"
-    }'
+        "bundle_id": "ljmkOq7vXd239gAEmALWQ8ZGVD5ExNzr",
+        "percentage": 100
+    }
+]
+```
+
+#### Sample request - Bundle portfolios
+
+```js
+curl "https://api.lune.co/v1/bundle-portfolios" \
+    -X PUT \
+    -H "Authorization: Bearer $API_KEY" \
+    -H "Lune-Account: <ACCOUNT_ID>" \
+    -H "Content-Type: application/json" \
+    -d '
+    [
+      {
+          "bundle_portfolio_id": "ljmkOq7vXd239gAEmALWQ8ZGVD5ExNzr"
+      }
+    ]'
 ```
 
 **Where**:
 
-- `<CLIENT_ACCOUNT_ID>` is the unique identifier for the client
-- `estimate_id` is the unique identifier for the emissions estimate
+- `<ACCOUNT_ID>` - is the unique identifier for your account
+- `bundle_portfolio_id`- is the unique identifier for the chosen Bundle portfolio
 
-### Sample response
+#### Sample response
 
-A successful request will return an order summary, which can be displayed as part of your confirmation flow.
+A successful request will return the `id` for the chosen portfolio and the `bundle_id` for each bundle in the portfolio.
 
 ```js
 {
-    "id": "9aKx7b6nNXMk3YvOKXKpD1mlW5Od2eLZ",
-    "metadata": {},
-    "idempotency_key": null,
-    "type": "quantity",
-    "status": "placed",
-    "currency": "USD",
-    "offset_cost": "19.16",
-    "total_cost": "21.29",
-    "commission": "2.13",
-    "quantity": "0.221167",
-    "created_at": "2022-10-07T17:27:23.113Z",
-    "bundles": [
+    "id": "q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8",
+    "identifier": "inv",
+    "label": "Innovative",
+    "bundle_selection": [
         {
             "bundle_id": "xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w",
-            "bundle_name": "Ocean Carbon Removal",
-            "quantity": "0.022116",
-            "unit_price": "223.18",
-            "gross_unit_price": "247.98",
-            "offset_cost": "4.94",
-            "insufficient_available_quantity": false
+            "percentage": 10
         },
         {
             "bundle_id": "Dj85vWbLVZNlOayVxpM1K29RgJq4xXze",
-            "bundle_name": "Direct Air Capture",
-            "quantity": "0.022116",
-            "unit_price": "357.08",
-            "gross_unit_price": "396.76",
-            "offset_cost": "7.9",
-            "insufficient_available_quantity": false
+            "percentage": 10
         },
         {
             "bundle_id": "15xRmEXZq0NnJLpPnydPr7akGOjV9g3z",
-            "bundle_name": "Biotech-Enhanced Reforestation",
-            "quantity": "0.176935",
-            "unit_price": "35.71",
-            "gross_unit_price": "39.68",
-            "offset_cost": "6.32",
-            "insufficient_available_quantity": false
+            "percentage": 80
         }
-    ],
-    "projects": [],
-    "certificate": null,
-    "offset_link_id": null,
-    "email": null,
-    "estimate_id": "9aKx7b6nNXMk3YvaJPyD1mlW5Od2eLZE",
-    "requested_quantity": "0.221169",
-    "requested_value": null
+    ]
 }
 ```
-
-**Where**:
-
-- `id` is the unique identifier for the booking
