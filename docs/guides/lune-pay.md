@@ -67,7 +67,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 ## Flow
 
-![api-flow](/img/payments-apiflow.png)
+![api-flow](/img/lune-pay-apiflow.png)
 
 </div>
 
@@ -133,7 +133,7 @@ Clicking on the button should redirect the user to Lune Pay's URL.
 
 <>
 
-![order-confirmation](/img/payments-order-confirmation.png)
+![order-confirmation](/img/lune-pay-generateurl.png)
 
 </>
 </div>
@@ -159,12 +159,7 @@ The following query parameters are appended to `redirect_url`:
 <div className="miniSections">
 <>
 
-![thank-you](/img/lune-pay-thank-you.png)
-
-</>
-<>
-
-![thank-you](/img/lune-pay-thank-you.png)
+![thank-you](/img/lune-pay-redirectback.png)
 
 </>
 </div>
