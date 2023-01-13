@@ -62,8 +62,8 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 </div>
 </div>
 
-<div className="react-player-vertical-wrapper">
-<ReactPlayer loop className="react-player"playing muted url='/videos/offset-roundup.mov' width="100%" height="100%" />
+<div className="react-player-getting-started-wrapper">
+<ReactPlayer loop className="react-player"playing muted url='/videos/offset-roundup.mp4' width="100%" height="100%" />
 </div>
 
 </ApiReferenceSection>
