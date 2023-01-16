@@ -2,7 +2,7 @@
 
 ## Intro
 
-Lune provides a single [API](/api/quickstart) to fetch, mutate, and deliver the data necessary to calculate and offset the climate impact from logistics operations.
+Lune provides a single [API](/api/introduction) to fetch, mutate, and deliver the data necessary to calculate and offset the climate impact from logistics operations.
 
 With booking and confirmation flows, our customers can plug the Lune API into an app, website, or product to deliver a unique and programmatically driven experience that brings climate into logistics decisions.
 
