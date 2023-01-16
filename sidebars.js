@@ -15,6 +15,12 @@
 const sidebars = {
   mySidebar: [
     {
+      type: 'doc',
+      label: 'Welcome',
+      id: 'index',
+    },
+
+    {
       type: 'category',
       label: 'Integration guides',
       items: [
