@@ -45,6 +45,7 @@ In this guide, you will learn how to interact with the Lune API to:
 <div>
 
 <Button
+    className="whiteHover"
     leftIcon={<ArrowCircleRightIcon />}
     sx={{ textTransform: 'none' }}
     href="/guides/integrate-logistics"
@@ -81,6 +82,7 @@ In this guide, you will learn how to interact with the Lune API to:
 <div>
 
 <Button
+    className="whiteHover"
     leftIcon={<ArrowCircleRightIcon />}
     sx={{ textTransform: 'none' }}
     href="/guides/integrate-payments"
@@ -118,6 +120,7 @@ In this guide, you will learn how to interact with the Lune API to:
 <div>
 
 <Button
+    className="whiteHover"
     leftIcon={<ArrowCircleRightIcon />}
     sx={{ textTransform: 'none' }}
     href="/guides/integrate-payments"
@@ -151,6 +154,7 @@ Create climate positive customer experiences by integrating innovative carbon re
 <div>
 
 <Button
+    className="whiteHover"
     leftIcon={<ArrowCircleRightIcon />}
     sx={{ textTransform: 'none' }}
     href="/api/quickstart"
