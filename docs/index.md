@@ -157,7 +157,7 @@ Create climate positive customer experiences by integrating innovative carbon re
     className="whiteHover"
     leftIcon={<ArrowCircleRightIcon />}
     sx={{ textTransform: 'none' }}
-    href="/api/quickstart"
+    href="/api/introduction"
 >View API Reference
 </Button>
 
