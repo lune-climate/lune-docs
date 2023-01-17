@@ -8,7 +8,12 @@ export default function Curl(
     parameters: any[],
     apiKey?: string,
 ): string {
-    const requestBodyExample = requestBody ? ResourceExample(requestBody, true) : undefined
+    const requestBodyExample = requestBody
+        ? {
+              contentType: requestBody?.contentType,
+              value: ResourceExample(requestBody, true),
+          }
+        : undefined
     let endpointParsed = path
     parameters.forEach((parameter) => {
         const parameterExample = ResourceExample(parameter)
@@ -45,11 +50,16 @@ export default function Curl(
         method.toUpperCase() === 'GET'
             ? ''
             : ` \\
--H 'Content-Type: application/json' \\
+-H 'Content-Type: ${requestBodyExample?.contentType || 'application/json'}' \\
 -X ${method.toUpperCase()} ${
                   requestBodyExample
                       ? `\\
--d '${JSON.stringify(requestBodyExample, null, 2)}'
+${
+    // We only have json and form-data contentType
+    requestBodyExample.contentType === 'application/json'
+        ? `-d '${JSON.stringify(requestBodyExample.value, null, 2)}'`
+        : `-F ${Object.entries(requestBodyExample.value).map((kv) => `${kv[0]}=@${kv[1]}`)}`
+}
 `
                       : ''
               }`
