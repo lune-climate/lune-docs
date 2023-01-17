@@ -54,7 +54,7 @@ You can manage your billing preferences on the [Lune dashboard](https://dashboar
 </ApiReferenceSection>
 
 
-## Which payment flow should be used?
+## Which option do we recommend?
 
 <ApiReferenceSection>
 <div className="paragraphSections">
@@ -108,7 +108,7 @@ Use **direct invoicing** if
 
 <div>
 
-## 3. You have integrated the API and want to stay of of the flow of funds
+## 3. You have integrated the API and want to stay out of the flow of funds
 
 Your company is Lune's customer. However, carbon credits are purchased and ultimately paid for by your customers.
 
