@@ -1,5 +1,6 @@
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import { useLocation } from '@docusaurus/router'
 
 export function formatPath(operationId: string): string {
     // We either receive camelCase, UpperCamelCase, Sentence case or Title Case. Make it all camelCase
@@ -34,14 +35,19 @@ export function getApiDomain(): string {
     return siteConfig.customFields.API_DOMAIN
 }
 
-// Due to some browsers automatically adding trailing slashes, and since trailing slashes require
-// different paths to children references, this provides a suffix to be consistent in all use cases
-export function getRelativePathPrefix(): string {
-    return ExecutionEnvironment.canUseDOM
-        ? window.location.href.slice(-1) === '/'
-            ? '../'
-            : ''
-        : ''
+// Docusaurus paths work differently depending on whether docusaurus was built or is running in development mode.
+// If docusaurus was built, useLocation().pathname paths are generated at compile time.
+//  No trailing slashes are added at compile time. Trailing slashes at runtime add by browsers "just work".
+// If docusaurus is run in development mode, useLocation().pathname gets the path from the URL, which may include slashes.
+//  Note: In development, docusaurus does not run a server at all.
+export function useRelativePathPrefix(): string {
+    const location = useLocation()
+
+    const path = ExecutionEnvironment.canUseDOM && location.pathname.slice(-1) === '/'
+        ? location.pathname.slice(0, -1)
+        : location.pathname
+
+    return path
 }
 
 export const indent = (str: string, count: number, space: string = ' '): string => {

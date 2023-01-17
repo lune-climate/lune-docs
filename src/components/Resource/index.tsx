@@ -1,11 +1,14 @@
 import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ResourceExample from '@site/src/components/ResourceExample'
-import { formatPath, getRelativePathPrefix } from '@site/src/utils'
+import { formatPath, useRelativePathPrefix } from '@site/src/utils'
 import { ApiReferenceSection, JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
 import React from 'react'
 
 export default function ResourceParser(props: { json: any }): JSX.Element {
+    // remove last element because endpoints listed in this page are at the same level
+    const hrefPrefix = useRelativePathPrefix().split('/').slice(0, -1).join('/')
+
     let resourceProperties: any[]
     // We don't have anyOf so no need to handle it
     if (props.json.allOf || props.json.oneOf) {
@@ -43,8 +46,6 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
         lineNumbers: false,
     }
 
-    const hrefPrefix = getRelativePathPrefix()
-
     return (
         <section className="page">
             {props.json.description && (
@@ -70,7 +71,7 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
                                     >
                                         <a
                                             key={i}
-                                            href={`${hrefPrefix}${formatPath(
+                                            href={`${hrefPrefix}/${formatPath(
                                                 endpoint.operationId,
                                             )}`}
                                         >
