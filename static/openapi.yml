@@ -5468,6 +5468,10 @@ components:
           example: v1
           description: |
             Version of the API that serialized the event. The only possible value at the moment is `v1`.
+        account_id:
+          type: string
+          example: ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz
+          description: The account identifier the event belongs to.
         event_id:
           type: string
           example: va1BER4JZqnzPkYxJgALg0GeQDoXlWO5
