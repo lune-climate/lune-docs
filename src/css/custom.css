@@ -163,6 +163,10 @@ pre {
     margin-bottom: 0px;
 }
 
+.homeParagraphSections {
+    margin-top: 48px;
+}
+
 .homeParagraphSections >*  {
     margin-bottom: 32px;
 }
