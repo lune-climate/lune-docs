@@ -52,7 +52,7 @@ const sidebars = {
         },
         {
           type: 'category',
-          label: 'Sustainable Logistics',
+          label: 'Sustainable logistics',
           link: {
             type: 'doc',
             id: 'guides/integrate-logistics',
@@ -83,7 +83,7 @@ const sidebars = {
 
         {
           type: 'category',
-          label: 'Payments Contribution',
+          label: 'Payments contribution',
           link: {
             type: 'doc',
             id: 'guides/integrate-payments',
@@ -114,7 +114,7 @@ const sidebars = {
 
         {
           type: 'category',
-          label: 'Green Banking',
+          label: 'Green banking',
           link: {
             type: 'doc',
             id: 'guides/integrate-fintech',
@@ -176,7 +176,7 @@ const sidebars = {
 
         {
           type: 'category',
-          label: 'Lune Pay',
+          label: 'Lune pay',
           link: {
             type: 'doc',
             id: 'guides/lune-pay',
