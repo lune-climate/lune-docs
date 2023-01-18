@@ -12,15 +12,23 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     const apiKey = getApiKey()
 
     let endpointRequestBody
-    // When existent, only requestBody of type `application/json` exists in the schema
+    // When existent, only requestBody of type `application/json` and `multipart/form-data` exists in the schema
     if (props.json.requestBody) {
         const dereferencedRequestBody = Dereferencer(
-            props.json.requestBody.content['application/json'].schema,
+            (
+                props.json.requestBody.content['application/json'] ||
+                props.json.requestBody.content['multipart/form-data']
+            ).schema,
         )
         endpointRequestBody = JsonPropertyParser({
             ...dereferencedRequestBody,
             json: dereferencedRequestBody,
         })
+
+        endpointRequestBody.contentType = 'application/json'
+        if (props.json.requestBody.content['multipart/form-data']) {
+            endpointRequestBody.contentType = 'multipart/form-data'
+        }
     }
 
     const parameters = (props.json.parameters || []).map((parameter) => ParameterParser(parameter))
