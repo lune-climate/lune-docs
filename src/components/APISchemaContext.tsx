@@ -216,6 +216,45 @@ export const APISchemaContext = React.createContext<any>({
                 },
             },
         },
+        '/accounts/client/{id}/logo': {
+            post: {
+                summary: 'Update a client account logo',
+                operationId: 'updateClientAccountLogo',
+                security: [{ BearerAuth: [] }],
+                tags: ['Client accounts'],
+                parameters: [
+                    {
+                        name: 'id',
+                        in: 'path',
+                        required: true,
+                        description: "The account's unique identifier",
+                        schema: { type: 'string', example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz' },
+                    },
+                ],
+                requestBody: {
+                    required: true,
+                    content: {
+                        'multipart/form-data': {
+                            schema: { $ref: '#/components/schemas/UploadLogoRequest' },
+                        },
+                    },
+                },
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: { $ref: '#/components/schemas/UploadLogoResponse' },
+                            },
+                        },
+                    },
+                    '400': { $ref: '#/components/responses/BadRequest' },
+                    '401': { $ref: '#/components/responses/Unauthorized' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                },
+            },
+        },
         '/accounts': {
             post: {
                 summary: 'Create an account pair',
@@ -318,6 +357,45 @@ export const APISchemaContext = React.createContext<any>({
                     },
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                },
+            },
+        },
+        '/accounts/{id}/logo': {
+            post: {
+                summary: 'Update an account logo',
+                operationId: 'updateAccountLogo',
+                security: [{ BearerAuth: [] }],
+                tags: ['Accounts'],
+                parameters: [
+                    {
+                        name: 'id',
+                        in: 'path',
+                        required: true,
+                        description: "The account's unique identifier",
+                        schema: { type: 'string', example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz' },
+                    },
+                ],
+                requestBody: {
+                    required: true,
+                    content: {
+                        'multipart/form-data': {
+                            schema: { $ref: '#/components/schemas/UploadLogoRequest' },
+                        },
+                    },
+                },
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: { $ref: '#/components/schemas/UploadLogoResponse' },
+                            },
+                        },
+                    },
+                    '400': { $ref: '#/components/responses/BadRequest' },
+                    '401': { $ref: '#/components/responses/Unauthorized' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -1124,7 +1202,7 @@ export const APISchemaContext = React.createContext<any>({
         },
         '/estimates/shipping': {
             post: {
-                summary: 'Create a shipping emission estimate',
+                summary: 'Create a shipping emission estimate (single)',
                 operationId: 'createShippingEstimate',
                 security: [{ BearerAuth: [] }],
                 tags: ['Emission estimates'],
@@ -1158,7 +1236,7 @@ export const APISchemaContext = React.createContext<any>({
         },
         '/estimates/shipping/{id}': {
             get: {
-                summary: 'Get a shipping emission estimate',
+                summary: 'Get a shipping emission estimate (single)',
                 operationId: 'getShippingEstimate',
                 security: [{ BearerAuth: [] }],
                 tags: ['Emission estimates'],
@@ -1189,7 +1267,7 @@ export const APISchemaContext = React.createContext<any>({
                 },
             },
             put: {
-                summary: 'Update a shipping emission estimate',
+                summary: 'Update a shipping emission estimate (single)',
                 operationId: 'updateShippingEstimate',
                 security: [{ BearerAuth: [] }],
                 tags: ['Emission estimates'],
@@ -1232,7 +1310,7 @@ export const APISchemaContext = React.createContext<any>({
         },
         '/estimates/shipping/multi-leg': {
             post: {
-                summary: 'Create a multi-leg shipping emission estimate',
+                summary: 'Create a shipping emission estimate (multi-leg)',
                 description:
                     'Each leg can be fulfilled by a different method, eg a truck, a plane or other options.',
                 operationId: 'createMultiLegShippingEstimate',
@@ -1270,7 +1348,7 @@ export const APISchemaContext = React.createContext<any>({
         },
         '/estimates/shipping/multi-leg/{id}': {
             get: {
-                summary: 'Get a multi-leg shipping emission estimate',
+                summary: 'Get a shipping emission estimate (multi-leg)',
                 operationId: 'getMultiLegShippingEstimate',
                 security: [{ BearerAuth: [] }],
                 tags: ['Emission estimates'],
@@ -1301,7 +1379,7 @@ export const APISchemaContext = React.createContext<any>({
                 },
             },
             put: {
-                summary: 'Update a multi-leg shipping emission estimate',
+                summary: 'Update a shipping emission estimate (multi-leg)',
                 operationId: 'updateMultiLegShippingEstimate',
                 security: [{ BearerAuth: [] }],
                 tags: ['Emission estimates'],
@@ -1346,7 +1424,7 @@ export const APISchemaContext = React.createContext<any>({
         },
         '/estimates/transactions': {
             post: {
-                summary: 'Create a transaction emission estimate',
+                summary: 'Create a transaction emission estimate (single)',
                 operationId: 'createTransactionEstimate',
                 security: [{ BearerAuth: [] }],
                 tags: ['Emission estimates'],
@@ -1388,7 +1466,7 @@ export const APISchemaContext = React.createContext<any>({
         },
         '/estimates/transactions/batch': {
             post: {
-                summary: 'Create a batch transaction emission estimate',
+                summary: 'Create a transaction emission estimate (batch)',
                 description:
                     'Perform multiple transaction emissions estimate in one request.\n\nEach estimate is handled individually.\n\nThe response contains estimates or errors in the same orders as the request.\n',
                 operationId: 'createBatchTransactionEstimate',
@@ -2343,6 +2421,7 @@ export const APISchemaContext = React.createContext<any>({
                             'sustainability_page_slug_not_unique',
                             'sustainability_page_exists',
                             'pagination_limit_invalid',
+                            'unsupported_image_format',
                         ],
                     },
                     message: {
@@ -5499,6 +5578,11 @@ export const APISchemaContext = React.createContext<any>({
                         description:
                             'Version of the API that serialized the event. The only possible value at the moment is `v1`.\n',
                     },
+                    account_id: {
+                        type: 'string',
+                        example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz',
+                        description: 'The account identifier the event belongs to.',
+                    },
                     event_id: {
                         type: 'string',
                         example: 'va1BER4JZqnzPkYxJgALg0GeQDoXlWO5',
@@ -6011,6 +6095,20 @@ export const APISchemaContext = React.createContext<any>({
                 },
             },
             EmptyObject: { type: 'object', additionalProperties: false },
+            UploadLogoRequest: {
+                type: 'object',
+                required: ['logo'],
+                properties: { logo: { type: 'string', format: 'binary' } },
+            },
+            UploadLogoResponse: {
+                type: 'object',
+                properties: {
+                    url: {
+                        description: 'Uploaded account logo URL',
+                        $ref: '#/components/schemas/Url',
+                    },
+                },
+            },
         },
     },
 })
