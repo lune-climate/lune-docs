@@ -27,26 +27,26 @@ const sidebars = {
 
         {
           type: 'category',
-          label: 'Getting started',
+          label: '1-step integration',
           link: {
             type: 'doc',
-            id: 'guides/getting-started-integration',
+            id: 'guides/one-step-integration',
           },
           items: [
             {
               type: 'link',
               label: 'Overview',
-              href: '/guides/getting-started-integration#overview',
+              href: '/guides/one-step-integration#overview',
             },
             {
               type: 'link',
               label: 'Offset your product',
-              href: '/guides/getting-started-integration#offset-your-product',
+              href: '/guides/one-step-integration#offset-your-product',
             },
             {
               type: 'link',
               label: 'Round up',
-              href: '/guides/getting-started-integration#round-up',
+              href: '/guides/one-step-integration#round-up',
             },
           ]
         },
