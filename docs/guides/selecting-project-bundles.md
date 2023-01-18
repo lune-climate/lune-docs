@@ -25,7 +25,7 @@ Our API-first approach ensures customers retain programmatic control over the en
 
 ## Overview
 
-By default, and as a starting point for each of our customers, Lune provides a default Project bundle, referred to as "Lune defaults," for each Account and Client Account.  
+By default, and as a starting point for each of our customers, Lune provides default Project bundles, referred to as "Lune defaults," for each Account and Client Account.  
 
 Using these defaults means that each order to offset CO₂ emissions will be placed against the following projects and ratios:
 
@@ -69,7 +69,7 @@ First, head over to the Lune dashboard and generate a new API key.
 
 <Tip>
 
-If you are working with an Account, there is no need to create a client account.  You can skip this step and jump to [Working with Accounts]().
+If you are working with an Account, there is no need to create a client account.  You can skip this step and jump to [Working with Accounts](#working-with-accounts).
 </Tip>
 
 If you are working with a Client account, before moving forward, you will need to create a [client account](/resources/client-accounts/create-client-account) for each of your clients to define their basic characteristics.
@@ -134,9 +134,7 @@ You can access the dedicated client account page by appending the `id` to `/clie
 
 ### Fetching Project bundles and Bundle portfolios
 
-By [fetching Project bundles](/resources/projects/list-bundles) and [Bundle portfolios](/resources/bundle-portfolios/list-all-bundle-portfolios) and storing the id of one or more of those bundles, you can present your clients with a choice of CO₂ offsetting options.  
-
-Equally, you may choose to store the id of a single bundle.  This is the equivalent of overriding the Lune defaults for your client.
+By [fetching Project bundles](/resources/projects/list-bundles) and [Bundle portfolios](/resources/bundle-portfolios/list-all-bundle-portfolios) and storing the id of one or more of those bundles (and other bundle properties you wish to expose in-app, e.g., bundle images, bundle name, bundle description), you can present your clients with a choice of CO₂ offsetting options.  
 
 <Tip>
 
@@ -224,6 +222,7 @@ A successful request will return a container object `data` for each available bu
 
 - `data.id` is the unique identifier of a project bundle that you will you need to store in your code base if you intend to present the bundle to your client on their Offsetting preferences page
 -  `data.name` is the name of the project bundle as displayed in the [projects page](https://dashboard.lune.co/projects), e.g., *Renewable energy transition*
+- `data.primary_image` is the URL for the primary bundle image
 - `data.projects.id` is the unique identifier of a project that forms part of the project bundle, as displayed on the projects page
 - `data.projects.name` is the name of a project that forms part of the project bundle, e.g., _De Aar Wind_
 
@@ -317,7 +316,7 @@ A successful request will return an object for each bundle in the bundle portfol
 
 ### Storing the offsetting selection
 
-Where you have provided your clients with a choice of offsetting options, you will need to store each [client's offsetting selection](/resources/bundle-selections/update-bundle-selection).  
+Where you have provided your clients with a choice of offsetting options, you will need to update each [client's offsetting selection](/resources/bundle-selections/update-bundle-selection).  
 
 To do this, pass in the Project bundle `id` or Bundle portfolio `id` along with the client's unique identifier.
 
