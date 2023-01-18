@@ -15,6 +15,12 @@
 const sidebars = {
   mySidebar: [
     {
+      type: 'doc',
+      label: 'Welcome',
+      id: 'index',
+    },
+
+    {
       type: 'category',
       label: 'Integration guides',
       items: [
@@ -167,6 +173,69 @@ const sidebars = {
             },
           ]
         },
+
+        {
+          type: 'category',
+          label: 'Lune Pay',
+          link: {
+            type: 'doc',
+            id: 'guides/lune-pay',
+          },
+          items: [
+            {
+              type: 'link',
+              label: 'Overview',
+              href: '/guides/lune-pay#overview',
+            },
+            {
+              type: 'link',
+              label: 'Create a client account',
+              href: '/guides/lune-pay#create-a-client-account',
+            },
+            {
+              type: 'link',
+              label: 'Generate and embed a Lune Pay URL',
+              href: '/guides/lune-pay#generate-and-embed-a-lune-pay-url',
+            },
+            {
+              type: 'link',
+              label: 'Handle redirection to your app',
+              href: '/guides/lune-pay#handle-redirection-to-your-app',
+            },
+          ]
+        },
+
+        {
+          type: 'category',
+          label: 'Selecting project bundles',
+          link: {
+            type: 'doc',
+            id: 'guides/selecting-project-bundles'
+          },
+          items: [
+            {
+              type: 'link',
+              label: 'Overview',
+              href: '/guides/selecting-project-bundles#overview'
+            },
+            {
+              type: 'link',
+              label: 'Create a client account',
+              href: '/guides/selecting-project-bundles#create-a-client-account',
+            },
+            {
+              type: 'link',
+              label: 'Fetching project bundles and bundle portfolios',
+              href: '/guides/selecting-project-bundles#fetching-project-bundles-and-bundle-portfolios',
+            },
+            {
+              type: 'link',
+              label: 'Storing the offsetting selection',
+              href: '/guides/selecting-project-bundles#storing-the-offsetting-selection',
+            },
+          ]
+        },
+
 
       ],
     },

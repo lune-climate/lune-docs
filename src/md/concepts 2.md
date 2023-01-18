@@ -1,7 +1,0 @@
-- **Account** - Created in the Lune dashboard and designed for consumer apps in the eCommerce vertical
-- **Client account** - Created programmatically and designed for b2b customers working with multi-tenancy applications.  You must create a client account for each of your clients to define their basic characteristics, such as name, currency, and beneficiary.  By default, clients will be provided with "Lune defaults"
-- **Lune defaults** - Lune has provided a default Project bundle for each of our clients.  Every order will be placed against the following projects and ratios:
-  - Conserving forests in Asia - 95%
-  - Ocean Carbon Removal - 5%
-- **Project bundle** - Group of offsetting projects with similar characteristics., e.g., _Conserving forests in Asia_ and _Ocean Carbon Removal_
-- **Offsetting preferences page** - Your clients will [decide whether to offset CO₂ emissions](#store-a-clients-offsetting-decision) on this page

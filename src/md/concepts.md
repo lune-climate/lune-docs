@@ -4,4 +4,5 @@
   - Conserving forests in Asia - 95%
   - Ocean Carbon Removal - 5%
 - **Project bundle** - Group of offsetting projects with similar characteristics., e.g., _Conserving forests in Asia_ and _Ocean Carbon Removal_
+- **Bundle portfolio** - A curated group of project bundles., e.g., _Oxford Offsetting Principles_
 - **Offsetting preferences page** - Your clients will [decide whether to offset CO₂ emissions](#store-a-clients-offsetting-decision) on this page

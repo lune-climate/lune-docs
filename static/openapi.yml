@@ -1108,7 +1108,7 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
   /estimates/shipping:
     post:
-      summary: Create a shipping emission estimate
+      summary: Create a shipping emission estimate (single)
       operationId: createShippingEstimate
       security:
         - BearerAuth: []
@@ -1141,7 +1141,7 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
   /estimates/shipping/{id}:
     get:
-      summary: Get a shipping emission estimate
+      summary: Get a shipping emission estimate (single)
       operationId: getShippingEstimate
       security:
         - BearerAuth: []
@@ -1171,7 +1171,7 @@ paths:
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
     put:
-      summary: Update a shipping emission estimate
+      summary: Update a shipping emission estimate (single)
       operationId: updateShippingEstimate
       security:
         - BearerAuth: []
@@ -1212,7 +1212,7 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
   /estimates/shipping/multi-leg:
     post:
-      summary: Create a multi-leg shipping emission estimate
+      summary: Create a shipping emission estimate (multi-leg)
       description: Each leg can be fulfilled by a different method, eg a truck, a plane or other options.
       operationId: createMultiLegShippingEstimate
       security:
@@ -1246,7 +1246,7 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
   /estimates/shipping/multi-leg/{id}:
     get:
-      summary: Get a multi-leg shipping emission estimate
+      summary: Get a shipping emission estimate (multi-leg)
       operationId: getMultiLegShippingEstimate
       security:
         - BearerAuth: []
@@ -1276,7 +1276,7 @@ paths:
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
     put:
-      summary: Update a multi-leg shipping emission estimate
+      summary: Update a shipping emission estimate (multi-leg)
       operationId: updateMultiLegShippingEstimate
       security:
         - BearerAuth: []
@@ -1317,7 +1317,7 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
   /estimates/transactions:
     post:
-      summary: Create a transaction emission estimate
+      summary: Create a transaction emission estimate (single)
       operationId: createTransactionEstimate
       security:
         - BearerAuth: []
@@ -1356,7 +1356,7 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
   /estimates/transactions/batch:
     post:
-      summary: Create a batch transaction emission estimate
+      summary: Create a transaction emission estimate (batch)
       description: |
         Perform multiple transaction emissions estimate in one request.
 
@@ -5468,6 +5468,10 @@ components:
           example: v1
           description: |
             Version of the API that serialized the event. The only possible value at the moment is `v1`.
+        account_id:
+          type: string
+          example: ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz
+          description: The account identifier the event belongs to.
         event_id:
           type: string
           example: va1BER4JZqnzPkYxJgALg0GeQDoXlWO5
