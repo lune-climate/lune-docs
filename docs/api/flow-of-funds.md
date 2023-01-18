@@ -114,7 +114,7 @@ Your company is Lune's customer. However, carbon credits are purchased and ultim
 
 Use **Lune Pay** if
 
-* You prefer staying out of the flow of funds
+* You prefer staying out of the flow of funds: end-buyer pays Lune directly
 * Are comfortable redirecting your users to a Lune hosted page to handle payment
 
 </div>
