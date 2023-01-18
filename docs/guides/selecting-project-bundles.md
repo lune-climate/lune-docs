@@ -408,9 +408,9 @@ A successful request will return the `id` for the chosen portfolio and the `bund
 }
 ```
 
-## Working with Accounts
+## Working with accounts
 
-When working with an Account, Lune recommends viewing the Project bundles in your [dashboard](https://dashboard.lune.co/) and Bundle portfolios in your [account page](https://dashboard.lune.co/settings/accounts).  
+When working with an account, Lune recommends viewing the Project bundles in your [dashboard](https://dashboard.lune.co/) and Bundle portfolios in your [account page](https://dashboard.lune.co/settings/accounts).  
 
 This is the equivalent of fetching Project bundles and Bundle portfolios via the Lune API.
 
