@@ -176,7 +176,7 @@ const sidebars = {
 
         {
           type: 'category',
-          label: 'Lune pay',
+          label: 'Lune Pay',
           link: {
             type: 'doc',
             id: 'guides/lune-pay',
