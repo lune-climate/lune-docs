@@ -57,8 +57,16 @@ export default function Curl(
 ${
     // We only have json and form-data contentType
     requestBodyExample.contentType === 'application/json'
-        ? `-d '${JSON.stringify(requestBodyExample.value, null, 2)}'`
-        : `-F ${Object.entries(requestBodyExample.value).map((kv) => `${kv[0]}=@${kv[1]}`)}`
+        ? `-d '${
+              requestBodyExample.value ? JSON.stringify(requestBodyExample.value, null, 2) : '{}'
+          }'`
+        : `${
+              requestBodyExample.value
+                  ? `-F ${Object.entries(requestBodyExample.value).map(
+                        (kv) => `${kv[0]}=@${kv[1]}`,
+                    )}`
+                  : ''
+          }`
 }
 `
                       : ''
