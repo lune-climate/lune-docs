@@ -10,7 +10,7 @@ import Tip from '@site/src/components/Tip';
 import { indent } from '@site/src/utils';
 import { ApiReferenceSection } from 'lune-ui-lib'
 
-# Sustainable Logistics
+# Sustainable logistics
 
 <div className="sections">
 
