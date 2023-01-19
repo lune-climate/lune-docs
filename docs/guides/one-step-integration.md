@@ -11,7 +11,7 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 import ReactPlayer from 'react-player'
 
 
-# Getting started
+# 1-step integration
 
 <div className="sections">
 
