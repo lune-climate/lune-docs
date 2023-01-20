@@ -205,6 +205,38 @@ const sidebars = {
           ]
         },
 
+        {
+          type: 'category',
+          label: 'Selecting project bundles',
+          link: {
+            type: 'doc',
+            id: 'guides/selecting-project-bundles'
+          },
+          items: [
+            {
+              type: 'link',
+              label: 'Overview',
+              href: '/guides/selecting-project-bundles#overview'
+            },
+            {
+              type: 'link',
+              label: 'Create a client account',
+              href: '/guides/selecting-project-bundles#create-a-client-account',
+            },
+            {
+              type: 'link',
+              label: 'Fetching project bundles and bundle portfolios',
+              href: '/guides/selecting-project-bundles#fetching-project-bundles-and-bundle-portfolios',
+            },
+            {
+              type: 'link',
+              label: 'Storing the offsetting selection',
+              href: '/guides/selecting-project-bundles#storing-the-offsetting-selection',
+            },
+          ]
+        },
+
+
       ],
     },
     {
