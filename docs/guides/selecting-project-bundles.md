@@ -82,7 +82,7 @@ As per Client accounts, you will need to store the [offsetting selection](/resou
 
 ## API flow
 
-![fintech-apiflow](/img/fintech-apiflow.png)
+![selecting-bundles-apiflow](/img/selecting-bundles-apiflow.png)
 
 </div>
 
