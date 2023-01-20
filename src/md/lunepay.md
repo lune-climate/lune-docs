@@ -1,4 +1,4 @@
-Lune Pay is a hosted payment page that can be used for one-time or recurring payments. Customers can use Lune Pay if they wish to to collect payment for carbon credits directly from their customers.
+Lune Pay is a hosted payment page that can be used for one-time or recurring payments. Customers can use Lune Pay if they wish to collect payment for carbon credits directly from their customers.
 
 Every Lune Pay payment is linked to an [Account or Client Account](/api/live-test-accounts#accounts).
 

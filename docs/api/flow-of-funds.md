@@ -54,7 +54,7 @@ You can manage your billing preferences on the [Lune dashboard](https://dashboar
 </ApiReferenceSection>
 
 
-## Which payment flow should be used?
+## Which option do we recommend?
 
 <ApiReferenceSection>
 <div className="paragraphSections">
@@ -83,9 +83,14 @@ Your company pays for its credits, and your company name is displayed as the off
 
 <div>
 
-## 2. Your business customers purchase carbon credits through you (B2B)
+## 2. You have integrated the API and want to control the user experience
 
-Examples include a digital logistics company or a payments company. Your companuy is Lune's customer. However, carbon credits are purchased and ultimately paid for by your customers. Your customers have a Lune Client Account, and their company's name also appears as the official beneficiary when credits are retired - Use **Lune Pay** and use a Client Account for each of your customers.
+Your company is Lune's customer. However, carbon credits are purchased and ultimately paid for by your customers.
+
+Use **direct invoicing** if
+
+* You want to control your customer experience
+* You are comfortable staying in the flow of funds
 
 </div>
 </div>
@@ -103,9 +108,14 @@ Examples include a digital logistics company or a payments company. Your companu
 
 <div>
 
-## 3. Your consumer customers purchase carbon credits through you (B2C)
+## 3. You have integrated the API and want to stay out of the flow of funds
 
-Examples include a consumer Neobank app. Your company is Lune's customer. However, carbon credits are purchased and ultimately paid for by your users. Integration does not require Client Accounts. The official beneficiary when credits are retired is usually 'Neobank's customers' - Use **Lune Pay** where there is a preference to stay out of the flow of funds; otherwise, use **direct invoicing**.
+Your company is Lune's customer. However, carbon credits are purchased and ultimately paid for by your customers.
+
+Use **Lune Pay** if
+
+* You prefer staying out of the flow of funds: end-buyer pays Lune directly
+* Are comfortable redirecting your users to a Lune hosted page to handle payment
 
 </div>
 </div>
