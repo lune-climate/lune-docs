@@ -5536,6 +5536,15 @@ components:
         ISO 4217 3 character currency code.
 
         Note: Lune does not support all currency codes.
+      enum:
+        - GBP
+        - EUR
+        - USD
+        - SEK
+        - CHF
+        - PLN
+        - DKK
+        - NOK
       example: "GBP"
     MonetaryAmountValue:
       type: string
