@@ -3691,10 +3691,7 @@ components:
           $ref: '#/components/schemas/AccountType'
         logo:
           type: string
-          description: |
-            Offset link logo URL
-
-            This is the logo URL that appears on the first screen of the offset links flow.
+          description: The account logo
           nullable: true
         beneficiary:
           type: string
