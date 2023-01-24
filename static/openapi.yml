@@ -2520,6 +2520,8 @@ components:
             - sustainability_page_exists
             - pagination_limit_invalid
             - unsupported_image_format
+            - source_location_code_invalid
+            - destination_location_code_invalid
         message:
           type: string
           description: |
