@@ -2765,9 +2765,14 @@ components:
           example: 'BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'
           description: The bundle's unique identifier
         percentage:
-          type: integer
-          example: 43
-          description: Selection percentage
+          oneOf:
+            - type: integer
+              example: 43
+              description: Selection percentage
+            - type: string
+              example: '43.21'
+              pattern: '^[0-9]+(\.\d{1,2})?$'
+              description: Selection percentage in decimals
     BundleSelection:
       type: array
       description: |
@@ -2795,9 +2800,14 @@ components:
           example: 'BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'
           description: The bundle's unique identifier
         percentage:
-          type: integer
-          example: 43
-          description: Selection percentage
+          oneOf:
+            - type: integer
+              example: 43
+              description: Selection percentage
+            - type: string
+              example: "43.21"
+              pattern: '^[0-9]+(\.\d{1,2})?$'
+              description: Selection percentage in decimals
     BundleMass:
       type: object
       description: Maps a bundle's unique identifier to a mass
