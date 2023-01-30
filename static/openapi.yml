@@ -5696,8 +5696,8 @@ components:
           enum:
             - order.received
             - order.placed
-            - order.allocated
             - order.paid
+            - order.retiring
             - order.cancelled
             - order.failed
             - order.completed
