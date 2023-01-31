@@ -3137,6 +3137,10 @@ components:
           type: string
           description: The project's unique slug
           example: 'alto-mayo'
+        project_logo:
+          type: string
+          description: URL to the project's logo
+          example: 'https://assets.lune.co/projects/green-sand-logo.png'
         quantity:
           type: string
           pattern: '^[0-9]+(\.[0-9]+)?$'
