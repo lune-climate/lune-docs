@@ -52,7 +52,7 @@
     "eslint-plugin-n": "^15.6.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-simple-import-sort": "^9.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "js-yaml": "^4.1.0",
     "path-browserify": "^1.0.1",
     "prettier": "^2.8.3",
