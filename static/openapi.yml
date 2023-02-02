@@ -3028,6 +3028,10 @@ components:
           type: string
           description: The bundle's name
           example: 'Latin America Forestry'
+        primary_image:
+          type: string
+          description: A bundle's image URL
+          example: 'https://assets.lune.co/bundles/latin-america-forestry.png'
         quantity:
           type: string
           pattern: '^[0-9]+(\.[0-9]+)?$'
