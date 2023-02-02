@@ -217,12 +217,12 @@ In order to do so, use your preferred method or one of the following:
 
 ## Authenticity and integrity
 
-Lune signs all webhook requests' bodies and includes the signature in a `Lune-HMAC` header.
+Lune signs all webhook request bodies and includes the signature in a `Lune-HMAC` header.
 
 This enables you to verify that events were sent by Lune and were not tampered with by third parties.
 
 
-The `Lune-HMAC` has the following format
+The `Lune-HMAC` header has the following format
 
 <Snippet
     header="Lune-HMAC"
