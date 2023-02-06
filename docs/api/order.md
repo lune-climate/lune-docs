@@ -24,9 +24,9 @@ Orders have statuses and follow a precise lifecycle:
 
 **Paid**: Order has been paid
 
-**Retiring**: Order has credits partially [allocated or retired](https://www.notion.so/luneco/Explaining-the-difference-in-carbon-credit-retirement-timelines-83d6a39105c049b0859eb7399dd7942e). The order's certificate is issued.
+**Retiring**: Order has credits partially [allocated or retired](https://www.notion.so/luneco/Explaining-the-difference-in-carbon-credit-retirement-timelines-83d6a39105c049b0859eb7399dd7942e). The order's certificate is issued
 
-**Complete**: Order has been fully retired. The order's certificate includes all retired credits.
+**Complete**: Order has been fully retired. The order's certificate includes all retired credits
 
 **Cancelled**: Order has been cancelled by user request
 
