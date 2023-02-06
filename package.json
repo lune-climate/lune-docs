@@ -22,7 +22,7 @@
     "unused-exports": "yarn run ts-unused-exports tsconfig.json --ignoreFiles='docs'"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.3.0",
+    "@docusaurus/core": "^2.3.1",
     "@docusaurus/preset-classic": "^2.3.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
