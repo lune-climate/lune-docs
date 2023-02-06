@@ -43,6 +43,8 @@ Orders for fractional tonne offsets are aggregated on a first-come-first-serve b
 
 Aggregation occurs for orders belonging to the same account and beneficiary.
 
+You can learn more about the credit retirement timelines [here](https://www.notion.so/luneco/Explaining-the-difference-in-carbon-credit-retirement-timelines-83d6a39105c049b0859eb7399dd7942e).
+
 </div>
 </div>
 
