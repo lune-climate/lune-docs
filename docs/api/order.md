@@ -24,13 +24,26 @@ Orders have statuses and follow a precise lifecycle:
 
 **Paid**: Order has been paid
 
-**Retiring**: Order has been partially or fully allocated but has not yet been fully retired
+**Retiring**: Order has credits partially [allocated or retired](https://www.notion.so/luneco/Explaining-the-difference-in-carbon-credit-retirement-timelines-83d6a39105c049b0859eb7399dd7942e). The order's certificate is issued
 
-**Complete**: Order has been retired
+**Complete**: Order has been fully retired. The order's certificate includes all retired credits
 
 **Cancelled**: Order has been cancelled by user request
 
 **Failed**: Order failed to process
+
+</div>
+<div>
+
+## Retirement
+
+Retirements are performed in discrete tonnes.
+
+Orders for fractional tonne offsets are aggregated on a first-come-first-serve basis and retired as soon as their combined quantities reach 1 tCO2.
+
+Aggregation occurs for orders belonging to the same account and beneficiary.
+
+You can learn more about the credit retirement timelines [here](https://www.notion.so/luneco/Explaining-the-difference-in-carbon-credit-retirement-timelines-83d6a39105c049b0859eb7399dd7942e).
 
 </div>
 </div>
