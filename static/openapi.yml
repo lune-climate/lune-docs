@@ -5298,6 +5298,8 @@ components:
             - order.cancelled
             - order.failed
             - order.completed
+            - allocation.new
+            - allocation.retired
           description: The event type. The type of event data will depend on the value present here.
         sequence:
           type: string
@@ -5309,8 +5311,21 @@ components:
             ordering property remains intact. You can't depend on the values having any particular shape
             (in particular you can't depend on them being valid timestamps).
         data:
-          $ref: '#/components/schemas/OrderEventDetails'
-          description: Data of the event. On order.* events, this means an Order.
+          description: Data of the event. On order.* events, this means an Order. On allocation.* events, this mean an allocation.
+          oneOf:
+            - $ref: '#/components/schemas/OrderEventDetails'
+            - $ref: '#/components/schemas/AllocationEventDetails'
+    AllocationEventDetails:
+      type: object
+      required:
+        - allocation
+      properties:
+        allocation:
+          description: Snapshot of the allocation at the time of the event
+          $ref: '#/components/schemas/OrderAllocation'
+        splitFrom:
+          description: Original allocation that triggered the split
+          $ref: '#/components/schemas/OrderAllocation'
     OrderEventDetails:
       type: object
       required:
@@ -5823,3 +5838,40 @@ components:
         url:
           description: Uploaded account logo URL
           $ref: "#/components/schemas/Url"
+    OrderAllocation:
+      type: object
+      required:
+        - id
+        - order_id
+        - project_id
+        - quantity
+        - status
+        - created_at
+      properties:
+        id:
+          type: string
+          description: The allocation's unique identifier
+          example: ka1aAQ61sAB8DQ12KggnaKG21EftR4E6
+        order_id:
+          type: string
+          description: The order's unique identifier
+          example: xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO3
+        project_id:
+          type: string
+          description: The project's unique identifier
+          example: 1vE213P96LbXNap56NAqVoM7knOedQg4
+        quantity:
+          type: string
+          example: '222.667'
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+        status:
+          type: string
+          description: Allocation status
+          example: new
+          enum:
+            - new
+            - retired
+        created_at:
+          type: string
+          format: date-time
+          description: Allocation creation timestamp
