@@ -27,7 +27,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mdx-js/react": "^1.6.22",
-    "@mui/material": "^5.11.8",
+    "@mui/material": "^5.11.9",
     "clsx": "^1.2.1",
     "docusaurus-lunr-search": "^2.3.2",
     "lune-ui-lib": "^1.2.178",
