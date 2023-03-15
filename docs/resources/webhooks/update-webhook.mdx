@@ -1,9 +1,0 @@
----
-
-sidebar_class_name: put
----
-# Update a webhook
-
-import Endpoint from '@site/src/components/Endpoint';
-
-<Endpoint json={{"tags":["Webhooks"],"summary":"Update a webhook","operationId":"updateWebhook","security":[{"BearerAuth":[]}],"parameters":[{"name":"id","in":"path","required":true,"description":"The webhooks's unique identifier","schema":{"type":"string","example":"ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateWebhookRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Webhook"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"404":{"$ref":"#/components/responses/NotFound"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Webhooks","method":"put","path":"/webhooks/{id}"}}/>

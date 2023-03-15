@@ -1,9 +1,0 @@
----
-
-sidebar_class_name: post
----
-# Create a webhook
-
-import Endpoint from '@site/src/components/Endpoint';
-
-<Endpoint json={{"tags":["Webhooks"],"summary":"Create a webhook","operationId":"createWebhook","security":[{"BearerAuth":[]}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateWebhookRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/WebhookFullSecret"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Webhooks","method":"post","path":"/webhooks"}}/>

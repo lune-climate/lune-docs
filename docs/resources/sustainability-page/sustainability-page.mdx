@@ -1,9 +1,0 @@
----
-sidebar_position: 1
-sidebar_label: Sustainability page
----
-# SustainabilityPage
-
-import Resource from '@site/src/components/Resource';
-
-<Resource json={{"type":"object","required":["status","slug","title","description","custom_description","sections"],"properties":{"status":{"$ref":"#/components/schemas/SustainabilityPageStatus"},"slug":{"$ref":"#/components/schemas/SustainabilityPageSlug"},"title":{"$ref":"#/components/schemas/SustainabilityPageTitle"},"description":{"oneOf":[{"$ref":"#/components/schemas/SustainabilityPageDescription"},{"type":"string","enum":[null],"nullable":true}]},"custom_description":{"$ref":"#/components/schemas/SustainabilityPageCustomDescription","nullable":true},"sections":{"$ref":"#/components/schemas/SustainabilityPageSections","nullable":true}},"component":"SustainabilityPage","endpoints":[{"method":"post","endpoint":"/sustainability-pages","operationId":"createSustainabilityPage"},{"method":"put","endpoint":"/sustainability-pages","operationId":"updateSustainabilityPage"},{"method":"get","endpoint":"/sustainability-pages/current-account","operationId":"getSustainabilityPage"},{"method":"get","endpoint":"/sustainability-pages/{type}/{slug}","operationId":"getPublicSustainabilityPage"}]}}/>

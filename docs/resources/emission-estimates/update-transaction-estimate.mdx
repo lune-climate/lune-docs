@@ -1,9 +1,0 @@
----
-
-sidebar_class_name: put
----
-# Update a transaction emission estimate
-
-import Endpoint from '@site/src/components/Endpoint';
-
-<Endpoint json={{"summary":"Update a transaction emission estimate","operationId":"updateTransactionEstimate","security":[{"BearerAuth":[]}],"tags":["Emission estimates"],"parameters":[{"name":"id","in":"path","required":true,"description":"The estimate's unique identifier","schema":{"type":"string","example":"Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TransactionEstimateRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/TransactionEmissionEstimate"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"404":{"$ref":"#/components/responses/NotFound"},"409":{"$ref":"#/components/responses/Conflict"},"429":{"$ref":"#/components/responses/TooManyRequests"},"503":{"$ref":"#/components/responses/ServiceUnavailable"}},"tag":"Emission estimates","method":"put","path":"/estimates/transactions/{id}"}}/>

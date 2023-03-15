@@ -1,6 +1,0 @@
-
-# IdentifiedVesselShippingMethod
-
-import Resource from '@site/src/components/Resource';
-
-<Resource json={{"description":"This method uses the vessel's IMO number emission factors when found, falling back to trade lane emissions factors if provided.\n","oneOf":[{"type":"object","required":["vessel_imo_number"],"properties":{"vessel_imo_number":{"description":"The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.\n","type":"string","pattern":"^[0-9]{7}$"}}},{"allOf":[{"type":"object","required":["vessel_imo_number"],"properties":{"vessel_imo_number":{"description":"The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.\n","type":"string","pattern":"^[0-9]{7}$"}}},{"$ref":"#/components/schemas/ContainerShippingMethod"}]}],"component":"IdentifiedVesselShippingMethod"}}/>

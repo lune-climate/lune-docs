@@ -1,6 +1,0 @@
-
-# UpdateWebhookRequest
-
-import Resource from '@site/src/components/Resource';
-
-<Resource json={{"type":"object","required":["url","enabled"],"properties":{"url":{"$ref":"#/components/schemas/Url"},"enabled":{"description":"Determines if events should be sent to the webhook or not. Defaults to `true` for newly created\nwebhooks. When updating a webhook and the value is not explicitly specified the existing value\nwill be used.\n","type":"boolean"},"account_ids":{"description":"The updated webhook will exclusively push events which belong to the given account identifiers.\n\nIf not set, the previous account identifiers filter remains unchanged.\n","type":"array","minItems":1,"items":{"type":"string","example":"ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz","description":"An account's unique identifier"}}},"component":"UpdateWebhookRequest"}}/>

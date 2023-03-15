@@ -1,9 +1,0 @@
----
-
-sidebar_class_name: get
----
-# List orders
-
-import Endpoint from '@site/src/components/Endpoint';
-
-<Endpoint json={{"summary":"List orders","description":"Returns the account's paginated orders in reverse order (most recent first).","operationId":"listOrders","security":[{"BearerAuth":[]}],"tags":["Orders"],"parameters":[{"$ref":"#/components/parameters/LimitPagination"},{"$ref":"#/components/parameters/AfterPagination"},{"name":"offset_link_id","in":"query","description":"Filter orders by offset_link_id.\n\nIf offset_link_id is set, the response will only include orders belonging to the particular offset link.\n","schema":{"type":"string","example":"ke56XR3wK72raAe6ZPyEDQzgWldPBO41"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PaginatedOrders"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Orders","method":"get","path":"/orders"}}/>

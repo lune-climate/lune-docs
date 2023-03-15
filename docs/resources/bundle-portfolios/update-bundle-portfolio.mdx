@@ -1,9 +1,0 @@
----
-
-sidebar_class_name: put
----
-# Update an account's bundle portfolio
-
-import Endpoint from '@site/src/components/Endpoint';
-
-<Endpoint json={{"summary":"Update an account's bundle portfolio","operationId":"updateBundlePortfolio","security":[{"BearerAuth":[]}],"tags":["Bundle portfolios"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SetBundlePortfolioRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/BundlePortfolio"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Bundle portfolios","method":"put","path":"/bundle-portfolios"}}/>
