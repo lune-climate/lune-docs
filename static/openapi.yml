@@ -477,48 +477,6 @@ paths:
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-  /analytics:
-    get:
-      summary: Get an account analytics
-      operationId: getAnalytics
-      security:
-        - BearerAuth: [ ]
-      tags:
-        - Analytics
-      parameters:
-        - name: start
-          in: query
-          description:
-            The start date of the custom date range.
-
-            Defaults to 30 days ago if not specified.
-          schema:
-            type: string
-            format: date
-            example: '2019-01-01'
-        - name: end
-          in: query
-          description:
-            The end date of the custom date range.
-
-            Defaults to the current date if not specified.
-          schema:
-            type: string
-            format: date
-            example: '2020-01-31'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Analytics'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
   /analytics/cumulative-per-bundle:
     get:
       summary: Get cumulative analytics
@@ -2377,34 +2335,6 @@ components:
               This value can contain some extra information about the error in
               human-readable form. Not suitable for programmatic consumption, the format
               is not guaranteed to be stable.
-    OffsetValueSeriesItem:
-      type: object
-      required:
-        - date
-        - value
-      properties:
-        date:
-          type: string
-          format: date
-          example: "2021-09-09"
-        value:
-          type: string
-          example: '333.66'
-          pattern: '^[0-9]+(\.[0-9]+)?$'
-    OffsetQuantitySeriesItem:
-      type: object
-      required:
-        - date
-        - quantity
-      properties:
-        date:
-            type: string
-            format: date
-            example: "2021-09-09"
-        quantity:
-          type: string
-          example: '222.667'
-          pattern: '^[0-9]+(\.[0-9]+)?$'
     OrderQuoteByQuantityRequest:
       type: object
       oneOf:
@@ -3887,58 +3817,6 @@ components:
           - date: '2022-06-27'
             value: '64.23'
             quantity: '4700.451'
-    Analytics:
-      type: object
-      required:
-        - total_completed_offset_value
-        - total_completed_offset_quantity
-        - total_placed_offset_value
-        - total_placed_offset_quantity
-        - completed_offset_values
-        - completed_offset_quantities
-        - placed_offset_values
-        - placed_offset_quantities
-      properties:
-        total_completed_offset_value:
-          type: string
-          description: The total monetary value of all completed orders for a given interval.
-          example: '500.66'
-          pattern: '^[0-9]+(\.[0-9]+)?$'
-        total_completed_offset_quantity:
-          type: string
-          description: The total quantity in tCO2 of all completed orders for a given interval.
-          example: '500.667'
-          pattern: '^[0-9]+(\.[0-9]+)?$'
-        total_placed_offset_value:
-          type: string
-          description: The total monetary value of all placed orders for a given interval.
-          example: '333.66'
-          pattern: '^[0-9]+(\.[0-9]+)?$'
-        total_placed_offset_quantity:
-          type: string
-          description: The total quantity in tCO2 of all placed orders for a given interval.
-          example: '555.222'
-          pattern: '^[0-9]+(\.[0-9]+)?$'
-        completed_offset_values:
-          type: array
-          description: An array of offest values grouped by completion date.
-          items:
-            $ref: '#/components/schemas/OffsetValueSeriesItem'
-        completed_offset_quantities:
-          type: array
-          description: An array of offest quantities grouped by completion date.
-          items:
-            $ref: '#/components/schemas/OffsetQuantitySeriesItem'
-        placed_offset_values:
-          type: array
-          description: An array of offest values grouped by placed date.
-          items:
-            $ref: '#/components/schemas/OffsetValueSeriesItem'
-        placed_offset_quantities:
-          type: array
-          description: An array of offest quantities grouped by placed date.
-          items:
-            $ref: '#/components/schemas/OffsetQuantitySeriesItem'
     PaginatedActivity:
       description: Activity is presented in reverse order (most recent first).
       allOf:
