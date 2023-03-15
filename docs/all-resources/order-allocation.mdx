@@ -1,0 +1,6 @@
+
+# OrderAllocation
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"type":"object","required":["id","order_id","project_id","quantity","status","created_at"],"properties":{"id":{"type":"string","description":"The allocation's unique identifier","example":"ka1aAQ61sAB8DQ12KggnaKG21EftR4E6"},"order_id":{"type":"string","description":"The order's unique identifier","example":"xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO3"},"project_id":{"type":"string","description":"The project's unique identifier","example":"1vE213P96LbXNap56NAqVoM7knOedQg4"},"quantity":{"type":"string","example":"222.667","pattern":"^[0-9]+(\\.[0-9]+)?$"},"status":{"type":"string","description":"Allocation status","example":"new","enum":["new","retired"]},"created_at":{"type":"string","format":"date-time","description":"Allocation creation timestamp"}},"component":"OrderAllocation"}}/>

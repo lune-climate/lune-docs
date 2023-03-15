@@ -1,0 +1,6 @@
+
+# Payment
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"oneOf":[{"$ref":"#/components/schemas/OrderPayment"}],"discriminator":{"propertyName":"type","mapping":{"order":"#/components/schemas/OrderPayment"}},"component":"Payment"}}/>

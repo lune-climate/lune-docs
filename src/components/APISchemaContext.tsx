@@ -50,11 +50,6 @@ export const APISchemaContext = React.createContext<any>({
         },
         { name: 'Analytics', description: 'Get account analytics.', 'x-components': ['Analytics'] },
         { name: 'Payments', description: 'Get payments.', 'x-components': ['Payment'] },
-        {
-            name: 'Offset links',
-            description: 'Provide your customers with links to fund a bundle of their choice.',
-            'x-components': ['OffsetLink'],
-        },
         { name: 'Activity', description: 'Get account activity.', 'x-components': ['Activity'] },
         {
             name: 'Webhooks',
@@ -140,6 +135,7 @@ export const APISchemaContext = React.createContext<any>({
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
                     '403': { $ref: '#/components/responses/Forbidden' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -212,6 +208,48 @@ export const APISchemaContext = React.createContext<any>({
                     },
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
+                    '403': { $ref: '#/components/responses/Forbidden' },
+                    '404': { $ref: '#/components/responses/NotFound' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                },
+            },
+            patch: {
+                summary: 'Partially update a client account',
+                operationId: 'partialUpdateClientAccount',
+                security: [{ BearerAuth: [] }],
+                tags: ['Client accounts'],
+                parameters: [
+                    {
+                        name: 'id',
+                        in: 'path',
+                        required: true,
+                        description: "The account's unique identifier",
+                        schema: { type: 'string', example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz' },
+                    },
+                ],
+                requestBody: {
+                    required: true,
+                    content: {
+                        'application/json': {
+                            schema: { $ref: '#/components/schemas/PartialUpdateAccountRequest' },
+                        },
+                    },
+                },
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: { $ref: '#/components/schemas/ClientAccount' },
+                            },
+                        },
+                    },
+                    '400': { $ref: '#/components/responses/BadRequest' },
+                    '401': { $ref: '#/components/responses/Unauthorized' },
+                    '403': { $ref: '#/components/responses/Forbidden' },
+                    '404': { $ref: '#/components/responses/NotFound' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -250,6 +288,8 @@ export const APISchemaContext = React.createContext<any>({
                     },
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
+                    '403': { $ref: '#/components/responses/Forbidden' },
+                    '404': { $ref: '#/components/responses/NotFound' },
                     '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
@@ -283,6 +323,7 @@ export const APISchemaContext = React.createContext<any>({
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
                     '403': { $ref: '#/components/responses/Forbidden' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -357,6 +398,50 @@ export const APISchemaContext = React.createContext<any>({
                     },
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
+                    '403': { $ref: '#/components/responses/Forbidden' },
+                    '404': { $ref: '#/components/responses/NotFound' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
+                    '429': { $ref: '#/components/responses/TooManyRequests' },
+                },
+            },
+            patch: {
+                summary: 'Partially update an account',
+                description:
+                    'Partially update an account. Live accounts will replicate a name change to its sibling account. Test accounts name updates are disallowed (name property must match the current account name).\n',
+                operationId: 'partialUpdateAccount',
+                security: [{ BearerAuth: [] }],
+                tags: ['Accounts'],
+                parameters: [
+                    {
+                        name: 'id',
+                        in: 'path',
+                        required: true,
+                        description: "The account's unique identifier",
+                        schema: { type: 'string', example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz' },
+                    },
+                ],
+                requestBody: {
+                    required: true,
+                    content: {
+                        'application/json': {
+                            schema: { $ref: '#/components/schemas/PartialUpdateAccountRequest' },
+                        },
+                    },
+                },
+                responses: {
+                    '200': {
+                        description: 'OK',
+                        content: {
+                            'application/json': {
+                                schema: { $ref: '#/components/schemas/Account' },
+                            },
+                        },
+                    },
+                    '400': { $ref: '#/components/responses/BadRequest' },
+                    '401': { $ref: '#/components/responses/Unauthorized' },
+                    '403': { $ref: '#/components/responses/Forbidden' },
+                    '404': { $ref: '#/components/responses/NotFound' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -395,6 +480,8 @@ export const APISchemaContext = React.createContext<any>({
                     },
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
+                    '403': { $ref: '#/components/responses/Forbidden' },
+                    '404': { $ref: '#/components/responses/NotFound' },
                     '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
@@ -964,6 +1051,7 @@ export const APISchemaContext = React.createContext<any>({
                     '401': { $ref: '#/components/responses/Unauthorized' },
                     '403': { $ref: '#/components/responses/Forbidden' },
                     '409': { $ref: '#/components/responses/Conflict' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -1014,6 +1102,8 @@ export const APISchemaContext = React.createContext<any>({
                     },
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
+                    '403': { $ref: '#/components/responses/Forbidden' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -1303,6 +1393,7 @@ export const APISchemaContext = React.createContext<any>({
                     '401': { $ref: '#/components/responses/Unauthorized' },
                     '404': { $ref: '#/components/responses/NotFound' },
                     '409': { $ref: '#/components/responses/Conflict' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                     '503': { $ref: '#/components/responses/ServiceUnavailable' },
                 },
@@ -1417,6 +1508,7 @@ export const APISchemaContext = React.createContext<any>({
                     '401': { $ref: '#/components/responses/Unauthorized' },
                     '404': { $ref: '#/components/responses/NotFound' },
                     '409': { $ref: '#/components/responses/Conflict' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                     '503': { $ref: '#/components/responses/ServiceUnavailable' },
                 },
@@ -1579,6 +1671,7 @@ export const APISchemaContext = React.createContext<any>({
                     '401': { $ref: '#/components/responses/Unauthorized' },
                     '404': { $ref: '#/components/responses/NotFound' },
                     '409': { $ref: '#/components/responses/Conflict' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                     '503': { $ref: '#/components/responses/ServiceUnavailable' },
                 },
@@ -1683,6 +1776,7 @@ export const APISchemaContext = React.createContext<any>({
                     '401': { $ref: '#/components/responses/Unauthorized' },
                     '404': { $ref: '#/components/responses/NotFound' },
                     '409': { $ref: '#/components/responses/Conflict' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                     '503': { $ref: '#/components/responses/ServiceUnavailable' },
                 },
@@ -1719,158 +1813,6 @@ export const APISchemaContext = React.createContext<any>({
                     '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                     '503': { $ref: '#/components/responses/ServiceUnavailable' },
-                },
-            },
-        },
-        '/offset-links/{id}': {
-            get: {
-                tags: ['Offset links'],
-                summary: 'Get an offset link',
-                operationId: 'getOffsetLink',
-                security: [{ BearerAuth: [] }],
-                parameters: [
-                    {
-                        name: 'id',
-                        in: 'path',
-                        required: true,
-                        description: "The offset links's unique identifier",
-                        schema: { type: 'string', example: '1vE213P96LbXNap56NAqVoM7knOedQg5' },
-                    },
-                ],
-                responses: {
-                    '200': {
-                        description: 'OK',
-                        content: {
-                            'application/json': {
-                                schema: { $ref: '#/components/schemas/OffsetLink' },
-                            },
-                        },
-                    },
-                    '401': { $ref: '#/components/responses/Unauthorized' },
-                    '404': { $ref: '#/components/responses/NotFound' },
-                    '429': { $ref: '#/components/responses/TooManyRequests' },
-                },
-            },
-            put: {
-                tags: ['Offset links'],
-                summary: 'Update an offset link',
-                operationId: 'updateOffsetLink',
-                security: [{ BearerAuth: [] }],
-                parameters: [
-                    {
-                        name: 'id',
-                        in: 'path',
-                        required: true,
-                        description: "The offset links's unique identifier",
-                        schema: { type: 'string', example: '1vE213P96LbXNap56NAqVoM7knOedQg5' },
-                    },
-                ],
-                requestBody: {
-                    required: true,
-                    content: {
-                        'application/json': {
-                            schema: { $ref: '#/components/schemas/OffsetLinkUpdateRequest' },
-                        },
-                    },
-                },
-                responses: {
-                    '200': {
-                        description: 'OK',
-                        content: {
-                            'application/json': {
-                                schema: { $ref: '#/components/schemas/OffsetLink' },
-                            },
-                        },
-                    },
-                    '400': { $ref: '#/components/responses/BadRequest' },
-                    '401': { $ref: '#/components/responses/Unauthorized' },
-                    '404': { $ref: '#/components/responses/NotFound' },
-                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
-                    '429': { $ref: '#/components/responses/TooManyRequests' },
-                },
-            },
-        },
-        '/offset-links': {
-            get: {
-                tags: ['Offset links'],
-                summary: 'List offset links',
-                operationId: 'listOffsetLinks',
-                security: [{ BearerAuth: [] }],
-                parameters: [
-                    { $ref: '#/components/parameters/LimitPagination' },
-                    { $ref: '#/components/parameters/AfterPagination' },
-                ],
-                responses: {
-                    '200': {
-                        description: 'OK',
-                        content: {
-                            'application/json': {
-                                schema: { $ref: '#/components/schemas/PaginatedOffsetLinks' },
-                            },
-                        },
-                    },
-                    '401': { $ref: '#/components/responses/Unauthorized' },
-                    '404': { $ref: '#/components/responses/NotFound' },
-                    '429': { $ref: '#/components/responses/TooManyRequests' },
-                },
-            },
-            post: {
-                tags: ['Offset links'],
-                summary: 'Create an offset link',
-                operationId: 'createOffsetLink',
-                security: [{ BearerAuth: [] }],
-                requestBody: {
-                    required: true,
-                    content: {
-                        'application/json': {
-                            schema: { $ref: '#/components/schemas/OffsetLinkRequest' },
-                        },
-                    },
-                },
-                responses: {
-                    '200': {
-                        description: 'OK',
-                        content: {
-                            'application/json': {
-                                schema: { $ref: '#/components/schemas/OffsetLink' },
-                            },
-                        },
-                    },
-                    '400': { $ref: '#/components/responses/BadRequest' },
-                    '401': { $ref: '#/components/responses/Unauthorized' },
-                    '409': { $ref: '#/components/responses/Conflict' },
-                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
-                    '429': { $ref: '#/components/responses/TooManyRequests' },
-                },
-            },
-        },
-        '/offset-links/{id}/analytics': {
-            get: {
-                tags: ['Offset links'],
-                summary: "Get offset link's analytics",
-                operationId: 'getOffsetLinkAnalytics',
-                security: [{ BearerAuth: [] }],
-                parameters: [
-                    {
-                        name: 'id',
-                        in: 'path',
-                        required: true,
-                        description: "The offset links's unique identifier",
-                        schema: { type: 'string', example: '1vE213P96LbXNap56NAqVoM7knOedQg5' },
-                    },
-                ],
-                responses: {
-                    '200': {
-                        description: 'OK',
-                        content: {
-                            'application/json': {
-                                schema: { $ref: '#/components/schemas/OffsetLinkAnalytics' },
-                            },
-                        },
-                    },
-                    '401': { $ref: '#/components/responses/Unauthorized' },
-                    '404': { $ref: '#/components/responses/NotFound' },
-                    '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
         },
@@ -1937,6 +1879,7 @@ export const APISchemaContext = React.createContext<any>({
                     },
                     '400': { $ref: '#/components/responses/BadRequest' },
                     '401': { $ref: '#/components/responses/Unauthorized' },
+                    '415': { $ref: '#/components/responses/UnsupportedMediaType' },
                     '429': { $ref: '#/components/responses/TooManyRequests' },
                 },
             },
@@ -2422,6 +2365,8 @@ export const APISchemaContext = React.createContext<any>({
                             'sustainability_page_exists',
                             'pagination_limit_invalid',
                             'unsupported_image_format',
+                            'source_location_code_invalid',
+                            'destination_location_code_invalid',
                         ],
                     },
                     message: {
@@ -2654,9 +2599,15 @@ export const APISchemaContext = React.createContext<any>({
                         description: "The bundle's unique identifier",
                     },
                     percentage: {
-                        type: 'integer',
-                        example: 43,
-                        description: 'Selection percentage',
+                        oneOf: [
+                            { type: 'integer', example: 43, description: 'Selection percentage' },
+                            {
+                                type: 'string',
+                                example: '43.21',
+                                pattern: '^[0-9]+(\\.\\d{1,2})?$',
+                                description: 'Selection percentage in decimals',
+                            },
+                        ],
                     },
                 },
             },
@@ -2681,9 +2632,15 @@ export const APISchemaContext = React.createContext<any>({
                         description: "The bundle's unique identifier",
                     },
                     percentage: {
-                        type: 'integer',
-                        example: 43,
-                        description: 'Selection percentage',
+                        oneOf: [
+                            { type: 'integer', example: 43, description: 'Selection percentage' },
+                            {
+                                type: 'string',
+                                example: '43.21',
+                                pattern: '^[0-9]+(\\.\\d{1,2})?$',
+                                description: 'Selection percentage in decimals',
+                            },
+                        ],
                     },
                 },
             },
@@ -3020,6 +2977,7 @@ export const APISchemaContext = React.createContext<any>({
                     'quantity',
                     'unit_price',
                     'offset_cost',
+                    'status',
                 ],
                 properties: {
                     project_id: {
@@ -3043,6 +3001,11 @@ export const APISchemaContext = React.createContext<any>({
                         description: "The project's unique slug",
                         example: 'alto-mayo',
                     },
+                    project_logo: {
+                        type: 'string',
+                        description: "URL to the project's logo",
+                        example: 'https://assets.lune.co/projects/green-sand-logo.png',
+                    },
                     quantity: {
                         type: 'string',
                         pattern: '^[0-9]+(\\.[0-9]+)?$',
@@ -3061,6 +3024,13 @@ export const APISchemaContext = React.createContext<any>({
                             'The net offset cost being purchased.\n\nUnit: order currency\n',
                         pattern: '^[0-9]+(\\.[0-9]+)?$',
                         example: '7176.00',
+                    },
+                    status: {
+                        description:
+                            'Describes whether credits for a project have been allocated to an order or retired\n',
+                        type: 'string',
+                        enum: ['allocated', 'retired'],
+                        example: 'retired',
                     },
                 },
             },
@@ -3085,6 +3055,11 @@ export const APISchemaContext = React.createContext<any>({
                         type: 'string',
                         description: "The bundle's name",
                         example: 'Latin America Forestry',
+                    },
+                    primary_image: {
+                        type: 'string',
+                        description: "A bundle's image URL",
+                        example: 'https://assets.lune.co/bundles/latin-america-forestry.png',
                     },
                     quantity: {
                         type: 'string',
@@ -3344,7 +3319,7 @@ export const APISchemaContext = React.createContext<any>({
                     available_quantity: {
                         type: 'string',
                         description:
-                            'Quantity of CO2 offsets available to purchase (in tonnes).\n\nIf available_quantity is not set, assume there is an unlimited amount of offsets to purchase.\n',
+                            'Quantity of CO2 offsets available to purchase (in tonnes).\n\nIf available_quantity is null, assume there is an unlimited amount of offsets to purchase.\n',
                         pattern: '^[0-9]+(\\.[0-9]+)?$',
                         example: '1000.09',
                         nullable: true,
@@ -3562,16 +3537,227 @@ export const APISchemaContext = React.createContext<any>({
                     { $ref: '#/components/schemas/ProjectSummary' },
                     {
                         type: 'object',
-                        required: ['bundles'],
+                        required: [
+                            'bundles',
+                            'impact_summary',
+                            'quality_assessment',
+                            'links_and_news',
+                            'carbon_credits',
+                            'timeline',
+                            'carbon_storage_over_time',
+                        ],
                         properties: {
                             bundles: {
                                 type: 'array',
                                 description: 'Array of bundles the project is part of',
                                 items: { $ref: '#/components/schemas/BundleSummary' },
                             },
+                            impact_summary: {
+                                nullable: true,
+                                description:
+                                    "The items of the array are ordered exactly as they're meant to be used.\n\nA null value means there's no data or the section is disabled.\n",
+                                type: 'array',
+                                minItems: 1,
+                                items: {
+                                    type: 'object',
+                                    required: [
+                                        'icon',
+                                        'label',
+                                        'title',
+                                        'description',
+                                        'image_url',
+                                    ],
+                                    properties: {
+                                        icon: { $ref: '#/components/schemas/MuiIcon' },
+                                        label: {
+                                            type: 'string',
+                                            description:
+                                                'A short piece of text to go with the icon',
+                                            minLength: 1,
+                                        },
+                                        title: { type: 'string', minLength: 1 },
+                                        description: { type: 'string', minLength: 1 },
+                                        image_url: { type: 'string', minLength: 1 },
+                                    },
+                                },
+                            },
+                            quality_assessment: {
+                                description:
+                                    "The way the project relates to every of the five Project Quality Assessment categories.\n\nA null value means there's no data or the section is disabled.\n",
+                                nullable: true,
+                                type: 'object',
+                                required: [
+                                    'durability',
+                                    'additionality',
+                                    'measurement',
+                                    'risk_mitigation',
+                                    'cobenefits',
+                                ],
+                                properties: {
+                                    durability: {
+                                        $ref: '#/components/schemas/TitleAndDescription',
+                                    },
+                                    additionality: {
+                                        $ref: '#/components/schemas/TitleAndDescription',
+                                    },
+                                    measurement: {
+                                        $ref: '#/components/schemas/TitleAndDescription',
+                                    },
+                                    risk_mitigation: {
+                                        $ref: '#/components/schemas/TitleAndDescription',
+                                    },
+                                    cobenefits: {
+                                        $ref: '#/components/schemas/TitleAndDescription',
+                                    },
+                                },
+                            },
+                            links_and_news: {
+                                description:
+                                    "A null value means there's no data or the section is disabled.",
+                                nullable: true,
+                                type: 'object',
+                                required: ['links', 'news'],
+                                properties: {
+                                    links: {
+                                        description:
+                                            'The order of the array is how the elements are meant to be used.',
+                                        type: 'array',
+                                        items: {
+                                            type: 'object',
+                                            required: ['destination_url', 'title', 'favicon_url'],
+                                            properties: {
+                                                destination_url: { type: 'string', minLength: 1 },
+                                                title: { type: 'string', minLength: 1 },
+                                                favicon_url: { type: 'string', minLength: 1 },
+                                            },
+                                        },
+                                    },
+                                    news: {
+                                        description:
+                                            'The order of the array is how the elements are meant to be used.',
+                                        type: 'array',
+                                        items: {
+                                            type: 'object',
+                                            required: [
+                                                'image_url',
+                                                'favicon_url',
+                                                'article_url',
+                                                'title',
+                                                'description',
+                                                'published_at',
+                                            ],
+                                            properties: {
+                                                image_url: { type: 'string', minLength: 1 },
+                                                favicon_url: { type: 'string', minLength: 1 },
+                                                article_url: { type: 'string', minLength: 1 },
+                                                title: { type: 'string', minLength: 1 },
+                                                description: { type: 'string', minLength: 1 },
+                                                published_at: {
+                                                    nullable: true,
+                                                    type: 'string',
+                                                    format: 'date-time',
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                            carbon_credits: {
+                                description:
+                                    "A null value means there's no data or the section is disabled. Note that\navailability can be missing data or be disabled separately.\n",
+                                nullable: true,
+                                type: 'object',
+                                required: ['offset_delivery', 'retirement_timeframe', 'inventory'],
+                                properties: {
+                                    offset_delivery: {
+                                        type: 'string',
+                                        enum: ['ex-post', 'ex-ante', 'pre-purchase'],
+                                    },
+                                    retirement_timeframe: {
+                                        type: 'string',
+                                        enum: ['instant', 'near_term', 'future'],
+                                    },
+                                    inventory: {
+                                        description:
+                                            "What's available for sale.\n\nA null value means there's no data or the section is disabled.\n\nThe array is ordered newest to oldest (per the year property).\n",
+                                        nullable: true,
+                                        type: 'array',
+                                        minItems: 1,
+                                        items: {
+                                            type: 'object',
+                                            required: ['vintage', 'quantity', 'price'],
+                                            properties: {
+                                                vintage: {
+                                                    description:
+                                                        'This is an opaque string and you may not interpret it in any way.',
+                                                    type: 'string',
+                                                    minLength: 1,
+                                                },
+                                                quantity: {
+                                                    description: 'In tonnes.',
+                                                    type: 'number',
+                                                },
+                                                price: {
+                                                    $ref: '#/components/schemas/MonetaryAmount',
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                            timeline: {
+                                description:
+                                    "The array order is newest to oldest.\n\nA null value means there's no data or the section is disabled.\n",
+                                nullable: true,
+                                type: 'array',
+                                minItems: 1,
+                                items: {
+                                    type: 'object',
+                                    required: ['year', 'description'],
+                                    properties: {
+                                        year: { type: 'number' },
+                                        description: { type: 'string', minLength: 1 },
+                                    },
+                                },
+                            },
+                            carbon_storage_over_time: {
+                                description:
+                                    "The order of the array is oldest to newest (per the year property).\n\nA null value means there's no data or the section is disabled.\n\nThe values (except for year, of course) are in tonnes.\n",
+                                nullable: true,
+                                type: 'array',
+                                minItems: 1,
+                                items: {
+                                    type: 'object',
+                                    required: [
+                                        'year',
+                                        'baseline',
+                                        'carbon_stock',
+                                        'assumed_leakage',
+                                        'buffer',
+                                        'credits_issued',
+                                    ],
+                                    properties: {
+                                        year: { type: 'number' },
+                                        baseline: { type: 'number' },
+                                        carbon_stock: { type: 'number' },
+                                        assumed_leakage: { type: 'number' },
+                                        buffer: { type: 'number' },
+                                        credits_issued: { type: 'number' },
+                                    },
+                                },
+                            },
                         },
                     },
                 ],
+            },
+            MuiIcon: { type: 'string', example: 'tree', description: 'MUI icon name' },
+            TitleAndDescription: {
+                type: 'object',
+                required: ['title', 'description'],
+                properties: {
+                    title: { type: 'string', minLength: 1 },
+                    description: { type: 'string', minLength: 1 },
+                },
             },
             AccountScope: {
                 type: 'string',
@@ -3637,12 +3823,7 @@ export const APISchemaContext = React.createContext<any>({
                         example: '-132.50',
                     },
                     type: { $ref: '#/components/schemas/AccountType' },
-                    logo: {
-                        type: 'string',
-                        description:
-                            'Offset link logo URL\n\nThis is the logo URL that appears on the first screen of the offset links flow.\n',
-                        nullable: true,
-                    },
+                    logo: { type: 'string', description: 'The account logo', nullable: true },
                     beneficiary: {
                         type: 'string',
                         description:
@@ -5091,21 +5272,6 @@ export const APISchemaContext = React.createContext<any>({
                     { $ref: '#/components/schemas/EmissionEstimateResponse' },
                 ],
             },
-            PaginatedOffsetLinks: {
-                allOf: [
-                    { $ref: '#/components/schemas/PaginatedBase' },
-                    {
-                        type: 'object',
-                        required: ['data'],
-                        properties: {
-                            data: {
-                                type: 'array',
-                                items: { $ref: '#/components/schemas/OffsetLink' },
-                            },
-                        },
-                    },
-                ],
-            },
             CompanyEmissionEstimate: {
                 allOf: [
                     { $ref: '#/components/schemas/EmissionEstimateResponse' },
@@ -5174,239 +5340,6 @@ export const APISchemaContext = React.createContext<any>({
                     },
                 ],
             },
-            OffsetLink: {
-                type: 'object',
-                required: [
-                    'id',
-                    'name',
-                    'url',
-                    'created_at',
-                    'status',
-                    'use_logo',
-                    'require_payment',
-                ],
-                properties: {
-                    id: {
-                        type: 'string',
-                        description: 'The offset link unique identifier',
-                        example: 'UwjfkXjfksoHXzA1qjANL58GhjwqkxpB',
-                    },
-                    name: {
-                        type: 'string',
-                        description:
-                            'Offset link name.\n\nThis is a human readable name to recognise and distingish different offset links.\n',
-                        example: 'Marketing Campaign July 2021',
-                    },
-                    title: {
-                        type: 'string',
-                        description:
-                            'Offset link title\n\nThis is the title that appears on the first screen of the offset links flow.\n',
-                    },
-                    description: {
-                        type: 'string',
-                        description:
-                            'Offset link description\n\nThis is the description that appears on the first screen of the offset links flow.\n',
-                    },
-                    logo: {
-                        type: 'string',
-                        description:
-                            'Offset link logo URL\n\nThis is the logo URL that appears on the first screen of the offset links flow.\n',
-                    },
-                    use_logo: {
-                        type: 'boolean',
-                        description:
-                            'Whether to include the Offset link logo (defined in Account settings) in the footer.\n',
-                    },
-                    url: {
-                        type: 'string',
-                        pattern: '^https?:\\/\\/.+$',
-                        description: 'The actual offset link URL that can be used to place orders',
-                        example: 'https://links.lune.co/ds234cAd',
-                    },
-                    value: { $ref: '#/components/schemas/Money' },
-                    currency: { $ref: '#/components/schemas/CurrencyCode' },
-                    emails: {
-                        type: 'array',
-                        items: { type: 'string' },
-                        description:
-                            'The email addresses of users that are allowed to use the offset link.',
-                        example: ['john@doe.com'],
-                    },
-                    bundles: {
-                        type: 'array',
-                        description: 'Bundle objects',
-                        items: { $ref: '#/components/schemas/Bundle' },
-                    },
-                    created_at: { $ref: '#/components/schemas/Timestamp' },
-                    status: { $ref: '#/components/schemas/OffsetLinkStatus' },
-                    expires_at: { $ref: '#/components/schemas/Timestamp' },
-                    require_payment: {
-                        type: 'boolean',
-                        description:
-                            'If true, the user of the Offset Link is required to pay by credit/debit card.\n',
-                    },
-                },
-            },
-            OffsetLinkAnalytics: {
-                type: 'object',
-                required: ['id', 'unique_visitors', 'placed_orders', 'orders'],
-                properties: {
-                    id: {
-                        type: 'string',
-                        description: 'The offset link identifier',
-                        example: 'UwjfkXjfksoHXzA1qjANL58GhjwqkxpB',
-                    },
-                    unique_visitors: {
-                        type: 'integer',
-                        description: 'The number of unique visitors for the specific offset link',
-                        example: 52344,
-                    },
-                    placed_orders: {
-                        type: 'integer',
-                        description: 'The number of placed orders for the specific offset link',
-                        example: 52344,
-                    },
-                    orders: {
-                        type: 'array',
-                        items: { $ref: '#/components/schemas/OffsetLinkOrder' },
-                    },
-                },
-            },
-            OffsetLinkOrder: {
-                type: 'object',
-                required: ['order_id', 'created_at', 'email', 'bundles'],
-                properties: {
-                    order_id: {
-                        type: 'string',
-                        description: "The order's unique identifier",
-                        example: 'zwjfkXjfksoHXzA1qjANL58GhjwqkxpB',
-                    },
-                    created_at: { $ref: '#/components/schemas/Timestamp' },
-                    email: {
-                        type: 'string',
-                        description:
-                            'The email address of the user that placed an order through the offset link',
-                        example: ['john@doe.com'],
-                    },
-                    bundles: {
-                        type: 'array',
-                        items: {
-                            type: 'object',
-                            required: ['bundle_id', 'bundle_name'],
-                            properties: {
-                                bundle_id: {
-                                    type: 'string',
-                                    description: "The bundle's unique identifier",
-                                    example: 'va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5',
-                                },
-                                bundle_name: {
-                                    type: 'string',
-                                    description: "The bundle's name",
-                                    example: 'Latin America Forestry',
-                                },
-                            },
-                        },
-                    },
-                },
-            },
-            OffsetLinkRequest: {
-                type: 'object',
-                required: ['name', 'bundles', 'use_logo'],
-                properties: {
-                    name: {
-                        type: 'string',
-                        description:
-                            'Offset link name.\n\nThis is a human readable name to recognise and distingish different offset links.\n',
-                        example: 'Marketing Campaign July 2021',
-                    },
-                    title: {
-                        type: 'string',
-                        description:
-                            'Offset link title\n\nThis is the title that appears on the first screen of the offset links flow.\n',
-                    },
-                    description: {
-                        type: 'string',
-                        description:
-                            'Offset link description\n\nThis is the description that appears on the first screen of the offset links flow.\n',
-                    },
-                    bundles: {
-                        type: 'array',
-                        items: { type: 'string' },
-                        description:
-                            'The bundle ids selected for use through the particular offset link.',
-                        minItems: 1,
-                        maxItems: 24,
-                        uniqueItems: true,
-                        example: ['BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'],
-                    },
-                    value: { $ref: '#/components/schemas/Money' },
-                    emails: {
-                        type: 'array',
-                        items: { type: 'string' },
-                        description:
-                            'The email addresses of users that are allowed to use the offset link.',
-                        example: ['john@doe.com'],
-                    },
-                    expires_at: { $ref: '#/components/schemas/Timestamp' },
-                    use_logo: {
-                        type: 'boolean',
-                        description:
-                            'Whether to include the Offset link logo (defined in Account settings) in the footer.\n',
-                    },
-                    require_payment: {
-                        type: 'boolean',
-                        description:
-                            'If true, the user of the Offset Link is required to pay by credit/debit card.\nThis value cannot be updated once the offset link has been created.\n',
-                    },
-                },
-            },
-            OffsetLinkUpdateRequest: {
-                type: 'object',
-                required: ['name', 'use_logo'],
-                properties: {
-                    name: {
-                        type: 'string',
-                        description:
-                            'Offset link name.\n\nThis is a human readable name to recognise and distingish different offset links.\n',
-                        example: 'Marketing Campaign July 2021',
-                    },
-                    title: {
-                        type: 'string',
-                        description:
-                            'Offset link title\n\nThis is the title that appears on the first screen of the offset links flow.\n',
-                    },
-                    description: {
-                        type: 'string',
-                        description:
-                            'Offset link description\n\nThis is the description that appears on the first screen of the offset links flow.\n',
-                    },
-                    bundles: {
-                        type: 'array',
-                        items: { type: 'string' },
-                        description:
-                            'The bundle ids selected for use through the particular offset link.',
-                        minItems: 1,
-                        maxItems: 24,
-                        uniqueItems: true,
-                        example: ['BmWxrvXo29eGqzA1qjANL5PwnkgaO8R3'],
-                    },
-                    value: { $ref: '#/components/schemas/Money' },
-                    emails: {
-                        type: 'array',
-                        items: { type: 'string' },
-                        description:
-                            'The email addresses of users that are allowed to use the offset link.',
-                        example: ['john@doe.com'],
-                    },
-                    expires_at: { $ref: '#/components/schemas/Timestamp' },
-                    use_logo: {
-                        type: 'boolean',
-                        description:
-                            'Whether to include the Offset link logo (defined in Account settings) in the footer.\n',
-                    },
-                },
-            },
-            OffsetLinkStatus: { type: 'string', enum: ['enabled', 'disabled'], example: 'enabled' },
             Metadata: {
                 description:
                     "An arbitrary dictionary (key-value pairs) to store application-specific information.\n\nLune doesn't use this information for order processing. Its purpose is for the API\nclients to be able to attach arbitrary information (to an order for example) and\nthen retrieve it.\n",
@@ -5445,6 +5378,7 @@ export const APISchemaContext = React.createContext<any>({
                 type: 'string',
                 description:
                     'ISO 4217 3 character currency code.\n\nNote: Lune does not support all currency codes.\n',
+                enum: ['GBP', 'EUR', 'USD', 'SEK', 'CHF', 'PLN', 'DKK', 'NOK'],
                 example: 'GBP',
             },
             MonetaryAmountValue: {
@@ -5594,11 +5528,13 @@ export const APISchemaContext = React.createContext<any>({
                         enum: [
                             'order.received',
                             'order.placed',
-                            'order.allocated',
                             'order.paid',
+                            'order.retiring',
                             'order.cancelled',
                             'order.failed',
                             'order.completed',
+                            'allocation.new',
+                            'allocation.retired',
                         ],
                         description:
                             'The event type. The type of event data will depend on the value present here.',
@@ -5610,8 +5546,26 @@ export const APISchemaContext = React.createContext<any>({
                             "The event’s sequence. This can be compared lexicographically to determine the order of events.\n\nThe details of the format are subject to change without notice as long as the lexicographical\nordering property remains intact. You can't depend on the values having any particular shape\n(in particular you can't depend on them being valid timestamps).\n",
                     },
                     data: {
-                        $ref: '#/components/schemas/OrderEventDetails',
-                        description: 'Data of the event. On order.* events, this means an Order.',
+                        description:
+                            'Data of the event. On order.* events, this means an Order. On allocation.* events, this mean an allocation.',
+                        oneOf: [
+                            { $ref: '#/components/schemas/OrderEventDetails' },
+                            { $ref: '#/components/schemas/AllocationEventDetails' },
+                        ],
+                    },
+                },
+            },
+            AllocationEventDetails: {
+                type: 'object',
+                required: ['allocation'],
+                properties: {
+                    allocation: {
+                        description: 'Snapshot of the allocation at the time of the event',
+                        $ref: '#/components/schemas/OrderAllocation',
+                    },
+                    splitFrom: {
+                        description: 'Original allocation that triggered the split',
+                        $ref: '#/components/schemas/OrderAllocation',
                     },
                 },
             },
@@ -5728,6 +5682,26 @@ export const APISchemaContext = React.createContext<any>({
                         description: 'The bundle portfolio unique identifier.',
                         type: 'string',
                         example: 'jvqkOq7vX2K18HHydar0W23ZGJdc91Pa',
+                    },
+                },
+            },
+            PartialUpdateAccountRequest: {
+                description:
+                    'Providing null on a property will result in clearing the existing value (if present).\n',
+                type: 'object',
+                properties: {
+                    name: { description: 'The account name.', type: 'string' },
+                    beneficiary: {
+                        description: 'The account beneficiary.',
+                        type: 'string',
+                        minLength: 1,
+                        nullable: true,
+                    },
+                    bundle_portfolio_id: {
+                        description: 'The bundle portfolio unique identifier.',
+                        type: 'string',
+                        example: 'jvqkOq7vX2K18HHydar0W23ZGJdc91Pa',
+                        nullable: true,
                     },
                 },
             },
@@ -6106,6 +6080,43 @@ export const APISchemaContext = React.createContext<any>({
                     url: {
                         description: 'Uploaded account logo URL',
                         $ref: '#/components/schemas/Url',
+                    },
+                },
+            },
+            OrderAllocation: {
+                type: 'object',
+                required: ['id', 'order_id', 'project_id', 'quantity', 'status', 'created_at'],
+                properties: {
+                    id: {
+                        type: 'string',
+                        description: "The allocation's unique identifier",
+                        example: 'ka1aAQ61sAB8DQ12KggnaKG21EftR4E6',
+                    },
+                    order_id: {
+                        type: 'string',
+                        description: "The order's unique identifier",
+                        example: 'xe1BEV2VZqnzPkYxJgALg0GeQDoXlWO3',
+                    },
+                    project_id: {
+                        type: 'string',
+                        description: "The project's unique identifier",
+                        example: '1vE213P96LbXNap56NAqVoM7knOedQg4',
+                    },
+                    quantity: {
+                        type: 'string',
+                        example: '222.667',
+                        pattern: '^[0-9]+(\\.[0-9]+)?$',
+                    },
+                    status: {
+                        type: 'string',
+                        description: 'Allocation status',
+                        example: 'new',
+                        enum: ['new', 'retired'],
+                    },
+                    created_at: {
+                        type: 'string',
+                        format: 'date-time',
+                        description: 'Allocation creation timestamp',
                     },
                 },
             },

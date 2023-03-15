@@ -1,0 +1,6 @@
+
+# OrderQuoteByQuantityWithBundleMass
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"type":"object","description":"Order by Quantity details","required":["bundle_masses"],"properties":{"bundle_masses":{"type":"array","items":{"$ref":"#/components/schemas/BundleMass"}},"quantity_trunc":{"description":"Selects to which precision to truncate the quantities assigned to each bundle.","example":"t","$ref":"#/components/schemas/MassUnit"}},"component":"OrderQuoteByQuantityWithBundleMass"}}/>

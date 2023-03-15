@@ -1,0 +1,6 @@
+
+# AllocationEventDetails
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"type":"object","required":["allocation"],"properties":{"allocation":{"description":"Snapshot of the allocation at the time of the event","$ref":"#/components/schemas/OrderAllocation"},"splitFrom":{"description":"Original allocation that triggered the split","$ref":"#/components/schemas/OrderAllocation"}},"component":"AllocationEventDetails"}}/>

@@ -1,0 +1,9 @@
+---
+
+sidebar_class_name: get
+---
+# Get a payment by a temporary id
+
+import Endpoint from '@site/src/components/Endpoint';
+
+<Endpoint json={{"summary":"Get a payment by a temporary id","description":"Get a specific payment by a temporary id.\n\nThe temporary id will remain valid for 15min from the payment's creation after which the endpoint will return a 404.\n","operationId":"getPaymentByTemporaryId","tags":["Payments"],"parameters":[{"name":"temporary_id","in":"path","required":true,"description":"The payment's temporary id","schema":{"type":"string","format":"uuid","example":"9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Payment"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"404":{"$ref":"#/components/responses/NotFound"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Payments","method":"get","path":"/payments/by-temporary-id/{temporary_id}"}}/>

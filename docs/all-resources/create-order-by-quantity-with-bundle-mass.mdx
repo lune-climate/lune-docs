@@ -1,0 +1,6 @@
+
+# CreateOrderByQuantityWithBundleMass
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"type":"object","description":"Order by Quantity details","required":["bundle_masses"],"properties":{"bundle_masses":{"type":"array","items":{"$ref":"#/components/schemas/BundleMass"}},"idempotency_key":{"type":"string","maxLength":100,"example":"5bd808a954e","description":"Account-unique identifier provided by the client.\n\n`idempotency_key` has two purposes:\n1. Clients can safely retry order requests without accidentally performing the same operation twice. The current state of the original order is returned.\n2. Clients can use `idempotency_key` to reconcile orders with other entities on their system.\n"},"metadata":{"$ref":"#/components/schemas/Metadata","default":{}},"quantity_trunc":{"description":"Selects to which precision to truncate the quantities assigned to each bundle.","example":"t","$ref":"#/components/schemas/MassUnit"}},"component":"CreateOrderByQuantityWithBundleMass"}}/>

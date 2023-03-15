@@ -1,0 +1,6 @@
+
+# WebhookBase
+
+import Resource from '@site/src/components/Resource';
+
+<Resource json={{"type":"object","required":["id","url","enabled","account_type","created_at"],"properties":{"id":{"description":"The webhook's unique identifier","type":"string","example":"ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz"},"url":{"$ref":"#/components/schemas/Url"},"enabled":{"description":"Determines if events should be sent to the webhook or not.","type":"boolean"},"account_type":{"description":"For events related to an account, this property refers to the accounts' type.\n\nA webhook does not mix live and test events.\n","$ref":"#/components/schemas/AccountType"},"account_ids":{"description":"The webhook will exclusively push events which belong to account identifiers.\n\nActs as a filter: if not set, events belonging to all the organisation's accounts are pushed.\n","type":"array","items":{"type":"string","example":"ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz","description":"An account's unique identifier"}},"created_at":{"description":"The webhook's creation timestamp.","$ref":"#/components/schemas/Timestamp"}},"component":"WebhookBase"}}/>
