@@ -1,9 +1,0 @@
----
-
-sidebar_class_name: put
----
-# Update a sustainability page
-
-import Endpoint from '@site/src/components/Endpoint';
-
-<Endpoint json={{"tags":["Sustainability page"],"summary":"Update a sustainability page","operationId":"updateSustainabilityPage","description":"Update the format, layout and status of your public https://sustainability.lune.co/<slug> page.","security":[{"BearerAuth":[]}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SustainabilityPageRequest"}}}},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SustainabilityPage"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"409":{"$ref":"#/components/responses/Conflict"},"415":{"$ref":"#/components/responses/UnsupportedMediaType"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Sustainability page","method":"put","path":"/sustainability-pages"}}/>

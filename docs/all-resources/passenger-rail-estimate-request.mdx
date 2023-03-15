@@ -1,6 +1,0 @@
-
-# PassengerRailEstimateRequest
-
-import Resource from '@site/src/components/Resource';
-
-<Resource json={{"type":"object","description":"Parameters for estimating emissions for a passenger train","required":["route","rail_type"],"properties":{"route":{"description":"Either the flight distance or the start/destination address or source and destination","oneOf":[{"$ref":"#/components/schemas/Distance"},{"$ref":"#/components/schemas/SourceDestination"}]},"rail_type":{"type":"string","enum":["national_rail","international_rail","light_rail_or_tram"]}},"component":"PassengerRailEstimateRequest"}}/>

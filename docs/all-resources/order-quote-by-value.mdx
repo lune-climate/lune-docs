@@ -1,6 +1,0 @@
-
-# OrderQuoteByValue
-
-import Resource from '@site/src/components/Resource';
-
-<Resource json={{"allOf":[{"$ref":"#/components/schemas/OrderQuoteBase"},{"type":"object","required":["requested_value","requested_quantity"],"properties":{"requested_value":{"description":"Requested order value inclusive of commission","type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"7700"},"requested_quantity":{"type":"string","pattern":"^[0-9]+(\\.[0-9]+)?$","example":"1045","description":"Requested quantity of CO2 offsets to purchase in tonnes.","nullable":true}}}],"component":"OrderQuoteByValue"}}/>

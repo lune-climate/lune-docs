@@ -1,6 +1,0 @@
-
-# Order
-
-import Resource from '@site/src/components/Resource';
-
-<Resource json={{"type":"object","allOf":[{"$ref":"#/components/schemas/OrderBase"},{"type":"object","oneOf":[{"$ref":"#/components/schemas/OrderByQuantityProperties"},{"$ref":"#/components/schemas/OrderByValueProperties"}],"discriminator":{"propertyName":"type","mapping":{"quantity":"#/components/schemas/OrderByQuantityProperties","value":"#/components/schemas/OrderByValueProperties"}}}],"component":"Order"}}/>

@@ -1,9 +1,0 @@
----
-
-sidebar_class_name: get
----
-# Get an account
-
-import Endpoint from '@site/src/components/Endpoint';
-
-<Endpoint json={{"summary":"Get an account","operationId":"getAccount","security":[{"BearerAuth":[]}],"tags":["Accounts"],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Account"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Accounts","method":"get","path":"/accounts/me"}}/>

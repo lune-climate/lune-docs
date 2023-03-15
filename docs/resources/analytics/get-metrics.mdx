@@ -1,9 +1,0 @@
----
-
-sidebar_class_name: get
----
-# Get metrics
-
-import Endpoint from '@site/src/components/Endpoint';
-
-<Endpoint json={{"summary":"Get metrics","operationId":"getMetrics","security":[{"BearerAuth":[]}],"tags":["Analytics"],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/AnalyticsMetrics"}}}},"400":{"$ref":"#/components/responses/BadRequest"},"401":{"$ref":"#/components/responses/Unauthorized"},"429":{"$ref":"#/components/responses/TooManyRequests"}},"tag":"Analytics","method":"get","path":"/analytics/metrics"}}/>
