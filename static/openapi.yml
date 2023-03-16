@@ -3560,9 +3560,9 @@ components:
                 offset_delivery:
                   type: string
                   enum:
-                    - ex-post
-                    - ex-ante
-                    - pre-purchase
+                    - ex_post
+                    - ex_ante
+                    - pre_purchase
                 retirement_timeframe:
                   type: string
                   enum:
