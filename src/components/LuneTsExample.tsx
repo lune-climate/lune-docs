@@ -1,3 +1,4 @@
+import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import Dereferencer from '@site/src/components/Dereferencer'
 import ResourceExample from '@site/src/components/ResourceExample'
 import { AS_ANY_PLACEHOLDER, snakeToCamelCase } from '@site/src/utils'
@@ -40,7 +41,14 @@ export default function LuneTsExample(
             const dereferencedResponseBody = Dereferencer(
                 successResponse['application/json'].schema,
             )
-            responseObjectName = snakeToCamelCase(dereferencedResponseBody.name)
+            const endpointResponse = JsonPropertyParser({
+                ...dereferencedResponseBody,
+                json: dereferencedResponseBody,
+            })
+            // The only way to not have a name here is if it's a list
+            responseObjectName = endpointResponse.name
+                ? snakeToCamelCase(endpointResponse.name)
+                : snakeToCamelCase(endpointResponse.jsons[0].name).concat('List')
         } else {
             throw Error(`Unsupported response type ${JSON.stringify(successResponse.content)}`)
         }
