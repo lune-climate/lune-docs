@@ -2,6 +2,8 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { useLocation } from '@docusaurus/router'
 
+export const AS_ANY_PLACEHOLDER = '_AS_ANY_PLACEHOLDER_'
+
 export function formatPath(operationId: string): string {
     // We either receive camelCase, UpperCamelCase, Sentence case or Title Case. Make it all camelCase
     const camelCase = operationId
@@ -19,6 +21,11 @@ export function formatPath(operationId: string): string {
             // Make acronyms lowercase
             .toLowerCase()
     )
+}
+
+export function snakeToCamelCase(value: string): string {
+    const v = value.replace(/(_[a-z])/g, (v) => `${v.slice(1).toUpperCase()}`)
+    return v.charAt(0).toLowerCase().concat(v.slice(1))
 }
 
 export function getApiKey(): string | undefined {

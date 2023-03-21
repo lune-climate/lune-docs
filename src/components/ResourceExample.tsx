@@ -1,3 +1,4 @@
+import { AS_ANY_PLACEHOLDER } from '@site/src/utils'
 import Dereferencer from '@site/src/components/Dereferencer'
 
 // Check if it's a high level resource/reference, not an inline property
@@ -14,10 +15,32 @@ function isHighLevelElement(property: any): boolean {
 
 // TODO I believe the format can be used to provide better examples.
 // eslint-disable-next-line complexity
-function createRawExampleProperty(property: any, omitNotRequired: boolean): any {
+function createRawExampleProperty(
+    property: any,
+    omitNotRequired: boolean,
+    isLuneTSExample: boolean,
+): any {
     if (omitNotRequired && !property.required && !isHighLevelElement(property)) {
         return undefined
     }
+
+    // TODO improve on this. This is bad, but it works for now :pray:
+    // 1. Determining the name of the enum is very hard. We would also need to add imports
+    // to the example.
+    // 2. For array of enums we might have an example but same issue as above is present.
+    // 3. For blobs, creating a blob most likely should be reading a file.
+    //
+    // All these cases are currently handled by adding a placeholder in the end that is substituted
+    // by a type cast to 'any'. Enums work correctly since on the wire representation matches. Binary
+    // also works but not sure if very usefull since we'll be sending a string as a blob.
+    if (isLuneTSExample && property.type === 'string' && property.enum) {
+        return `${property.example || property.enum[0]}${AS_ANY_PLACEHOLDER}`
+    } else if (isLuneTSExample && property.type === 'array' && property.jsons[0].enum) {
+        return [`${property.jsons[0].enum[0]}${AS_ANY_PLACEHOLDER}`]
+    } else if (isLuneTSExample && property.type === 'string' && property.format === 'binary') {
+        return `${property.default || property.name}${AS_ANY_PLACEHOLDER}`
+    }
+
     // Always use example when present. Otherwise, if a primitive type is shown, give a best
     // guess approach. Last resort, don't include if not required otherwise give parameter name.
     if (property.example && (property.type === 'number' || property.type === 'integer')) {
@@ -41,14 +64,18 @@ function createRawExampleProperty(property: any, omitNotRequired: boolean): any 
     }
 }
 
-function createExampleProperty(property: any, omitNotRequired: boolean): any {
+function createExampleProperty(
+    property: any,
+    omitNotRequired: boolean,
+    isLuneTSExample: boolean,
+): any {
     if (isHighLevelElement(property)) {
-        return createRawExampleProperty(property, omitNotRequired)
+        return createRawExampleProperty(property, omitNotRequired, isLuneTSExample)
     } else if (omitNotRequired && !property.required) {
         return {}
     }
     const example = {}
-    example[property.name] = createRawExampleProperty(property, omitNotRequired)
+    example[property.name] = createRawExampleProperty(property, omitNotRequired, isLuneTSExample)
     return example
 }
 
@@ -68,23 +95,26 @@ function processPropertyWithChildren(property: any, children: any[] | any) {
 export default function ResourceExample(
     propertiesParsed: any,
     omitNotRequired: boolean = false,
+    isLuneTSExample: boolean = false,
 ): any {
     // No matter the type, resolve to example if present.
     if (propertiesParsed.example) {
-        return createExampleProperty(propertiesParsed, omitNotRequired)
+        return createExampleProperty(propertiesParsed, omitNotRequired, isLuneTSExample)
     } else if (propertiesParsed.allOf || propertiesParsed.anyOf) {
         const children = Object.assign(
             {},
-            ...propertiesParsed.jsons.map((property) => ResourceExample(property, omitNotRequired)),
+            ...propertiesParsed.jsons.map((property) =>
+                ResourceExample(property, omitNotRequired, isLuneTSExample),
+            ),
         )
         return processPropertyWithChildren(propertiesParsed, children)
     } else if (propertiesParsed.oneOf) {
         // The first one is picked just to be deterministic
-        const first = ResourceExample(propertiesParsed.jsons[0], omitNotRequired)
+        const first = ResourceExample(propertiesParsed.jsons[0], omitNotRequired, isLuneTSExample)
         return processPropertyWithChildren(propertiesParsed, first)
     } else if (propertiesParsed.type === 'array') {
         const children = propertiesParsed.jsons.map((property) =>
-            ResourceExample(property, omitNotRequired),
+            ResourceExample(property, omitNotRequired, isLuneTSExample),
         )
         return processPropertyWithChildren(propertiesParsed, children)
     } else if (propertiesParsed.type === 'object') {
@@ -98,20 +128,24 @@ export default function ResourceExample(
             : allProperties
         const children = Object.assign(
             {},
-            ...properties.map((property) => ResourceExample(property, omitNotRequired)),
+            ...properties.map((property) =>
+                ResourceExample(property, omitNotRequired, isLuneTSExample),
+            ),
         )
         return processPropertyWithChildren(propertiesParsed, children)
     } else if (propertiesParsed.type) {
         // it's a leaf in the JSON, we can create an example
-        return createExampleProperty(propertiesParsed, omitNotRequired)
+        return createExampleProperty(propertiesParsed, omitNotRequired, isLuneTSExample)
     } else {
         // If we're referring to a single high level element we don't want to resolve it as an object.
         if ((propertiesParsed as any[]).length === 1 && isHighLevelElement(propertiesParsed)) {
-            return ResourceExample(propertiesParsed[0])
+            return ResourceExample(propertiesParsed[0], omitNotRequired, isLuneTSExample)
         } else {
             return Object.assign(
                 {},
-                ...propertiesParsed.map((property) => ResourceExample(property, omitNotRequired)),
+                ...propertiesParsed.map((property) =>
+                    ResourceExample(property, omitNotRequired, isLuneTSExample),
+                ),
             )
         }
     }
