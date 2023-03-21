@@ -1,5 +1,5 @@
-import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import Dereferencer from '@site/src/components/Dereferencer'
+import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ResourceExample from '@site/src/components/ResourceExample'
 import { AS_ANY_PLACEHOLDER, snakeToCamelCase } from '@site/src/utils'
 
@@ -45,7 +45,7 @@ export default function LuneTsExample(
                 ...dereferencedResponseBody,
                 json: dereferencedResponseBody,
             })
-            // The only way to not have a name here is if it's a list
+            // The only way to not have a name here is if it's a list. Use the item name and add sufix
             responseObjectName = endpointResponse.name
                 ? snakeToCamelCase(endpointResponse.name)
                 : snakeToCamelCase(endpointResponse.jsons[0].name).concat('List')
