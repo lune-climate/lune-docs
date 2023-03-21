@@ -1,5 +1,5 @@
-import { AS_ANY_PLACEHOLDER } from '@site/src/utils'
 import Dereferencer from '@site/src/components/Dereferencer'
+import { AS_ANY_PLACEHOLDER } from '@site/src/utils'
 
 // Check if it's a high level resource/reference, not an inline property
 function isHighLevelElement(property: any): boolean {
