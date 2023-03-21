@@ -1,6 +1,6 @@
 import Dereferencer from '@site/src/components/Dereferencer'
 import ResourceExample from '@site/src/components/ResourceExample'
-import { AS_ANY_PLACEHOLDER, formatPath, indent, snakeToCamelCase } from '@site/src/utils'
+import { AS_ANY_PLACEHOLDER, snakeToCamelCase } from '@site/src/utils'
 
 // Converts all properties that exist in the object to camelCase
 function camelCaseProperties(data: any): any {
