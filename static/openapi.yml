@@ -2648,6 +2648,7 @@ components:
         - bundles
         - projects
         - certificate
+        - public_certificate
         - metadata
         - offset_link_id
         - email
@@ -2776,6 +2777,16 @@ components:
             This property is set when an order has state 'complete'
 
           example: 'https://api.lune.co/v1/orders/08QD7GPaBx5b6Y60ndAONXLvrZljRE2e/certificate'
+          nullable: true
+        public_certificate:
+          type: string
+          description: |
+            The Carbon credits certificate public URL. 
+            
+            Once the Sustainability page of the associated account is enabled and configured to include the 
+            certificate section, and the order is set to 'complete', this URL will link to the publicly accessible certificate.
+
+          example: 'https://sustainability.lune.co/account?certificate=1'
           nullable: true
         metadata:
           $ref: '#/components/schemas/Metadata'
