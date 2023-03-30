@@ -2648,7 +2648,7 @@ components:
         - bundles
         - projects
         - certificate
-        - public_certificate
+        - public_certificate_url
         - metadata
         - offset_link_id
         - email
@@ -2778,7 +2778,7 @@ components:
 
           example: 'https://api.lune.co/v1/orders/08QD7GPaBx5b6Y60ndAONXLvrZljRE2e/certificate'
           nullable: true
-        public_certificate:
+        public_certificate_url:
           type: string
           description: |
             The Carbon credits certificate public URL. 
