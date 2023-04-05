@@ -23,5 +23,5 @@ Responses, however, never omit `null` properties.
 
 `PATCH` requests behave differently:
 
-* If a property within a resource is set to null, the property is deleted
+* If a property within a resource is set to `null`, the property is deleted
 * If a property within a resource is not set, the property is unaltered
