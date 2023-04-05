@@ -3700,8 +3700,6 @@ components:
         - name
         - organisation_id
         - currency
-        - balance
-        - balance_outstanding
         - type
         - logo
         - beneficiary
@@ -3723,24 +3721,6 @@ components:
           type: string
           description: The Account's currency
           example: 'GBP'
-        balance:
-          type: string
-          description: |
-            Account's cash balance.
-
-            Unit: Account currency
-          pattern: '^[0-9]+(\.[0-9]+)?$'
-          example: '23.50'
-        balance_outstanding:
-          type: string
-          description: |
-            The Account's outstanding balance. It is the sum of placed and unpaid orders.
-
-            The outstanding balance is mostly negative.
-
-            Unit: Account currency
-          pattern: '^-?[0-9]+(\.[0-9]+)?$'
-          example: '-132.50'
         type:
           $ref: '#/components/schemas/AccountType'
         logo:
