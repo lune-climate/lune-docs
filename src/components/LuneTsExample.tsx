@@ -1,7 +1,7 @@
 import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ResourceExample from '@site/src/components/ResourceExample'
-import { AS_ANY_PLACEHOLDER, snakeToCamelCase } from '@site/src/utils'
+import { AS_ANY_PLACEHOLDER, AS_BLOB_PLACEHOLDER, snakeToCamelCase } from '@site/src/utils'
 
 // Converts all properties that exist in the object to camelCase
 function camelCaseProperties(data: any): any {
@@ -81,11 +81,11 @@ export default function LuneTsExample(
         }
     }
 
-    // Replace AS_ANY_PLACEHOLDER for actual 'as any'
-    const cleanedMethodParameters = methodParameters.replace(
-        new RegExp(`${AS_ANY_PLACEHOLDER}"`, 'g'),
-        `" as any`,
-    )
+    const cleanedMethodParameters = methodParameters
+        // Replace AS_ANY_PLACEHOLDER for actual 'as any'
+        .replace(new RegExp(`${AS_ANY_PLACEHOLDER}"`, 'g'), `" as any`)
+        // Replace AS_BLOB_PLACEHOLDER for actual Blob construction
+        .replace(new RegExp(`"(.+)${AS_BLOB_PLACEHOLDER}"`, 'g'), `new Blob(["$1"])`)
 
     return `import * as lune from '@lune-climate/lune';
 var luneClient = new lune.LuneClient('${apiKey ?? '<API_KEY>'}');

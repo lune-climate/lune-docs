@@ -1,5 +1,5 @@
 import Dereferencer from '@site/src/components/Dereferencer'
-import { AS_ANY_PLACEHOLDER } from '@site/src/utils'
+import { AS_ANY_PLACEHOLDER, AS_BLOB_PLACEHOLDER } from '@site/src/utils'
 
 // Check if it's a high level resource/reference, not an inline property
 function isHighLevelElement(property: any): boolean {
@@ -38,7 +38,7 @@ function createRawExampleProperty(
     } else if (isLuneTSExample && property.type === 'array' && property.jsons[0].enum) {
         return [`${property.jsons[0].enum[0]}${AS_ANY_PLACEHOLDER}`]
     } else if (isLuneTSExample && property.type === 'string' && property.format === 'binary') {
-        return `${property.default || property.name}${AS_ANY_PLACEHOLDER}`
+        return `${property.default || property.name}${AS_BLOB_PLACEHOLDER}`
     }
 
     // Always use example when present. Otherwise, if a primitive type is shown, give a best

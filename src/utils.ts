@@ -3,6 +3,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { useLocation } from '@docusaurus/router'
 
 export const AS_ANY_PLACEHOLDER = '_AS_ANY_PLACEHOLDER_'
+export const AS_BLOB_PLACEHOLDER = '_AS_BLOB_PLACEHOLDER_'
 
 export function formatPath(operationId: string): string {
     // We either receive camelCase, UpperCamelCase, Sentence case or Title Case. Make it all camelCase
