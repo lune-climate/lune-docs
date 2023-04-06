@@ -3155,6 +3155,7 @@ components:
         - disabled
         - available_quantity
         - offset_type
+        - approach
         - carbon_permanence
       properties:
         id:
@@ -3238,6 +3239,18 @@ components:
             - null
           example: 'emissions_reduction'
           nullable: true
+        approach:
+          type: string
+          description: Bundle approach
+          enum:
+            - traditional
+            - innovative
+            # We need null to be an explicit enum member here in order for our response validation
+            # middleware to work correctly. This is *in addition to* "nullable: true" below (which is
+            # needed too).
+            - null
+          example: 'traditional'
+          nullable: true          
         carbon_permanence:
           type: string
           description: The bundle's carbon storage permanence.
