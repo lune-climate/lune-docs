@@ -20,6 +20,7 @@ export default function JsonPropertyParser(props: {
     component?: string
     type?: string
     required?: string[] | boolean
+    nullable?: boolean
 }): any {
     if (props.json.oneOf || props.json.allOf || props.json.anyOf) {
         const type = props.json.oneOf ? 'oneOf' : props.json.allOf ? 'allOf' : 'anyOf'
@@ -72,6 +73,7 @@ export default function JsonPropertyParser(props: {
                     ...derefencedItem,
                     json: derefencedItem,
                     required: props.json.required,
+                    nullable: props.json.nullable,
                 })
             }),
         }
