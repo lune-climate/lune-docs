@@ -23,6 +23,7 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
                       name: propertyName,
                       json: element,
                       required: props.json.required,
+                      nullable: props.json.nullable,
                   })
               })
             : [

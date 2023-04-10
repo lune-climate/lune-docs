@@ -30,6 +30,7 @@ export default function JsonPropertyParser(props: {
                 (props.json.component && `#/components/schemas/${props.json.component}`),
             name: props.name,
             type,
+            nullable: props.nullable,
             jsons: props.json[type].map((element) => {
                 const derefencedItem = Dereferencer(element)
                 return JsonPropertyParser({
@@ -51,6 +52,7 @@ export default function JsonPropertyParser(props: {
             required:
                 props.required === true ||
                 (props.required && props.name && props.required.includes(props.name)),
+            nullable: props.nullable,
             description: props.json.description,
             jsons: [JsonPropertyParser({ ...derefencedItem, json: derefencedItem })],
         }
@@ -63,6 +65,7 @@ export default function JsonPropertyParser(props: {
             example: props.json.example,
             description: props.json.description,
             required: props.required,
+            nullable: props.nullable,
             jsons: Object.keys(props.json.properties || []).map((property) => {
                 const derefencedItem = Dereferencer(props.json.properties[property], property)
                 return JsonPropertyParser({
@@ -85,6 +88,7 @@ export default function JsonPropertyParser(props: {
                 (props.required &&
                     derefencedItem.name &&
                     props.required.includes(derefencedItem.name)),
+            nullable: props.nullable,
             $enum: props.json.enum,
             description: derefencedItem.description,
         }
