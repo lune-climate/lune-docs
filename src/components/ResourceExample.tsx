@@ -28,11 +28,10 @@ function createRawExampleProperty(
     // 1. Determining the name of the enum is very hard. We would also need to add imports
     // to the example.
     // 2. For array of enums we might have an example but same issue as above is present.
-    // 3. For blobs, creating a blob most likely should be reading a file.
     //
-    // All these cases are currently handled by adding a placeholder in the end that is substituted
-    // by a type cast to 'any'. Enums work correctly since on the wire representation matches. Binary
-    // also works but not sure if very usefull since we'll be sending a string as a blob.
+    // These cases are currently handled by adding a placeholder in the end that is substituted
+    // by a type cast to 'any'. Enums work correctly since on the wire representation matches.
+    // Binary also works in a similar fashion, we add a placeholder which is later substituted.
     if (isLuneTsExample && property.type === 'string' && property.enum) {
         return `${property.example || property.enum[0]}${AS_ANY_PLACEHOLDER}`
     } else if (isLuneTsExample && property.type === 'array' && property.jsons[0].enum) {
