@@ -2,7 +2,6 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { useLocation } from '@docusaurus/router'
 
-export const AS_ANY_PLACEHOLDER = '_AS_ANY_PLACEHOLDER_'
 export const AS_BLOB_PLACEHOLDER = '_AS_BLOB_PLACEHOLDER_'
 
 export function formatPath(operationId: string): string {
@@ -51,9 +50,10 @@ export function getApiDomain(): string {
 export function useRelativePathPrefix(): string {
     const location = useLocation()
 
-    const path = ExecutionEnvironment.canUseDOM && location.pathname.slice(-1) === '/'
-        ? location.pathname.slice(0, -1)
-        : location.pathname
+    const path =
+        ExecutionEnvironment.canUseDOM && location.pathname.slice(-1) === '/'
+            ? location.pathname.slice(0, -1)
+            : location.pathname
 
     return path
 }

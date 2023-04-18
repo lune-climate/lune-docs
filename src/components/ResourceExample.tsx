@@ -1,5 +1,5 @@
 import Dereferencer from '@site/src/components/Dereferencer'
-import { AS_ANY_PLACEHOLDER, AS_BLOB_PLACEHOLDER } from '@site/src/utils'
+import { AS_BLOB_PLACEHOLDER } from '@site/src/utils'
 
 // Check if it's a high level resource/reference, not an inline property
 function isHighLevelElement(property: any): boolean {
@@ -18,25 +18,14 @@ function isHighLevelElement(property: any): boolean {
 function createRawExampleProperty(
     property: any,
     omitNotRequired: boolean,
-    isLuneTsExample: boolean,
+    isLuneJsExample: boolean,
 ): any {
     if (omitNotRequired && !property.required && !isHighLevelElement(property)) {
         return undefined
     }
 
-    // TODO improve on this. This is bad, but it works for now :pray:
-    // 1. Determining the name of the enum is very hard. We would also need to add imports
-    // to the example.
-    // 2. For array of enums we might have an example but same issue as above is present.
-    //
-    // These cases are currently handled by adding a placeholder in the end that is substituted
-    // by a type cast to 'any'. Enums work correctly since on the wire representation matches.
-    // Binary also works in a similar fashion, we add a placeholder which is later substituted.
-    if (isLuneTsExample && property.type === 'string' && property.enum) {
-        return `${property.example || property.enum[0]}${AS_ANY_PLACEHOLDER}`
-    } else if (isLuneTsExample && property.type === 'array' && property.jsons[0].enum) {
-        return [`${property.jsons[0].enum[0]}${AS_ANY_PLACEHOLDER}`]
-    } else if (isLuneTsExample && property.type === 'string' && property.format === 'binary') {
+    // For binary data, we want to construct a Blob so add a placeholder and substitute later.
+    if (isLuneJsExample && property.type === 'string' && property.format === 'binary') {
         return `${property.default || property.name}${AS_BLOB_PLACEHOLDER}`
     }
 
@@ -66,15 +55,15 @@ function createRawExampleProperty(
 function createExampleProperty(
     property: any,
     omitNotRequired: boolean,
-    isLuneTsExample: boolean,
+    isLuneJsExample: boolean,
 ): any {
     if (isHighLevelElement(property)) {
-        return createRawExampleProperty(property, omitNotRequired, isLuneTsExample)
+        return createRawExampleProperty(property, omitNotRequired, isLuneJsExample)
     } else if (omitNotRequired && !property.required) {
         return {}
     }
     const example = {}
-    example[property.name] = createRawExampleProperty(property, omitNotRequired, isLuneTsExample)
+    example[property.name] = createRawExampleProperty(property, omitNotRequired, isLuneJsExample)
     return example
 }
 
@@ -94,26 +83,26 @@ function processPropertyWithChildren(property: any, children: any[] | any) {
 export default function ResourceExample(
     propertiesParsed: any,
     omitNotRequired: boolean = false,
-    isLuneTsExample: boolean = false,
+    isLuneJsExample: boolean = false,
 ): any {
     // No matter the type, resolve to example if present.
     if (propertiesParsed.example) {
-        return createExampleProperty(propertiesParsed, omitNotRequired, isLuneTsExample)
+        return createExampleProperty(propertiesParsed, omitNotRequired, isLuneJsExample)
     } else if (propertiesParsed.allOf || propertiesParsed.anyOf) {
         const children = Object.assign(
             {},
             ...propertiesParsed.jsons.map((property) =>
-                ResourceExample(property, omitNotRequired, isLuneTsExample),
+                ResourceExample(property, omitNotRequired, isLuneJsExample),
             ),
         )
         return processPropertyWithChildren(propertiesParsed, children)
     } else if (propertiesParsed.oneOf) {
         // The first one is picked just to be deterministic
-        const first = ResourceExample(propertiesParsed.jsons[0], omitNotRequired, isLuneTsExample)
+        const first = ResourceExample(propertiesParsed.jsons[0], omitNotRequired, isLuneJsExample)
         return processPropertyWithChildren(propertiesParsed, first)
     } else if (propertiesParsed.type === 'array') {
         const children = propertiesParsed.jsons.map((property) =>
-            ResourceExample(property, omitNotRequired, isLuneTsExample),
+            ResourceExample(property, omitNotRequired, isLuneJsExample),
         )
         return processPropertyWithChildren(propertiesParsed, children)
     } else if (propertiesParsed.type === 'object') {
@@ -128,22 +117,22 @@ export default function ResourceExample(
         const children = Object.assign(
             {},
             ...properties.map((property) =>
-                ResourceExample(property, omitNotRequired, isLuneTsExample),
+                ResourceExample(property, omitNotRequired, isLuneJsExample),
             ),
         )
         return processPropertyWithChildren(propertiesParsed, children)
     } else if (propertiesParsed.type) {
         // it's a leaf in the JSON, we can create an example
-        return createExampleProperty(propertiesParsed, omitNotRequired, isLuneTsExample)
+        return createExampleProperty(propertiesParsed, omitNotRequired, isLuneJsExample)
     } else {
         // If we're referring to a single high level element we don't want to resolve it as an object.
         if ((propertiesParsed as any[]).length === 1 && isHighLevelElement(propertiesParsed)) {
-            return ResourceExample(propertiesParsed[0], omitNotRequired, isLuneTsExample)
+            return ResourceExample(propertiesParsed[0], isLuneJsExample)
         } else {
             return Object.assign(
                 {},
                 ...propertiesParsed.map((property) =>
-                    ResourceExample(property, omitNotRequired, isLuneTsExample),
+                    ResourceExample(property, omitNotRequired, isLuneJsExample),
                 ),
             )
         }
