@@ -71,7 +71,7 @@ export default function LuneTsExample(
         .replace(new RegExp(`"(.+)${AS_BLOB_PLACEHOLDER}"`, 'g'), `new Blob(["$1"])`)
 
     return `import * as lune from '@lune-climate/lune';
-var luneClient = new lune.LuneClient('${apiKey ?? '<API_KEY>'}');
-var ${responseObjectName} = await luneClient.${operationId}(${cleanedMethodParameters});
+const luneClient = new lune.LuneClient('${apiKey ?? '<API_KEY>'}');
+const ${responseObjectName} = await luneClient.${operationId}(${cleanedMethodParameters});
     `
 }
