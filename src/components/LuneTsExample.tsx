@@ -2,24 +2,7 @@ import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ResourceExample from '@site/src/components/ResourceExample'
 import { AS_ANY_PLACEHOLDER, AS_BLOB_PLACEHOLDER, snakeToCamelCase } from '@site/src/utils'
-
-// Converts all properties that exist in the object to camelCase
-function camelCaseProperties(data: any): any {
-    if (typeof data !== 'object') {
-        return data
-    }
-    if (Array.isArray(data)) {
-        return data.map(camelCaseProperties)
-    }
-    if (data === null) {
-        return null
-    }
-    const entries = Object.entries(data)
-    const mappedEntries = entries.map(
-        ([k, v]) => [snakeToCamelCase(k), camelCaseProperties(v)] as const,
-    )
-    return Object.fromEntries(mappedEntries)
-}
+import camelcaseKeys from 'camelcase-keys'
 
 // Will return the JSON representation of the request body without quotes on properties
 function formatRequestBody(requestBody: any): string {
@@ -67,7 +50,7 @@ export default function LuneTsExample(
         const dereferencedRequestBody = Dereferencer(requestBody)
         const requestBodyExample = ResourceExample(requestBody, true, true)
         // Every property on Lune-TS is camelCase so convert it
-        const camelCaseBodyRequest = camelCaseProperties(requestBodyExample ?? {})
+        const camelCaseBodyRequest = camelcaseKeys(requestBodyExample ?? {}, { deep: true })
         if (dereferencedRequestBody.oneOf || dereferencedRequestBody.anyOf) {
             const key = snakeToCamelCase(dereferencedRequestBody.name)
             const data = { [key]: { ...camelCaseBodyRequest } }
