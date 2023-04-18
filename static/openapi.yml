@@ -2340,6 +2340,10 @@ components:
       oneOf:
           - $ref: '#/components/schemas/OrderQuoteByQuantityWithBundlePercentage'
           - $ref: '#/components/schemas/OrderQuoteByQuantityWithBundleMass'
+      example:
+        mass:
+          amount: '12.07'
+          unit: 'kg'
     OrderQuoteByQuantityWithBundlePercentage:
       type: object
       description: Order by Quantity details
@@ -2358,6 +2362,10 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+      example:
+        mass:
+          amount: '12.07'
+          unit: 'kg'
     OrderQuoteByQuantityWithBundleMass:
       type: object
       description: Order by Quantity details
@@ -2377,6 +2385,10 @@ components:
       oneOf:
           - $ref: '#/components/schemas/CreateOrderByQuantityWithBundlePercentage'
           - $ref: '#/components/schemas/CreateOrderByQuantityWithBundleMass'
+      example:
+        mass:
+          amount: '259.11'
+          unit: 'kg'
     CreateOrderByQuantityWithBundlePercentage:
       type: object
       description: Order by Quantity details
@@ -2454,6 +2466,8 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+      example:
+        value: '770.30'
     CreateOrderByValueRequest:
       type: object
       required:
@@ -2486,6 +2500,8 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+      example:
+        value: '0.54'
     CreateOrderByEstimateRequest:
       type: object
       required:
@@ -2648,6 +2664,7 @@ components:
         - bundles
         - projects
         - certificate
+        - public_certificate_url
         - metadata
         - offset_link_id
         - email
@@ -2777,6 +2794,16 @@ components:
 
           example: 'https://api.lune.co/v1/orders/08QD7GPaBx5b6Y60ndAONXLvrZljRE2e/certificate'
           nullable: true
+        public_certificate_url:
+          type: string
+          description: |
+            The Carbon credits certificate public URL. 
+            
+            Once the Sustainability page of the associated account is enabled and configured to include the 
+            certificate section, and the order is set to 'complete', this URL will link to the publicly accessible certificate.
+
+          example: 'https://sustainability.lune.co/account?certificate=1'
+          nullable: true
         metadata:
           $ref: '#/components/schemas/Metadata'
         offset_link_id:
@@ -2820,6 +2847,41 @@ components:
       allOf:
         - $ref: '#/components/schemas/OrderBase'
         - $ref: '#/components/schemas/OrderByQuantityProperties'
+      example:
+        id: 'VfdoQ0PZjGMzvYO46lNA6kbgN1eOJx9B'
+        metadata: {}
+        idempotency_key: null
+        type: 'quantity'
+        status: 'placed'
+        currency: 'USD'
+        offset_cost: '0.31'
+        total_cost: '0.35'
+        commission: '0.04'
+        quantity: '0.012069'
+        created_at: '2023-01-04T15:00:27.349Z'
+        bundles:
+          - bundle_id: 'q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8'
+            bundle_name: 'Conserving forests in Asia'
+            quantity: '0.011466'
+            unit_price: '13.57'
+            gross_unit_price: '15.08'
+            offset_cost: '0.16'
+            insufficient_available_quantity: null
+          - bundle_id: 'xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w'
+            bundle_name: 'Ocean Carbon Removal'
+            quantity: '0.000603'
+            unit_price: '250'
+            gross_unit_price: '277.78'
+            offset_cost: '0.15'
+            insufficient_available_quantity: null
+        projects: []
+        certificate: null
+        certificate_url: null
+        offset_link_id: null
+        email: null
+        estimate_id: null
+        requested_quantity: '0.01207'
+        requested_value: null
     OrderByValueProperties:
       type: object
       required:
@@ -2848,6 +2910,41 @@ components:
       allOf:
         - $ref: '#/components/schemas/OrderBase'
         - $ref: '#/components/schemas/OrderByValueProperties'
+      example:
+        id: 'VfdoQ0PZjGMzvYO46lNA6kbgN1eOJx9B'
+        metadata: {}
+        idempotency_key: null
+        type: 'value'
+        status: 'placed'
+        currency: 'USD'
+        offset_cost: '0.49'
+        total_cost: '0.54'
+        commission: '0.05'
+        quantity: '0.019137'
+        created_at: '2023-01-04T15:00:27.349Z'
+        bundles:
+          - bundle_id: 'q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8'
+            bundle_name: 'Conserving forests in Asia'
+            quantity: '0.018181'
+            unit_price: '13.57'
+            gross_unit_price: '15.08'
+            offset_cost: '0.25'
+            insufficient_available_quantity: null
+          - bundle_id: 'xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w'
+            bundle_name: 'Ocean Carbon Removal'
+            quantity: '0.000956'
+            unit_price: '250'
+            gross_unit_price: '277.78'
+            offset_cost: '0.24'
+            insufficient_available_quantity: null
+        projects: []
+        certificate: null
+        certificate_url: null
+        offset_link_id: null
+        email: null
+        estimate_id: null
+        requested_quantity: null
+        requested_value: '0.54'
     OrderByEstimate:
       title: Order by emission estimate
       allOf:
@@ -3098,6 +3195,28 @@ components:
               pattern: '^[0-9]+(\.[0-9]+)?$'
               example: '7700'
               nullable: true
+      example:
+        currency: 'USD'
+        requested_quantity: '0.01207'
+        estimated_offset_cost: '0.31'
+        estimated_total_cost: '0.35'
+        estimated_commission: '0.04'
+        estimated_quantity: '0.012069'
+        bundles:
+          - bundle_id: 'q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8'
+            bundle_name: 'Conserving forests in Asia'
+            quantity: '0.011466'
+            unit_price: '13.57'
+            gross_unit_price: '15.08'
+            offset_cost: '0.16'
+            insufficient_available_quantity: null
+          - bundle_id: 'xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w'
+            bundle_name: 'Ocean Carbon Removal'
+            quantity: '0.000603'
+            unit_price: '250'
+            gross_unit_price: '277.78'
+            offset_cost: '0.15'
+            insufficient_available_quantity: null
     OrderQuoteByValue:
       allOf:
         - $ref: '#/components/schemas/OrderQuoteBase'
@@ -3117,6 +3236,28 @@ components:
               example: '1045'
               description: Requested quantity of CO2 offsets to purchase in tonnes.
               nullable: true
+      example:
+        currency: 'USD'
+        requested_value: '0.54'
+        estimated_offset_cost: '0.49'
+        estimated_total_cost: '0.54'
+        estimated_commission: '0.05'
+        estimated_quantity: '0.019137'
+        bundles:
+          - bundle_id: 'q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8'
+            bundle_name: 'Conserving forests in Asia'
+            quantity: '0.018181'
+            unit_price: '13.57'
+            gross_unit_price: '15.08'
+            offset_cost: '0.25'
+            insufficient_available_quantity: null
+          - bundle_id: 'xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w'
+            bundle_name: 'Ocean Carbon Removal'
+            quantity: '0.000956'
+            unit_price: '250'
+            gross_unit_price: '277.78'
+            offset_cost: '0.24'
+            insufficient_available_quantity: null
     PaginatedBundles:
       allOf:
         - $ref: '#/components/schemas/PaginatedBase'
@@ -3144,6 +3285,7 @@ components:
         - disabled
         - available_quantity
         - offset_type
+        - approach
         - carbon_permanence
       properties:
         id:
@@ -3227,6 +3369,18 @@ components:
             - null
           example: 'emissions_reduction'
           nullable: true
+        approach:
+          type: string
+          description: Bundle approach
+          enum:
+            - traditional
+            - innovative
+            # We need null to be an explicit enum member here in order for our response validation
+            # middleware to work correctly. This is *in addition to* "nullable: true" below (which is
+            # needed too).
+            - null
+          example: 'traditional'
+          nullable: true          
         carbon_permanence:
           type: string
           description: The bundle's carbon storage permanence.
@@ -3689,8 +3843,6 @@ components:
         - name
         - organisation_id
         - currency
-        - balance
-        - balance_outstanding
         - type
         - logo
         - beneficiary
@@ -3712,24 +3864,6 @@ components:
           type: string
           description: The Account's currency
           example: 'GBP'
-        balance:
-          type: string
-          description: |
-            Account's cash balance.
-
-            Unit: Account currency
-          pattern: '^[0-9]+(\.[0-9]+)?$'
-          example: '23.50'
-        balance_outstanding:
-          type: string
-          description: |
-            The Account's outstanding balance. It is the sum of placed and unpaid orders.
-
-            The outstanding balance is mostly negative.
-
-            Unit: Account currency
-          pattern: '^-?[0-9]+(\.[0-9]+)?$'
-          example: '-132.50'
         type:
           $ref: '#/components/schemas/AccountType'
         logo:
@@ -4052,20 +4186,6 @@ components:
             - $ref: '#/components/schemas/SourceDestination'
         vehicle_type:
           type: string
-          description: |
-            car_mini: smallest category of car sometimes referred to as a city car. Examples include: Citroën C1, Fiat/Alfa Romeo 500 and Panda, Peugeot 107, Volkswagen up!, Renault TWINGO, Toyota AYGO, smart fortwo and Hyundai i 10.
-            car_supermini: car that is larger than a city car, but smaller than a small family car. Examples include: Ford Fiesta, Renault CLIO, Volkswagen Polo, Citroën C2 and C3, Opel Corsa, Peugeot 208, and Toyota Yaris.
-            car_lower_medium: small, compact family car. Examples include: Volkswagen Golf, Ford Focus, Opel Astra, Audi A3, BMW 1 Series, Renault Mégane and Toyota Auris.
-            car_upper_medium: classed as a large family car. Examples include: BMW 3 Series, ŠKODA Octavia, Volkswagen Passat, Audi A4, Mercedes Benz C Class and Peugeot 508.
-            car_executive: large cars. Examples include: BMW 5 Series, Audi A5 and A6, Mercedes Benz E Class and Skoda Superb.
-            car_luxury: luxury car which is niche in the European market. Examples include: Jaguar XF, Mercedes-Benz S-Class, .BMW 7 series, Audi A8, Porsche Panamera and Lexus LS.
-            car_sports: sport cars are a small, usually two seater with two doors and designed for speed, high acceleration, and manoeuvrability. Examples include: Mercedes-Benz SLK, Audi TT, Porsche 911 and Boxster, and Peugeot RCZ.
-            car_dual_purpose_4x4: sport utility vehicles (SUVs) which have off-road capabilities and four-wheel drive. Examples include: Suzuki Jimny, Land Rover Discovery and Defender, Toyota Land Cruiser, and Nissan Pathfinder.
-            car_mpv: multipurpose cars. Examples include: Ford C-Max, Renault Scenic, Volkswagen Touran, Opel Zafira, Ford B-Max, and Citroën C3 Picasso and C4 Picasso.
-            motorcycle_small: mopeds/scooters up to 125cc.
-            motorcycle_medium:  125cc to 500cc
-            motorcycle_large: 500cc+
-            motorcycle_average: uUnknown engine size
           enum:
             - car_mini
             - car_supermini
@@ -4080,6 +4200,20 @@ components:
             - motorcycle_medium
             - motorcycle_large
             - motorcycle_average
+          description: |
+            * `car_mini`: smallest category of car sometimes referred to as a city car. Examples include`: Citroën C1, Fiat/Alfa Romeo 500 and Panda, Peugeot 107, Volkswagen up!, Renault TWINGO, Toyota AYGO, smart fortwo and Hyundai i 10.
+            * `car_supermini`: car that is larger than a city car, but smaller than a small family car. Examples include`: Ford Fiesta, Renault CLIO, Volkswagen Polo, Citroën C2 and C3, Opel Corsa, Peugeot 208, and Toyota Yaris.
+            * `car_lower_medium`: small, compact family car. Examples include`: Volkswagen Golf, Ford Focus, Opel Astra, Audi A3, BMW 1 Series, Renault Mégane and Toyota Auris.
+            * `car_upper_medium`: classed as a large family car. Examples include`: BMW 3 Series, ŠKODA Octavia, Volkswagen Passat, Audi A4, Mercedes Benz C Class and Peugeot 508.
+            * `car_executive`: large cars. Examples include`: BMW 5 Series, Audi A5 and A6, Mercedes Benz E Class and Skoda Superb.
+            * `car_luxury`: luxury car which is niche in the European market. Examples include`: Jaguar XF, Mercedes-Benz S-Class, .BMW 7 series, Audi A8, Porsche Panamera and Lexus LS.
+            * `car_sports`: sport cars are a small, usually two seater with two doors and designed for speed, high acceleration, and manoeuvrability. Examples include`: Mercedes-Benz SLK, Audi TT, Porsche 911 and Boxster, and Peugeot RCZ.
+            * `car_dual_purpose_4x4`: sport utility vehicles (SUVs) which have off-road capabilities and four-wheel drive. Examples include`: Suzuki Jimny, Land Rover Discovery and Defender, Toyota Land Cruiser, and Nissan Pathfinder.
+            * `car_mpv`: multipurpose cars. Examples include`: Ford C-Max, Renault Scenic, Volkswagen Touran, Opel Zafira, Ford B-Max, and Citroën C3 Picasso and C4 Picasso.
+            * `motorcycle_small`: mopeds/scooters up to 125cc.
+            * `motorcycle_medium`:  125cc to 500cc
+            * `motorcycle_large`: 500cc+
+            * `motorcycle_average`: uUnknown engine size
     PassengerTransportationEstimateRequest:
       type: object
       description: Parameters for estimating emissions for passenger transportation
@@ -4178,6 +4312,16 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+      example:
+        shipment:
+          containers: '2'
+        route:
+          source:
+            locode: 'CNSGH'
+          destination:
+            locode: 'NLRTM'
+        method:
+          vessel_type: 'container_ship'
     ShippingRoute:
       description: |
         Either the shipping distance or the start/destination address pair.
@@ -4235,6 +4379,53 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+      example:
+        shipment:
+          amount: '10.36'
+          unit: 't'
+        legs:
+          - route:
+              source:
+                lat: 120.960515
+                lon: 23.69781
+              destination:
+                lat: 24.255
+                lon: 120.5075
+            method: 'diesel_truck'
+          - route:
+              source:
+                lat: 24.255
+                lon: 120.5075
+              destination:
+                lat: 25.03
+                lon: 121.51
+            method:
+              vessel_type: 'container_ship'
+          - route:
+              source:
+                lat: 25.03
+                lon: 121.51
+              destination:
+                lat: 9.9619
+                lon: 53.5231
+            method:
+              vessel_imo_number: '9893890'
+          - route:
+              source:
+                lat: 9.9619
+                lon: 53.5231
+              destination:
+                lat: 52.4857
+                lon: 13.49587
+            method: 'electric_freight_train'
+          - route:
+              source:
+                lat: 52.4857
+                lon: 13.49587
+              destination:
+                lat: 52.362524
+                lon: 13.2937333
+            method: 'diesel_truck'
     Shipment:
       description: |
         Either a mass given in kilograms or tonnes (`mass`) or the number of [Twenty-foot Equivalent
@@ -4680,6 +4871,28 @@ components:
         $ref: '#/components/schemas/TransactionEstimateRequest'
         minItems: 1
         maxItems: 100
+      example:
+        - value:
+            value: '8.99'
+            currency: 'USD'
+          merchant:
+            category_code: '5411'
+            name: 'Starbucks'
+            country_code: 'USA'
+        - value:
+            value: '120'
+            currency: 'USD'
+          merchant:
+            category_code: '3001'
+            name: 'British Airways'
+            country_code: 'USA'
+        - value:
+            value: '8.99'
+            currency: 'USD'
+          merchant:
+            category_code: '5818'
+            name: 'Netflix'
+            country_code: 'USA'
     TransactionEstimateRequest:
       type: object
       description: Parameters for estimating emissions associated with purchasing goods or services.
@@ -4705,6 +4918,14 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+      example:
+        value:
+          value: '8.99'
+          currency: 'USD'
+        merchant:
+          category_code: '5818'
+          name: 'Netflix'
+          country_code: 'USA'
     IndividualEstimateRequest:
       description: |
         Parameters for estimating an individual's emissions
@@ -5095,6 +5316,112 @@ components:
           - $ref: '#/components/schemas/TransactionEmissionEstimate'
           - $ref: '#/components/schemas/Errors'
           - $ref: '#/components/schemas/EmptyObject'
+      example:
+        - id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
+          mass:
+            amount: '0.01388'
+            unit: 't'
+          quote:
+            estimated_quantity: '0.01388'
+            estimated_commission: '0.04'
+            estimated_total_cost: '0.38'
+            estimated_offset_cost: '0.34'
+            requested_value: null
+            requested_quantity: '0.01388'
+            currency: 'USD'
+            bundles:
+              - bundle_id: 'q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8'
+                bundle_name: 'Conserving forests in Asia'
+                quantity: '0.013186'
+                unit_price: '12.8'
+                gross_unit_price: '14.22'
+                offset_cost: '0.17'
+                insufficient_available_quantity: null
+              - bundle_id: 'xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w'
+                bundle_name: 'Ocean Carbon Removal'
+                quantity: '14.22'
+                unit_price: '250'
+                gross_unit_price: '277.78'
+                offset_cost: '0.17'
+                insufficient_available_quantity: null
+          request:
+            value:
+              value: '8.99'
+              currency: 'USD'
+            merchant:
+              category_code: '5411'
+              name: 'Starbucks'
+              country_code: 'USA'
+        - id: '02QD7GPaBx5b6Y6mJlZyONXLvrZljRE2'
+          mass:
+            amount: '0.22179'
+            unit: 't'
+          quote:
+            estimated_quantity: '0.221789'
+            estimated_commission: '0.61'
+            estimated_total_cost: '5.99'
+            estimated_offset_cost: '5.38'
+            requested_value: null
+            requested_quantity: '0.22179'
+            currency: 'USD'
+            bundles:
+              - bundle_id: 'q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8'
+                bundle_name: 'Conserving forests in Asia'
+                quantity: '0.2107'
+                unit_price: '12.41'
+                gross_unit_price: '13.79'
+                offset_cost: '2.62'
+                insufficient_available_quantity: null
+              - bundle_id: 'xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w'
+                bundle_name: 'Ocean Carbon Removal'
+                quantity: '0.011089'
+                unit_price: '250'
+                gross_unit_price: '277.78'
+                offset_cost: '2.78'
+                insufficient_available_quantity: null
+          request:
+            value:
+              value: '120'
+              currency: 'USD'
+            merchant:
+              category_code: '3001'
+              name: ''
+              country_code: 'USA'
+        - id: '04QD7GPaBx5b6Y6mJlZyONXLvrZljRE2'
+          mass:
+            amount: '0.01388'
+            unit: 't'
+          quote:
+            estimated_quantity: '0.01388'
+            estimated_commission: '0.04'
+            estimated_total_cost: '0.38'
+            estimated_offset_cost: '0.34'
+            requested_value: null
+            requested_quantity: '0.01388'
+            currency: 'USD'
+            bundles:
+              - bundle_id: 'q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8'
+                bundle_name: 'Conserving forests in Asia'
+                quantity: '0.013186'
+                unit_price: '12.8'
+                gross_unit_price: '14.22'
+                offset_cost: '0.17'
+                insufficient_available_quantity: null
+              - bundle_id: 'xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w'
+                bundle_name: 'Ocean Carbon Removal'
+                quantity: '14.22'
+                unit_price: '250'
+                gross_unit_price: '277.78'
+                offset_cost: '0.17'
+                insufficient_available_quantity: null
+          request:
+            value:
+              value: '8.99'
+              currency: 'USD'
+            merchant:
+              category_code: '5818'
+              name: 'Netflix'
+              country_code: 'USA'
     TransactionEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
@@ -5110,6 +5437,42 @@ components:
                 The most accurate term matching the search.
 
                 The emission factor for this term is used to compute the emission estimate.
+      example:
+        id: '04QD7GPaBx5b6Y6mJlZyONXLvrZljRE2'
+        mass:
+          amount: '0.01388'
+          unit: 't'
+        quote:
+          estimated_quantity: '0.01388'
+          estimated_commission: '0.04'
+          estimated_total_cost: '0.38'
+          estimated_offset_cost: '0.34'
+          requested_value: null
+          requested_quantity: '0.01388'
+          currency: 'USD'
+          bundles:
+            - bundle_id: 'q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8'
+              bundle_name: 'Conserving forests in Asia'
+              quantity: '0.013186'
+              unit_price: '12.8'
+              gross_unit_price: '14.22'
+              offset_cost: '0.17'
+              insufficient_available_quantity: null
+            - bundle_id: 'xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w'
+              bundle_name: 'Ocean Carbon Removal'
+              quantity: '14.22'
+              unit_price: '250'
+              gross_unit_price: '277.78'
+              offset_cost: '0.17'
+              insufficient_available_quantity: null
+        request:
+          value:
+            value: '8.99'
+            currency: 'USD'
+          merchant:
+            category_code: '5818'
+            name: 'Netflix'
+            country_code: 'USA'
     SingleShippingEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/ShippingLegEmissionEstimate'
@@ -5127,6 +5490,48 @@ components:
               $ref: '#/components/schemas/EstimateQuote'
             request: 
               $ref: '#/components/schemas/ShippingEstimateRequest'
+      example:
+        id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
+        mass:
+          amount: '2.969503'
+          unit: 't'
+        quote:
+          estimated_quantity: '2.969502'
+          estimated_commission: '8.03'
+          estimated_total_cost: '80.18'
+          estimated_offset_cost: '72.15'
+          requested_value: null
+          requested_quantity: '2.969503'
+          currency: 'USD'
+          bundles:
+            - bundle_id: 'q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8'
+              bundle_name: 'Conserving forests in Asia'
+              quantity: '2.821027'
+              unit_price: '12.42'
+              gross_unit_price: '13.8'
+              offset_cost: '35.04'
+              insufficient_available_quantity: null
+            - bundle_id: 'xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w'
+              bundle_name: 'Ocean Carbon Removal'
+              quantity: '0.148475'
+              unit_price: '250'
+              gross_unit_price: '277.78'
+              offset_cost: '37.12'
+              insufficient_available_quantity: null
+        distance:
+          amount: '22466.6346'
+          unit: 'km'
+        methodology: []
+        request:
+          shipment:
+            containers: '2'
+          route:
+            source:
+              locode: 'CNSGH'
+            destination:
+              locode: 'NLRTM'
+          method:
+            vessel_type: 'container_ship'
     ShippingLegEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimate'
@@ -5175,6 +5580,120 @@ components:
             request: 
               $ref: '#/components/schemas/MultiLegShippingEstimateRequest'
         - $ref: '#/components/schemas/EmissionEstimateResponse'
+      example:
+        id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
+        mass:
+          amount: '1.105698'
+          unit: 't'
+        quote:
+          estimated_quantity: '1.105697'
+          estimated_commission: '3.02'
+          estimated_total_cost: '30.13'
+          estimated_offset_cost: '27.11'
+          requested_value: null
+          requested_quantity: '1.105698'
+          currency: 'USD'
+          bundles:
+            - bundle_id: 'q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8'
+              bundle_name: 'Conserving forests in Asia'
+              quantity: '1.050413'
+              unit_price: '12.65'
+              gross_unit_price: '14.06'
+              offset_cost: '13.29'
+              insufficient_available_quantity: null
+            - bundle_id: 'xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w'
+              bundle_name: 'Ocean Carbon Removal'
+              quantity: '0.055284'
+              unit_price: '250'
+              gross_unit_price: '277.78'
+              offset_cost: '13.82'
+              insufficient_available_quantity: null
+        distance:
+          amount: '22981.4401'
+          unit: 'km'
+        legs:
+          - mass:
+              amount: '0.089758'
+              unit: 't'
+            distance:
+              amount: '106.9614'
+              unit: 'km'
+            methodology: []
+          - mass:
+              amount: '0.030356'
+              unit: 't'
+            distance:
+              amount: '266.02'
+              unit: 'km'
+            methodology: []
+          - mass:
+              amount: '0.897291'
+              unit: 't'
+            distance:
+              amount: '22247.3894'
+              unit: 'km'
+            methodology: []
+          - mass:
+              amount: '0.048678'
+              unit: 't'
+            distance:
+              amount: '313.8612'
+              unit: 'km'
+            methodology: []
+          - mass:
+              amount: '0.039615'
+              unit: 't'
+            distance:
+              amount: '47.2081'
+              unit: 'km'
+            methodology: []
+        request:
+          shipment:
+            amount: '10.36'
+            unit: 't'
+          legs:
+            - route:
+                source:
+                  lat: 120.960515
+                  lon: 23.69781
+                destination:
+                  lat: 24.255
+                  lon: 120.5075
+              method: 'diesel_truck'
+            - route:
+                source:
+                  lat: 24.255
+                  lon: 120.5075
+                destination:
+                  lat: 25.03
+                  lon: 121.51
+              method:
+                vessel_type: 'container_ship'
+            - route:
+                source:
+                  lat: 25.03
+                  lon: 121.51
+                destination:
+                  lat: 9.9619
+                  lon: 53.5231
+              method:
+                vessel_imo_number: '9893890'
+            - route:
+                source:
+                  lat: 9.9619
+                  lon: 53.5231
+                destination:
+                  lat: 52.4857
+                  lon: 13.49587
+              method: 'electric_freight_train'
+            - route:
+                source:
+                  lat: 52.4857
+                  lon: 13.49587
+                destination:
+                  lat: 52.362524
+                  lon: 13.2937333
+              method: 'diesel_truck'
     CompanyEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
@@ -5473,6 +5992,10 @@ components:
         beneficiary:
           description: The account beneficiary.
           type: string
+      example:
+        name: 'ACME'
+        beneficiary: 'ACME Inc'
+        currency: 'USD'
     CreateAccountRequest:
       type: object
       required:
@@ -5490,6 +6013,9 @@ components:
           description: The account beneficiary.
           type: string
           minLength: 1
+      example:
+        name: 'ACME'
+        currency: 'USD'
     PaginatedAccounts:
       allOf:
         - $ref: '#/components/schemas/PaginatedBase'
@@ -5544,6 +6070,15 @@ components:
 
             A live account points to its sibling test account and vice versa.
           example: 'gGdqQ0AyQJ72NauCCndfaQLNhc6Jfxc1'
+      example:
+        id: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+        name: 'ACME'
+        beneficiary: 'ACME Inc'
+        currency: 'USD'
+        type: 'live'
+        organisation_id: 'VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B'
+        logo: null
+        bundle_portfolio_id: null
     ClientAccount:
       description: Account used when you operate an account on behalf of a third party.
       allOf:
@@ -5556,6 +6091,15 @@ components:
           type: string
           enum:
             - client_account
+      example:
+        id: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
+        name: 'ACME'
+        beneficiary: 'ACME Inc'
+        currency: 'USD'
+        type: 'live'
+        organisation_id: 'VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B'
+        logo: null
+        bundle_portfolio_id: null
     UpdateAccountRequest:
       description: |
         It's only possible to edit the name and beneficiary of an account.
@@ -5576,6 +6120,9 @@ components:
           description: The bundle portfolio unique identifier.
           type: string
           example: 'jvqkOq7vX2K18HHydar0W23ZGJdc91Pa'
+      example:
+        name: 'ACME'
+        beneficiary: 'ACME Inc'
     PartialUpdateAccountRequest:
       description: |
         Providing null on a property will result in clearing the existing value (if present).
@@ -5594,6 +6141,9 @@ components:
           type: string
           example: 'jvqkOq7vX2K18HHydar0W23ZGJdc91Pa'
           nullable: true
+      example:
+        name: 'ACME'
+        beneficiary: 'ACME Inc'
     SustainabilityPageRequest:
       type: object
       required:
