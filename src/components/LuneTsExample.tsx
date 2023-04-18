@@ -49,7 +49,7 @@ export default function LuneTsExample(
 
         const dereferencedRequestBody = Dereferencer(requestBody)
         const requestBodyExample = ResourceExample(requestBody, true, true)
-        // Every property on Lune-TS is camelCase so convert it
+        // Every property on our library is camelCase so convert it
         const camelCaseBodyRequest = camelcaseKeys(requestBodyExample ?? {}, { deep: true })
         if (dereferencedRequestBody.oneOf || dereferencedRequestBody.anyOf) {
             const key = snakeToCamelCase(dereferencedRequestBody.name)
