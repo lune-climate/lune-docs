@@ -57,13 +57,6 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
         props.json.responses[200]?.content,
         apiKey,
     )
-    const endpointLuneJs = {
-        header: `${props.json.method.toUpperCase()} ${props.json.path}`,
-        language: 'typescript',
-        toCopy: endpointLuneJsString,
-        children: endpointLuneJsString,
-        lineNumbers: false,
-    }
 
     let endpointResponseType
     let endpointResponse
@@ -157,8 +150,11 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                 </div>
                 <>
                     <Snippet header={`${props.json.method.toUpperCase()} ${props.json.path}`}>
-                        <SnippetItem language="bash" toCopy={endpointCurlString}>
+                        <SnippetItem language="bash" label="Curl" toCopy={endpointCurlString}>
                             {endpointCurlString}
+                        </SnippetItem>
+                        <SnippetItem language="typescript" label="JS" toCopy={endpointLuneJsString}>
+                            {endpointLuneJsString}
                         </SnippetItem>
                     </Snippet>
                     {endpointResponseExample && (
