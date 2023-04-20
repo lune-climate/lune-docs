@@ -5,7 +5,13 @@ import LuneJsExample from '@site/src/components/LuneJsExample'
 import ParameterParser from '@site/src/components/ParameterParser'
 import ResourceExample from '@site/src/components/ResourceExample'
 import { getApiDomain, getApiKey } from '@site/src/utils'
-import { ApiReferenceSection, JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
+import {
+    ApiReferenceSection,
+    JsonObjectTable,
+    JsonProperty,
+    Snippet,
+    SnippetItem,
+} from 'lune-ui-lib'
 import React from 'react'
 
 export default function EndpointParser(props: { json: any }): JSX.Element {
@@ -43,13 +49,6 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
         pathParameters,
         apiKey,
     )
-    const endpointCurl = {
-        header: `${props.json.method.toUpperCase()} ${props.json.path}`,
-        language: 'bash',
-        toCopy: endpointCurlString,
-        children: endpointCurlString,
-        lineNumbers: false,
-    }
 
     const endpointLuneJsString = LuneJsExample(
         props.json.operationId,
@@ -82,12 +81,11 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                 ...dereferencedResponseBody,
                 json: dereferencedResponseBody,
             })
-            endpointResponseExample = {
-                header: 'Response',
-                language: 'json',
-                children: JSON.stringify(ResourceExample(endpointResponse), null, 2),
-                lineNumbers: false,
-            }
+            endpointResponseExample = (
+                <SnippetItem language="json">
+                    {JSON.stringify(ResourceExample(endpointResponse), null, 2)}
+                </SnippetItem>
+            )
         } else {
             throw Error(
                 `Unsupported response type ${JSON.stringify(props.json.responses[200].content)}`,
@@ -158,10 +156,15 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                     {endpointResponse && <div>{returnsSection}</div>}
                 </div>
                 <>
-                    <Snippet {...endpointCurl} />
-                    <Snippet {...endpointLuneJs} />
+                    <Snippet header={`${props.json.method.toUpperCase()} ${props.json.path}`}>
+                        <SnippetItem language="bash" toCopy={endpointCurlString}>
+                            {endpointCurlString}
+                        </SnippetItem>
+                    </Snippet>
                     {endpointResponseExample && (
-                        <Snippet sx={{ marginTop: '16px' }} {...endpointResponseExample} />
+                        <Snippet header="Response" sx={{ marginTop: '16px' }}>
+                            {endpointResponseExample}
+                        </Snippet>
                     )}
                 </>
             </ApiReferenceSection>
