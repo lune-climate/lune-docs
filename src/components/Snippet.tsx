@@ -1,5 +1,5 @@
 import { getApiKey } from '@site/src/utils'
-import { Snippet as UISnippet } from 'lune-ui-lib'
+import { Snippet as UISnippet, SnippetItem } from 'lune-ui-lib'
 import React from 'react'
 
 export default function Snippet({
@@ -16,13 +16,14 @@ export default function Snippet({
 
     return (
         <UISnippet
-            language={language}
             header={header}
-            toCopy={code}
-            children={code}
             sx={{
                 maxHeight: '450px',
             }}
-        />
+        >
+            <SnippetItem language={language} toCopy={code}>
+                {code}
+            </SnippetItem>
+        </UISnippet>
     )
 }

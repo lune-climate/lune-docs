@@ -2,7 +2,13 @@ import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ResourceExample from '@site/src/components/ResourceExample'
 import { formatPath, useRelativePathPrefix } from '@site/src/utils'
-import { ApiReferenceSection, JsonObjectTable, JsonProperty, Snippet } from 'lune-ui-lib'
+import {
+    ApiReferenceSection,
+    JsonObjectTable,
+    JsonProperty,
+    Snippet,
+    SnippetItem,
+} from 'lune-ui-lib'
 import React from 'react'
 
 export default function ResourceParser(props: { json: any }): JSX.Element {
@@ -35,17 +41,11 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
               ]
     }
 
-    const exampleSnippet = {
-        header: props.json.component || props.json.name,
-        lineNumbers: false,
-        language: 'json',
-        children: JSON.stringify(ResourceExample(resourceProperties), null, 2),
-    }
-
-    const endpointsSnippet = {
-        header: 'Endpoints',
-        lineNumbers: false,
-    }
+    const exampleSnippet = (
+        <SnippetItem language="json">
+            {JSON.stringify(ResourceExample(resourceProperties), null, 2)}
+        </SnippetItem>
+    )
 
     return (
         <section className="page">
@@ -60,46 +60,50 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
                 </JsonObjectTable>
                 <>
                     {props.json.endpoints && (
-                        <Snippet {...endpointsSnippet} sx={{ marginBottom: '16px' }}>
-                            <div className="endpointsTable">
-                                {props.json.endpoints.map((endpoint, i) => (
-                                    <div
-                                        key={i}
-                                        className="row"
-                                        style={{
-                                            border: 'solid 1px black',
-                                        }}
-                                    >
-                                        <a
+                        <Snippet header="Endpoints" sx={{ marginBottom: '16px' }}>
+                            <SnippetItem>
+                                <div className="endpointsTable">
+                                    {props.json.endpoints.map((endpoint, i) => (
+                                        <div
                                             key={i}
-                                            href={`${hrefPrefix}/${formatPath(
-                                                endpoint.operationId,
-                                            )}`}
+                                            className="row"
+                                            style={{
+                                                border: 'solid 1px black',
+                                            }}
                                         >
-                                            <div
-                                                className="cell"
-                                                style={{
-                                                    textAlign: 'right',
-                                                    width: '50px',
-                                                }}
+                                            <a
+                                                key={i}
+                                                href={`${hrefPrefix}/${formatPath(
+                                                    endpoint.operationId,
+                                                )}`}
                                             >
-                                                {endpoint.method.toUpperCase()}
-                                            </div>
-                                            <div
-                                                className="cell"
-                                                style={{
-                                                    textAlign: 'left',
-                                                }}
-                                            >
-                                                &nbsp;{endpoint.endpoint}
-                                            </div>
-                                        </a>
-                                    </div>
-                                ))}
-                            </div>
+                                                <div
+                                                    className="cell"
+                                                    style={{
+                                                        textAlign: 'right',
+                                                        width: '50px',
+                                                    }}
+                                                >
+                                                    {endpoint.method.toUpperCase()}
+                                                </div>
+                                                <div
+                                                    className="cell"
+                                                    style={{
+                                                        textAlign: 'left',
+                                                    }}
+                                                >
+                                                    &nbsp;{endpoint.endpoint}
+                                                </div>
+                                            </a>
+                                        </div>
+                                    ))}
+                                </div>
+                            </SnippetItem>
                         </Snippet>
                     )}
-                    <Snippet {...exampleSnippet} />
+                    <Snippet header={props.json.component || props.json.name}>
+                        {exampleSnippet}
+                    </Snippet>
                 </>
             </ApiReferenceSection>
         </section>
