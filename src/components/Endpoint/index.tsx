@@ -1,6 +1,7 @@
 import Curl from '@site/src/components/Curl'
 import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
+import LuneJsExample from '@site/src/components/LuneJsExample'
 import ParameterParser from '@site/src/components/ParameterParser'
 import ResourceExample from '@site/src/components/ResourceExample'
 import { getApiDomain, getApiKey } from '@site/src/utils'
@@ -46,6 +47,14 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
         props.json.method,
         endpointRequestBody,
         pathParameters,
+        apiKey,
+    )
+
+    const endpointLuneJsString = LuneJsExample(
+        props.json.operationId,
+        endpointRequestBody,
+        pathParameters,
+        props.json.responses[200]?.content,
         apiKey,
     )
 
@@ -141,8 +150,11 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                 </div>
                 <>
                     <Snippet header={`${props.json.method.toUpperCase()} ${props.json.path}`}>
-                        <SnippetItem language="bash" toCopy={endpointCurlString}>
+                        <SnippetItem language="bash" label="Curl" toCopy={endpointCurlString}>
                             {endpointCurlString}
+                        </SnippetItem>
+                        <SnippetItem language="typescript" label="JS" toCopy={endpointLuneJsString}>
+                            {endpointLuneJsString}
                         </SnippetItem>
                     </Snippet>
                     {endpointResponseExample && (
