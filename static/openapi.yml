@@ -3360,6 +3360,7 @@ components:
           enum:
             - long_term
             - short_term
+            - no_storage
             # We need null to be an explicit enum member here in order for our response validation
             # middleware to work correctly. This is *in addition to* "nullable: true" below (which is
             # needed too).
@@ -6271,6 +6272,7 @@ components:
                     enum:
                       - long_term
                       - short_term
+                      - no_storage
                       # We need null to be an explicit enum member here in order for our response validation
                       # middleware to work correctly. This is *in addition to* "nullable: true" below (which is
                       # needed too).
