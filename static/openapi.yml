@@ -2641,6 +2641,7 @@ components:
         - metadata
         - offset_link_id
         - email
+        - payment_method
       properties:
         id:
           type: string
@@ -2715,6 +2716,20 @@ components:
           pattern: '^[0-9]+(\.[0-9]+)?$'
           example: '1040'
           description: Quantity of CO2 offsets purchased in tonnes.
+          nullable: true
+        payment_method: 
+          description: How the order will be paid.
+
+            When `card`, Lune will attempt to charge the card and pay this order.
+            When `invoice`, Lune will email an invoice with payment instructions.
+          type: string
+          enum:
+            - invoice
+            - card
+            - null
+            # We need null to be an explicit enum member here in order for our response validation
+            # middleware to work correctly. This is *in addition to* "nullable: true" below (which is
+            # needed too).
           nullable: true
         created_at:
           type: string
