@@ -513,6 +513,48 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+  /analytics/aggregated-by-property:
+    get:
+      summary: Get aggregated analytics by property
+      operationId: getAggregatedAnalyticsByProperty
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - Analytics
+      parameters:
+        - name: from
+          in: query
+          description:
+            The start date of the custom date range.
+
+            Defaults to 30 days ago if not specified.
+          schema:
+            type: string
+            format: date
+            example: '2019-01-01'
+        - name: through
+          in: query
+          description:
+            The to (inclusive) date of the custom date range.
+
+            Defaults to the current date if not specified.
+          schema:
+            type: string
+            format: date
+            example: '2020-01-31'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AggregatedAnalyticsByProperty'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
   /bundles:
     get:
       summary: List bundles
@@ -3873,6 +3915,136 @@ components:
           description: Bundle portfolio id tied to the account.
           example: 'Jvhh30a6272NauKv92J7FG1c6Jfxd2E1'
           nullable: true
+    AggregatedAnalyticsByProperty:
+      type: object
+      required:
+        - bundle
+        - location
+        - registry
+        - oxford_offsetting_principles
+        - offset_type
+      properties:
+        bundle:
+          type: array
+          items:
+            type: object
+            required:
+              - bundle_id
+              - bundle_name
+              - quantity
+              - value
+            properties:
+              bundle_id:
+                type: string
+                description: The bundle's unique identifier.
+                example: va1BEV2VZqnzPkYxJgALg0GeQDoXlWO5
+              bundle_name:
+                type: string
+                description: The bundle's name.
+                example: 'Latin America Forestry'
+              quantity:
+                type: string
+                pattern: '^[0-9]+(\.[0-9]+)?$'
+                example: '500.50'
+                description: Quantity of CO2 offsets linked to this activity (tonnes CO2).
+              value:
+                type: string
+                example: '222.667'
+                pattern: '^[0-9]+(\.[0-9]+)?$'
+                description: CO2 offsets' monetary value.
+        location:
+          type: array
+          items:
+            type: object
+            required:
+              - location
+              - quantity
+              - value
+            properties:
+              location:
+                type: string
+                description: Project location (continent).
+                example: 'Europe'
+              quantity:
+                type: string
+                pattern: '^[0-9]+(\.[0-9]+)?$'
+                example: '500.50'
+                description: Quantity of CO2 offsets linked to this activity (tonnes CO2).
+              value:
+                type: string
+                example: '222.667'
+                pattern: '^[0-9]+(\.[0-9]+)?$'
+                description: CO2 offsets' monetary value
+        registry:
+          type: array
+          items:
+            type: object
+            required:
+              - registry_name
+              - quantity
+              - value
+            properties:
+              registry_name:
+                $ref: '#/components/schemas/Registry'
+              quantity:
+                type: string
+                pattern: '^[0-9]+(\.[0-9]+)?$'
+                example: '500.50'
+                description: Quantity of CO2 offsets linked to this activity (tonnes CO2).
+              value:
+                type: string
+                example: '222.667'
+                pattern: '^[0-9]+(\.[0-9]+)?$'
+                description: CO2 offsets' monetary value.
+        oxford_offsetting_principles:
+          type: array
+          items:
+            type: object
+            required:
+              - type
+              - quantity
+              - value
+            properties:
+              type:
+                type: number
+                description: |
+                  Oxford Offsetting Principles' type.
+
+                  https://lune.co/blog/the-oxford-offsetting-principles-a-framework-to-maximise-the-impact-of-business-carbon-offsetting/.
+                example: 5
+                minimum: 1
+                maximum: 5
+              quantity:
+                type: string
+                pattern: '^[0-9]+(\.[0-9]+)?$'
+                example: '500.50'
+                description: Quantity of CO2 offsets linked to this activity (tonnes CO2)
+              value:
+                type: string
+                example: '222.667'
+                pattern: '^[0-9]+(\.[0-9]+)?$'
+                description: CO2 offsets' monetary value
+        offset_type:
+          type: array
+          items:
+            type: object
+            required:
+              - offset_type
+              - quantity
+              - value
+            properties:
+              offset_type:
+                $ref: '#/components/schemas/OffsetType'
+              quantity:
+                type: string
+                pattern: '^[0-9]+(\.[0-9]+)?$'
+                example: '500.50'
+                description: Quantity of CO2 offsets linked to this activity (tonnes CO2)
+              value:
+                type: string
+                example: '222.667'
+                pattern: '^[0-9]+(\.[0-9]+)?$'
+                description: CO2 offsets' monetary value
     CumulativeBundleAnalytics:
       type: array
       items:
@@ -6401,3 +6573,15 @@ components:
           type: string
           format: date-time
           description: Allocation creation timestamp
+    OffsetType:
+      type: string
+      description: |
+        Offset type classification
+      enum:
+        - emissions_reduction
+        - carbon_removal
+        # We need null to be an explicit enum member here in order for our response validation
+        # middleware to work correctly. This is *in addition to* "nullable: true" below (which is
+        # needed too).
+        - null
+      example: 'emissions_reduction'
