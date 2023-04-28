@@ -4404,12 +4404,13 @@ components:
           $ref: '#/components/schemas/MassUnit'
       example:
         shipment:
-          amount: '10.36'
-          unit: 't'
+          mass:
+            amount: '10.36'
+            unit: 't'
         legs:
           - route:
               source:
-                lat: 120.960515
+                lat: 80.960515
                 lon: 23.69781
               destination:
                 lat: 24.255
