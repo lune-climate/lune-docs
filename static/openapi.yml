@@ -2326,6 +2326,7 @@ components:
             - bundle_selection_ratios_invalid_format
             - address_not_found
             - port_not_found
+            - locode_not_found
             - airport_invalid
             - offset_link_constraint_required
             - offset_link_bundles_size_invalid
@@ -4802,7 +4803,7 @@ components:
           pattern: ^[A-Z]{4}[A-Z]?$
           description: Airport ICAO code. For a full list of options (https://openflights.org/data.html)
           example: LPPR
-    SeaportCode:
+    Locode:
       type: object
       required:
           - locode
@@ -4810,7 +4811,7 @@ components:
         locode:
           type: string
           pattern: ^[A-Z]{5}$
-          description: Sea shipping port's UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
           example: ESBCN
     ShippingSourceDestination:
       type: object
@@ -4822,13 +4823,13 @@ components:
           oneOf:
             - $ref: '#/components/schemas/Address'
             - $ref: '#/components/schemas/GeographicCoordinates'
-            - $ref: '#/components/schemas/SeaportCode'
+            - $ref: '#/components/schemas/Locode'
             - $ref: '#/components/schemas/AirportCode'
         destination:
           oneOf:
             - $ref: '#/components/schemas/Address'
             - $ref: '#/components/schemas/GeographicCoordinates'
-            - $ref: '#/components/schemas/SeaportCode'
+            - $ref: '#/components/schemas/Locode'
             - $ref: '#/components/schemas/AirportCode'
     SourceDestination:
       type: object
