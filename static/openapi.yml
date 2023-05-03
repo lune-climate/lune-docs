@@ -1781,6 +1781,109 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+  /emission-factors:
+    get:
+      tags:
+        - Emission Factors
+      summary: List emission factors
+      operationId: listEmissionFactors
+      parameters:
+        - $ref: '#/components/parameters/LimitPagination'
+        - $ref: '#/components/parameters/AfterPagination'
+        - name: name
+          in: query
+          description: |
+            Filter emission factors based on name (case insensitive).
+            The value can appear at any position.
+          schema:
+            type: string
+            example: pipe
+        - name: source
+          in: query
+          description: |
+            Filter emission factors based on source.
+            When omitted, all sources are returned.
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/EmissionFactorSource'
+            example: ['GLEC']
+        - name: publication_year
+          in: query
+          description: Filter emission factors based on the publication year.
+          schema:
+            type: array
+            items:
+              type: number
+              example: 2021
+        - name: region
+          in: query
+          description: |
+            Filter emission factors based on region (case insensitive).
+            The value must be an exact match.
+            When omitted, all regions are returned.
+
+            Countries are included in regions but there are also broader geographic regions like Europe or Asia.
+          schema:
+            type: array
+            items:
+              type: string
+              example: Europe
+        - name: unit
+          in: query
+          description: |
+            Filter emission factors based on the logical unit.
+            When omitted, all units are returned.
+          schema:
+            $ref: '#/components/schemas/EmissionFactorLogicalUnit'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEmissionFactors'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Too Many Requests
+  /emission-factors/regions:
+    get:
+      tags:
+        - Emission Factors
+      summary: List all emission factor regions
+      operationId: listAllEmissionFactorRegions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionFactorRegions'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Too Many Requests
   /webhooks:
     get:
       tags:
@@ -6587,3 +6690,119 @@ components:
         # needed too).
         - null
       example: 'emissions_reduction'
+    EmissionFactorRegions:
+      type: array
+      items:
+        type: string
+        description: The name of the country or region of the emission factor.
+    EmissionFactorSource:
+      type: string
+      enum:
+        - epa
+        - exiobase
+        - glec
+        - ecoinvent
+      example: glec
+    EmissionFactorLogicalUnit:
+      type: string
+      enum:
+        - currency
+        - distance
+        - item
+      example: currency
+    EmissionFactorDenominatorUnit:
+      type: string
+      enum:
+        - EUR
+        - USD
+        - km
+        - mi
+        - nm
+        - item
+      example: item
+    GasEmissions:
+      type: object
+      required:
+        - co2e
+      properties:
+        co2e:
+          description: Amount of CO₂ equivalent gas. All gas emissions are accounted here.
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '41.501'
+        co2:
+          description: Amount of CO₂ gas.
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '30.231'
+        methane:
+          description: Amount of methane gas.
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '2.51'
+        nitrous_oxide:
+          description: Amount of nitrous oxide gas.
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '4.3'
+        other:
+          description: Amount of other greenhouse gases.
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '0.93'
+    EmissionFactor:
+      type: object
+      required:
+        - id
+        - name
+        - source
+        - publication_year
+        - numerator_unit
+        - denominator_unit
+        - gas_emissions
+        - created_at
+        - region
+      properties:
+        id:
+          description: The emission factor unique identifier
+          type: string
+          example: 'ljmkOq7vXd238gAE9WALWQ8ZGVD5ExNz'
+        name:
+          description: The emission factor name
+          type: string
+          example: 'Steel Pipe'
+        source:
+          $ref: '#/components/schemas/EmissionFactorSource'
+        publication_year:
+          description: Publication year of the emission factor
+          type: number
+          example: 2021
+        gas_emissions:
+          description: Detailed information about the gas emissions
+          $ref: '#/components/schemas/GasEmissions'
+        numerator_unit:
+          description: Numerator unit of the emission factor
+          $ref: '#/components/schemas/MassUnit'
+        denominator_unit:
+          description: Denominator unit of the emission factor
+          $ref: '#/components/schemas/EmissionFactorDenominatorUnit'
+        created_at:
+          description: Date of creation of the emission factor
+          type: string
+          format: date-time
+          example: '2022-09-01T00:00:00.000Z'
+        region:
+          type: string
+          description: The name of the region that the emission factor covers.
+    PaginatedEmissionFactors:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedBase'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              description: Paginated emission factor objects ordered by match probability.
+              items:
+                $ref: '#/components/schemas/EmissionFactor'
