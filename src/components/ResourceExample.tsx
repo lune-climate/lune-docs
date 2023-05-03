@@ -129,19 +129,12 @@ export default function ResourceExample(
         if ((propertiesParsed as any[]).length === 1 && isHighLevelElement(propertiesParsed)) {
             return ResourceExample(propertiesParsed[0], isLuneJsExample)
         } else {
-            try {
-                return Object.assign(
-                    {},
-                    ...propertiesParsed.map((property) =>
-                        ResourceExample(property, omitNotRequired, isLuneJsExample),
-                    ),
-                )
-            } catch (e) {
-                console.log(`XXXXXXXXXXXXx propertiesParsed:`)
-                console.log(propertiesParsed)
-                console.log(JSON.stringify(propertiesParsed))
-                throw e
-            }
+            return Object.assign(
+                {},
+                ...propertiesParsed.map((property) =>
+                    ResourceExample(property, omitNotRequired, isLuneJsExample),
+                ),
+            )
         }
     }
 }
