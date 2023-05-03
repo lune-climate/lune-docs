@@ -6782,7 +6782,7 @@ components:
           $ref: '#/components/schemas/GasEmissions'
         numerator_unit:
           description: Numerator unit of the emission factor
-          $ref: 'api-schema.yml#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/MassUnit'
         denominator_unit:
           description: Denominator unit of the emission factor
           $ref: '#/components/schemas/EmissionFactorDenominatorUnit'
