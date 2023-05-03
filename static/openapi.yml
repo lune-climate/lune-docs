@@ -4175,6 +4175,7 @@ components:
       required:
         - number_of_un_sdgs
         - number_of_projects
+        - un_sdg
       properties:
         number_of_un_sdgs:
           type: number
@@ -4184,6 +4185,8 @@ components:
           type: number
           description: The number of supported carbon offset projects.
           example: 10
+        un_sdg:
+          $ref: '#/components/schemas/SupportedUNSdg'
     QuantityAndValueTimeseries:
       type: array
       items:
@@ -6572,23 +6575,7 @@ components:
                     example: 'long_term'
                     nullable: true
         un_sdg:
-          type: array
-          nullable: true
-          description: The list of UN Sustainable Development Goals (SDGs) supported by various projects.
-          items:
-            type: object
-            required:
-              - un_sdg_number
-              - occurrences
-            properties:
-              un_sdg_number:
-                type: number
-                description: The number which identifies the specific UN SDG.
-                example: 1
-              occurrences:
-                type: number
-                description: The total number of projects supporting this UN SDG.
-                example: 5
+          $ref: '#/components/schemas/SupportedUNSdg'
     Registry:
       type: string
       description: The project's Verification Standard Entity name or equivalent organization.
@@ -6690,6 +6677,24 @@ components:
         # needed too).
         - null
       example: 'emissions_reduction'
+    SupportedUNSdg:
+      type: array
+      nullable: true
+      description: The list of supported UN Sustainable Development Goals (SDGs)
+      items:
+        type: object
+        required:
+          - un_sdg_number
+          - occurrences
+        properties:
+          un_sdg_number:
+            type: number
+            description: The number which identifies the specific UN SDG.
+            example: 1
+          occurrences:
+            type: number
+            description: The total number of projects supporting this UN SDG.
+            example: 5
     EmissionFactorRegions:
       type: array
       items:
