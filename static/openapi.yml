@@ -500,6 +500,27 @@ paths:
         - BearerAuth: [ ]
       tags:
         - Analytics
+      parameters:
+        - name: from
+          in: query
+          description:
+            The start date of the custom date range.
+
+            Defaults to 30 days ago if not specified.
+          schema:
+            type: string
+            format: date
+            example: '2019-01-01'
+        - name: through
+          in: query
+          description:
+            The to (inclusive) date of the custom date range.
+
+            Defaults to the current date if not specified.
+          schema:
+            type: string
+            format: date
+            example: '2020-01-31'
       responses:
         '200':
           description: OK
