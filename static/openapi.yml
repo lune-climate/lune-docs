@@ -576,6 +576,69 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+  /analytics/emission-calculations:
+    get:
+      summary: Get emission calculation metrics
+      operationId: getEmissionCalculationMetrics
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - Analytics
+      parameters:
+        - name: from
+          in: query
+          description:
+            The start date of the custom date range.
+
+            Defaults to 30 days ago if not specified.
+          schema:
+            type: string
+            format: date
+            example: '2019-01-01'
+        - name: through
+          in: query
+          description:
+            The to (inclusive) date of the custom date range.
+
+            Defaults to the current date if not specified.
+          schema:
+            type: string
+            format: date
+            example: '2020-01-31'
+        - name: interval
+          in: query
+          description:
+            The time interval over which metrics should be aggregated.
+
+            Defaults to day if not specified.
+          schema:
+            type: string
+            enum: 
+              - day
+              - week
+              - month
+        - name: all_accounts
+          in: query
+          description:
+            When true, metrics will include data from all accounts in the organisation.
+            When false, metrics will only include data from the API Key's default account.
+
+            Defaults to false.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionCalculationMetrics'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
   /bundles:
     get:
       summary: List bundles
@@ -4208,6 +4271,13 @@ components:
           example: 10
         un_sdg:
           $ref: '#/components/schemas/SupportedUNSdg'
+    EmissionCalculationMetrics:
+      type: object
+      required:
+        - timeseries
+      properties:
+        timeseries:
+          $ref: '#/components/schemas/CountTimeseries'
     QuantityAndValueTimeseries:
       type: array
       items:
@@ -4240,6 +4310,27 @@ components:
           - date: '2022-06-27'
             value: '64.23'
             quantity: '4700.451'
+    CountTimeseries:
+      type: array
+      items:
+        type: object
+        required:
+          - date
+          - count
+        properties:
+          date:
+              type: string
+              format: date
+              example: "2021-09-09"
+          count:
+            type: number
+        example:
+          - date: '2022-06-25'
+            count: 500
+          - date: '2022-06-26'
+            count: 550
+          - date: '2022-06-27'
+            count: 800
     ElectricityEstimateRequest:
       type: object
       description: Parameters for estimating electricity emissions
