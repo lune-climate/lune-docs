@@ -22,7 +22,7 @@ Lune supports two types of accounts: [Accounts and Client Accounts](/api/live-te
 * Accounts are designed for your own use. It is the simplest way of using the Lune Dashboard and API.
 * Client Accounts are designed for B2B customers operating multi-tenant applications.
 
-Accounts and Client Accounts support the same feature set, the fundamental difference is that a Client Account map one-to-one to your customers and can only be operated via API.
+Accounts and Client Accounts support the same feature set, the fundamental difference is that a Client Account maps one-to-one to your customers and can only be operated via API.
 
 </div>
 <div>
