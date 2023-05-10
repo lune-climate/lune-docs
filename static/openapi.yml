@@ -1865,6 +1865,39 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+  /estimates/emission-factor:
+    post:
+      summary: Create an estimate using a specific emission factor
+      tags:
+        - Emission estimates
+      operationId: createEmissionFactorEstimate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmissionFactorEstimateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmissionFactorEstimate'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '429':
+          description: Too Many Requests
   /emission-factors:
     get:
       tags:
@@ -2530,6 +2563,8 @@ components:
             - unsupported_image_format
             - source_location_code_invalid
             - destination_location_code_invalid
+            - emission_factor_id_invalid
+            - emission_factor_unit_mismatch
         message:
           type: string
           description: |
@@ -6929,3 +6964,51 @@ components:
               description: Paginated emission factor objects ordered by match probability.
               items:
                 $ref: '#/components/schemas/EmissionFactor'
+    EmissionFactorActivity:
+      type: object
+      required:
+        - value
+        - unit
+      properties:
+        value:
+          description: The quantity of the activity being measured
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '15.25'
+        unit:
+          description: The units of the activity being measured
+          $ref: '#/components/schemas/EmissionFactorDenominatorUnit'
+    EmissionFactorEstimateRequest:
+      type: object
+      required:
+       - emission_factor_id
+       - activity
+      properties:
+        emission_factor_id:
+          description: The emission factor unique identifier
+          type: string
+          example: 'ljmkOq7vXd238gAE9WALWQ8ZGVD5ExNz'
+        activity:
+          description: A measure of the activity being estimated
+          $ref: '#/components/schemas/EmissionFactorActivity'
+        name:
+          description: A name to reference this calculation.
+          type: string
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+        quantity_trunc:
+          description: Selects to which precision to truncate the quantities assigned to each bundle.
+          example: 't'
+          $ref: '#/components/schemas/MassUnit'
+    EmissionFactorEstimate:
+      allOf:
+        - $ref: '#/components/schemas/EmissionEstimateResponse'
+        - type: object
+          required:
+            - request
+            - emission_factor
+          properties:
+            request:
+              $ref: '#/components/schemas/EmissionFactorEstimateRequest'
+            emission_factor:
+              $ref: '#/components/schemas/EmissionFactor'
