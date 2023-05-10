@@ -1885,19 +1885,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmissionFactorEstimate'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /emission-factors:
     get:
       tags:
@@ -1961,19 +1953,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedEmissionFactors'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /emission-factors/regions:
     get:
       tags:
@@ -1988,19 +1972,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmissionFactorRegions'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Errors'
+          $ref: '#/components/responses/Unauthorized'
         '429':
-          description: Too Many Requests
+          $ref: '#/components/responses/TooManyRequests'
   /webhooks:
     get:
       tags:
