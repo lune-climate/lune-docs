@@ -6807,6 +6807,14 @@ components:
             type: number
             description: The total number of projects supporting this UN SDG.
             example: 5
+    DistanceUnit:
+      type: string
+      enum:
+        - km
+        - mi
+        - nm
+      example: 'km'
+      description: Distance unit, `km` for kilometers, `mi` for miles and `nm` for nautical miles
     EmissionFactorRegions:
       type: array
       items:
@@ -6828,15 +6836,13 @@ components:
         - item
       example: currency
     EmissionFactorDenominatorUnit:
-      type: string
-      enum:
-        - EUR
-        - USD
-        - km
-        - mi
-        - nm
-        - item
-      example: item
+      oneOf:
+        - $ref: '#/components/schemas/CurrencyCode'
+        - $ref: '#/components/schemas/DistanceUnit'
+        - type: string
+          enum:
+            - item
+          example: item
     GasEmissions:
       type: object
       required:
