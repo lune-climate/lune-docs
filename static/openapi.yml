@@ -1888,6 +1888,8 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
   /emission-factors:
@@ -2541,6 +2543,7 @@ components:
             - destination_location_code_invalid
             - emission_factor_id_invalid
             - emission_factor_unit_mismatch
+            - emission_factor_gated
         message:
           type: string
           description: |
@@ -6884,6 +6887,12 @@ components:
           type: string
           pattern: '^[0-9]+(\.[0-9]+)?$'
           example: '0.93'
+    GatedGasEmissions:
+      description: |
+        Emission factor has not been enabled. You may request access by emailing support@lune.co.
+      type: string
+      enum:
+        - emission_factor_gated
     EmissionFactor:
       type: object
       required:
@@ -6913,7 +6922,9 @@ components:
           example: 2021
         gas_emissions:
           description: Detailed information about the gas emissions
-          $ref: '#/components/schemas/GasEmissions'
+          oneOf:
+              - $ref: '#/components/schemas/GasEmissions'
+              - $ref: '#/components/schemas/GatedGasEmissions'
         numerator_unit:
           description: Numerator unit of the emission factor
           $ref: '#/components/schemas/MassUnit'
