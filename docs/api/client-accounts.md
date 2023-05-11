@@ -52,7 +52,7 @@ By using Client Accounts, you may provide your customer with the following benef
 
 <>
 
-![live-keys](/img/live-keys.png)
+![intro](/img/client-accounts-intro.png)
 
 </>
 
@@ -85,7 +85,7 @@ This enables you to keep mapping logic in your application to a minimum.
 
 <>
 
-![live-keys](/img/live-keys.png)
+![customer-segregation](/img/client-accounts-segregation.png)
 
 </>
 
@@ -111,7 +111,7 @@ You will be able to expose analytics to your customers in your application easil
 
 <>
 
-![live-keys](/img/live-keys.png)
+![analytics](/img/client-accounts-analytics.png)
 
 </>
 
@@ -137,7 +137,7 @@ When credits are retired, your customer's company name is displayed as the offic
 
 <>
 
-![live-keys](/img/live-keys.png)
+![beneficiary](/img/client-accounts-beneficiary.png)
 
 </>
 
@@ -163,7 +163,7 @@ Your customers will automatically get links to their public sustainability page 
 
 <>
 
-![live-keys](/img/live-keys.png)
+![sustainability-page](/img/client-accounts-sustainability-page.png)
 
 </>
 
@@ -191,7 +191,7 @@ This enables you to set defaults per customer which reduces integration complexi
 
 <>
 
-![live-keys](/img/live-keys.png)
+![default-bundle-selection](/img/client-accounts-default-bundle-selection.png)
 
 </>
 
@@ -217,7 +217,7 @@ This enables you reconcile any charges with your customers.
 
 <>
 
-![live-keys](/img/live-keys.png)
+![itemised-billing](/img/client-accounts-itemised-billing.png)
 
 </>
 
@@ -243,7 +243,7 @@ Lune Pay enables customers to stay out of the [flow of funds](/api/flow-of-funds
 
 <>
 
-![live-keys](/img/live-keys.png)
+![lune-pay](/img/client-accounts-lune-pay.png)
 
 </>
 
