@@ -615,7 +615,6 @@ paths:
             type: string
             enum: 
               - day
-              - week
               - month
         - name: all_accounts
           in: query
