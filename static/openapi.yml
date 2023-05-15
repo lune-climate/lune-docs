@@ -6823,6 +6823,7 @@ components:
     DistanceUnit:
       type: string
       enum:
+        - m
         - km
         - mi
         - nm
