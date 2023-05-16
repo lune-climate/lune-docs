@@ -56,7 +56,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
   - Conserving forests in Asia - 95%
   - Ocean Carbon Removal - 5%
 - **Project bundle** - Group of offsetting projects with similar characteristics., e.g., _Conserving forests in Asia_ and _Ocean Carbon Removal_
-- **Emission factor** - A coefficient representing the amount of emissions per unit of an activity.
+- **Emission factor** - A coefficient representing the amount of emissions per unit of an activity
 
 </div>
 </div>
@@ -89,7 +89,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 ## Enable suppliers to calculate their product's emissions
 
-To calculate your supplier's product emissions, they need to pick an emission factor that matches their product.
+To calculate your supplier's product emissions, you need to allow them to pick an emission factor that matches their product.
 
 On the page where your supplier adds a product, enable them to [search for the most appropriate emission factor](/resources/emission-factors/list-emission-factors/).
 
