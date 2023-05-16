@@ -1908,6 +1908,7 @@ paths:
           schema:
             type: string
             example: pipe
+          allowReserved: true
         - name: source
           in: query
           description: |
@@ -1939,6 +1940,7 @@ paths:
             items:
               type: string
               example: Europe
+          allowReserved: true
         - name: unit
           in: query
           description: |
