@@ -26,9 +26,7 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 ## Overview
 
-In this guide, you will learn how to interact with the Lune API in order for
-
-suppliers to
+In this guide, you will learn how to interact with the Lune API in order for suppliers to
 1. Chose the most appropriate emission factor
 2. Calculate emissions for their product
 
@@ -56,7 +54,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
   - Conserving forests in Asia - 95%
   - Ocean Carbon Removal - 5%
 - **Project bundle** - Group of offsetting projects with similar characteristics., e.g., _Conserving forests in Asia_ and _Ocean Carbon Removal_
-- **Emission factor** - A coefficient representing the amount of emissions per unit of an activity
+- **Emission factor** - A coefficient representing the amount of emissions per unit of an activity, eg 0.354kgCO&#8322;/USD
 
 </div>
 </div>
@@ -131,14 +129,9 @@ A successful 200 response will return a paginated list of emission factors order
 
 1. Display the returned emission factors to your supplier.  As a minimum, it is recommended that you display `name`, `region`
 2. Enable suppliers to pick the emission factor that matches their product
-3. If necessary, ask your supplier to enter the unit of activity required by the emission factor.  For instance, the emission factor for "Concrete pipe, bricks, and blocks" is `0.515kgCO2e/USD`.  This means that to calculate the emissions of your supplier's product, a USD monetary amount is required.
+3. If necessary, ask your supplier to enter the unit of activity required by the emission factor.  For instance, the emission factor for "Concrete pipe, bricks, and blocks" is `0.515kgCO2e/USD`.  This means that to calculate the emissions of your supplier's product, a USD monetary amount is required (the emission's factor denominator).
 4. Calculate and display the product emissions by multiplying the activity by the emissions factors.
-
-<Tip>
-
-Store the emissions of your supplier's product in your database
-
-</Tip>
+5. Store the emissions of your supplier's product in your database
 
 </div>
 
