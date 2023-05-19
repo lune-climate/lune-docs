@@ -196,6 +196,15 @@ code {
   padding-top: 70%; /* Player ratio: 100 / ( 2556 / 1780) */
 }
 
+.react-player-procurement-supplier-wrapper {
+  position: relative;
+  padding-top: 111%; /* Player ratio: 100 / ( 1280 / 1416) */
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
 .react-player {
   position: absolute;
   top: 0;

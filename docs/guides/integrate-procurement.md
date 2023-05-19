@@ -7,8 +7,8 @@ import ApiKeySection from '@site/src/md/apikey.md';
 import ClientAccountSection from '@site/src/md/clientaccount.md';
 import Snippet  from '@site/src/components/Snippet';
 import Tip from '@site/src/components/Tip';
-import { indent } from '@site/src/utils';
 import { ApiReferenceSection } from 'lune-ui-lib'
+import ReactPlayer from 'react-player'
 
 # Sustainable procurement
 
@@ -61,7 +61,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 <>
 
-![fintech-transactions](/img/fintech-transactions.png)
+![sustainable-procurement](/img/sustainable-procurement.png)
 
 </>
 
@@ -73,7 +73,9 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 ## API flow
 
-![fintech-apiflow](/img/fintech-apiflow.png)
+![procurement-api-flow-supplier](/img/procurement-apiflow-supplier.png)
+
+![procurement-api-flow-buyer](/img/procurement-apiflow-buyer.png)
 
 </div>
 
@@ -137,7 +139,7 @@ A successful 200 response will return a paginated list of emission factors order
 
 </div>
 
-<div className="miniSections">
+<div className="miniSections overflow-hidden">
 
 <Snippet
     header="Sample request"
@@ -208,7 +210,9 @@ A successful 200 response will return a paginated list of emission factors order
     }
   }`} />
 
-<>video</>
+<div className="react-player-procurement-supplier-wrapper">
+<ReactPlayer loop className="react-player"playing muted url='/videos/procurement-supplier.mp4' width="100%" height="100%" />
+</div>
 
 </div>
 
@@ -231,7 +235,7 @@ To display products' emissions to your buyers, use the emissions that you have c
 
 <div className="miniSections">
 
-![fintech-transactions](/img/fintech-transactions.png)
+![procurement-display-emissions](/img/procurement-display-emissions.png)
 
 </div>
 </ApiReferenceSection>
@@ -343,7 +347,7 @@ To enable your buyer to offset a product's emissions, [place an order by mass](/
   "requested_value": null
 }`} />
 
-![fintech-offsetnow](/img/fintech-confirmation.png)
+![procurement-offset-emissions](/img/procurement-offset-emissions.png)
 
 </div>
 
