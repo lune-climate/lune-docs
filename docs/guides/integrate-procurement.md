@@ -10,7 +10,7 @@ import Tip from '@site/src/components/Tip';
 import { ApiReferenceSection } from 'lune-ui-lib'
 import ReactPlayer from 'react-player'
 
-# Sustainable procurement
+# Climate-friendly supply-chains
 
 <div className="sections">
 
