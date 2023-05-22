@@ -83,7 +83,7 @@ const sidebars = {
 
         {
           type: 'category',
-          label: 'Climate-friendly supply chains',
+          label: 'Eco procurement',
           link: {
             type: 'doc',
             id: 'guides/integrate-procurement',
