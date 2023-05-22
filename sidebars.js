@@ -83,6 +83,42 @@ const sidebars = {
 
         {
           type: 'category',
+          label: 'Eco procurement',
+          link: {
+            type: 'doc',
+            id: 'guides/integrate-procurement',
+          },
+          items: [
+            {
+              type: 'link',
+              label: 'Overview',
+              href: '/guides/integrate-procurement#overview',
+            },
+            {
+              type: 'link',
+              label: `Enable suppliers to calculate their product's emissions`,
+              href: '/guides/integrate-procurement#enable-suppliers-to-calculate-their-products-emissions'
+            },
+            {
+              type: 'link',
+              label: 'Display product emissions',
+              href: '/guides/integrate-procurement#display-product-emissions',
+            },
+            {
+              type: 'link',
+              label: 'Create a client account',
+              href: '/guides/integrate-procurement#create-a-client-account',
+            },
+            {
+              type: 'link',
+              label: 'Offset emissions',
+              href: '/guides/integrate-procurement#offset-emissions',
+            }
+          ]
+        },
+
+        {
+          type: 'category',
           label: 'Payments contribution',
           link: {
             type: 'doc',
