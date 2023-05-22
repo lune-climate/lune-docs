@@ -294,7 +294,7 @@ To enable your buyer to offset a product's emissions, [place an order by mass](/
   -X POST \
   -d '{
   "mass": {
-    "amount": "8200",
+    "amount": "215.11",
     "unit": "kg"
   }
 }'`} />
@@ -303,37 +303,37 @@ To enable your buyer to offset a product's emissions, [place an order by mass](/
     header="Sample response"
     language="json"
     code={`{
-  "id": "xLZ6q1PJvBeOzyWOXD3yoWkbAjnK38lE",
+  "id": "mWxruXo29eGqzA14agjpNL5PwnkgaO8R",
   "metadata": {},
   "idempotency_key": null,
   "type": "quantity",
   "status": "placed",
   "currency": "USD",
-  "offset_cost": "174.01",
-  "total_cost": "193.35",
-  "commission": "19.34",
-  "quantity": "8.2",
+  "offset_cost": "4.55",
+  "total_cost": "5.06",
+  "commission": "0.51",
+  "quantity": "0.215109",
   "payment_method": "invoice",
-  "created_at": "2023-05-16T12:49:06.194Z",
+  "created_at": "2023-05-22T14:48:51.857Z",
   "bundles": [
     {
       "bundle_id": "q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8",
       "bundle_name": "Conserving forests in Asia",
       "primary_image": "https://assets.lune.co/bundles/asia-forestry.png",
-      "quantity": "7.79",
-      "unit_price": "9.18",
-      "gross_unit_price": "10.2",
-      "offset_cost": "71.52",
+      "quantity": "0.204354",
+      "unit_price": "9.13",
+      "gross_unit_price": "10.14",
+      "offset_cost": "1.87",
       "insufficient_available_quantity": null
     },
     {
       "bundle_id": "xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w",
       "bundle_name": "Ocean Carbon Removal",
       "primary_image": "https://assets.lune.co/bundles/seaweed-sequestration.png",
-      "quantity": "0.41",
+      "quantity": "0.010755",
       "unit_price": "250",
       "gross_unit_price": "277.78",
-      "offset_cost": "102.5",
+      "offset_cost": "2.69",
       "insufficient_available_quantity": null
     }
   ],
@@ -343,7 +343,7 @@ To enable your buyer to offset a product's emissions, [place an order by mass](/
   "offset_link_id": null,
   "email": null,
   "estimate_id": null,
-  "requested_quantity": "8.2",
+  "requested_quantity": "0.21511",
   "requested_value": null
 }`} />
 
