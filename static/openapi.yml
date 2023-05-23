@@ -6843,9 +6843,8 @@ components:
       enum:
         - epa
         - exiobase
-        - glec
         - ecoinvent
-      example: glec
+      example: exiobase
     EmissionFactorLogicalUnit:
       type: string
       enum:
