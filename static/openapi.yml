@@ -74,6 +74,29 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '400':
           $ref: '#/components/responses/BadRequest'
+  /accounts/client/me:
+    get:
+      summary: Get a client account
+      operationId: getClientAccount
+      security:
+        - BearerAuth: []
+      tags:
+        - Accounts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientAccount'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
   /accounts/client:
     post:
       summary: Create a client account
