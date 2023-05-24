@@ -6943,7 +6943,6 @@ components:
         - publication_year
         - numerator_unit
         - denominator_unit
-        - gas_emissions
         - created_at
         - region
       properties:
@@ -6961,11 +6960,6 @@ components:
           description: Publication year of the emission factor
           type: number
           example: 2021
-        gas_emissions:
-          description: Detailed information about the gas emissions
-          oneOf:
-              - $ref: '#/components/schemas/GasEmissions'
-              - $ref: '#/components/schemas/GatedGasEmissions'
         numerator_unit:
           description: Numerator unit of the emission factor
           $ref: '#/components/schemas/MassUnit'
