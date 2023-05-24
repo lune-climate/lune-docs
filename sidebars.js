@@ -96,8 +96,13 @@ const sidebars = {
             },
             {
               type: 'link',
-              label: `Enable suppliers to calculate their product's emissions`,
-              href: '/guides/integrate-procurement#enable-suppliers-to-calculate-their-products-emissions'
+              label: `Pick the most appropriate emission factor`,
+              href: '/guides/integrate-procurement#pick-the-most-appropriate-emission-factor',
+            },
+            {
+              type: 'link',
+              label: `Calculate a product's emissions`,
+              href: '/guides/integrate-procurement#calculate-a-products-emissions',
             },
             {
               type: 'link',
