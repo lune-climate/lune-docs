@@ -5104,11 +5104,15 @@ components:
             - $ref: '#/components/schemas/Address'
             - $ref: '#/components/schemas/GeographicCoordinates'
     Address:
+      description: |
+        Detailed information about an address.
+
+        Even though though `street_line1`, `postcode`, `city` are optional properties, the more details
+        you provide, the more likely we are able to resolve the address to its intended location.
+
+        Note: only `postcode` is guaranteed to be unique for a country.
       type: object
       required:
-        - street_line1
-        - postcode
-        - city
         - country_code
       properties:
         street_line1:
