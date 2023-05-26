@@ -4567,30 +4567,41 @@ components:
          - first
        example: 'economy'
     ShippingEstimateRequest:
-      type: object
       description: Parameters for estimating shipping emissions
-      required:
-        - shipment
-        - route
-        - method
-      properties:
-        shipment:
-          $ref: '#/components/schemas/Shipment'
-        route:
-          $ref: '#/components/schemas/ShippingRoute'
-        method:
-          $ref: '#/components/schemas/ShippingMethod'
-        country_code:
-          $ref: '#/components/schemas/ShippingCountryCode'
-        name:
-          description: A name to reference this calculation.
-          type: string
-        bundle_selection:
-          $ref: '#/components/schemas/BundleSelectionRequest'
-        quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+      allOf:
+        - type: object
+          required:
+            - shipment
+          properties:
+            shipment:
+              $ref: '#/components/schemas/Shipment'
+            name:
+              description: A name to reference this calculation.
+              type: string
+            bundle_selection:
+              $ref: '#/components/schemas/BundleSelectionRequest'
+            quantity_trunc:
+              description: Selects to which precision to truncate the quantities assigned to each bundle.
+              example: 't'
+              $ref: '#/components/schemas/MassUnit'
+        - oneOf:
+          - type: object
+            required:
+              - route
+              - method
+            properties:
+              route:
+                $ref: '#/components/schemas/ShippingRoute'
+              method:
+                $ref: '#/components/schemas/ShippingMethod'
+              country_code:
+                $ref: '#/components/schemas/ShippingCountryCode'
+          - type: object
+            required:
+              - method
+            properties:
+              method:
+                $ref: '#/components/schemas/LogisticsSiteMethod'
       example:
         shipment:
           containers: '2'
@@ -4638,17 +4649,26 @@ components:
           minItems: 1
           maxItems: 10
           items:
-            type: object
-            required:
-              - route
-              - method
-            properties:
-              route:
-                $ref: '#/components/schemas/ShippingRoute'
-              method:
-                $ref: '#/components/schemas/ShippingMethod'
-              country_code:
-                $ref: '#/components/schemas/ShippingCountryCode'
+            oneOf:
+              - type: object
+                additionalProperties: false
+                required:
+                  - route
+                  - method
+                properties:
+                  route:
+                    $ref: '#/components/schemas/ShippingRoute'
+                  method:
+                    $ref: '#/components/schemas/ShippingMethod'
+                  country_code:
+                    $ref: '#/components/schemas/ShippingCountryCode'
+              - type: object
+                additionalProperties: false
+                required:
+                  - method
+                properties:
+                  method:
+                    $ref: '#/components/schemas/LogisticsSiteMethod'
         name:
           description: A name to reference this calculation.
           type: string
@@ -5023,6 +5043,21 @@ components:
                 type: string
                 pattern: '^[0-9]{7}$'
           - $ref: '#/components/schemas/ContainerShippingMethod'
+    LogisticsSiteMethod:
+      type: string
+      description: |
+        Logistics sites are locations where goods are stored, repacked and distributed.
+      enum:
+        - maritime_container_terminal
+        - transhipment_site_ambient
+        - transhipment_site_chilled
+        - transhipment_site_mixed
+        - storage_and_transhipment_ambient
+        - storage_and_transhipment_chilled
+        - storage_and_transhipment_mixed
+        - warehouse_ambient
+        - warehouse_chilled
+        - warehouse_mixed
     AirportSourceDestination:
       type: object
       required:
@@ -5821,7 +5856,6 @@ components:
         - $ref: '#/components/schemas/EmissionEstimate'
         - type: object
           required:
-            - distance
             - methodology
           properties:
             distance:
@@ -5852,7 +5886,6 @@ components:
         - type: object
           required:
             - legs
-            - distance
             - request
           properties:
             legs:
