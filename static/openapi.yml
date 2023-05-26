@@ -68,8 +68,6 @@ paths:
                 $ref: '#/components/schemas/Account'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
         '400':
@@ -93,8 +91,6 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
   /accounts/client:
@@ -2570,6 +2566,7 @@ components:
             - emission_factor_id_invalid
             - emission_factor_unit_mismatch
             - emission_factor_gated
+            - account_scope_incorrect
         message:
           type: string
           description: |
