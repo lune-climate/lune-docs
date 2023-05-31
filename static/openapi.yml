@@ -6866,7 +6866,10 @@ components:
     SupportedUNSdg:
       type: array
       nullable: true
-      description: The list of supported UN Sustainable Development Goals (SDGs)
+      description: |
+        The list of supported UN Sustainable Development Goals (SDGs).
+
+        The array is sorted by the goal number (the `un_sdg_number` field), ascending.
       items:
         type: object
         required:
