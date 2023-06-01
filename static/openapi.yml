@@ -6911,6 +6911,17 @@ components:
         - currency
         - distance
         - item
+        - time
+        - area
+        - volume
+        - energy
+        - mass
+        - person-time
+        - person-distance
+        - mass-time
+        - mass-distance
+        - distance-time
+        - area-time
       example: currency
     EmissionFactorDenominatorUnit:
       oneOf:
