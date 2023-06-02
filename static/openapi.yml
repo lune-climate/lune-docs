@@ -6904,6 +6904,7 @@ components:
         - epa
         - exiobase
         - ecoinvent
+        - beis
       example: exiobase
     EmissionFactorLogicalUnit:
       type: string
@@ -6922,6 +6923,7 @@ components:
         - mass-distance
         - distance-time
         - area-time
+        - room-time
       example: currency
     EmissionFactorDenominatorUnit:
       oneOf:
@@ -6931,7 +6933,9 @@ components:
           enum:
             - item
             - MJ
+            - GJ
             - guest*night
+            - room*night
             - ha
             - hour
             - kWh
@@ -6939,12 +6943,15 @@ components:
             - kg*day
             - km*year
             - l
+            - Ml
             - m*year
             - m2
             - m2*year
             - m3
             - t*km
             - person*km
+            - t
+            - fte*working_hour
           example: item
     GasEmissions:
       type: object
