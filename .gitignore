@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# (re)generated every time the API schema changes
+APISchemaContext.tsx
