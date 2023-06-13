@@ -2548,8 +2548,6 @@ components:
             - port_not_found
             - locode_not_found
             - airport_invalid
-            - offset_link_constraint_required
-            - offset_link_bundles_size_invalid
             - webhook_limit_reached
             - time_range_invalid
             - exchange_rate_not_found
