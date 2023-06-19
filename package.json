@@ -36,7 +36,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-loadable": "^5.5.0",
-    "react-player": "^2.12.0"
+    "react-player": "^2.12.0",
+    "worker-loader": "^3.0.8"
   },
   "devDependencies": {
     "@algolia/client-search": "^4.17.2",
