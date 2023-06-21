@@ -29,13 +29,18 @@ export default function JsonPropertyParser(props: {
             $ref:
                 props.json.$ref ||
                 (props.json.component && `#/components/schemas/${props.json.component}`),
-            name: props.name,
+            name: props['x-lune-name'] ?? props.name,
             type,
             nullable: props.nullable,
             jsons: props.json[type].map((element) => {
                 const derefencedItem = Dereferencer(element)
                 return JsonPropertyParser({
-                    name: element.name || derefencedItem.name || DEFAULT_PROPERTY_NAME,
+                    name:
+                        element['x-lune-name'] ||
+                        element.name ||
+                        derefencedItem['x-lune-name'] ||
+                        derefencedItem.name ||
+                        DEFAULT_PROPERTY_NAME,
                     json: derefencedItem,
                 })
             }),
@@ -44,7 +49,7 @@ export default function JsonPropertyParser(props: {
         const derefencedItem = Dereferencer(props.json.items)
         return {
             ...props,
-            name: props.name,
+            name: props['x-lune-name'] ?? props.name,
             type: props.json.type,
             $ref:
                 props.json.$ref ||
@@ -60,7 +65,7 @@ export default function JsonPropertyParser(props: {
     } else if (props.json.type === 'object') {
         return {
             ...props,
-            name: props.name,
+            name: props['x-lune-name'] ?? props.name,
             type: props.json.type,
             $ref: props.json.$ref || `#/components/schemas/${props.json.component}`,
             example: props.json.example,
@@ -82,7 +87,7 @@ export default function JsonPropertyParser(props: {
         return {
             ...derefencedItem,
             jsons: (derefencedItem.jsons || []).concat(derefencedItem.additionalProperties || []),
-            name: derefencedItem.name,
+            name: derefencedItem['x-lune-name'] ?? derefencedItem.name,
             type: derefencedItem.type,
             example: derefencedItem.example,
             required:
