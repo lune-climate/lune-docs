@@ -4927,6 +4927,7 @@ components:
             - heavy
     RoRoSeaShippingMethod:
       type: object
+      x-lune-name: RoRo sea shipping method
       required:
         - vessel_type
       properties:
