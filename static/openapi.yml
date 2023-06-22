@@ -2798,11 +2798,13 @@ components:
         percentage:
           oneOf:
             - type: integer
+              x-lune-name: Selection percentage as integer
               example: 43
               description: Selection percentage
             - type: string
               example: '43.21'
               pattern: '^[0-9]+(\.\d{1,2})?$'
+              x-lune-name: Selection percentage in decimals
               description: Selection percentage in decimals
     BundleSelection:
       type: array
@@ -2835,10 +2837,12 @@ components:
             - type: integer
               example: 43
               description: Selection percentage
+              x-lune-name: Selection percentage as integer
             - type: string
               example: "43.21"
               pattern: '^[0-9]+(\.\d{1,2})?$'
               description: Selection percentage in decimals
+              x-lune-name: Selection percentage in decimals
     BundleMass:
       type: object
       description: Maps a bundle's unique identifier to a mass
@@ -4584,6 +4588,7 @@ components:
               $ref: '#/components/schemas/MassUnit'
         - oneOf:
           - type: object
+            x-lune-name: Shipping
             required:
               - route
               - method
@@ -4595,6 +4600,7 @@ components:
               country_code:
                 $ref: '#/components/schemas/ShippingCountryCode'
           - type: object
+            x-lune-name: Logistics site
             required:
               - method
             properties:
@@ -4649,6 +4655,7 @@ components:
           items:
             oneOf:
               - type: object
+                x-lune-name: Shipping
                 additionalProperties: false
                 required:
                   - route
@@ -4661,6 +4668,7 @@ components:
                   country_code:
                     $ref: '#/components/schemas/ShippingCountryCode'
               - type: object
+                x-lune-name: Logistics site
                 additionalProperties: false
                 required:
                   - method
@@ -4733,6 +4741,7 @@ components:
         in TEUs.
       oneOf:
         - type: object
+          x-lune-name: Mass
           additionalProperties: false
           required:
             - mass
@@ -4741,6 +4750,7 @@ components:
               $ref: '#/components/schemas/Mass'
         # This variant handles both containers and containers+mass case
         - type: object
+          x-lune-name: Containers
           required:
             - containers
           properties:
@@ -5022,6 +5032,7 @@ components:
         This method uses the vessel's IMO number emission factors when found, falling back to trade lane emissions factors if provided.
       oneOf:
         - type: object
+          x-lune-name: Vessel IMO
           required:
             - vessel_imo_number
           properties:
@@ -5030,7 +5041,8 @@ components:
                 The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
               type: string
               pattern: '^[0-9]{7}$'
-        - allOf:
+        - x-lune-name: Container ship IMO
+          allOf:
           - type: object
             required:
               - vessel_imo_number
@@ -5058,6 +5070,7 @@ components:
         - warehouse_mixed
     AirportSourceDestination:
       type: object
+      x-lune-name: Source and destination
       required:
         - source
         - destination
@@ -5072,6 +5085,7 @@ components:
           - $ref: '#/components/schemas/IATACode'
           - $ref: '#/components/schemas/ICAOCode'
     IATACode:
+      x-lune-name: IATA code
       type: object
       required:
           - code
@@ -5083,6 +5097,7 @@ components:
           example: OPO
     ICAOCode:
       type: object
+      x-lune-name: ICAO code
       required:
           - code
       properties:
@@ -5103,6 +5118,7 @@ components:
           example: ESBCN
     ShippingSourceDestination:
       type: object
+      x-lune-name: Source and destination
       required:
         - source
         - destination
@@ -5121,6 +5137,7 @@ components:
             - $ref: '#/components/schemas/AirportCode'
     SourceDestination:
       type: object
+      x-lune-name: Source and destination
       required:
         - source
         - destination
@@ -5539,6 +5556,7 @@ components:
               example:  GBR
         - oneOf:
           - type: object
+            x-lune-name: Merchant category code
             required:
               - category_code
             properties:
@@ -5551,6 +5569,7 @@ components:
                   See https://github.com/greggles/mcc-codes for available codes.
                 example: "0763"
           - type: object
+            x-lune-name: Fuzzy search
             required:
               - fuzzy_search_term
             properties:
@@ -6529,6 +6548,7 @@ components:
       example: 'by_volume'
     SustainabilityPageDescription:
       type: string
+      x-lune-name: Description
       description: The sustainability page description format consisting of stat equivalents or a custom description.
       enum:
         - by_equivalent
@@ -6572,6 +6592,7 @@ components:
           description: The sustainability page title format and info.
           oneOf:
             - type: object
+              x-lune-name: By value
               required:
                 - format
                 - currency
@@ -6587,6 +6608,7 @@ components:
                 value:
                   $ref: "#/components/schemas/MonetaryAmountValue"
             - type: object
+              x-lune-name: By quantity
               required:
                 - format
                 - quantity
@@ -6604,6 +6626,7 @@ components:
           nullable: true
           oneOf:
             - type: object
+              x-lune-name: New York to London flights
               required:
                 - format
                 - flights_nyc_to_london
@@ -6617,6 +6640,7 @@ components:
                   description: The number of one-way flights from NYC to London the emissions of which are an equivalent to the CO2 reduction.
                   example: 10
             - type: object
+              x-lune-name: UN SDGs and projects
               required:
                 - format
                 - number_of_un_sdgs
@@ -6635,6 +6659,7 @@ components:
                   description: The number of supported carbon offset projects.
                   example: 10
             - type: object
+              x-lune-name: Custom description
               required:
                 - format
                 - custom_description
@@ -6917,6 +6942,7 @@ components:
         - $ref: '#/components/schemas/CurrencyCode'
         - $ref: '#/components/schemas/DistanceUnit'
         - type: string
+          x-lune-name: Other units
           enum:
             - item
             - MJ
@@ -7081,6 +7107,7 @@ components:
       # null enum member in order for this property to be trully nullable from the point of view
       # of the OpenAPI middleware.
       type: string
+      x-lune-name: Null
       enum:
         - null
       nullable: true
