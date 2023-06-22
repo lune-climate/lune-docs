@@ -1,7 +1,6 @@
 import { APISchemaContext } from '@site/src/components/APISchemaContext'
 import { camelCaseToSentenceCase } from '@site/src/formatUtils'
 import React from 'react'
-import * as to from 'to-case'
 
 export default function Dereferencer(element: any, name?: string): any {
     // We aggressively try to derefence, so it's better to handle not present case here
