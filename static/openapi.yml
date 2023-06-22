@@ -6477,13 +6477,7 @@ components:
         description:
           oneOf:
             - $ref: '#/components/schemas/SustainabilityPageDescription'
-            # This is a hack. Since SustainabilityPageDescription is an enum we need to also have a
-            # null enum member in order for this property to be trully nullable from the point of view
-            # of the OpenAPI middleware.
-            - type: string
-              enum:
-                - null
-              nullable: true
+            - $ref: '#/components/schemas/NullEnum'
         custom_description:
           $ref: '#/components/schemas/SustainabilityPageCustomDescription'
         sections:
@@ -6507,13 +6501,7 @@ components:
         description:
           oneOf:
             - $ref: '#/components/schemas/SustainabilityPageDescription'
-            # This is a hack. Since SustainabilityPageDescription is an enum we need to also have a
-            # null enum member in order for this property to be trully nullable from the point of view
-            # of the OpenAPI middleware.
-            - type: string
-              enum:
-                - null
-              nullable: true
+            - $ref: '#/components/schemas/NullEnum'
         custom_description:
           $ref: '#/components/schemas/SustainabilityPageCustomDescription'
           nullable: true
@@ -7088,3 +7076,11 @@ components:
               $ref: '#/components/schemas/EmissionFactorEstimateRequest'
             emission_factor:
               $ref: '#/components/schemas/EmissionFactor'
+    NullEnum:
+      # This is a hack. Since SustainabilityPageDescription is an enum we need to also have a
+      # null enum member in order for this property to be trully nullable from the point of view
+      # of the OpenAPI middleware.
+      type: string
+      enum:
+        - null
+      nullable: true
