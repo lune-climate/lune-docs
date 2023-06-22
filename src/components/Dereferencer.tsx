@@ -1,4 +1,5 @@
 import { APISchemaContext } from '@site/src/components/APISchemaContext'
+import { camelCaseToSentenceCase } from '@site/src/formatUtils'
 import React from 'react'
 
 export default function Dereferencer(element: any, name?: string): any {
@@ -15,10 +16,11 @@ export default function Dereferencer(element: any, name?: string): any {
         const schemaElement = {
             ...tokenized.slice(1).reduce((acc, current) => acc[current], schema),
         }
+        const nameFromToken = tokenized[3] ? camelCaseToSentenceCase(tokenized[3]) : undefined
         return {
             ...schemaElement,
             $ref: element.toString(),
-            name: name || schemaElement.name || tokenized[3],
+            name: name || schemaElement.name || nameFromToken,
         }
     } else {
         return { ...element, name }
