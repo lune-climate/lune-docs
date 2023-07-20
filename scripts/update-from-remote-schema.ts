@@ -3,6 +3,7 @@ const program = require('commander-plus')
 const yaml = require('js-yaml')
 const fs = require('fs')
 const path = require('path')
+const to = require('to-case')
 
 program.parse(process.argv)
 
@@ -40,7 +41,7 @@ sidebar_label: ${label}
 ---`
             : ''
     }
-# ${data.component}
+# ${to.sentence(data.component)}
 
 import Resource from '@site/src/components/Resource';
 
