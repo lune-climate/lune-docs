@@ -9,6 +9,7 @@ import {
     ApiReferenceSection,
     JsonObjectTable,
     JsonProperty,
+    Markdown,
     Snippet,
     SnippetItem,
 } from 'lune-ui-lib'
@@ -110,7 +111,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
         <section>
             {props.json.description && (
                 <div className="body3 pageDescription" style={{ marginBottom: '64px' }}>
-                    {props.json.description}
+                    <Markdown>{props.json.description}</Markdown>
                 </div>
             )}
             <ApiReferenceSection>
