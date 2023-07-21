@@ -33,18 +33,20 @@ import Endpoint from '@site/src/components/Endpoint';
 }
 
 function createResourceMDX(data: any, label: string, sidebarPosition?: number): string {
+    const name = to.sentence(data.component)
     return `${
         sidebarPosition
             ? `---
 sidebar_position: 1
 sidebar_label: ${label}
 hide_title: true
+title: ${name}
 ---`
             : ''
     }
 import Resource from '@site/src/components/Resource';
 
-<Resource name={"${to.sentence(data.component)}"} json={${JSON.stringify(data)}}/>`
+<Resource name={"${name}"} json={${JSON.stringify(data)}}/>`
 }
 
 function createContextAPISchema(schema: any): string {
