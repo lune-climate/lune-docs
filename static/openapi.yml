@@ -42,7 +42,7 @@ tags:
     x-components: ["SustainabilityPage"]
   - name: Analytics
     description: Get account analytics.
-    x-components: ["AnalyticsByBundle"]
+    x-components: ["Analytics"]
   - name: Payments
     description: Get payments.
     x-components: ["Payment"]
@@ -2812,11 +2812,11 @@ components:
     BundleSelection:
       type: array
       description: |
-        Allocation ratios by bundle.
+        A Bundle Selection represents an account's default project bundle ratios that are used when an order is placed without specifying project bundles.
 
-        The sum of all allocation ratios must equal 100.
-
-        If not specified, the preconfigured allocation ratios are going to be used.
+        An account initial project bundle selection is
+        * Conserving forests in Asia - 95%
+        * Ocean Carbon Removal - 5%
       items:
         $ref: '#/components/schemas/BundlePercentage'
       example:
@@ -2870,8 +2870,9 @@ components:
     BundlePortfolio:
       type: object
       description: |
-        Predefined bundle selections, for example following Oxford Offsetting Principles.
-        Bundle selection for a particular Bundle portfolio may change over time.
+        A curated group of predefined project bundles., e.g., Oxford Offsetting Principles.
+
+        Project bundles for a particular Bundle portfolio may change over time.
       required:
         - id
         - identifier
@@ -3233,6 +3234,14 @@ components:
               nullable: true
     Order:
       type: object
+      description: |
+        An Order represents a carbon credit purchase.
+
+        Orders are placed against one or multiple project bundles. Credits are allocated to the Order from any of the projects that belong to the bundles. These are then retired.
+
+        An Order transitions through multiple statuses throughout its lifetime as Lune fulfills the Order.
+
+        As soon as an Order has a credit retired, the Order's certificate can be downloaded.
       allOf:
         - $ref: '#/components/schemas/OrderBase'
         - type: object
@@ -3824,6 +3833,11 @@ components:
             $ref: '#/components/schemas/Media'
           description: A list of images and videos belonging to the project.
     Project:
+      description: |
+        A Project represents the entity which issues carbon credits because of its environmental activity which reduces, avoids, or removes emissions from the atmosphere.
+
+        Clients cannot purchase a specific Project's credits by creating an order.
+        A Project's credits are allocated to an order if the order has purchased a project bundle the project belongs to.
       allOf:
         - $ref: '#/components/schemas/ProjectSummary'
         - type: object
@@ -4274,6 +4288,12 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/AnalyticsByBundle'
+    Analytics:
+      description: |
+        Analytics endpoints return data which help you analyse and understand your activity.
+
+        For instance, you may request emission estimates over time or carbon credit purchases by location.
+      type: object
     AnalyticsByBundle:
       type: object
       required:
@@ -6211,6 +6231,8 @@ components:
           description: The webhook's creation timestamp.
           $ref: '#/components/schemas/Timestamp'
     Webhook:
+      description: |
+        You can configure webhook endpoints via the API to be notified about events that occur in your accounts or client accounts.
       allOf:
         - $ref: '#/components/schemas/WebhookBase'
         - type: object
@@ -6231,6 +6253,8 @@ components:
               description: The secret key used to generate the webhook payload HMAC.
               type: string
     WebhookRequest:
+      description: |
+        WebhookRequest represents the request that your webhook receiver receives.
       type: object
       required:
         - events
@@ -6381,7 +6405,10 @@ components:
         test:
           $ref: '#/components/schemas/Account'
     Account:
-      description: Account used for your regular operations.
+      description: |
+        An Account represents the entity which performs API operations.
+
+        Each API operation like creating an order or creating an emission estimate is ring-fenced within an Account.
       allOf:
         - $ref: '#/components/schemas/AccountBase'
       type: object
@@ -6410,7 +6437,14 @@ components:
         logo: null
         bundle_portfolio_id: null
     ClientAccount:
-      description: Account used when you operate an account on behalf of a third party.
+      description: |
+        Client accounts are designed for clients working with multi-tenancy applications.
+
+        Client accounts are created programmatically. The API key (created in live or test mode) determines whether the Client account is a live or test account.
+
+        Create a Client Account for each of your customers to segregate their API operations.
+
+        Use the special `Lune-Account` header to perform operations against a specific Client Account.
       allOf:
         - $ref: '#/components/schemas/AccountBase'
       type: object
@@ -6497,6 +6531,10 @@ components:
         sections:
           $ref: '#/components/schemas/SustainabilityPageSections'
     SustainabilityPage:
+      description: |
+        A Sustainability Page represents the entity which enables accounts or client accounts to share their impact publicly.
+
+        Upon the first retirement, the Sustainability Page displays certificates with proof of the retired carbon credits and beneficiary.
       type: object
       required:
         - status
@@ -6781,6 +6819,10 @@ components:
         - $ref: '#/components/schemas/Errors'
         - $ref: '#/components/schemas/OrderQuoteByQuantity'
     Payment:
+      description: |
+        A Payment represents a payment for orders placed through Lune Pay.
+
+        The Payment entity contains a reference to the order.
       oneOf:
         - $ref: '#/components/schemas/OrderPayment'
       discriminator:
@@ -6993,6 +7035,10 @@ components:
       enum:
         - emission_factor_gated
     EmissionFactor:
+      description: |
+        An emission factors is a coefficient representing the amount of emissions per unit of activity, eg 0.354kgCO₂/USD.
+
+        The `source` property describes what database the emission factor has been ingested from.
       type: object
       required:
         - id
