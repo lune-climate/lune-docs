@@ -38,14 +38,13 @@ function createResourceMDX(data: any, label: string, sidebarPosition?: number): 
             ? `---
 sidebar_position: 1
 sidebar_label: ${label}
+hide_title: true
 ---`
             : ''
     }
-# ${to.sentence(data.component)}
-
 import Resource from '@site/src/components/Resource';
 
-<Resource json={${JSON.stringify(data)}}/>`
+<Resource name={"${to.sentence(data.component)}"} json={${JSON.stringify(data)}}/>`
 }
 
 function createContextAPISchema(schema: any): string {

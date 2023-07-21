@@ -11,7 +11,7 @@ import {
 } from 'lune-ui-lib'
 import React from 'react'
 
-export default function ResourceParser(props: { json: any }): JSX.Element {
+export default function ResourceParser(props: { name: string; json: any }): JSX.Element {
     // remove last element because endpoints listed in this page are at the same level
     const hrefPrefix = useRelativePathPrefix().split('/').slice(0, -1).join('/')
 
@@ -49,62 +49,61 @@ export default function ResourceParser(props: { json: any }): JSX.Element {
 
     return (
         <section className="page">
-            {props.json.description && (
-                <div className="body3 pageDescription">{props.json.description}</div>
-            )}
             <ApiReferenceSection>
+                <>
+                    <h1>{props.name}</h1>
+                    <div className="body3 pageDescription">{props.json.description}</div>
+                </>
+                {props.json.endpoints && (
+                    <Snippet header="Endpoints" sx={{ marginBottom: '16px' }}>
+                        <SnippetItem>
+                            <div className="endpointsTable">
+                                {props.json.endpoints.map((endpoint, i) => (
+                                    <div
+                                        key={i}
+                                        className="row"
+                                        style={{
+                                            border: 'solid 1px black',
+                                        }}
+                                    >
+                                        <a
+                                            key={i}
+                                            href={`${hrefPrefix}/${formatPath(
+                                                endpoint.operationId,
+                                            )}`}
+                                        >
+                                            <div
+                                                className="cell"
+                                                style={{
+                                                    textAlign: 'right',
+                                                    width: '50px',
+                                                }}
+                                            >
+                                                {endpoint.method.toUpperCase()}
+                                            </div>
+                                            <div
+                                                className="cell"
+                                                style={{
+                                                    textAlign: 'left',
+                                                }}
+                                            >
+                                                &nbsp;{endpoint.endpoint}
+                                            </div>
+                                        </a>
+                                    </div>
+                                ))}
+                            </div>
+                        </SnippetItem>
+                    </Snippet>
+                )}
+            </ApiReferenceSection>
+            <ApiReferenceSection style={{ marginTop: '32px' }}>
                 <JsonObjectTable>
                     {resourceProperties.map((property) => {
                         return <JsonProperty json={property} topLevelDividers />
                     })}
                 </JsonObjectTable>
-                <>
-                    {props.json.endpoints && (
-                        <Snippet header="Endpoints" sx={{ marginBottom: '16px' }}>
-                            <SnippetItem>
-                                <div className="endpointsTable">
-                                    {props.json.endpoints.map((endpoint, i) => (
-                                        <div
-                                            key={i}
-                                            className="row"
-                                            style={{
-                                                border: 'solid 1px black',
-                                            }}
-                                        >
-                                            <a
-                                                key={i}
-                                                href={`${hrefPrefix}/${formatPath(
-                                                    endpoint.operationId,
-                                                )}`}
-                                            >
-                                                <div
-                                                    className="cell"
-                                                    style={{
-                                                        textAlign: 'right',
-                                                        width: '50px',
-                                                    }}
-                                                >
-                                                    {endpoint.method.toUpperCase()}
-                                                </div>
-                                                <div
-                                                    className="cell"
-                                                    style={{
-                                                        textAlign: 'left',
-                                                    }}
-                                                >
-                                                    &nbsp;{endpoint.endpoint}
-                                                </div>
-                                            </a>
-                                        </div>
-                                    ))}
-                                </div>
-                            </SnippetItem>
-                        </Snippet>
-                    )}
-                    <Snippet header={props.json.component || props.json.name}>
-                        {exampleSnippet}
-                    </Snippet>
-                </>
+                <Snippet header={props.json.component || props.json.name}>{exampleSnippet}</Snippet>
             </ApiReferenceSection>
         </section>
     )
