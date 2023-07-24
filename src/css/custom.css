@@ -218,7 +218,7 @@ code {
 }
 
 .MuiTable-root {
-    margin-bottom: 0px !important;
+    margin-bottom: 0px;
 }
 
 /* Make sure we have the lune-ui-lib global CSS included */
