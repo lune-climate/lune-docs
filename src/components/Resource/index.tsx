@@ -103,7 +103,7 @@ export default function ResourceParser(props: { name: string; json: any }): JSX.
             <ApiReferenceSection style={{ marginTop: '32px' }}>
                 <JsonObjectTable>
                     {resourceProperties.map((property) => {
-                        return <JsonProperty json={property} topLevelDividers />
+                        return <JsonProperty json={property} />
                     })}
                 </JsonObjectTable>
                 <Snippet header={props.json.component || props.json.name}>{exampleSnippet}</Snippet>

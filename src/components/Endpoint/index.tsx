@@ -93,7 +93,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     const returnsSection = endpointResponseType ? (
         endpointResponseType === 'json' ? (
             <JsonObjectTable title="Returns">
-                <JsonProperty json={endpointResponse} topLevelDividers />
+                <JsonProperty json={endpointResponse} />
             </JsonObjectTable>
         ) : (
             <JsonObjectTable title="Returns">
@@ -119,7 +119,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                     {pathParameters.length !== 0 && (
                         <JsonObjectTable title="Path Parameters">
                             {pathParameters.map((parameters, i) => (
-                                <JsonProperty json={parameters} key={i} topLevelDividers />
+                                <JsonProperty json={parameters} key={i} />
                             ))}
                         </JsonObjectTable>
                     )}
@@ -127,7 +127,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                     {queryParameters.length !== 0 && (
                         <JsonObjectTable title="Query Parameters">
                             {queryParameters.map((parameters, i) => (
-                                <JsonProperty json={parameters} key={i} topLevelDividers />
+                                <JsonProperty json={parameters} key={i} />
                             ))}
                         </JsonObjectTable>
                     )}
@@ -135,7 +135,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                     {endpointRequestBody && (
                         <JsonObjectTable title="Parameters">
                             {endpointRequestBody.jsons.map((json, i) => (
-                                <JsonProperty json={json} key={i} topLevelDividers />
+                                <JsonProperty json={json} key={i} />
                             ))}
                         </JsonObjectTable>
                     )}
