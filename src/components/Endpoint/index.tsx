@@ -134,9 +134,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
 
                     {endpointRequestBody && (
                         <JsonObjectTable title="Parameters">
-                            {endpointRequestBody.jsons.map((json, i) => (
-                                <JsonProperty json={json} key={i} />
-                            ))}
+                            <JsonProperty json={endpointRequestBody} />
                         </JsonObjectTable>
                     )}
 
