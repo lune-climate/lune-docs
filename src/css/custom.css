@@ -217,5 +217,9 @@ code {
   color: #ffffff;
 }
 
+.MuiTable-root {
+    margin-bottom: 0px !important;
+}
+
 /* Make sure we have the lune-ui-lib global CSS included */
 @import "lune-ui-lib/dist/esm/index.css"
