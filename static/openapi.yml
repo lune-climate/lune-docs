@@ -6942,6 +6942,10 @@ components:
       items:
         type: string
         description: The name of the country or region of the emission factor.
+      example:
+        - United Kingdom
+        - IAI Area, South America
+        - Europe
     EmissionFactorSource:
       type: string
       enum:
