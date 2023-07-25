@@ -139,9 +139,9 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                     )}
 
                     {noParameters && (
-                        <JsonObjectTable title="No Parameters">
+                        <JsonObjectTable title="Parameters">
                             <></>
-                            <></>
+                            <p className="body3">No parameters</p>
                         </JsonObjectTable>
                     )}
 
