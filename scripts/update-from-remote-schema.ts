@@ -111,39 +111,42 @@ async function main() {
         writeFile(`${folderDir}/_category_.json`, JSON.stringify(directoryInfo, null, 2))
 
         // Check for components that are tied to the tag
-        if (tag['x-components']) {
-            for (const component of tag['x-components']) {
-                const data = schema.components.schemas[component]
-                const endpointsForTag = schemaPaths.filter((path) => {
-                    // All methods in an endpoint are tied to the same tag, so we can simply
-                    // check the first endpoint to verify the tag is present.
-                    // path[1] = endpointMethods = {"put": {}, "get": {} etc.}
-                    return (Object.entries(path[1] as any)[0][1] as any).tags.includes(tag.name)
-                })
+        const component = tag['x-component']
 
-                // Build the endpoints that are tied to the CoreResource
-                const linkedEndpoints = endpointsForTag.reduce((acc, endpoint) => {
-                    const endpointURL = endpoint[0]
-                    const methods = Object.entries(endpoint[1] as any)
-                    for (const [method, data] of methods) {
-                        acc.push({
-                            method: method as string,
-                            endpoint: endpointURL,
-                            operationId: (data as any).operationId,
-                        })
-                    }
-                    return acc
-                }, [] as any[])
-                const resourceJSON = { ...data, component: component, endpoints: linkedEndpoints }
-                const filename = formatFilename(component)
-                // Sentence case conversion to present on sidebar
-                const label = component
-                    .replace(/([A-Z])/g, (v) => ` ${v.toLowerCase()}`)
-                    .replace(/^ ([a-z])/, (v) => v.toUpperCase())
-                    .slice(1)
-                writeFile(`${folderDir}/${filename}.mdx`, createResourceMDX(resourceJSON, label, 1))
-            }
+        if (component === undefined) {
+            throw new Error(`x-component attribute is required: ${tag.name}`)
         }
+
+        const data = schema.components.schemas[component]
+        const endpointsForTag = schemaPaths.filter((path) => {
+            // All methods in an endpoint are tied to the same tag, so we can simply
+            // check the first endpoint to verify the tag is present.
+            // path[1] = endpointMethods = {"put": {}, "get": {} etc.}
+            return (Object.entries(path[1] as any)[0][1] as any).tags.includes(tag.name)
+        })
+
+        // Build the endpoints that are tied to the CoreResource
+        const linkedEndpoints = endpointsForTag.reduce((acc, endpoint) => {
+            const endpointURL = endpoint[0]
+            const methods = Object.entries(endpoint[1] as any)
+            for (const [method, data] of methods) {
+                acc.push({
+                    method: method as string,
+                    endpoint: endpointURL,
+                    operationId: (data as any).operationId,
+                })
+            }
+            return acc
+        }, [] as any[])
+        const resourceJSON = { ...data, component: component, endpoints: linkedEndpoints }
+        const filename = formatFilename(component)
+        // Sentence case conversion to present on sidebar
+        const label = component
+            .replace(/([A-Z])/g, (v) => ` ${v.toLowerCase()}`)
+            .replace(/^ ([a-z])/, (v) => v.toUpperCase())
+            .slice(1)
+        writeFile(`${folderDir}/${filename}.mdx`, createResourceMDX(resourceJSON, label, 1))
+
     })
 
     // Iterate through endpoints
