@@ -102,14 +102,6 @@ async function main() {
             fs.mkdirSync(folderDir)
         }
 
-        // Create category and preserve tag order in the sidebar
-        const directoryInfo = {
-            label: tag.name,
-            position: index + 1,
-        }
-
-        writeFile(`${folderDir}/_category_.json`, JSON.stringify(directoryInfo, null, 2))
-
         // Check for components that are tied to the tag
         const component = tag['x-component']
 
@@ -147,6 +139,17 @@ async function main() {
             .slice(1)
         writeFile(`${folderDir}/${filename}.mdx`, createResourceMDX(resourceJSON, label, 1))
 
+        // Create category and preserve tag order in the sidebar
+        const directoryInfo = {
+            label: tag.name,
+            position: index + 1,
+            link: {
+                id: filename,
+                type: 'doc',
+            }
+        }
+
+        writeFile(`${folderDir}/_category_.json`, JSON.stringify(directoryInfo, null, 2))
     })
 
     // Iterate through endpoints
