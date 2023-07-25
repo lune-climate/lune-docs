@@ -15,43 +15,43 @@ servers:
 tags:
   - name: Orders
     description: Get a quote, create and fetch orders.
-    x-components: ["Order"]
+    x-component: "Order"
   - name: Projects
     description: Get projects and bundles.
-    x-components: ["Project"]
+    x-component: "Project"
   - name: Emission estimates
     description: Estimate CO2 emissions (caused by shipping goods for example).
-    x-components: ["EmissionEstimate"]
+    x-component: "EmissionEstimate"
   - name: Emission factors
     description: An emission factor is a coefficient which allows to convert activity data into GHG emissions.
-    x-components: ["EmissionFactor"]
+    x-component: "EmissionFactor"
   - name: Bundle selections
     description: Bundle selections define how an order is being split across a set of project bundles.
-    x-components: ["BundleSelection"]
+    x-component: "BundleSelection"
   - name: Bundle portfolios
     description: A bundle portfolio is a preconfigured bundle selection managed by Lune.
-    x-components: ["BundlePortfolio"]
+    x-component: "BundlePortfolio"
   - name: Accounts
     description: Get, create, update accounts.
-    x-components: ["Account"]
+    x-component: "Account"
   - name: Client accounts
     description: Get, create, update client accounts.
-    x-components: ["ClientAccount"]
+    x-component: "ClientAccount"
   - name: Sustainability page
     description: Share your impact via a public page.
-    x-components: ["SustainabilityPage"]
+    x-component: "SustainabilityPage"
   - name: Analytics
     description: Get account analytics.
-    x-components: ["Analytics"]
+    x-component: "Analytics"
   - name: Payments
     description: Get payments.
-    x-components: ["Payment"]
+    x-component: "Payment"
   - name: Webhooks
     description: A way to get notified about order state changes.
-    x-components: ["Webhook"]
+    x-component: "Webhook"
   - name: Webhook request
     description: Webhook request response example.
-    x-components: ["WebhookRequest"]
+    x-component: "WebhookRequest"
 
 paths:
   /accounts/me:
