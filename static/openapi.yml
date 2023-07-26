@@ -15,43 +15,43 @@ servers:
 tags:
   - name: Orders
     description: Get a quote, create and fetch orders.
-    x-component: "Order"
+    x-lune-component: "Order"
   - name: Projects
     description: Get projects and bundles.
-    x-component: "Project"
+    x-lune-component: "Project"
   - name: Emission estimates
     description: Estimate CO2 emissions (caused by shipping goods for example).
-    x-component: "EmissionEstimate"
+    x-lune-component: "EmissionEstimate"
   - name: Emission factors
     description: An emission factor is a coefficient which allows to convert activity data into GHG emissions.
-    x-component: "EmissionFactor"
+    x-lune-component: "EmissionFactor"
   - name: Bundle selections
     description: Bundle selections define how an order is being split across a set of project bundles.
-    x-component: "BundleSelection"
+    x-lune-component: "BundleSelection"
   - name: Bundle portfolios
     description: A bundle portfolio is a preconfigured bundle selection managed by Lune.
-    x-component: "BundlePortfolio"
+    x-lune-component: "BundlePortfolio"
   - name: Accounts
     description: Get, create, update accounts.
-    x-component: "Account"
+    x-lune-component: "Account"
   - name: Client accounts
     description: Get, create, update client accounts.
-    x-component: "ClientAccount"
+    x-lune-component: "ClientAccount"
   - name: Sustainability page
     description: Share your impact via a public page.
-    x-component: "SustainabilityPage"
+    x-lune-component: "SustainabilityPage"
   - name: Analytics
     description: Get account analytics.
-    x-component: "Analytics"
+    x-lune-component: "Analytics"
   - name: Payments
     description: Get payments.
-    x-component: "Payment"
+    x-lune-component: "Payment"
   - name: Webhooks
     description: A way to get notified about order state changes.
-    x-component: "Webhook"
+    x-lune-component: "Webhook"
   - name: Webhook request
     description: Webhook request response example.
-    x-component: "WebhookRequest"
+    x-lune-component: "WebhookRequest"
 
 paths:
   /accounts/me:

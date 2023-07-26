@@ -103,10 +103,10 @@ async function main() {
         }
 
         // Check for components that are tied to the tag
-        const component = tag['x-component']
+        const component = tag['x-lune-component']
 
         if (component === undefined) {
-            throw new Error(`x-component attribute is required: ${tag.name}`)
+            throw new Error(`x-lune-component attribute is required: ${tag.name}`)
         }
 
         const data = schema.components.schemas[component]
