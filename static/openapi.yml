@@ -637,7 +637,7 @@ paths:
             Defaults to day if not specified.
           schema:
             type: string
-            enum: 
+            enum:
               - day
               - month
         - name: all_accounts
@@ -2615,6 +2615,10 @@ components:
       properties:
         bundle_masses:
           type: array
+          description: |
+            An array of `{ bundle_id, mass }` objects.
+
+            Populate the array to purchase carbon credits, belonging to multiple bundles, by quantity, eg 20 tCO₂.
           items:
             $ref: '#/components/schemas/BundleMass'
         quantity_trunc:
@@ -2672,6 +2676,10 @@ components:
       properties:
         bundle_masses:
           type: array
+          description: |
+            An array of `{ bundle_id, mass }` objects.
+
+            Populate the array to purchase carbon credits, belonging to multiple bundles, by quantity, eg 20 tCO₂.
           items:
             $ref: '#/components/schemas/BundleMass'
         idempotency_key:
@@ -2990,7 +2998,7 @@ components:
           example: '1040'
           description: Quantity of CO2 offsets purchased in tonnes.
           nullable: true
-        payment_method: 
+        payment_method:
           description: How the order will be paid.
 
             When `card`, Lune will attempt to charge the card and pay this order.
@@ -3058,9 +3066,9 @@ components:
         public_certificate_url:
           type: string
           description: |
-            The Carbon credits certificate public URL. 
-            
-            Once the Sustainability page of the associated account is enabled and configured to include the 
+            The Carbon credits certificate public URL.
+
+            Once the Sustainability page of the associated account is enabled and configured to include the
             certificate section, and the order is set to 'complete', this URL will link to the publicly accessible certificate.
 
           example: 'https://sustainability.lune.co/account?certificate=1'
@@ -3536,6 +3544,10 @@ components:
           properties:
             data:
               type: array
+              description: |
+                An array of Bundle objects.
+
+                Part of a paginated response.
               items:
                 $ref: '#/components/schemas/Bundle'
     BundleSummary:
@@ -3649,7 +3661,7 @@ components:
             # needed too).
             - null
           example: 'traditional'
-          nullable: true          
+          nullable: true
         carbon_permanence:
           type: string
           description: The bundle's carbon storage permanence.
@@ -3683,6 +3695,10 @@ components:
           properties:
             data:
               type: array
+              description: |
+                An array of Project objects.
+
+                Part of a paginated response.
               items:
                 $ref: '#/components/schemas/Project'
     Media:
@@ -3695,7 +3711,7 @@ components:
       properties:
         type:
           type: string
-          enum: 
+          enum:
             - image
             - video
           example: 'image'
@@ -3827,9 +3843,9 @@ components:
           example: false
           description: |
             Disabled projects do not get allocated to orders
-        media: 
+        media:
           type: array
-          items: 
+          items:
             $ref: '#/components/schemas/Media'
           description: A list of images and videos belonging to the project.
     Project:
@@ -4022,7 +4038,7 @@ components:
             timeline:
               description: |
                 The array order is newest to oldest.
-                
+
                 A null value means there's no data or the section is disabled.
               nullable: true
               type: array
@@ -4165,6 +4181,7 @@ components:
       properties:
         bundle:
           type: array
+          description: An array of objects describing a bundle's aggregated orders.
           items:
             type: object
             required:
@@ -4193,6 +4210,7 @@ components:
                 description: CO2 offsets' monetary value.
         location:
           type: array
+          description: An array of objects describing a location's aggregated orders.
           items:
             type: object
             required:
@@ -4216,6 +4234,7 @@ components:
                 description: CO2 offsets' monetary value
         registry:
           type: array
+          description: An array of objects describing a registry's aggregated orders.
           items:
             type: object
             required:
@@ -4237,6 +4256,7 @@ components:
                 description: CO2 offsets' monetary value.
         oxford_offsetting_principles:
           type: array
+          description: An array of objects describing aggregated orders for each Oxford Offsetting Principle's type.
           items:
             type: object
             required:
@@ -4265,6 +4285,7 @@ components:
                 description: CO2 offsets' monetary value
         offset_type:
           type: array
+          description: An array of objects describing aggregated orders by offset type.
           items:
             type: object
             required:
@@ -4286,6 +4307,7 @@ components:
                 description: CO2 offsets' monetary value
     CumulativeBundleAnalytics:
       type: array
+      description: An array of analytics by bundle objects.
       items:
         $ref: '#/components/schemas/AnalyticsByBundle'
     Analytics:
@@ -4337,6 +4359,7 @@ components:
           $ref: '#/components/schemas/CountTimeseries'
     QuantityAndValueTimeseries:
       type: array
+      description: A timeseries of quantities and values.
       items:
         type: object
         required:
@@ -4369,6 +4392,7 @@ components:
             quantity: '4700.451'
     CountTimeseries:
       type: array
+      description: A timeseries representing counters.
       items:
         type: object
         required:
@@ -4525,6 +4549,8 @@ components:
           default: 1
         legs:
           type: array
+          description: |
+            An array representing all passenger travel legs.
           minItems: 1
           maxItems: 10
           items:
@@ -4668,6 +4694,7 @@ components:
           $ref: '#/components/schemas/Shipment'
         legs:
           type: array
+          description: An array representing all the legs of a shipment.
           minItems: 1
           maxItems: 10
           items:
@@ -5216,6 +5243,7 @@ components:
           example: 10.2513
     BatchTransactionEstimateRequest:
       type: array
+      description: An array of transaction estimate requests.
       items:
         $ref: '#/components/schemas/TransactionEstimateRequest'
         minItems: 1
@@ -5662,6 +5690,10 @@ components:
               $ref: '#/components/schemas/IndividualEstimateRequest'
     BatchTransactionEmissionEstimate:
       type: array
+      description: |
+        An array representing multiple transaction emission estimates.
+
+        Returned in the same order as the request.
       items:
         oneOf:
           - $ref: '#/components/schemas/TransactionEmissionEstimate'
@@ -5839,7 +5871,7 @@ components:
               example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
             quote:
               $ref: '#/components/schemas/EstimateQuote'
-            request: 
+            request:
               $ref: '#/components/schemas/ShippingEstimateRequest'
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
@@ -5923,11 +5955,15 @@ components:
           properties:
             legs:
               type: array
+              description: |
+                An array representing a leg's emission estimate.
+
+                Returned in the same order as the request.
               items:
                 $ref: '#/components/schemas/ShippingLegEmissionEstimate'
             distance:
               $ref: '#/components/schemas/Distance'
-            request: 
+            request:
               $ref: '#/components/schemas/MultiLegShippingEstimateRequest'
         - $ref: '#/components/schemas/EmissionEstimateResponse'
       example:
@@ -6261,6 +6297,7 @@ components:
       properties:
         events:
           type: array
+          description: An array of WebhookEvent objects.
           items:
             $ref: '#/components/schemas/WebhookEvent'
     WebhookEvent:
@@ -6566,7 +6603,7 @@ components:
         - enabled
         - disabled
       description: The sustainability page status which determines whether it is visible to the public.
-      example: 'enabled'   
+      example: 'enabled'
     SustainabilityPageSlug:
       type: string
       description: The sustainability page slug. The slug is used to identify the page publicly and should be unique.
@@ -6939,6 +6976,8 @@ components:
       description: Distance unit, `km` for kilometers, `mi` for miles and `nm` for nautical miles
     EmissionFactorRegions:
       type: array
+      description: |
+        An array of regions.
       items:
         type: string
         description: The name of the country or region of the emission factor.
