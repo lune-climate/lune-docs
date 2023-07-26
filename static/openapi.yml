@@ -1990,6 +1990,7 @@ paths:
       tags:
         - Emission Factors
       summary: List all emission factor regions
+      description: You may use emission factor regions as a filter when you list emission factors.
       operationId: listAllEmissionFactorRegions
       responses:
         '200':
