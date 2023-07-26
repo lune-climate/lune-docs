@@ -64,7 +64,9 @@ export default function JsonPropertyParser(props: {
                 (props.required && props.name && props.required.includes(props.name)),
             nullable: props.nullable,
             description: props.json.description,
-            jsons: [JsonPropertyParser({ ...derefencedItem, json: derefencedItem, level: level + 1 })],
+            jsons: [
+                JsonPropertyParser({ ...derefencedItem, json: derefencedItem, level: level + 1 }),
+            ],
         }
     } else if (props.json.type === 'object') {
         return {
