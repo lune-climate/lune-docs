@@ -21,7 +21,9 @@ export default function JsonPropertyParser(props: {
     type?: string
     required?: string[] | boolean
     nullable?: boolean
+    level?: number
 }): any {
+    const level = props.level ?? 0
     if (props.json.oneOf || props.json.allOf || props.json.anyOf) {
         const type = props.json.oneOf ? 'oneOf' : props.json.allOf ? 'allOf' : 'anyOf'
         return {
@@ -42,6 +44,7 @@ export default function JsonPropertyParser(props: {
                         derefencedItem.name ||
                         DEFAULT_PROPERTY_NAME,
                     json: derefencedItem,
+                    level: level + 1,
                 })
             }),
         }
@@ -56,11 +59,12 @@ export default function JsonPropertyParser(props: {
                 (props.json.component && `#/components/schemas/${props.json.component}`),
             example: props.json.example,
             required:
+                level === 0 ||
                 props.required === true ||
                 (props.required && props.name && props.required.includes(props.name)),
             nullable: props.nullable,
             description: props.json.description,
-            jsons: [JsonPropertyParser({ ...derefencedItem, json: derefencedItem })],
+            jsons: [JsonPropertyParser({ ...derefencedItem, json: derefencedItem, level: level + 1 })],
         }
     } else if (props.json.type === 'object') {
         return {
@@ -79,6 +83,7 @@ export default function JsonPropertyParser(props: {
                     json: derefencedItem,
                     required: props.json.required,
                     nullable: props.json.nullable,
+                    level: level + 1,
                 })
             }),
         }
