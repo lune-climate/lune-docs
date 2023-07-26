@@ -3388,7 +3388,12 @@ components:
       properties:
         has_more:
           type: boolean
-          description: Whether or not there are more elements available after this set. If false, this set comprises the end of the array.
+          description: |
+            Whether or not there are more elements available after this set.
+
+            If false, this set comprises the end of the array.
+
+            Part of a paginated response.
     PaginatedOrders:
       allOf:
         - $ref: '#/components/schemas/PaginatedBase'
@@ -3398,7 +3403,10 @@ components:
           properties:
             data:
               type: array
-              description: Paginated Order objects ordered by creation date descending.
+              description: |
+                An array of Order objects ordered by creation date descending.
+
+                Part of a paginated response.
               items:
                 $ref: '#/components/schemas/Order'
     OrderQuoteBase:
@@ -3683,7 +3691,7 @@ components:
           properties:
             projects:
               type: array
-              description: Array of projects that belong to the bundle
+              description: An array of Project objects that belong to the bundle.
               items:
                 $ref: '#/components/schemas/ProjectSummary'
     PaginatedProjects:
@@ -3868,7 +3876,7 @@ components:
           properties:
             bundles:
               type: array
-              description: Array of bundles the project is part of
+              description: An array of Bundle objects the project is part of.
               items:
                 $ref: '#/components/schemas/BundleSummary'
             impact_summary:
@@ -6416,7 +6424,10 @@ components:
           properties:
             data:
               type: array
-              description: Paginated Account objects
+              description: |
+                An array of Account objects
+
+                Part of a paginated response.
               items:
                 $ref: '#/components/schemas/Account'
     PaginatedClientAccounts:
@@ -6428,7 +6439,10 @@ components:
           properties:
             data:
               type: array
-              description: Paginated Client Account objects
+              description: |
+                An array of Client Account objects
+
+                Part of a paginated response.
               items:
                 $ref: '#/components/schemas/ClientAccount'
     AccountPair:
@@ -7130,7 +7144,10 @@ components:
           properties:
             data:
               type: array
-              description: Paginated emission factor objects ordered by match probability.
+              description: |
+                An array of Emission Factor objects, ordered by best match.
+
+                Part of a paginated response.
               items:
                 $ref: '#/components/schemas/EmissionFactor'
     EmissionFactorActivity:
