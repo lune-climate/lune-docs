@@ -7619,10 +7619,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-lune-ui-lib@1.3.89:
-  version "1.3.89"
-  resolved "https://registry.yarnpkg.com/lune-ui-lib/-/lune-ui-lib-1.3.89.tgz#a7806ca0c4802af1aa036fc0a1f01d2456d34f95"
-  integrity sha512-XyR1Pkk4tCdDjusAh9gv/bmjLBRW8ijH1JSt+Ozw/gZDEofhgqjk58FRB3Kolzb1OXUIL8ruslyFyPeNZ9BACQ==
+lune-ui-lib@1.3.92:
+  version "1.3.92"
+  resolved "https://registry.yarnpkg.com/lune-ui-lib/-/lune-ui-lib-1.3.92.tgz#c496eac92785c041d2844e3e27318b65ed68ff00"
+  integrity sha512-87kCi6IVIwuiHLpJFCiBnyGjcpoFxv8uMitULBPDqFDm8pzj9OzEGzTEGLPqSH9KHQfhtDy3B1SpkgHPX6/nrQ==
   dependencies:
     "@emotion/react" "^11.11.0"
     "@emotion/styled" "^11.11.0"
