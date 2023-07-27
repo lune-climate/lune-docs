@@ -4642,6 +4642,7 @@ components:
         - oneOf:
           - type: object
             x-lune-name: Shipping
+            x-lune-oneof-default: true
             required:
               - route
               - method

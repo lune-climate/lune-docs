@@ -22,10 +22,41 @@ export default function JsonPropertyParser(props: {
     required?: string[] | boolean
     nullable?: boolean
     level?: number
+    oneOfDefault?: boolean
 }): any {
     const level = props.level ?? 0
     if (props.json.oneOf || props.json.allOf || props.json.anyOf) {
         const type = props.json.oneOf ? 'oneOf' : props.json.allOf ? 'allOf' : 'anyOf'
+        const children = props.json[type].map((element) => {
+            const derefencedItem = Dereferencer(element)
+            return JsonPropertyParser({
+                name:
+                    element['x-lune-name'] ||
+                    element.name ||
+                    derefencedItem['x-lune-name'] ||
+                    derefencedItem.name ||
+                    DEFAULT_PROPERTY_NAME,
+                json: derefencedItem,
+                level: level + 1,
+                oneOfDefault: derefencedItem['x-lune-oneof-default'],
+            })
+        })
+
+        // In OpenAPI, oneOf accepts an array, therefore we cannot set the default on the oneOf
+        // but must set this information on one child.
+        // JsonProperty, however, requires the default on the oneOf, therefore we need to move
+        // the default name from the child to the parent.
+        const defaultNames =
+            type === 'oneOf'
+                ? children.filter((element) => {
+                      return element.oneOfDefault === true
+                  })
+                : []
+
+        if (defaultNames.length > 1) {
+            throw new Error(`A oneOf cannot have more than one default: ${defaultNames}`)
+        }
+
         return {
             ...props.json,
             $ref:
@@ -34,19 +65,12 @@ export default function JsonPropertyParser(props: {
             name: props['x-lune-name'] ?? props.name,
             type,
             nullable: props.nullable,
-            jsons: props.json[type].map((element) => {
-                const derefencedItem = Dereferencer(element)
-                return JsonPropertyParser({
-                    name:
-                        element['x-lune-name'] ||
-                        element.name ||
-                        derefencedItem['x-lune-name'] ||
-                        derefencedItem.name ||
-                        DEFAULT_PROPERTY_NAME,
-                    json: derefencedItem,
-                    level: level + 1,
-                })
-            }),
+            jsons: children,
+            ...(type === 'oneOf' && defaultNames.length === 1
+                ? {
+                      defaultName: defaultNames[0].name,
+                  }
+                : {}),
         }
     } else if (props.json.type === 'array') {
         const derefencedItem = Dereferencer(props.json.items)
