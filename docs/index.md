@@ -31,8 +31,8 @@ Learn how to use Lune to make your product or service climate positive.
 
 In this guide, you will learn how to interact with the Lune API to:
 
-* Calculate emissions for shipments
-* Offset emissions for shipments
+1. Calculate emissions for shipments
+2. Offset emissions for shipments
 
 </>
 <>
