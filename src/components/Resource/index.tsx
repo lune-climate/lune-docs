@@ -101,7 +101,7 @@ export default function ResourceParser(props: { name: string; json: any }): JSX.
                 )}
             </ApiReferenceSection>
             <ApiReferenceSection style={{ marginTop: '32px' }}>
-                <JsonObjectTable>
+                <JsonObjectTable title={`The ${props.name} object`}>
                     {resourceProperties.map((property) => {
                         return <JsonProperty json={property} />
                     })}
