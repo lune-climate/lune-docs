@@ -7,9 +7,9 @@
 # Generated files
 .docusaurus
 .cache-loader
-/docs/resources/**
+/docs/api-reference/**
+!/docs/api-reference/_category_.json
 /docs/all-resources/**/*.mdx
-!/docs/resources/_category_.json
 
 # Misc
 .DS_Store

@@ -91,7 +91,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 To calculate your supplier's product emissions, you need to allow them to pick an emission factor that matches their product.
 
-On the page where your supplier adds a product, enable them to [search for the most appropriate emission factor](/resources/emission-factors/list-emission-factors/).
+On the page where your supplier adds a product, enable them to [search for the most appropriate emission factor](/api-reference/emission-factors/list-emission-factors/).
 
 You may combine multiple filters for a more accurate emission factor match.
 
@@ -208,7 +208,7 @@ A successful 200 response will return a paginated list of emission factors order
 
 ## Calculate a product's emissions
 
-Once an emission factor has been picked, use its `id` to [calculate the emissions](resources/emission-estimates/create-emission-factor-estimate) for <u>one unit</u> of your supplier's product.
+Once an emission factor has been picked, use its `id` to [calculate the emissions](api-reference/emission-estimates/create-emission-factor-estimate) for <u>one unit</u> of your supplier's product.
 
 <div>
 </div>
@@ -354,7 +354,7 @@ To display products' emissions to your buyers, use the emissions that you have c
 ## Offset emissions
 
 To enable your buyer to offset a product's emissions, multiply the product's emissions times the number of units the buyer is purchasing.
-Then [place an order by mass](/resources/orders/create-order-by-mass).
+Then [place an order by mass](/api-reference/orders/create-order-by-mass).
 
 </div>
 <div>

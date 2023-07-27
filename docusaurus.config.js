@@ -143,6 +143,24 @@ const config = {
             },
         ],
         require.resolve('./plugins/custom-webpack-plugin'),
+        [
+          "@docusaurus/plugin-client-redirects", // Note: this only works for production builds
+          {
+            createRedirects: (path) => {
+              // this function, at build time, generates static redirects
+              const pathItems = path.split('/')
+
+              // redirect /resources/* -> /api-reference/*
+              if (pathItems.length > 1 && pathItems[0] === '' && pathItems[1] === 'api-reference') {
+                const oldPath = ['/resources', ...(pathItems.slice(2))].join('/')
+                console.log(`redirect ${oldPath} -> ${path}`)
+                return oldPath
+              }
+              // undefined results in no redirect
+              return undefined
+            }
+          }
+        ]
     ],
 }
 

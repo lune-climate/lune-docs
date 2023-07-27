@@ -11,7 +11,7 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 ## Create a client account
 
 
-A [client account](/resources/client-accounts/create-client-account) is required for each of your clients and defines their basic characteristics, for example, the currency used to display emission offsetting prices.
+A [client account](/api-reference/client-accounts/create-client-account) is required for each of your clients and defines their basic characteristics, for example, the currency used to display emission offsetting prices.
 
 <Tip>
 

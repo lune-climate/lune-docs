@@ -78,7 +78,7 @@ function formatFilename(filename: string): string {
 
 async function main() {
     // Clear resources and endpoints
-    const directoriesToClean = ['docs/resources', 'docs/all-resources']
+    const directoriesToClean = ['docs/api-reference', 'docs/all-resources']
     directoriesToClean.forEach((directory) => {
         const filenames = fs.readdirSync(directory)
         filenames.forEach((file) => {
@@ -97,7 +97,7 @@ async function main() {
 
     // Create directories for `Core Resources` section. Each tag consists of one directory.
     schema.tags.forEach((tag, index) => {
-        const folderDir = `docs/resources/${formatFilename(tag.name)}`
+        const folderDir = `docs/api-reference/${formatFilename(tag.name)}`
         if (!fs.existsSync(folderDir)) {
             fs.mkdirSync(folderDir)
         }
@@ -160,7 +160,7 @@ async function main() {
         let data: any
         for ([method, data] of Object.entries(endpoints as any)) {
             data.tags.forEach((tag: string) => {
-                const folderDir = `docs/resources/${formatFilename(tag)}`
+                const folderDir = `docs/api-reference/${formatFilename(tag)}`
                 // Tag might not have been specified in the tags section. Create directory
                 if (!fs.existsSync(folderDir)) {
                     fs.mkdirSync(folderDir)

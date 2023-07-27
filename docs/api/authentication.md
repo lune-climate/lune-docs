@@ -30,7 +30,7 @@ Note: only *admin*s can create API Keys.
 API Keys operate on a default account.
 You can, however, perform API requests on any account in your organisation as long as the account's mode, test or live, is consistent with the API Key's mode.
 
-This enables you to operate on [Client Accounts](/resources/client-accounts/client-account) without generating new API Keys.
+This enables you to operate on [Client Accounts](/api-reference/client-accounts/client-account) without generating new API Keys.
 
 To operate on an API Key's non-default account, include the following header in your requests:
 

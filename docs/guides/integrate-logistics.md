@@ -111,7 +111,7 @@ Store this decision in your database.
 ## Calculating CO₂ emissions for a shipment
 
 
-To present an [estimate of CO₂ emissions for a given shipping route](/resources/emission-estimates/create-multi-leg-shipping-estimate), pass in the journey details (e.g., route source and destination for one or more journey legs, shipment mode, load).
+To present an [estimate of CO₂ emissions for a given shipping route](/api-reference/emission-estimates/create-multi-leg-shipping-estimate), pass in the journey details (e.g., route source and destination for one or more journey legs, shipment mode, load).
 
 </div>
 <div>
@@ -433,7 +433,7 @@ ${indent(`-H 'Content-Type: application/json' \\
 
 ## Offsetting shipment emissions
 
-For clients that have [opted to offset their emissions](#store-a-clients-offsetting-decision) in their Offsetting preferences page, when they book a shipment, you can present a [confirmation of a booking](/resources/orders/create-order-by-estimate), including the amount of CO₂ emissions that will be offset, the Lune default Project bundle, and the total cost of offsetting the CO₂ emissions.  To do this, pass in the estimate id:
+For clients that have [opted to offset their emissions](#store-a-clients-offsetting-decision) in their Offsetting preferences page, when they book a shipment, you can present a [confirmation of a booking](/api-reference/orders/create-order-by-estimate), including the amount of CO₂ emissions that will be offset, the Lune default Project bundle, and the total cost of offsetting the CO₂ emissions.  To do this, pass in the estimate id:
 
 </div>
 
