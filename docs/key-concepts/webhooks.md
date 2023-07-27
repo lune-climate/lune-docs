@@ -46,7 +46,7 @@ When you receive an event, you can process and act on it as you need.
 
 <Tip>
 
-These steps must be repeated for both [live and test](/api/live-test-accounts#live-and-test-modes) modes independently
+These steps must be repeated for both [live and test](/key-concepts/live-test-accounts#live-and-test-modes) modes independently
 
 </Tip>
 
@@ -72,7 +72,7 @@ You can register your endpoint via the [dashboard](https://dashboard.lune.co/dev
 
 An endpoint registered via the dashboard is going to receive either test or live events, depending on whether 'Test mode' was on or off.
 
-Endpoints registered via the dashboard receive events for all [Accounts and Client Accounts](/api/live-test-accounts#accounts) belonging to the organisation.
+Endpoints registered via the dashboard receive events for all [Accounts and Client Accounts](/key-concepts/live-test-accounts#accounts) belonging to the organisation.
 
 [Registering your endpoint via the API](/api-reference/webhooks/create-webhook) allows a more granular control of the events that you will receive.
 
@@ -135,7 +135,7 @@ Similarly, webhooks created with live API Keys deliver live events.
 
 ## Events
 
-Lune delivers events every time an order [transitions from one status to another](/api/order).
+Lune delivers events every time an order [transitions from one status to another](/key-concepts/order).
 
 Each request to your webhook receiver includes a batch of events.
 
@@ -175,7 +175,7 @@ Unacknowledged events are redelivered until acknowledged.
 
 ## System properties and guarantees
 
-* **Ordering** - events are strictly ordered and are delivered in the same order as they have occurred in Lune's system.  The ordering guarantee applies to events belonging to the same [Account or Client Account](/api/live-test-accounts#accounts). You may receive events belonging to different Accounts or Client Accounts out of order
+* **Ordering** - events are strictly ordered and are delivered in the same order as they have occurred in Lune's system.  The ordering guarantee applies to events belonging to the same [Account or Client Account](/key-concepts/live-test-accounts#accounts). You may receive events belonging to different Accounts or Client Accounts out of order
 
 * **At-least-once** - events are delivered at least once. Unacknowledged events are redelivered until acknowledged with a successful response status code (2xx). Backoff policies are applied if, after several attempts, we are unable to successfully deliver events
 

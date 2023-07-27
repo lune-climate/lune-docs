@@ -5,6 +5,19 @@ const lightCodeTheme = require('prism-react-renderer').themes.github
 const darkCodeTheme = require('prism-react-renderer').themes.dracula
 require('dotenv').config()
 
+
+function redirectDirectory(path, oldDir, newDir) {
+  const pathItems = path.split('/')
+  // redirect /resources/* -> /api-reference/*
+  if (pathItems.length > 1 && pathItems[0] === '' && pathItems[1] === newDir) {
+    const oldPath = [`/${oldDir}`, ...(pathItems.slice(2))].join('/')
+    console.log(`redirect ${oldPath} -> ${path}`)
+    return oldPath
+  }
+  // undefined results in no redirect
+  return undefined
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'Lune Documentation',
@@ -148,14 +161,16 @@ const config = {
           {
             createRedirects: (path) => {
               // this function, at build time, generates static redirects
-              const pathItems = path.split('/')
 
-              // redirect /resources/* -> /api-reference/*
-              if (pathItems.length > 1 && pathItems[0] === '' && pathItems[1] === 'api-reference') {
-                const oldPath = ['/resources', ...(pathItems.slice(2))].join('/')
-                console.log(`redirect ${oldPath} -> ${path}`)
-                return oldPath
+              let newPath = redirectDirectory(path, 'resources', 'api-reference')
+              if (newPath) {
+                return newPath
               }
+              newPath = redirectDirectory(path, 'api', 'key-concepts')
+              if (newPath) {
+                return newPath
+              }
+
               // undefined results in no redirect
               return undefined
             }
