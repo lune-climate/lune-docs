@@ -1918,7 +1918,7 @@ paths:
   /emission-factors:
     get:
       tags:
-        - Emission Factors
+        - Emission factors
       summary: List emission factors
       operationId: listEmissionFactors
       parameters:
@@ -1988,7 +1988,7 @@ paths:
   /emission-factors/regions:
     get:
       tags:
-        - Emission Factors
+        - Emission factors
       summary: List all emission factor regions
       description: You may use emission factor regions as a filter when you list emission factors.
       operationId: listAllEmissionFactorRegions
