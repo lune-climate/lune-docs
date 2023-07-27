@@ -83,7 +83,7 @@ Test mode can be used as an effective sandbox whilst building your app to:
 
 - Calculate emissions
 - Place orders to offset emissions
-- Simulate [order status](/api/order) transitions
+- Simulate [order status](/key-concepts/order) transitions
 
 and enables you to interact with the Lune API in the same way as you would with in live mode, without being charged and without retiring and completing orders.
 

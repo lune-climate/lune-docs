@@ -17,7 +17,7 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 ## Intro
 
-Lune supports two types of accounts: [Accounts and Client Accounts](/api/live-test-accounts#accounts).
+Lune supports two types of accounts: [Accounts and Client Accounts](/key-concepts/live-test-accounts#accounts).
 
 * Accounts are designed for your own use. It is the simplest way of using the Lune Dashboard and API.
 * Client Accounts are designed for B2B customers operating multi-tenant applications.
@@ -233,7 +233,7 @@ This enables you reconcile any charges with your customers.
 
 [Lune Pay](/guides/lune-pay) supports Client Accounts.
 
-Lune Pay enables customers to stay out of the [flow of funds](/api/flow-of-funds) required to settle Lune invoices and therefore removes the need to manage clients' monies for offsetting.
+Lune Pay enables customers to stay out of the [flow of funds](/key-concepts/flow-of-funds) required to settle Lune invoices and therefore removes the need to manage clients' monies for offsetting.
 
 </div>
 <div>
