@@ -74,7 +74,7 @@ An endpoint registered via the dashboard is going to receive either test or live
 
 Endpoints registered via the dashboard receive events for all [Accounts and Client Accounts](/api/live-test-accounts#accounts) belonging to the organisation.
 
-[Registering your endpoint via the API](/resources/webhooks/create-webhook) allows a more granular control of the events that you will receive.
+[Registering your endpoint via the API](/api-reference/webhooks/create-webhook) allows a more granular control of the events that you will receive.
 
 
 <Tip>
@@ -277,7 +277,7 @@ The `Lune-HMAC` header has the following format
 
 ## Webhook request
 
-Consult the [Webhook request](/resources/webhook-request) page to familiarise yourself with webhook requests.
+Consult the [Webhook request](/api-reference/webhook-request) page to familiarise yourself with webhook requests.
 
 </div>
 </div>

@@ -112,7 +112,7 @@ For each product, store its emissions in your database.
 
 ## Offsetting emissions
 
-On successful checkout, [place an order by mass](/resources/orders/create-order-by-mass).
+On successful checkout, [place an order by mass](/api-reference/orders/create-order-by-mass).
 
 
 </div>
@@ -247,7 +247,7 @@ Calculate the amount required to round up your checkout cost to the nearest unit
 
 ## Offsetting emissions
 
-On successful checkout, [place an order by value](/resources/orders/create-order-by-value).
+On successful checkout, [place an order by value](/api-reference/orders/create-order-by-value).
 
 
 </div>

@@ -82,7 +82,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 ## Calculate emissions for transactions
 
-To calculate an [estimate of CO₂ emissions](/resources/emission-estimates/create-batch-transaction-estimate/) for up to 100 transactions, pass in the transaction amount, the MCC (Merchant Category Code), and Merchant country for each transaction.
+To calculate an [estimate of CO₂ emissions](/api-reference/emission-estimates/create-batch-transaction-estimate/) for up to 100 transactions, pass in the transaction amount, the MCC (Merchant Category Code), and Merchant country for each transaction.
 
 <Tip>
 
@@ -257,7 +257,7 @@ Convert `mass.amount`s to the same unit before summing.
 
 ## Displaying emissions and the cost
 
-To [display the emissions which have not yet been offset and the cost](/resources/orders/get-order-quote-by-mass), pass in the calculated sum of emissions.
+To [display the emissions which have not yet been offset and the cost](/api-reference/orders/get-order-quote-by-mass), pass in the calculated sum of emissions.
 
 </div>
 <div>
@@ -348,7 +348,7 @@ A successful 200 request will return the total cost of offsetting the CO₂ emis
 
 ## Offset emissions
 
-To [offset emissions](/resources/orders/create-order-by-mass), pass in the calculated sum of emissions.
+To [offset emissions](/api-reference/orders/create-order-by-mass), pass in the calculated sum of emissions.
 
 
 </div>

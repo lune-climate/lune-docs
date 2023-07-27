@@ -125,7 +125,7 @@ You can present the decision in a checkout step, for example, "_We commit 1% of 
 
 ## Calculate contribution to CO₂ emission offsetting
 
-On successful checkout, calculate, and [place the order](/resources/orders/create-order-by-value).
+On successful checkout, calculate, and [place the order](/api-reference/orders/create-order-by-value).
 
 
 </div>

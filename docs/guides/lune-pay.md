@@ -106,7 +106,7 @@ Lune Pay can be configured by providing several optional query parameters:
 - `external_id` is a customer-defined id.  It serves two purposes:
   1. It enforces flow uniqueness.  If a customer has completed a payment with a specific `external_id`, it cannot complete additional payments with the same `external_id`
   2. it is appended to `redirect_url` as a query parameter.  Customers can use `external_id` for flow reconciliation
-- `bundle_id` is the id of the bundle or bundles (multiples are supported) to display.  If not set, the account's default bundle selection is displayed.  You can extract bundle ids by using the API's [list project bundles endpoint](resources/projects/list-bundles)
+- `bundle_id` is the id of the bundle or bundles (multiples are supported) to display.  If not set, the account's default bundle selection is displayed.  You can extract bundle ids by using the API's [list project bundles endpoint](api-reference/projects/list-bundles)
 
 </div>
 <div>
@@ -153,7 +153,7 @@ Clicking `Back to <redirect_label>` redirects the user to `redirect_url`.
 The following query parameters are appended to `redirect_url`:
 
 - `external_id` if it was provided initially.  `external_id` can be used to identify the flow
-- `temporary_id` is a unique temporary identifier representing the payment.  The id is valid for 15 minutes and allows clients to retrieve payment details without authentication using the [get payment by temporary id endpoint](/resources/payments/get-payment-by-temporary-id).  This parameter is useful if a customer wants to build a frontend confirmation screen showing Lune Pay information
+- `temporary_id` is a unique temporary identifier representing the payment.  The id is valid for 15 minutes and allows clients to retrieve payment details without authentication using the [get payment by temporary id endpoint](/api-reference/payments/get-payment-by-temporary-id).  This parameter is useful if a customer wants to build a frontend confirmation screen showing Lune Pay information
 
 </>
 <div className="miniSections">

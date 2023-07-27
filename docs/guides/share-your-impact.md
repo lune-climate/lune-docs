@@ -156,7 +156,7 @@ You may disable the page if you do not wish to share your impact.
 
 ### Create the Sustainability page
 
-You can [create the Sustainability page](/resources/sustainability-page/create-sustainability-page) via the API.
+You can [create the Sustainability page](/api-reference/sustainability-page/create-sustainability-page) via the API.
 
 <Tip>
 
@@ -251,7 +251,7 @@ A 200 response code confirms the Sustainability page has been created.  A 409 re
 
 ## Update a Sustainability page
 
-You can also [update a Sustainability page](/resources/sustainability-page/update-sustainability-page) via the API.
+You can also [update a Sustainability page](/api-reference/sustainability-page/update-sustainability-page) via the API.
 
 </div>
 <div>
@@ -322,7 +322,7 @@ A 200 response code confirms the Sustainability page has been updated.  A 409 re
 
 ## Get a Sustainability page
 
-You can [retrieve a Sustainability page](/resources/sustainability-page/get-public-sustainability-page) via the API.
+You can [retrieve a Sustainability page](/api-reference/sustainability-page/get-public-sustainability-page) via the API.
 
 </div>
 <div>
