@@ -78,7 +78,7 @@ function formatFilename(filename: string): string {
 
 async function main() {
     // Clear resources and endpoints
-    const directoriesToClean = ['docs/api-reference', 'docs/resources', 'docs/all-resources']
+    const directoriesToClean = ['docs/api-reference', 'docs/all-resources']
     directoriesToClean.forEach((directory) => {
         const filenames = fs.readdirSync(directory)
         filenames.forEach((file) => {
