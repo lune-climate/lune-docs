@@ -19,6 +19,7 @@ function formatReturnResource(resource: string): string {
     return `Returns: ${resource} object`
 }
 
+// eslint-disable-next-line complexity
 export default function EndpointParser(props: { json: any }): JSX.Element {
     const apiDomain = getApiDomain()
     const apiKey = getApiKey()
