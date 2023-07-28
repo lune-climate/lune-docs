@@ -16,8 +16,7 @@ import {
 import React from 'react'
 
 function formatReturnResource(resource: string): string {
-    const article = ['a', 'i', 'o'].includes(resource[0].toLowerCase()) ? 'an': 'a'
-    return `Returns ${article} ${resource} object`
+    return `Returns: ${resource} object`
 }
 
 export default function EndpointParser(props: { json: any }): JSX.Element {
