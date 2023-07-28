@@ -15,6 +15,11 @@ import {
 } from 'lune-ui-lib'
 import React from 'react'
 
+function formatReturnResource(resource: string): string {
+    return `Returns: ${resource} object`
+}
+
+// eslint-disable-next-line complexity
 export default function EndpointParser(props: { json: any }): JSX.Element {
     const apiDomain = getApiDomain()
     const apiKey = getApiKey()
@@ -62,6 +67,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     let endpointResponseType
     let endpointResponse
     let endpointResponseExample
+    let endpointResponseResource
     if (props.json.responses[200] && props.json.responses[200].content) {
         if (props.json.responses[200].content['application/pdf']) {
             endpointResponseType = 'pdf'
@@ -80,6 +86,8 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                     {JSON.stringify(ResourceExample(endpointResponse), null, 2)}
                 </SnippetItem>
             )
+
+            endpointResponseResource = props.json.responses[200]['x-lune-response-component']
         } else {
             throw Error(
                 `Unsupported response type ${JSON.stringify(props.json.responses[200].content)}`,
@@ -92,7 +100,14 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
 
     const returnsSection = endpointResponseType ? (
         endpointResponseType === 'json' ? (
-            <JsonObjectTable title="Returns">
+            <JsonObjectTable
+                title="Returns"
+                description={
+                    endpointResponseResource
+                        ? formatReturnResource(endpointResponseResource)
+                        : undefined
+                }
+            >
                 <JsonProperty json={endpointResponse} />
             </JsonObjectTable>
         ) : (
