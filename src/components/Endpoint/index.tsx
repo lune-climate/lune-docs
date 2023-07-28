@@ -16,7 +16,7 @@ import {
 import React from 'react'
 
 function formatReturnResource(resource: string): string {
-    const article = ['a', 'e', 'i', 'o', 'u'].includes(resource[0].toLowerCase()) ? 'an': 'a'
+    const article = ['a', 'i', 'o'].includes(resource[0].toLowerCase()) ? 'an': 'a'
     return `Returns ${article} ${resource} object`
 }
 
