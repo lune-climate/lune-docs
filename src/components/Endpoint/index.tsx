@@ -100,7 +100,14 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
 
     const returnsSection = endpointResponseType ? (
         endpointResponseType === 'json' ? (
-            <JsonObjectTable title="Returns" description={endpointResponseResource ? formatReturnResource(endpointResponseResource) : undefined}>
+            <JsonObjectTable
+                title="Returns"
+                description={
+                    endpointResponseResource
+                        ? formatReturnResource(endpointResponseResource)
+                        : undefined
+                }
+            >
                 <JsonProperty json={endpointResponse} />
             </JsonObjectTable>
         ) : (
