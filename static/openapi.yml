@@ -2519,6 +2519,29 @@ components:
             - nm
           example: 'km'
           description: Unit, `km` for kilometers, `mi` for miles
+    DistanceCalculationMethod:
+       oneOf:
+        - type: object
+          required:
+            - method
+          properties:
+            method:
+              type: string
+              enum:
+                - sea_distance_algorithm
+                - mapbox
+                - user_input
+        - type: object
+          required:
+            - method
+            - factor
+          properties:
+            method:
+              type: string
+              enum:
+                - great_circle_distance
+            factor:
+              type: number
     Area:
       type: object
       required:
