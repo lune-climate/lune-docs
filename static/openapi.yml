@@ -2532,6 +2532,7 @@ components:
                 - sea_distance_algorithm
                 - mapbox
                 - user_input
+                - osrm
         - type: object
           x-lune-name: Distance calculation method requiring a factor
           required:
