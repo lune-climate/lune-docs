@@ -5979,6 +5979,8 @@ components:
           properties:
             distance:
               $ref: '#/components/schemas/Distance'
+            distance_calculation_method:
+              $ref: '#/components/schemas/DistanceCalculationMethod'
             methodology:
               type: array
               description: |
