@@ -4275,7 +4275,7 @@ components:
             properties:
               location:
                 type: string
-                description: Project location (continent).
+                description: Project location (continent). If a project has yet to be assigned 'Not yet allocated' is returned instead.
                 example: 'Europe'
               quantity:
                 type: string
