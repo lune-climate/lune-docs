@@ -2520,7 +2520,7 @@ components:
           example: 'km'
           description: Unit, `km` for kilometers, `mi` for miles
     DistanceCalculationMethod:
-       oneOf:
+      oneOf:
         - type: object
           x-lune-name: Simple distance calculation method
           required:
