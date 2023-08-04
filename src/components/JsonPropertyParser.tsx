@@ -12,7 +12,7 @@ import Dereferencer from '@site/src/components/Dereferencer'
 // show an empty string
 const DEFAULT_PROPERTY_NAME = ''
 
-function isRequired(props: any): boolean {
+function isRequired(props: { required?: boolean | string[]; name?: string }): boolean {
     return (
         props.required === true ||
         (props.required && props.name && props.required.includes(props.name))
