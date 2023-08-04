@@ -167,5 +167,49 @@ Create climate positive customer experiences by integrating innovative carbon re
 
 </ApiReferenceSection>
 
+<hr />
+
+<ApiReferenceSection>
+<div className="homeParagraphSections">
+
+<div>
+
+## Product & design guides
+
+</div>
+<div>
+
+Learn how to use the right units of measurement, communicate complex concepts to your users and design sustainability in your product.
+
+</div>
+<div>
+
+<Button
+    className="whiteHover"
+    leftIcon={<ArrowCircleRightIcon />}
+    sx={{ textTransform: 'none' }}
+    href="/product-and-design-guides/co2-units-of-measurement"
+>View product & design guides
+</Button>
+
+</div>
+</div>
+
+<div className="miniSections">
+
+<>
+
+![product-desgin-guides](/img/product-design-guides.png)
+
+</>
+<>
+
+![product-desgin-guides-2](/img/product-design-guides-2.png)
+
+</>
+
+</div>
+
+</ApiReferenceSection>
 
 </div>
