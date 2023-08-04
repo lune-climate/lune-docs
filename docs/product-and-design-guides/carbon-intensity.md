@@ -52,7 +52,6 @@ That’s a mouthful, let’s unpack it:
 
 ## Flight, maritime, road, and rail freight
 
-
 Carbon intensity varies significantly depending on the transport method used. For example flights’ carbon intensity ranges between 560 and 1,390 gCO₂e / tkm, while maritime shipments range between 6 and 50 gCO₂e / tkm.
 
 Even within the same transport method category, carbon intensity can vary significantly. For example for container ships there’s a few things to consider:
