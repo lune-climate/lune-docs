@@ -139,3 +139,14 @@ Companies investing effort in decarbonising their operations, will be able to se
 Companies not paying much attention to the issue might see their carbon intensity go up over time.
 
 </div>
+</div>
+
+<>
+
+![intensity-over-time](/img/intensity-over-time.png)
+
+</>
+
+</ApiReferenceSection>
+
+</div>
