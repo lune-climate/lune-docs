@@ -2634,6 +2634,7 @@ components:
           unit: 'kg'
     OrderQuoteByQuantityWithBundlePercentage:
       type: object
+      x-lune-oneof-default: true
       description: Order by Quantity details
       required:
         - mass
@@ -2683,6 +2684,7 @@ components:
           unit: 'kg'
     CreateOrderByQuantityWithBundlePercentage:
       type: object
+      x-lune-oneof-default: true
       description: Order by Quantity details
       required:
         - mass
@@ -4688,6 +4690,7 @@ components:
         - oneOf:
           - type: object
             x-lune-name: Shipping
+            x-lune-oneof-default: true
             required:
               - route
               - method
@@ -4756,6 +4759,7 @@ components:
             oneOf:
               - type: object
                 x-lune-name: Shipping
+                x-lune-oneof-default: true
                 additionalProperties: false
                 required:
                   - route
