@@ -12,7 +12,20 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 <div className="sections">
 
+<div>
+
 Learn how to use Lune to make your product or service climate positive.
+
+**Integration guides** are aimed at product managers and developers to guide them to implement a solution to a real use case.
+
+**Product & design guides** are aimed at product managers and designers to set out the characteristics of well-designed products.
+
+**Key concepts** enrich or clarify specific concepts needed during implementation.
+
+**API reference** is aimed at developers and describes the API's functionality.
+
+
+</div>
 
 <ThreeColumnLayout>
 
