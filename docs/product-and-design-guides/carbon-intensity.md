@@ -23,9 +23,9 @@ The more CO₂e a product or service emits – per unit – the higher its carbo
 </div>
 <div>
 
-## Measuring carbon intensity
+## Measuring logistics carbon intensity
 
-Carbon intensity is measured in gCO₂e / t×km.
+Logistics carbon intensity is measured in gCO₂e / tkm.
 
 That’s a mouthful, let’s unpack it:
 * gCO₂e means: how many grams of CO₂e are emitted
@@ -52,7 +52,8 @@ That’s a mouthful, let’s unpack it:
 
 ## Flight, maritime, road, and rail freight
 
-Carbon intensity varies significantly depending on the transport method used. For example flights’ carbon intensity ranges between 560 and 1,390 gCO₂e / t×km, while maritime shipments range between 6 and 50 gCO₂e / t×km.
+
+Carbon intensity varies significantly depending on the transport method used. For example flights’ carbon intensity ranges between 560 and 1,390 gCO₂e / tkm, while maritime shipments range between 6 and 50 gCO₂e / tkm.
 
 Even within the same transport method category, carbon intensity can vary significantly. For example for container ships there’s a few things to consider:
 * The age of the ship
@@ -60,7 +61,7 @@ Even within the same transport method category, carbon intensity can vary signif
 * The type of engine it uses
 * The type of fuel it uses
 
-Data from the Fourth IMO GHG Study 2020 shows for example that within the same bulk carrier category the carbon intensity can range between 37.6 and 2.2 gCO₂e / t×km.
+<u>Data from the Fourth IMO GHG Study 2020</u> shows for example that within the same bulk carrier category the carbon intensity can range between 2.2 and 37.6 gCO₂e / tkm.
 
 </div>
 </div>
@@ -84,7 +85,7 @@ Data from the Fourth IMO GHG Study 2020 shows for example that within the same b
 
 In this example, a company wants to nudge customers in using more EVs for shipping goods. To achieve this they want to show each customer’s carbon intensity, compared to the average.
 
-Carbon intensity ranges between 0 and 100 gCO₂ / t×km (based on their customers’ aggregate data). The average is 42 gCO₂ / t×km.
+Carbon intensity ranges between 0 and 100 gCO₂ / tkm (based on their customers’ aggregate data). The average is 42 gCO₂ / tkm.
 
 </div>
 </div>
@@ -109,9 +110,9 @@ In this other example, a company allows users to ship their goods with many tran
 They want to nudge their users to become sustainability leaders and move them away from excessively using air freight, which has a high carbon intensity.
 
 Again, using aggregate data they have defined 3 bands:
-* Leader, below 200 gCO₂ / t×km
-* Average, between 200 and 400 gCO₂ / t×km
-* Too much air freight, above 400 gCO₂ / t×km
+* Leader, below 200 gCO₂ / tkm
+* Average, between 200 and 400 gCO₂ / tkm
+* Too much air freight, above 400 gCO₂ / tkm
 
 </div>
 </div>
@@ -137,5 +138,16 @@ With regulations asking companies to disclose and reduce their emissions, you ca
 Companies investing effort in decarbonising their operations, will be able to see their efforts materialise in lower carbon intensity month over month.
 
 Companies not paying much attention to the issue might see their carbon intensity go up over time.
+
+</div>
+</div>
+
+<>
+
+![intensity-over-time](/img/intensity-over-time.png)
+
+</>
+
+</ApiReferenceSection>
 
 </div>
