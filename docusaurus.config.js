@@ -122,6 +122,10 @@ const config = {
                 },
                 links: [
                     {
+                        label: 'Lune',
+                        to: 'https://lune.co',
+                    },
+                    {
                         label: 'Blog',
                         to: 'https://lune.co/blog/',
                     },
