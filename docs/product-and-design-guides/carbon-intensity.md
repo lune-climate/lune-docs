@@ -124,4 +124,18 @@ Again, using aggregate data they have defined 3 bands:
 
 </ApiReferenceSection>
 
+<ApiReferenceSection>
+
+<div className="paragraphSections">
+
+<div>
+
+## Carbon intensity over time
+
+With regulations asking companies to disclose and reduce their emissions, you can help your users by visualising their carbon intensity over time.
+
+Companies investing effort in decarbonising their operations, will be able to see their efforts materialise in lower carbon intensity month over month.
+
+Companies not paying much attention to the issue might see their carbon intensity go up over time.
+
 </div>
