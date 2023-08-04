@@ -159,6 +159,16 @@ const config = {
         [
           "@docusaurus/plugin-client-redirects", // Note: this only works for production builds
           {
+            redirects: [
+              {
+                to: '/api-reference/bundles/get-bundle',
+                from: ['/api-reference/projects/get-bundle', '/resources/projects/get-bundle'],
+              },
+              {
+                to: '/api-reference/bundles/list-bundles',
+                from: ['/api-reference/projects/list-bundles', '/resources/projects/list-bundles'],
+              }
+            ],
             createRedirects: (path) => {
               // this function, at build time, generates static redirects
 
