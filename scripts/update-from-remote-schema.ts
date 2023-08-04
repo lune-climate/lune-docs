@@ -15,7 +15,12 @@ function writeFile(dir: string, data: string): void {
     })
 }
 
-function createEndpointMDX(data: any, sidebarPosition?: number): string {
+// the sidebar does not fit long labels well
+function shortenEmissionEstimatesLabel(label: string): string {
+    return label.replace(/emission estimate/g, 'estimate');
+}
+
+function createEndpointMDX(data: any, sidebarPosition?: number, sidebarLabel?: string): string {
     return `---
 ${
     sidebarPosition
@@ -24,6 +29,7 @@ ${
         : ''
 }
 sidebar_class_name: ${data.method}
+sidebar_label: ${shortenEmissionEstimatesLabel(data.summary)}
 ---
 # ${data.summary}
 
