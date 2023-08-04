@@ -12,6 +12,13 @@ import Dereferencer from '@site/src/components/Dereferencer'
 // show an empty string
 const DEFAULT_PROPERTY_NAME = ''
 
+function isRequired(props: any): boolean {
+    return (
+        props.required === true ||
+        (props.required && props.name && props.required.includes(props.name))
+    )
+}
+
 // TODO break this complexity further
 // eslint-disable-next-line complexity
 export default function JsonPropertyParser(props: {
@@ -65,6 +72,7 @@ export default function JsonPropertyParser(props: {
             name: props['x-lune-name'] ?? props.name,
             type,
             nullable: props.nullable,
+            required: isRequired(props),
             jsons: children,
             ...(type === 'oneOf' && defaultNames.length === 1
                 ? {
@@ -82,10 +90,7 @@ export default function JsonPropertyParser(props: {
                 props.json.$ref ||
                 (props.json.component && `#/components/schemas/${props.json.component}`),
             example: props.json.example,
-            required:
-                level === 0 ||
-                props.required === true ||
-                (props.required && props.name && props.required.includes(props.name)),
+            required: level === 0 || isRequired(props),
             nullable: props.nullable,
             description: props.json.description,
             jsons: [
@@ -100,7 +105,7 @@ export default function JsonPropertyParser(props: {
             $ref: props.json.$ref || `#/components/schemas/${props.json.component}`,
             example: props.json.example,
             description: props.json.description,
-            required: props.required,
+            required: isRequired(props),
             nullable: props.nullable,
             jsons: Object.keys(props.json.properties || []).map((property) => {
                 const derefencedItem = Dereferencer(props.json.properties[property], property)
