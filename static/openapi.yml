@@ -5983,11 +5983,16 @@ components:
         - type: object
           required:
             - methodology
+            - distance_calculation_method
           properties:
             distance:
               $ref: '#/components/schemas/Distance'
             distance_calculation_method:
-              $ref: '#/components/schemas/DistanceCalculationMethod'
+              oneOf:
+                - $ref: '#/components/schemas/DistanceCalculationMethod'
+                - enum:
+                    - null
+                  nullable: true
             methodology:
               type: array
               description: |
