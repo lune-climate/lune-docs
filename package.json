@@ -48,7 +48,7 @@
     "@jest/globals": "^29.6.2",
     "@tsconfig/docusaurus": "^2.0.0",
     "@types/jest": "^29.5.3",
-    "@types/node": "^20.4.7",
+    "@types/node": "^20.4.8",
     "@types/react": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
