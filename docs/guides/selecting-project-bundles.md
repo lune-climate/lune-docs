@@ -98,7 +98,7 @@ As per Client accounts, you will need to store the [offsetting selection](/api-r
 
 ## Fetching Project bundles and Bundle portfolios
 
-By [fetching Project bundles](/api-reference/projects/list-bundles) and [Bundle portfolios](/api-reference/bundle-portfolios/list-all-bundle-portfolios) and storing the id of one or more of those bundles (and other bundle properties you wish to expose in-app, e.g., bundle images, bundle name, bundle description), you can present your clients with a choice of CO₂ offsetting options.
+By [fetching Project bundles](/api-reference/bundles/list-bundles) and [Bundle portfolios](/api-reference/bundle-portfolios/list-all-bundle-portfolios) and storing the id of one or more of those bundles (and other bundle properties you wish to expose in-app, e.g., bundle images, bundle name, bundle description), you can present your clients with a choice of CO₂ offsetting options.
 
 Fetching both project bundles and bundle portfolios is optional. Retrieve what you need.
 

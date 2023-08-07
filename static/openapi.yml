@@ -17,8 +17,11 @@ tags:
     description: Get a quote, create and fetch orders.
     x-lune-component: "Order"
   - name: Projects
-    description: Get projects and bundles.
+    description: Get projects
     x-lune-component: "Project"
+  - name: Bundles
+    description: Get bundles.
+    x-lune-component: "Bundle"
   - name: Emission estimates
     description: Estimate CO2 emissions (caused by shipping goods for example).
     x-lune-component: "EmissionEstimate"
@@ -676,7 +679,7 @@ paths:
       security:
         - BearerAuth: []
       tags:
-        - Projects
+        - Bundles
       parameters:
         - $ref: "#/components/parameters/LimitPagination"
         - $ref: "#/components/parameters/AfterPagination"
@@ -708,7 +711,7 @@ paths:
       security:
         - BearerAuth: []
       tags:
-        - Projects
+        - Bundles
       parameters:
         - name: id
           in: path
