@@ -2523,31 +2523,14 @@ components:
           example: 'km'
           description: Unit, `km` for kilometers, `mi` for miles
     DistanceCalculationMethod:
-      oneOf:
-        - type: object
-          x-lune-name: Simple distance calculation method
-          required:
-            - method
-          properties:
-            method:
-              type: string
-              enum:
-                - sea_distance_algorithm
-                - mapbox
-                - user_input
-                - osrm
-        - type: object
-          x-lune-name: Distance calculation method requiring a factor
-          required:
-            - method
-            - factor
-          properties:
-            method:
-              type: string
-              enum:
-                - great_circle_distance
-            factor:
-              type: number
+      type: string
+      enum:
+        - great_circle_distance
+        - great_circle_distance_x2
+        - sea_distance_algorithm
+        - mapbox
+        - user_input
+        - osrm
     Area:
       type: object
       required:
@@ -5983,11 +5966,16 @@ components:
         - type: object
           required:
             - methodology
+            - distance_calculation_method
           properties:
             distance:
               $ref: '#/components/schemas/Distance'
             distance_calculation_method:
-              $ref: '#/components/schemas/DistanceCalculationMethod'
+              oneOf:
+                - $ref: '#/components/schemas/DistanceCalculationMethod'
+                - enum:
+                    - null
+                  nullable: true
             methodology:
               type: array
               description: |
