@@ -2523,31 +2523,33 @@ components:
           example: 'km'
           description: Unit, `km` for kilometers, `mi` for miles
     DistanceCalculationMethod:
-      oneOf:
-        - type: object
-          x-lune-name: Simple distance calculation method
-          required:
-            - method
-          properties:
-            method:
-              type: string
+      type: string
+      enum:
+        - great_circle_distance
+        - great_circle_distance_x2
+        - sea_distance_algorithm
+        - mapbox
+        - user_input
+        - osrm
+    ConvertedLoad:
+      type: object
+      required:
+        - amount
+        - unit
+      properties:
+        amount:
+          type: string
+        unit:
+          oneOf:
+            - $ref: '#/components/schemas/MassUnit'
+            - type: string
               enum:
-                - sea_distance_algorithm
-                - mapbox
-                - user_input
-                - osrm
-        - type: object
-          x-lune-name: Distance calculation method requiring a factor
-          required:
-            - method
-            - factor
-          properties:
-            method:
-              type: string
-              enum:
-                - great_circle_distance
-            factor:
-              type: number
+                - TEU
+    LoadConversionMethod:
+      type: string
+      enum:
+        - user_provided_cargo_type
+        - average_cargo_type
     Area:
       type: object
       required:
@@ -5983,11 +5985,19 @@ components:
         - type: object
           required:
             - methodology
+            - distance_calculation_method
           properties:
             distance:
               $ref: '#/components/schemas/Distance'
             distance_calculation_method:
-              $ref: '#/components/schemas/DistanceCalculationMethod'
+              oneOf:
+                - $ref: '#/components/schemas/DistanceCalculationMethod'
+                - enum:
+                    # We need null to be an explicit enum member here in order for our response validation
+                    # middleware to work correctly. This is *in addition to* "nullable: true" below (which is
+                    # needed too).
+                    - null
+                  nullable: true
             methodology:
               type: array
               description: |
@@ -7261,5 +7271,8 @@ components:
       type: string
       x-lune-name: Null
       enum:
+        # We need null to be an explicit enum member here in order for our response validation
+        # middleware to work correctly. This is *in addition to* "nullable: true" below (which is
+        # needed too).
         - null
       nullable: true
