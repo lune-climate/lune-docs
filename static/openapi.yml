@@ -2524,6 +2524,7 @@ components:
           description: Unit, `km` for kilometers, `mi` for miles
     DistanceCalculationMethod:
       type: string
+      x-lune-name: A method used to calculate the distance
       enum:
         - great_circle_distance
         - great_circle_distance_x2
