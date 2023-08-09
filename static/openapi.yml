@@ -3112,10 +3112,14 @@ components:
         certificate:
           type: string
           description: |
-            Carbon credits certificate URL.
+            Carbon credits PDF certificate URL.
 
             This property is set when an order has state 'complete'
 
+            The property is set (and the certificate is available) regardless of the
+            Sustainability page configuration.
+
+            The URL requires API authentication and cannot be accessed anonymously.
           example: 'https://api.lune.co/v1/orders/08QD7GPaBx5b6Y60ndAONXLvrZljRE2e/certificate'
           nullable: true
         public_certificate_url:
