@@ -2531,7 +2531,7 @@ components:
         - mapbox
         - user_input
         - osrm
-    ConvertedLoad:
+    ConvertedShipment:
       type: object
       required:
         - amount
@@ -2546,7 +2546,7 @@ components:
               type: string
               enum:
                 - TEU
-    LoadConversionMethod:
+    ShipmentConversionMethod:
       type: string
       enum:
         - user_provided_cargo_type
