@@ -6000,12 +6000,22 @@ components:
           required:
             - methodology
             - distance_calculation_method
+            - converted_shipment
+            - shipment_conversion_method
           properties:
             distance:
               $ref: '#/components/schemas/Distance'
             distance_calculation_method:
               oneOf:
                 - $ref: '#/components/schemas/DistanceCalculationMethod'
+                - $ref: '#/components/schemas/NullEnum'
+            converted_shipment:
+              oneOf:
+                - $ref: '#/components/schemas/ConvertedShipment'
+                - $ref: '#/components/schemas/NullEnum'
+            shipment_conversion_method:
+              oneOf:
+                - $ref: '#/components/schemas/ShipmentConversionMethod'
                 - $ref: '#/components/schemas/NullEnum'
             methodology:
               type: array
