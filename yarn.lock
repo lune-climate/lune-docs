@@ -10767,10 +10767,10 @@ ts-node@^10.9.1:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
-ts-unused-exports@^9.0.5:
-  version "9.0.5"
-  resolved "https://registry.yarnpkg.com/ts-unused-exports/-/ts-unused-exports-9.0.5.tgz#b823577fd25c7cc08433c648a6db55685d02b7e8"
-  integrity sha512-1XAXaH2i4Al/aZO06pWDn9MUgTN0KQi+fvWudiWfHUTHAav45gzrx7Xq6JAsu6+LoMlVoyGvNvZSPW3KTjDncA==
+ts-unused-exports@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/ts-unused-exports/-/ts-unused-exports-10.0.0.tgz#f2405e6132523f25ee5b5a5af6a703a59c9d5002"
+  integrity sha512-SFRQEBJ/2kUXdt/XAzjXsd2gcWOjYViR1zkXeqI0nPL4r6wyyayZCh/++nlFxNjCkdeGar3cPDHq9K/NBOzTZA==
   dependencies:
     chalk "^4.0.0"
     tsconfig-paths "^3.9.0"
