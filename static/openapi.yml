@@ -6816,7 +6816,7 @@ components:
                 - number_of_projects
               properties:
                 format:
-                  type: number
+                  type: string
                   enum:
                     - by_supported_goals
                 number_of_un_sdgs:
