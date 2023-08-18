@@ -6273,6 +6273,7 @@ components:
         - PLN
         - DKK
         - NOK
+        - BGN
       example: "GBP"
     MonetaryAmountValue:
       type: string
