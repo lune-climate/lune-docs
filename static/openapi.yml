@@ -4941,6 +4941,19 @@ components:
 
         If you only know a rough size of the truck you'll do well can choose one of the
         `truck_generic_*` types if outside North America.
+
+        ## Train emission factors
+
+        You can explicitly request a US emission factor (`diesel_freight_train_us_average`)
+        or a European one (`diesel_freight_train_eu_...`).
+
+        There are multiple European emission factors for different load characteristics. There is
+        one for when the load characteristics aren't know or are average:
+        `diesel_freight_train_eu_average`.
+
+        For `diesel_freight_train_eu_truck_and_trailer` and
+        `diesel_freight_train_eu_truck_trailer_only` the shipment size refers to the net load
+        within the truck.
       enum:
         - inland_waterway_motor_vessel_small
         - inland_waterway_motor_vessel_medium
@@ -4956,6 +4969,18 @@ components:
 
         - diesel_freight_train
         - electric_freight_train
+
+        - diesel_freight_train_us_average
+        - diesel_freight_train_eu_average
+        - diesel_freight_train_eu_container
+        - diesel_freight_train_eu_cars
+        - diesel_freight_train_eu_chemicals
+        - diesel_freight_train_eu_coal_steel
+        - diesel_freight_train_eu_building_materials
+        - diesel_freight_train_eu_manufactured_products
+        - diesel_freight_train_eu_cereals
+        - diesel_freight_train_eu_truck_and_trailer
+        - diesel_freight_train_eu_trailer_only
 
         - diesel_truck
 
