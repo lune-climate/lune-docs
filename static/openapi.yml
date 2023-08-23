@@ -7117,6 +7117,9 @@ components:
         - exiobase
         - ecoinvent
         - beis
+        - lune
+        - glec
+        - emsa
       example: exiobase
     EmissionFactorLogicalUnit:
       type: string
