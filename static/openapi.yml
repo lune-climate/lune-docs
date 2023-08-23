@@ -7168,6 +7168,8 @@ components:
             - person*km
             - t
             - fte*working_hour
+            - container
+            - TEU*km
           example: item
     GasEmissions:
       type: object
