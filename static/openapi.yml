@@ -7168,7 +7168,7 @@ components:
             - person*km
             - t
             - fte*working_hour
-            - container
+            - TEU
             - TEU*km
           example: item
     GasEmissions:
