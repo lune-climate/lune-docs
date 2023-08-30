@@ -6027,6 +6027,7 @@ components:
             - distance_calculation_method
             - converted_shipment
             - shipment_conversion_method
+            - emission_factor
           properties:
             distance:
               $ref: '#/components/schemas/Distance'
@@ -6041,6 +6042,10 @@ components:
             shipment_conversion_method:
               oneOf:
                 - $ref: '#/components/schemas/ShipmentConversionMethod'
+                - $ref: '#/components/schemas/NullEnum'
+            emission_factor:
+              oneOf:
+                - $ref: '#/components/schemas/EmissionFactor'
                 - $ref: '#/components/schemas/NullEnum'
             methodology:
               type: array
