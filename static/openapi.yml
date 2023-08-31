@@ -6044,9 +6044,7 @@ components:
                 - $ref: '#/components/schemas/ShipmentConversionMethod'
                 - $ref: '#/components/schemas/NullEnum'
             emission_factor:
-              oneOf:
-                - $ref: '#/components/schemas/EmissionFactor'
-                - $ref: '#/components/schemas/NullEnum'
+              $ref: '#/components/schemas/EmissionFactor'
             methodology:
               type: array
               description: |
