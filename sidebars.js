@@ -191,6 +191,37 @@ const sidebars = {
 
         {
           type: 'category',
+          label: 'Logistics CSV spreadsheet',
+          link: {
+            type: 'doc',
+            id: 'guides/logistics-sheets',
+          },
+          items: [
+            {
+              type: 'link',
+              label: 'Overview',
+              href: '/guides/logistics-sheets#overview',
+            },
+            {
+              type: 'link',
+              label: 'Download CSV template',
+              href: '/guides/logistics-sheets#download-csv-template',
+            },
+            {
+              type: 'link',
+              label: 'CSV format',
+              href: '/guides/logistics-sheets#csv-format',
+            },
+            {
+              type: 'link',
+              label: 'Upload and wait for results',
+              href: '/guides/logistics-sheets#upload-and-wait-for-results',
+            },
+          ]
+        },
+
+        {
+          type: 'category',
           label: 'Share your climate impact',
           link: {
             type: 'doc',
