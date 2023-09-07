@@ -21,6 +21,9 @@ export default function Dereferencer(
     if (element.$ref) {
         const tokenized = element.$ref.toString().split('/')
         if (tokenized.length === 4 && tokenized[0].includes('#')) {
+            // Extract file ref.
+            // If there's an explicit file ref, extract it then propagate to all children,
+            // otherwise propagate the current node's file ref.
             const schemaFilename =
                 tokenized[0].length > 1 ? tokenized[0].slice(0, -1) : element.schemaFilename
 
