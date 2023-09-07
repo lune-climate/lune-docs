@@ -136,7 +136,7 @@ async function main() {
             }
             return acc
         }, [] as any[])
-        const resourceJSON = { ...data, component: component, endpoints: linkedEndpoints }
+        const resourceJSON = { ...data, component: component, endpoints: linkedEndpoints, schemaFilename: 'api-schema.yml' }
         const filename = formatFilename(component)
         // Sentence case conversion to present on sidebar
         const label = component
@@ -176,7 +176,7 @@ async function main() {
                     )
                 }
 
-                const endpointJSON = { ...data, tag: tag, method: method, path: path }
+                const endpointJSON = { ...data, schemaFilename: 'api-schema.yml', tag: tag, method: method, path: path }
                 writeFile(
                     `${folderDir}/${formatFilename(data.operationId)}.mdx`,
                     createEndpointMDX(endpointJSON),
@@ -189,7 +189,7 @@ async function main() {
     let component: string
     let data: any
     for ([component, data] of Object.entries(schema.components.schemas)) {
-        const resourceJSON = { ...data, component: component }
+        const resourceJSON = { ...data, component: component, schemaFilename: 'api-schema.yml' }
         const filename = formatFilename(component)
         // Sentence case conversion to present on sidebar
         const label = component

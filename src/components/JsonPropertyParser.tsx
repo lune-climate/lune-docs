@@ -35,7 +35,10 @@ export default function JsonPropertyParser(props: {
     if (props.json.oneOf || props.json.allOf || props.json.anyOf) {
         const type = props.json.oneOf ? 'oneOf' : props.json.allOf ? 'allOf' : 'anyOf'
         const children = props.json[type].map((element) => {
-            const derefencedItem = Dereferencer(element)
+            const derefencedItem = Dereferencer({
+                ...element,
+                schemaFilename: props.json.schemaFilename,
+            })
             return JsonPropertyParser({
                 name:
                     element['x-lune-name'] ||
@@ -81,7 +84,10 @@ export default function JsonPropertyParser(props: {
                 : {}),
         }
     } else if (props.json.type === 'array') {
-        const derefencedItem = Dereferencer(props.json.items)
+        const derefencedItem = Dereferencer({
+            ...props.json.items,
+            schemaFilename: props.json.schemaFilename,
+        })
         return {
             ...props,
             name: props['x-lune-name'] ?? props.name,
@@ -108,7 +114,13 @@ export default function JsonPropertyParser(props: {
             required: isRequired(props),
             nullable: props.nullable,
             jsons: Object.keys(props.json.properties || []).map((property) => {
-                const derefencedItem = Dereferencer(props.json.properties[property], property)
+                const derefencedItem = Dereferencer(
+                    {
+                        ...props.json.properties[property],
+                        schemaFilename: props.json.schemaFilename,
+                    },
+                    property,
+                )
                 return JsonPropertyParser({
                     ...derefencedItem,
                     json: derefencedItem,
@@ -119,7 +131,10 @@ export default function JsonPropertyParser(props: {
             }),
         }
     } else {
-        const derefencedItem = Dereferencer(props.json || props, props.name)
+        const derefencedItem = Dereferencer(
+            { ...(props.json || props), schemaFilename: props.json.schemaFilename },
+            props.name,
+        )
         return {
             ...derefencedItem,
             jsons: (derefencedItem.jsons || []).concat(derefencedItem.additionalProperties || []),
