@@ -19,7 +19,7 @@ export default function JsonTable(props: { name: string; json: any }): JSX.Eleme
     })
 
     return (
-        <JsonObjectTable>
+        <JsonObjectTable title="">
             {resourceProperties.map((property, i) => {
                 return <JsonProperty key={i} json={property} level={1} />
             })}

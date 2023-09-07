@@ -35,8 +35,11 @@ async function main() {
     // above to instead have a pointer, but that wasn't thought at first.
     writeFile(`src/components/LogisticsSheetsSchemaContext.tsx`, createContextLogisticsSheetsSchema(schema))
 
-    const resource = schema.components.schemas.MultiLegRowIn
-    writeFile(`src/md/logistics-sheet-row.mdx`, createResourceMDX({ ...resource, schemaFilename: 'logistics-csv-schema.yml' }))
+    const rowResource = schema.components.schemas.MultiLegRowIn
+    writeFile(`src/md/logistics-sheet-row.mdx`, createResourceMDX({ ...rowResource, schemaFilename: 'logistics-csv-schema.yml' }))
+
+    const resultsResource = schema.components.schemas.MultiLegRowResults
+    writeFile(`src/md/logistics-sheet-row-results.mdx`, createResourceMDX({ ...resultsResource, schemaFilename: 'logistics-csv-schema.yml' }))
     process.exit(0)
 }
 

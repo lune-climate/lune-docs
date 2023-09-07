@@ -4,7 +4,8 @@ hide_table_of_contents: true
 
 import LuneApiSection from '@site/src/md/luneapi.md';
 import ApiKeySection from '@site/src/md/apikey.md';
-import Table from '@site/src/md/logistics-sheet-row.mdx';
+import RowTable from '@site/src/md/logistics-sheet-row.mdx';
+import ResultsTable from '@site/src/md/logistics-sheet-row-results.mdx';
 import ClientAccountSection from '@site/src/md/clientaccount.md';
 import Snippet  from '@site/src/components/Snippet';
 import Tip from '@site/src/components/Tip';
@@ -26,7 +27,8 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 ## Overview
 
-In this guide, you will learn how to calculate emissions for shipments by filling and uploading a CSV spreadsheet.
+In this guide, you will learn how to calculate emissions for shipments by:
+* filling and uploading a CSV spreadsheet
 
 </div>
 <div>
@@ -69,7 +71,11 @@ Navigate to the [logistics spreadsheet calculation](https://dashboard.lune.co/ca
 
 Click on the 'Download CSV template' button to download the template.
 
-Note: the template contains sample data. You are feel to amend or delete all rows except the header row.
+The template contains sample data. Amend and/or delete rows to fit your data.
+
+Do not delete the header row.
+
+To test the flow, feel free to upload the template and see results.
 
 </div>
 </div>
@@ -92,10 +98,25 @@ Note: the template contains sample data. You are feel to amend or delete all row
 
 Populate the CSV sheet using your preferred editor.
 
-Ensure to save the file as `.csv`.
+Ensure to save the file as csv with a `.csv` extension.
 
+You may either omit or leave blank non-required columns.
 
-<Table />
+Each row may contain up to 10 legs, only one leg is required. All legs have the same format, the table below describes all legs for correctness.
+
+<br />
+
+<Tip>
+
+Files up to 2MB are supported
+
+</Tip>
+
+</div>
+<div>
+
+<RowTable />
+
 
 </div>
 </div>
@@ -116,10 +137,30 @@ Ensure to save the file as `.csv`.
 
 ## Upload and wait for results
 
-* Email
-* Explain success and errors
-* Columns part of results
-* Explore past results
+Once you've filled the sheet, [drop the file](https://dashboard.lune.co/calculate-emissions/logistics-sheets) in the appropriate box.
+
+Depending on the size, it may take a few minutes to process the sheet.
+
+You'll receive an email when the results are ready.
+
+Please follow the link in your email to download the results.
+
+<br />
+
+<Tip>
+
+We apply your API rate limit when processing a sheet.
+
+</Tip>
+
+</div>
+<div>
+
+#### Results
+
+The following columns are added to the columns provided by you.
+
+<ResultsTable />
 
 
 </div>
