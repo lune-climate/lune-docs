@@ -20,12 +20,18 @@ export default function ResourceParser(props: { name: string; json: any }): JSX.
     // We don't have anyOf so no need to handle it
     if (props.json.allOf || props.json.oneOf) {
         resourceProperties = [
-            { ...JsonPropertyParser({ json: props.json }), name: props.json.component },
+            {
+                ...JsonPropertyParser({ schemaFilename: props.schemaFilename, json: props.json }),
+                name: props.json.component,
+            },
         ]
     } else {
         resourceProperties = props.json.properties
             ? Object.keys(props.json.properties).map((propertyName) => {
-                  const element = Dereferencer(props.json.properties[propertyName])
+                  const element = Dereferencer({
+                      ...props.json.properties[propertyName],
+                      schemaFilename: props.json.schemaFilename,
+                  })
                   return JsonPropertyParser({
                       name: propertyName,
                       json: element,

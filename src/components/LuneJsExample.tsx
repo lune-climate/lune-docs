@@ -1,6 +1,7 @@
 import Dereferencer from '@site/src/components/Dereferencer'
 import JsonPropertyParser from '@site/src/components/JsonPropertyParser'
 import ResourceExample from '@site/src/components/ResourceExample'
+import { SchemaFilename } from '@site/src/components/SchemaContextIndex'
 import { AS_BLOB_PLACEHOLDER, snakeToCamelCase } from '@site/src/utils'
 import camelcaseKeys from 'camelcase-keys'
 
@@ -15,15 +16,17 @@ export default function LuneJsExample(
     pathParameters: any[],
     successResponse: any,
     apiKey?: string,
+    schemaFilename: SchemaFilename,
 ): string {
     let responseObjectName: string = ''
     if (successResponse) {
         if (successResponse['application/pdf']) {
             responseObjectName = 'pdf'
         } else if (successResponse['application/json']) {
-            const dereferencedResponseBody = Dereferencer(
-                successResponse['application/json'].schema,
-            )
+            const dereferencedResponseBody = Dereferencer({
+                ...successResponse['application/json'].schema,
+                schemaFilename,
+            })
             const endpointResponse = JsonPropertyParser({
                 ...dereferencedResponseBody,
                 json: dereferencedResponseBody,
@@ -47,7 +50,7 @@ export default function LuneJsExample(
         // If there are path/route parameters already, we need to handle that.
         methodParameters = methodParameters ? methodParameters.concat(', ') : methodParameters
 
-        const dereferencedRequestBody = Dereferencer(requestBody)
+        const dereferencedRequestBody = Dereferencer({ ...requestBody, schemaFilename })
         const requestBodyExample = ResourceExample(requestBody, true, true)
         // Every property on our library is camelCase so convert it
         const camelCaseBodyRequest = camelcaseKeys(requestBodyExample ?? {}, { deep: true })

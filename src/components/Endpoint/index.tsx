@@ -27,12 +27,13 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
     let endpointRequestBody
     // When existent, only requestBody of type `application/json` and `multipart/form-data` exists in the schema
     if (props.json.requestBody) {
-        const dereferencedRequestBody = Dereferencer(
-            (
+        const dereferencedRequestBody = Dereferencer({
+            ...(
                 props.json.requestBody.content['application/json'] ||
                 props.json.requestBody.content['multipart/form-data']
             ).schema,
-        )
+            schemaFilename: props.json.schemaFilename,
+        })
         endpointRequestBody = JsonPropertyParser({
             ...dereferencedRequestBody,
             json: dereferencedRequestBody,
@@ -44,7 +45,9 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
         }
     }
 
-    const parameters = (props.json.parameters || []).map((parameter) => ParameterParser(parameter))
+    const parameters = (props.json.parameters || []).map((parameter) =>
+        ParameterParser({ ...parameter, schemaFilename: props.json.schemaFilename }),
+    )
     const queryParameters = parameters.filter((parameter) => parameter.in === 'query')
     const pathParameters = parameters.filter((parameter) => parameter.in === 'path')
 
@@ -62,6 +65,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
         pathParameters,
         props.json.responses[200]?.content,
         apiKey,
+        props.json.schemaFilename,
     )
 
     let endpointResponseType
@@ -74,9 +78,10 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
             endpointResponse = 'A binary PDF file is returned.'
         } else if (props.json.responses[200].content['application/json']) {
             endpointResponseType = 'json'
-            const dereferencedResponseBody = Dereferencer(
-                props.json.responses[200].content['application/json'].schema,
-            )
+            const dereferencedResponseBody = Dereferencer({
+                ...props.json.responses[200].content['application/json'].schema,
+                schemaFilename: props.json.schemaFilename,
+            })
             endpointResponse = JsonPropertyParser({
                 ...dereferencedResponseBody,
                 json: dereferencedResponseBody,

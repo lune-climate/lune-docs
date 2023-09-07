@@ -4,8 +4,10 @@ import { AS_BLOB_PLACEHOLDER } from '@site/src/utils'
 // Check if it's a high level resource/reference, not an inline property
 function isHighLevelElement(property: any): boolean {
     const ref = property.$ref || (property.json && property.json.$ref)
+    const schemaFilename =
+        property.schemaFilename || (property.json && property.json.schemaFilename)
     return (
-        (ref && Dereferencer(ref).name === property.name) ||
+        (ref && Dereferencer({ $ref: ref, schemaFilename }).name === property.name) ||
         property.name === '' ||
         !property.name ||
         // High level components are not be a ref, but are still to be treated as such
@@ -92,17 +94,29 @@ export default function ResourceExample(
         const children = Object.assign(
             {},
             ...propertiesParsed.jsons.map((property) =>
-                ResourceExample(property, omitNotRequired, isLuneJsExample),
+                ResourceExample(
+                    { ...property, schemaFilename: propertiesParsed.schemaFilename },
+                    omitNotRequired,
+                    isLuneJsExample,
+                ),
             ),
         )
         return processPropertyWithChildren(propertiesParsed, children)
     } else if (propertiesParsed.oneOf) {
         // The first one is picked just to be deterministic
-        const first = ResourceExample(propertiesParsed.jsons[0], omitNotRequired, isLuneJsExample)
+        const first = ResourceExample(
+            { ...propertiesParsed.jsons[0], schemaFilename: propertiesParsed.schemaFilename },
+            omitNotRequired,
+            isLuneJsExample,
+        )
         return processPropertyWithChildren(propertiesParsed, first)
     } else if (propertiesParsed.type === 'array') {
         const children = propertiesParsed.jsons.map((property) =>
-            ResourceExample(property, omitNotRequired, isLuneJsExample),
+            ResourceExample(
+                { ...property, schemaFilename: propertiesParsed.schemaFilename },
+                omitNotRequired,
+                isLuneJsExample,
+            ),
         )
         return processPropertyWithChildren(propertiesParsed, children)
     } else if (propertiesParsed.type === 'object') {
@@ -117,7 +131,14 @@ export default function ResourceExample(
         const children = Object.assign(
             {},
             ...properties.map((property) =>
-                ResourceExample(property, omitNotRequired, isLuneJsExample),
+                ResourceExample(
+                    {
+                        ...property,
+                        schemaFilename: property.schemaFilename ?? propertiesParsed.schemaFilename,
+                    },
+                    omitNotRequired,
+                    isLuneJsExample,
+                ),
             ),
         )
         return processPropertyWithChildren(propertiesParsed, children)
@@ -127,7 +148,10 @@ export default function ResourceExample(
     } else {
         // If we're referring to a single high level element we don't want to resolve it as an object.
         if ((propertiesParsed as any[]).length === 1 && isHighLevelElement(propertiesParsed)) {
-            return ResourceExample(propertiesParsed[0], isLuneJsExample)
+            return ResourceExample(
+                { ...propertiesParsed[0], schemaFilename: propertiesParsed[0].schemaFilename },
+                isLuneJsExample,
+            )
         } else {
             return Object.assign(
                 {},

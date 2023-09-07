@@ -1,0 +1,1227 @@
+openapi: 3.0.1
+info:
+  title: Lune Logistics CSV Reference
+  version: '1.0'
+  contact:
+    name: Lune Support
+    email: support@lune.co
+  termsOfService: https://lune.co/terms
+  description: Full documentation can be found on https://docs.lune.co
+
+components:
+  schemas:
+    MultiLegRowOut:
+      type: object
+      required:
+        - version
+        - shipment_id
+        - total_mass_tco2
+        - total_distance_km
+        - error
+        - mass_kg
+        - containers
+        - pickup_country
+        - pickup_city
+        - pickup_postcode
+        - pickup_street
+        - pickup_coordinates
+        - pickup_locode
+        - leg1_method
+        - leg1_distance_km
+        - leg1_imo_number
+        - leg1_country
+        - leg1_city
+        - leg1_postcode
+        - leg1_street
+        - leg1_coordinates
+        - leg1_estimated_distance_km
+        - leg1_total_tco2
+      properties:
+        version:
+          type: string
+          pattern: '^[0-9]+$'
+          description: The row's schema version.
+        shipment_id:
+          type: string
+          description: Client shipment identifier
+          default: ''
+        total_mass_tco2:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Overall emission estimate in tCO2e.
+          default: ''
+        total_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Overall shipment distance in km.
+          default: ''
+        error:
+          type: string
+          default: ''
+          description: |
+            Describe the error that occured when processing the row.
+
+            When set, the row has been failed to process and does not return results.
+        mass_kg:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          default: ''
+          description: Shipment weight in kg.
+        containers:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          default: ''
+          description: Shipment in containers.
+        pickup_country:
+          type: string
+          description: Pick up 3-letter ISO 3166 country code.
+          default: ''
+        pickup_city:
+          type: string
+          description: Pick up city
+          default: ''
+        pickup_postcode:
+          type: string
+          description: Pick up postcode or zipcode
+          default: ''
+        pickup_street:
+          type: string
+          description: Pick up street
+          default: ''
+        pickup_coordinates:
+          type: string
+          description: Pick up geographical coordinates formatted as 'lat <number> lon <number>'
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        pickup_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg1_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg1_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg1_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg1_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg1_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg1_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg1_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg1_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg1_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg1_estimated_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance in km.
+
+            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg1_total_tco2:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Leg emission estimate in tCO2e.
+          default: ''
+        leg2_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg2_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg2_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg2_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg2_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg2_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg2_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg2_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg2_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg2_estimated_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance in km.
+
+            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg2_total_tco2:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Leg emission estimate in tCO2e.
+          default: ''
+        leg3_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg3_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg3_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg3_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg3_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg3_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg3_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg3_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg3_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg3_estimated_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance in km.
+
+            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg3_total_tco2:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Leg emission estimate in tCO2e.
+          default: ''
+        leg4_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg4_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg4_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg4_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg4_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg4_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg4_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg4_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg4_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg4_estimated_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance in km.
+
+            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg4_total_tco2:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Leg emission estimate in tCO2e.
+          default: ''
+        leg5_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg5_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg5_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg5_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg5_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg5_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg5_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg5_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg5_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg5_estimated_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance in km.
+
+            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg5_total_tco2:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Leg emission estimate in tCO2e.
+          default: ''
+        leg6_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg6_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg6_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg6_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg6_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg6_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg6_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg6_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg6_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg6_estimated_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance in km.
+
+            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg6_total_tco2:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Leg emission estimate in tCO2e.
+          default: ''
+        leg7_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg7_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg7_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg7_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg7_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg7_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg7_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg7_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg7_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg7_estimated_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance in km.
+
+            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg7_total_tco2:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Leg emission estimate in tCO2e.
+          default: ''
+        leg8_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg8_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg8_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg8_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg8_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg8_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg8_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg8_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg8_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg8_estimated_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance in km.
+
+            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg8_total_tco2:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Leg emission estimate in tCO2e.
+          default: ''
+        leg9_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg9_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg9_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg9_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg9_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg9_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg9_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg9_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg9_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg9_estimated_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance in km.
+
+            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg9_total_tco2:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Leg emission estimate in tCO2e.
+          default: ''
+        leg10_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg10_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg10_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg10_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg10_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg10_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg10_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg10_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg10_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg10_estimated_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance in km.
+
+            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg10_total_tco2:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Leg emission estimate in tCO2e.
+          default: ''
+    MultiLegRowIn:
+      type: object
+      required:
+        - version
+      properties:
+        version:
+          type: string
+          pattern: '^[0-9]+$'
+          description: The row's schema version.
+        shipment_id:
+          type: string
+          description: Client shipment identifier
+          default: ''
+        mass_kg:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          default: ''
+          description: Shipment weight in kg.
+        containers:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          default: ''
+          description: Shipment in containers.
+        pickup_country:
+          type: string
+          description: Pick up 3-letter ISO 3166 country code.
+          default: ''
+        pickup_city:
+          type: string
+          description: Pick up city
+          default: ''
+        pickup_postcode:
+          type: string
+          description: Pick up postcode or zipcode
+          default: ''
+        pickup_street:
+          type: string
+          description: Pick up street
+          default: ''
+        pickup_coordinates:
+          type: string
+          description: Pick up geographical coordinates formatted as 'lat <number> lon <number>'
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        pickup_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg1_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg1_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg1_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg1_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg1_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg1_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg1_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg1_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg1_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg2_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg2_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg2_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg2_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg2_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg2_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg2_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg2_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg2_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg3_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg3_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg3_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg3_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg3_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg3_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg3_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg3_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg3_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg4_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg4_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg4_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg4_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg4_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg4_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg4_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg4_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg4_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg5_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg5_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg5_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg5_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg5_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg5_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg5_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg5_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg5_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg6_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg6_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg6_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg6_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg6_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg6_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg6_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg6_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg6_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg7_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg7_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg7_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg7_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg7_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg7_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg7_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg7_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg7_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg8_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg8_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg8_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg8_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg8_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg8_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg8_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg8_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg8_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg9_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg9_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg9_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg9_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg9_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg9_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg9_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg9_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg9_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+        leg10_method:
+          $ref: '#/components/schemas/Method'
+          description: Leg transport method
+          default: ''
+        leg10_imo_number:
+          type: string
+          pattern: '^$|^[0-9]{7}$'
+          description: |
+            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+          default: ''
+        leg10_country:
+          type: string
+          description: Leg 3-letter ISO 3166 country code.
+          default: ''
+        leg10_city:
+          type: string
+          description: Leg city
+          default: ''
+        leg10_postcode:
+          type: string
+          description: Leg postcode or zipcode
+          default: ''
+        leg10_street:
+          type: string
+          description: Leg street
+          default: ''
+        leg10_coordinates:
+          type: string
+          description: |
+            Leg geographical coordinates formatted as 'lat <number> lon <number>'
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
+          default: ''
+        leg10_locode:
+          type: string
+          pattern: '^$|^[A-Z]{5}$'
+          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          default: ''
+        leg10_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg provided distance.
+
+            The leg's address, coordinates, distance are mutually exclusive.
+          default: ''
+    Method:
+      oneOf:
+        - $ref: 'api-schema.yml#/components/schemas/SimpleShippingMethod'
+        - type: string
+          x-lune-name: Container ship
+          enum:
+            - container_ship
+            - ''
