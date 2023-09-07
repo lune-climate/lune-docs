@@ -20,11 +20,6 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 <div>
 
-<LuneApiSection />
-
-</div>
-<div>
-
 ## Overview
 
 In this guide, you will learn how to calculate emissions for shipments by:
