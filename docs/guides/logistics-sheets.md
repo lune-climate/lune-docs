@@ -49,7 +49,7 @@ Calculations will count towards your tier limit, one per row.
 
 <>
 
-![Sustainability page](/img/sustainability-page.png)
+![logistics-csv-upload](/img/logistics-sheets-overview.png)
 
 </>
 </ApiReferenceSection>
@@ -118,8 +118,6 @@ Files up to 2MB are supported
 
 <>
 
-![Download CSV template](/img/logistics-sheets-download-csv-template.png)
-
 </>
 
 </ApiReferenceSection>
@@ -163,7 +161,9 @@ The following columns are added to the columns provided by you.
 
 <>
 
-![Download CSV template](/img/logistics-sheets-download-csv-template.png)
+![logistics-csv-drop](/img/logistics-sheets-drop.png)
+
+![logistics-csv-email](/img/logistics-sheets-email.png)
 
 </>
 
