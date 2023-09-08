@@ -2523,6 +2523,13 @@ components:
           example: 'km'
           description: Unit, `km` for kilometers, `mi` for miles
     DistanceCalculationMethod:
+      description: |
+        * `great_circle_distance` – Great-circle distance (as the crow flies)
+        * `great_circle_distance_x2` – Great-circle distance multiplied by two
+        * `sea_distance_algorithm` – our algorithm using known distances between ports
+        * `mapbox` – we used the Mapbox Matrix API
+        * `user_input` – the distance was provided to us directly
+        * `osrm` – we used Open Source Routing Machine, the OpenStreetMap Data Routing Engine
       type: string
       enum:
         - great_circle_distance
@@ -2547,6 +2554,11 @@ components:
               enum:
                 - TEU
     ShipmentConversionMethod:
+      description: |
+        * `user_provided_cargo_type` – `cargo_type` was provided and we used it to perform
+          the conversion
+        * `average_cargo_type` – `cargo_type` was not provided and we assumed `average` when
+          converting
       type: string
       enum:
         - user_provided_cargo_type
@@ -6032,14 +6044,26 @@ components:
             distance:
               $ref: '#/components/schemas/Distance'
             distance_calculation_method:
+              description: |
+                The method we used to determine the shipping distance.
+
+                `null` in case of logistics sites.
               oneOf:
                 - $ref: '#/components/schemas/DistanceCalculationMethod'
                 - $ref: '#/components/schemas/NullEnum'
             converted_shipment:
+              description: |
+                The shipment after conversion to the emission factor unit (mass to/from TEU).
+
+                `null` if no conversion was necessary.
               oneOf:
                 - $ref: '#/components/schemas/ConvertedShipment'
                 - $ref: '#/components/schemas/NullEnum'
             shipment_conversion_method:
+              description: |
+                The method we used to convert the shipment to the emission factor unit.
+
+                `null` if no conversion was necessary.
               oneOf:
                 - $ref: '#/components/schemas/ShipmentConversionMethod'
                 - $ref: '#/components/schemas/NullEnum'
