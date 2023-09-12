@@ -128,7 +128,7 @@ In addition, a value for **version** is required and must be set to `1`.
 
 For origin, input one of **address**, **UN/LOCODE**, or **geographical coordinates** as follows:
 
-- Address: `pickup_country` is required and at least one of `pickup_street`, `pickup_postcode`, `pickup_city`. Note: `pickup_country` is a 3-letter country code
+- Address: `pickup_country` is required and at least one of `pickup_street`, `pickup_postcode`, `pickup_city`. Note: pickup_country is a 3-letter country code.
 - [UN/LOCODE](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory): `pickup_locode`
 - Coordinates: `pickup_coordinates`. Pick up geographical coordinates formatted as `lat <number> lon <number>`
 
@@ -146,7 +146,7 @@ Input the distance in km in the column for `leg1_distance_km`. If you have dista
 
 Input either cargo weight in kg or in TEU, or both.
 
-- KG: `mass_kg`
+- Kilograms: `mass_kg`
 - TEU: `containers`
 
 <br />
