@@ -145,9 +145,8 @@ Input the distance in km in the column for `leg1_distance_km`. If you have dista
 #### Cargo weight
 
 Input either cargo weight in kg or in TEU, or both.
-
-- Kilograms: `mass_kg`
-- TEU: `containers`
+- `mass_kg`: cargo weight in kilograms
+- `containers`: number of TEU (Twenty-foot Equivalent Units)
 
 <br />
 
