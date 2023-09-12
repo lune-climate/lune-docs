@@ -22,7 +22,12 @@ components:
       properties:
         estimate_id:
           type: string
-          description: The estimate's unique id.
+          description: |
+            The estimate's unique id.
+
+            To understand how we have calculated emissions, visit the following page:
+
+            `https://dashboard.lune.co/calculate-emissions/multi-leg-shipping/<ESTIMATE_ID>/results`
           default: ''
         total_mass_tco2:
           type: string
@@ -38,9 +43,11 @@ components:
           type: string
           default: ''
           description: |
-            Describe the error that occured when processing the row.
+            Describes the error that occured when processing the row.
 
-            When set, the row has been failed to process and does not return results.
+            When set, the row has failed to process and does not return results.
+
+            Please correct the provided data.
         leg1_estimated_distance_km:
           type: string
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
@@ -178,46 +185,94 @@ components:
         version:
           type: string
           pattern: '^[0-9]+$'
-          description: The row's schema version.
+          description: |
+            The row's schema version.
+
+            Must be set to `1`.
         shipment_id:
           type: string
-          description: Client shipment identifier
+          description: |
+            Client shipment identifier
+
+            Acts as external id. The field represents the id in your system, which you may use to reconcile emission estimates.
           default: ''
         mass_kg:
           type: string
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
           default: ''
-          description: Shipment weight in kg.
+          description: |
+            Shipment weight in kg.
+
+            One of `mass_kg` and `containers` is mandatory. You may provide both for more accurate estimates.
         containers:
           type: string
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
           default: ''
-          description: Shipment in containers.
+          description: |
+            Shipment in containers.
+
+            One of `mass_kg` and `containers` is mandatory. You may provide both for more accurate estimates.
         pickup_country:
           type: string
-          description: Pick up 3-letter ISO 3166 country code.
+          description: |
+            Pick up 3-letter ISO 3166 country code.
+
+            `pickup_country`, `pickup_city`, `pickup_postcode`, `pickup_street` are fields that form an `address`.
+
+            One of `address`, `pickup_coordinates`, `pickup_locode` is required.
+
+            As part of an `address`, to ensure accuracy, `pickup_country` is required and at least one of `pickup_street`, `pickup_postcode`, `pickup_city`.
+
+            Examples: `GBR`, `ISR`.
           default: ''
         pickup_city:
           type: string
-          description: Pick up city
+          description: |
+            Pick up city.
+
+            `pickup_country`, `pickup_city`, `pickup_postcode`, `pickup_street` are fields that form an `address`.
+
+            One of `address`, `pickup_coordinates`, `pickup_locode` is required.
+
+            As part of an `address`, to ensure accuracy, `pickup_country` is required and at least one of `pickup_street`, `pickup_postcode`, `pickup_city`.
           default: ''
         pickup_postcode:
           type: string
-          description: Pick up postcode or zipcode
+          description: |
+            Pick up postcode or zipcode.
+
+            `pickup_country`, `pickup_city`, `pickup_postcode`, `pickup_street` are fields that form an `address`.
+
+            One of `address`, `pickup_coordinates`, `pickup_locode` is required.
+
+            As part of an `address`, to ensure accuracy, `pickup_country` is required and at least one of `pickup_street`, `pickup_postcode`, `pickup_city`.
           default: ''
         pickup_street:
           type: string
-          description: Pick up street
+          description: |
+            Pick up street.
+
+            `pickup_country`, `pickup_city`, `pickup_postcode`, `pickup_street` are fields that form an `address`.
+
+            One of `address`, `pickup_coordinates`, `pickup_locode` is required.
+
+            As part of an `address`, to ensure accuracy, `pickup_country` is required and at least one of `pickup_street`, `pickup_postcode`, `pickup_city`.
           default: ''
         pickup_coordinates:
           type: string
-          description: Pick up geographical coordinates formatted as 'lat <number> lon <number>'
+          description: |
+            Pick up geographical coordinates formatted as 'lat <number> lon <number>'.
+
+            One of `address`, `pickup_coordinates`, `pickup_locode` is required.
           pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
           default: ''
         pickup_locode:
           type: string
           pattern: '^$|^[A-Z]{5}$'
-          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          description: |
+            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+
+            One of `address`, `pickup_coordinates`, `pickup_locode` is required.
           default: ''
         leg1_method:
           $ref: '#/components/schemas/Method'
@@ -228,35 +283,70 @@ components:
           pattern: '^$|^[0-9]{7}$'
           description: |
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+
+            When an imo is provided, the leg's method is ignored.
           default: ''
         leg1_country:
           type: string
-          description: Leg 3-letter ISO 3166 country code.
+          description:
+            Pick up 3-letter ISO 3166 country code.
+
+            `leg1_country`, `leg1_city`, `leg1_postcode`, `leg1_street` are fields that form an `address`.
+
+            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg1_country` is required and at least one of `leg1_street`, `leg1_postcode`, `leg1_city`.
+
+            Examples `GBR`, `ISR`.
           default: ''
         leg1_city:
           type: string
-          description: Leg city
+          description: |
+            Leg city.
+
+            `leg1_country`, `leg1_city`, `leg1_postcode`, `leg1_street` are fields that form an `address`.
+
+            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg1_country` is required and at least one of `leg1_street`, `leg1_postcode`, `leg1_city`.
           default: ''
         leg1_postcode:
           type: string
-          description: Leg postcode or zipcode
+          description: |
+            Leg postcode or zipcode.
+
+            `leg1_country`, `leg1_city`, `leg1_postcode`, `leg1_street` are fields that form an `address`.
+
+            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg1_country` is required and at least one of `leg1_street`, `leg1_postcode`, `leg1_city`.
           default: ''
         leg1_street:
           type: string
-          description: Leg street
+          description: |
+            Leg street.
+
+            `leg1_country`, `leg1_city`, `leg1_postcode`, `leg1_street` are fields that form an `address`.
+
+            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg1_country` is required and at least one of `leg1_street`, `leg1_postcode`, `leg1_city`.
           default: ''
         leg1_coordinates:
           type: string
           description: |
             Leg geographical coordinates formatted as 'lat <number> lon <number>'
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
           pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
           default: ''
         leg1_locode:
           type: string
           pattern: '^$|^[A-Z]{5}$'
-          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          description: |
+            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+
+            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
           default: ''
         leg1_distance_km:
           type: string
@@ -264,7 +354,7 @@ components:
           description: |
             Leg provided distance.
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
           default: ''
         leg2_method:
           $ref: '#/components/schemas/Method'
@@ -275,35 +365,70 @@ components:
           pattern: '^$|^[0-9]{7}$'
           description: |
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+
+            When an imo is provided, the leg's method is ignored.
           default: ''
         leg2_country:
           type: string
-          description: Leg 3-letter ISO 3166 country code.
+          description:
+            Pick up 3-letter ISO 3166 country code.
+
+            `leg2_country`, `leg2_city`, `leg2_postcode`, `leg2_street` are fields that form an `address`.
+
+            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg2_country` is required and at least one of `leg2_street`, `leg2_postcode`, `leg2_city`.
+
+            Examples `GBR`, `ISR`.
           default: ''
         leg2_city:
           type: string
-          description: Leg city
+          description: |
+            Leg city.
+
+            `leg2_country`, `leg2_city`, `leg2_postcode`, `leg2_street` are fields that form an `address`.
+
+            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg2_country` is required and at least one of `leg2_street`, `leg2_postcode`, `leg2_city`.
           default: ''
         leg2_postcode:
           type: string
-          description: Leg postcode or zipcode
+          description: |
+            Leg postcode or zipcode.
+
+            `leg2_country`, `leg2_city`, `leg2_postcode`, `leg2_street` are fields that form an `address`.
+
+            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg2_country` is required and at least one of `leg2_street`, `leg2_postcode`, `leg2_city`.
           default: ''
         leg2_street:
           type: string
-          description: Leg street
+          description: |
+            Leg street.
+
+            `leg2_country`, `leg2_city`, `leg2_postcode`, `leg2_street` are fields that form an `address`.
+
+            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg2_country` is required and at least one of `leg2_street`, `leg2_postcode`, `leg2_city`.
           default: ''
         leg2_coordinates:
           type: string
           description: |
             Leg geographical coordinates formatted as 'lat <number> lon <number>'
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
           pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
           default: ''
         leg2_locode:
           type: string
           pattern: '^$|^[A-Z]{5}$'
-          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          description: |
+            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+
+            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
           default: ''
         leg2_distance_km:
           type: string
@@ -311,7 +436,7 @@ components:
           description: |
             Leg provided distance.
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
           default: ''
         leg3_method:
           $ref: '#/components/schemas/Method'
@@ -322,35 +447,70 @@ components:
           pattern: '^$|^[0-9]{7}$'
           description: |
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+
+            When an imo is provided, the leg's method is ignored.
           default: ''
         leg3_country:
           type: string
-          description: Leg 3-letter ISO 3166 country code.
+          description:
+            Pick up 3-letter ISO 3166 country code.
+
+            `leg3_country`, `leg3_city`, `leg3_postcode`, `leg3_street` are fields that form an `address`.
+
+            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg3_country` is required and at least one of `leg3_street`, `leg3_postcode`, `leg3_city`.
+
+            Examples `GBR`, `ISR`.
           default: ''
         leg3_city:
           type: string
-          description: Leg city
+          description: |
+            Leg city.
+
+            `leg3_country`, `leg3_city`, `leg3_postcode`, `leg3_street` are fields that form an `address`.
+
+            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg3_country` is required and at least one of `leg3_street`, `leg3_postcode`, `leg3_city`.
           default: ''
         leg3_postcode:
           type: string
-          description: Leg postcode or zipcode
+          description: |
+            Leg postcode or zipcode.
+
+            `leg3_country`, `leg3_city`, `leg3_postcode`, `leg3_street` are fields that form an `address`.
+
+            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg3_country` is required and at least one of `leg3_street`, `leg3_postcode`, `leg3_city`.
           default: ''
         leg3_street:
           type: string
-          description: Leg street
+          description: |
+            Leg street.
+
+            `leg3_country`, `leg3_city`, `leg3_postcode`, `leg3_street` are fields that form an `address`.
+
+            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg3_country` is required and at least one of `leg3_street`, `leg3_postcode`, `leg3_city`.
           default: ''
         leg3_coordinates:
           type: string
           description: |
             Leg geographical coordinates formatted as 'lat <number> lon <number>'
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
           pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
           default: ''
         leg3_locode:
           type: string
           pattern: '^$|^[A-Z]{5}$'
-          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          description: |
+            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+
+            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
           default: ''
         leg3_distance_km:
           type: string
@@ -358,7 +518,7 @@ components:
           description: |
             Leg provided distance.
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
           default: ''
         leg4_method:
           $ref: '#/components/schemas/Method'
@@ -369,35 +529,70 @@ components:
           pattern: '^$|^[0-9]{7}$'
           description: |
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+
+            When an imo is provided, the leg's method is ignored.
           default: ''
         leg4_country:
           type: string
-          description: Leg 3-letter ISO 3166 country code.
+          description:
+            Pick up 3-letter ISO 3166 country code.
+
+            `leg4_country`, `leg4_city`, `leg4_postcode`, `leg4_street` are fields that form an `address`.
+
+            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg4_country` is required and at least one of `leg4_street`, `leg4_postcode`, `leg4_city`.
+
+            Examples `GBR`, `ISR`.
           default: ''
         leg4_city:
           type: string
-          description: Leg city
+          description: |
+            Leg city.
+
+            `leg4_country`, `leg4_city`, `leg4_postcode`, `leg4_street` are fields that form an `address`.
+
+            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg4_country` is required and at least one of `leg4_street`, `leg4_postcode`, `leg4_city`.
           default: ''
         leg4_postcode:
           type: string
-          description: Leg postcode or zipcode
+          description: |
+            Leg postcode or zipcode.
+
+            `leg4_country`, `leg4_city`, `leg4_postcode`, `leg4_street` are fields that form an `address`.
+
+            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg4_country` is required and at least one of `leg4_street`, `leg4_postcode`, `leg4_city`.
           default: ''
         leg4_street:
           type: string
-          description: Leg street
+          description: |
+            Leg street.
+
+            `leg4_country`, `leg4_city`, `leg4_postcode`, `leg4_street` are fields that form an `address`.
+
+            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg4_country` is required and at least one of `leg4_street`, `leg4_postcode`, `leg4_city`.
           default: ''
         leg4_coordinates:
           type: string
           description: |
             Leg geographical coordinates formatted as 'lat <number> lon <number>'
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
           pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
           default: ''
         leg4_locode:
           type: string
           pattern: '^$|^[A-Z]{5}$'
-          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          description: |
+            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+
+            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
           default: ''
         leg4_distance_km:
           type: string
@@ -405,7 +600,7 @@ components:
           description: |
             Leg provided distance.
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
           default: ''
         leg5_method:
           $ref: '#/components/schemas/Method'
@@ -416,35 +611,70 @@ components:
           pattern: '^$|^[0-9]{7}$'
           description: |
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+
+            When an imo is provided, the leg's method is ignored.
           default: ''
         leg5_country:
           type: string
-          description: Leg 3-letter ISO 3166 country code.
+          description:
+            Pick up 3-letter ISO 3166 country code.
+
+            `leg5_country`, `leg5_city`, `leg5_postcode`, `leg5_street` are fields that form an `address`.
+
+            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg5_country` is required and at least one of `leg5_street`, `leg5_postcode`, `leg5_city`.
+
+            Examples `GBR`, `ISR`.
           default: ''
         leg5_city:
           type: string
-          description: Leg city
+          description: |
+            Leg city.
+
+            `leg5_country`, `leg5_city`, `leg5_postcode`, `leg5_street` are fields that form an `address`.
+
+            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg5_country` is required and at least one of `leg5_street`, `leg5_postcode`, `leg5_city`.
           default: ''
         leg5_postcode:
           type: string
-          description: Leg postcode or zipcode
+          description: |
+            Leg postcode or zipcode.
+
+            `leg5_country`, `leg5_city`, `leg5_postcode`, `leg5_street` are fields that form an `address`.
+
+            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg5_country` is required and at least one of `leg5_street`, `leg5_postcode`, `leg5_city`.
           default: ''
         leg5_street:
           type: string
-          description: Leg street
+          description: |
+            Leg street.
+
+            `leg5_country`, `leg5_city`, `leg5_postcode`, `leg5_street` are fields that form an `address`.
+
+            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg5_country` is required and at least one of `leg5_street`, `leg5_postcode`, `leg5_city`.
           default: ''
         leg5_coordinates:
           type: string
           description: |
             Leg geographical coordinates formatted as 'lat <number> lon <number>'
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
           pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
           default: ''
         leg5_locode:
           type: string
           pattern: '^$|^[A-Z]{5}$'
-          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          description: |
+            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+
+            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
           default: ''
         leg5_distance_km:
           type: string
@@ -452,7 +682,7 @@ components:
           description: |
             Leg provided distance.
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
           default: ''
         leg6_method:
           $ref: '#/components/schemas/Method'
@@ -463,35 +693,70 @@ components:
           pattern: '^$|^[0-9]{7}$'
           description: |
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+
+            When an imo is provided, the leg's method is ignored.
           default: ''
         leg6_country:
           type: string
-          description: Leg 3-letter ISO 3166 country code.
+          description:
+            Pick up 3-letter ISO 3166 country code.
+
+            `leg6_country`, `leg6_city`, `leg6_postcode`, `leg6_street` are fields that form an `address`.
+
+            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg6_country` is required and at least one of `leg6_street`, `leg6_postcode`, `leg6_city`.
+
+            Examples `GBR`, `ISR`.
           default: ''
         leg6_city:
           type: string
-          description: Leg city
+          description: |
+            Leg city.
+
+            `leg6_country`, `leg6_city`, `leg6_postcode`, `leg6_street` are fields that form an `address`.
+
+            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg6_country` is required and at least one of `leg6_street`, `leg6_postcode`, `leg6_city`.
           default: ''
         leg6_postcode:
           type: string
-          description: Leg postcode or zipcode
+          description: |
+            Leg postcode or zipcode.
+
+            `leg6_country`, `leg6_city`, `leg6_postcode`, `leg6_street` are fields that form an `address`.
+
+            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg6_country` is required and at least one of `leg6_street`, `leg6_postcode`, `leg6_city`.
           default: ''
         leg6_street:
           type: string
-          description: Leg street
+          description: |
+            Leg street.
+
+            `leg6_country`, `leg6_city`, `leg6_postcode`, `leg6_street` are fields that form an `address`.
+
+            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg6_country` is required and at least one of `leg6_street`, `leg6_postcode`, `leg6_city`.
           default: ''
         leg6_coordinates:
           type: string
           description: |
             Leg geographical coordinates formatted as 'lat <number> lon <number>'
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
           pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
           default: ''
         leg6_locode:
           type: string
           pattern: '^$|^[A-Z]{5}$'
-          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          description: |
+            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+
+            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
           default: ''
         leg6_distance_km:
           type: string
@@ -499,7 +764,7 @@ components:
           description: |
             Leg provided distance.
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
           default: ''
         leg7_method:
           $ref: '#/components/schemas/Method'
@@ -510,35 +775,70 @@ components:
           pattern: '^$|^[0-9]{7}$'
           description: |
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+
+            When an imo is provided, the leg's method is ignored.
           default: ''
         leg7_country:
           type: string
-          description: Leg 3-letter ISO 3166 country code.
+          description:
+            Pick up 3-letter ISO 3166 country code.
+
+            `leg7_country`, `leg7_city`, `leg7_postcode`, `leg7_street` are fields that form an `address`.
+
+            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg7_country` is required and at least one of `leg7_street`, `leg7_postcode`, `leg7_city`.
+
+            Examples `GBR`, `ISR`.
           default: ''
         leg7_city:
           type: string
-          description: Leg city
+          description: |
+            Leg city.
+
+            `leg7_country`, `leg7_city`, `leg7_postcode`, `leg7_street` are fields that form an `address`.
+
+            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg7_country` is required and at least one of `leg7_street`, `leg7_postcode`, `leg7_city`.
           default: ''
         leg7_postcode:
           type: string
-          description: Leg postcode or zipcode
+          description: |
+            Leg postcode or zipcode.
+
+            `leg7_country`, `leg7_city`, `leg7_postcode`, `leg7_street` are fields that form an `address`.
+
+            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg7_country` is required and at least one of `leg7_street`, `leg7_postcode`, `leg7_city`.
           default: ''
         leg7_street:
           type: string
-          description: Leg street
+          description: |
+            Leg street.
+
+            `leg7_country`, `leg7_city`, `leg7_postcode`, `leg7_street` are fields that form an `address`.
+
+            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg7_country` is required and at least one of `leg7_street`, `leg7_postcode`, `leg7_city`.
           default: ''
         leg7_coordinates:
           type: string
           description: |
             Leg geographical coordinates formatted as 'lat <number> lon <number>'
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
           pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
           default: ''
         leg7_locode:
           type: string
           pattern: '^$|^[A-Z]{5}$'
-          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          description: |
+            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+
+            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
           default: ''
         leg7_distance_km:
           type: string
@@ -546,7 +846,7 @@ components:
           description: |
             Leg provided distance.
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
           default: ''
         leg8_method:
           $ref: '#/components/schemas/Method'
@@ -557,35 +857,70 @@ components:
           pattern: '^$|^[0-9]{7}$'
           description: |
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+
+            When an imo is provided, the leg's method is ignored.
           default: ''
         leg8_country:
           type: string
-          description: Leg 3-letter ISO 3166 country code.
+          description:
+            Pick up 3-letter ISO 3166 country code.
+
+            `leg8_country`, `leg8_city`, `leg8_postcode`, `leg8_street` are fields that form an `address`.
+
+            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg8_country` is required and at least one of `leg8_street`, `leg8_postcode`, `leg8_city`.
+
+            Examples `GBR`, `ISR`.
           default: ''
         leg8_city:
           type: string
-          description: Leg city
+          description: |
+            Leg city.
+
+            `leg8_country`, `leg8_city`, `leg8_postcode`, `leg8_street` are fields that form an `address`.
+
+            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg8_country` is required and at least one of `leg8_street`, `leg8_postcode`, `leg8_city`.
           default: ''
         leg8_postcode:
           type: string
-          description: Leg postcode or zipcode
+          description: |
+            Leg postcode or zipcode.
+
+            `leg8_country`, `leg8_city`, `leg8_postcode`, `leg8_street` are fields that form an `address`.
+
+            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg8_country` is required and at least one of `leg8_street`, `leg8_postcode`, `leg8_city`.
           default: ''
         leg8_street:
           type: string
-          description: Leg street
+          description: |
+            Leg street.
+
+            `leg8_country`, `leg8_city`, `leg8_postcode`, `leg8_street` are fields that form an `address`.
+
+            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg8_country` is required and at least one of `leg8_street`, `leg8_postcode`, `leg8_city`.
           default: ''
         leg8_coordinates:
           type: string
           description: |
             Leg geographical coordinates formatted as 'lat <number> lon <number>'
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
           pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
           default: ''
         leg8_locode:
           type: string
           pattern: '^$|^[A-Z]{5}$'
-          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          description: |
+            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+
+            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
           default: ''
         leg8_distance_km:
           type: string
@@ -593,7 +928,7 @@ components:
           description: |
             Leg provided distance.
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
           default: ''
         leg9_method:
           $ref: '#/components/schemas/Method'
@@ -604,35 +939,70 @@ components:
           pattern: '^$|^[0-9]{7}$'
           description: |
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+
+            When an imo is provided, the leg's method is ignored.
           default: ''
         leg9_country:
           type: string
-          description: Leg 3-letter ISO 3166 country code.
+          description:
+            Pick up 3-letter ISO 3166 country code.
+
+            `leg9_country`, `leg9_city`, `leg9_postcode`, `leg9_street` are fields that form an `address`.
+
+            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg9_country` is required and at least one of `leg9_street`, `leg9_postcode`, `leg9_city`.
+
+            Examples `GBR`, `ISR`.
           default: ''
         leg9_city:
           type: string
-          description: Leg city
+          description: |
+            Leg city.
+
+            `leg9_country`, `leg9_city`, `leg9_postcode`, `leg9_street` are fields that form an `address`.
+
+            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg9_country` is required and at least one of `leg9_street`, `leg9_postcode`, `leg9_city`.
           default: ''
         leg9_postcode:
           type: string
-          description: Leg postcode or zipcode
+          description: |
+            Leg postcode or zipcode.
+
+            `leg9_country`, `leg9_city`, `leg9_postcode`, `leg9_street` are fields that form an `address`.
+
+            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg9_country` is required and at least one of `leg9_street`, `leg9_postcode`, `leg9_city`.
           default: ''
         leg9_street:
           type: string
-          description: Leg street
+          description: |
+            Leg street.
+
+            `leg9_country`, `leg9_city`, `leg9_postcode`, `leg9_street` are fields that form an `address`.
+
+            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg9_country` is required and at least one of `leg9_street`, `leg9_postcode`, `leg9_city`.
           default: ''
         leg9_coordinates:
           type: string
           description: |
             Leg geographical coordinates formatted as 'lat <number> lon <number>'
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
           pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
           default: ''
         leg9_locode:
           type: string
           pattern: '^$|^[A-Z]{5}$'
-          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          description: |
+            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+
+            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
           default: ''
         leg9_distance_km:
           type: string
@@ -640,7 +1010,7 @@ components:
           description: |
             Leg provided distance.
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
           default: ''
         leg10_method:
           $ref: '#/components/schemas/Method'
@@ -651,35 +1021,70 @@ components:
           pattern: '^$|^[0-9]{7}$'
           description: |
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+
+            When an imo is provided, the leg's method is ignored.
           default: ''
         leg10_country:
           type: string
-          description: Leg 3-letter ISO 3166 country code.
+          description:
+            Pick up 3-letter ISO 3166 country code.
+
+            `leg10_country`, `leg10_city`, `leg10_postcode`, `leg10_street` are fields that form an `address`.
+
+            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg10_country` is required and at least one of `leg10_street`, `leg10_postcode`, `leg10_city`.
+
+            Examples `GBR`, `ISR`.
           default: ''
         leg10_city:
           type: string
-          description: Leg city
+          description: |
+            Leg city.
+
+            `leg10_country`, `leg10_city`, `leg10_postcode`, `leg10_street` are fields that form an `address`.
+
+            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg10_country` is required and at least one of `leg10_street`, `leg10_postcode`, `leg10_city`.
           default: ''
         leg10_postcode:
           type: string
-          description: Leg postcode or zipcode
+          description: |
+            Leg postcode or zipcode.
+
+            `leg10_country`, `leg10_city`, `leg10_postcode`, `leg10_street` are fields that form an `address`.
+
+            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg10_country` is required and at least one of `leg10_street`, `leg10_postcode`, `leg10_city`.
           default: ''
         leg10_street:
           type: string
-          description: Leg street
+          description: |
+            Leg street.
+
+            `leg10_country`, `leg10_city`, `leg10_postcode`, `leg10_street` are fields that form an `address`.
+
+            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
+
+            As part of an `address`, to ensure accuracy, `leg10_country` is required and at least one of `leg10_street`, `leg10_postcode`, `leg10_city`.
           default: ''
         leg10_coordinates:
           type: string
           description: |
             Leg geographical coordinates formatted as 'lat <number> lon <number>'
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
           pattern: '^$|^lat [0-9]+(\.[0-9]+)? lon [0-9]+(\.[0-9]+)?$'
           default: ''
         leg10_locode:
           type: string
           pattern: '^$|^[A-Z]{5}$'
-          description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
+          description: |
+            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+
+            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
           default: ''
         leg10_distance_km:
           type: string
@@ -687,13 +1092,21 @@ components:
           description: |
             Leg provided distance.
 
-            The leg's address, coordinates, distance are mutually exclusive.
+            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
           default: ''
     Method:
+      description: |
+        The transport method.
+
+        Required unless `imo` is provided.
+
+        Pick one of the following options.
+
+        Examples: `cargo_plane`, `container_ship`, `diesel_truck`.
       oneOf:
         - $ref: 'api-schema.yml#/components/schemas/SimpleShippingMethod'
         - type: string
-          x-lune-name: Container ship
+          x-lune-name: Container ship method
           enum:
             - container_ship
             - ''
