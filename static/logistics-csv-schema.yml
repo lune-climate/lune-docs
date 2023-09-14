@@ -196,6 +196,15 @@ components:
 
             Acts as external id. The field represents the id in your system, which you may use to reconcile emission estimates.
           default: ''
+        client_account_id:
+          type: string
+          description: |
+            The client account unique identifier.
+
+            When set, the emission estimate is stored against the client account.
+
+            For details in regards to Client Accounts visit https://docs.lune.co/api-reference/client-accounts/client-account.
+          default: ''
         mass_kg:
           type: string
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
