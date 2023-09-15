@@ -60,7 +60,7 @@ Even within the same transport method category, carbon intensity can vary signif
 * The type of engine it uses
 * The type of fuel it uses
 
-<u>Data from the Fourth IMO GHG Study 2020</u> shows for example that within the same bulk carrier category the carbon intensity can range between 2.2 and 37.6 gCO₂e / tkm.
+*Data from the Fourth IMO GHG Study 2020* shows for example that within the same bulk carrier category the carbon intensity can range between 2.2 and 37.6 gCO₂e / tkm.
 
 </div>
 </div>
