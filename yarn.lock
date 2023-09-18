@@ -4940,10 +4940,10 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-docusaurus-lunr-search@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/docusaurus-lunr-search/-/docusaurus-lunr-search-2.4.2.tgz#6a9ccaa50eb7140ce6f71ff5cb395fd53c33a5e6"
-  integrity sha512-t6Uk45ED5gZ4ma5s5fEzHrf52QmoTpKSC7LnskaSBqyFL3uj5ciW14WOm3nE/dlhkzx+ZphLjOEoRXgkwaSy7Q==
+docusaurus-lunr-search@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/docusaurus-lunr-search/-/docusaurus-lunr-search-3.0.0.tgz#8e04efd625e006eeb22213f29b023fedc5c4c60e"
+  integrity sha512-u4hI4neG40304U+sFoPK9Vs9l8i47TZnysU8BjcV3sHA/Pr/0ztNsRAkMY0ZlMS5V9Rn0HEQ41QKbdWKNGgI5w==
   dependencies:
     autocomplete.js "^0.37.0"
     clsx "^1.2.1"
@@ -4953,6 +4953,7 @@ docusaurus-lunr-search@^2.4.2:
     hogan.js "^3.0.2"
     lunr "^2.3.8"
     lunr-languages "^1.4.0"
+    mark.js "^8.11.1"
     minimatch "^3.0.4"
     object-assign "^4.1.1"
     rehype-parse "^7.0.1"
@@ -7905,6 +7906,11 @@ map-obj@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-5.0.0.tgz#126c98596b63927d7360f287cccc67177aa1938b"
   integrity sha512-2L3MIgJynYrZ3TYMriLDLWocz15okFakV6J12HXvMXDHui2x/zgChzg1u9mFFGbbGWE+GsLpQByt4POb9Or+uA==
+
+mark.js@^8.11.1:
+  version "8.11.1"
+  resolved "https://registry.yarnpkg.com/mark.js/-/mark.js-8.11.1.tgz#180f1f9ebef8b0e638e4166ad52db879beb2ffc5"
+  integrity sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==
 
 markdown-escapes@^1.0.0:
   version "1.0.4"
