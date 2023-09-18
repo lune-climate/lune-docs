@@ -2666,7 +2666,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
+          description: Specific to carbon offsetting, selects to which precision to truncate quantities.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
       example:
@@ -2688,7 +2688,7 @@ components:
           items:
             $ref: '#/components/schemas/BundleMass'
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
+          description: Specific to carbon offsetting, selects to which precision to truncate quantities.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
     CreateOrderByQuantityRequest:
