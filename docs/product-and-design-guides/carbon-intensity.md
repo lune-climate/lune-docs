@@ -1,12 +1,16 @@
 ---
 hide_table_of_contents: true
 sidebar_position: 2
+title: Carbon intensity
 ---
+
+<head>
+<meta property="og:image" content="https://docs.lune.co/img/carbon-intensity-preview.png" />
+<meta property="twitter:image" content="https://docs.lune.co/img/carbon-intensity-preview.png" />
+</head>
 
 import Snippet  from '@site/src/components/Snippet';
 import { ApiReferenceSection } from 'lune-ui-lib'
-
-# Carbon intensity
 
 <div className="sections">
 
