@@ -1,12 +1,19 @@
 ---
 hide_table_of_contents: true
 sidebar_position: 1
+title: CO₂ unit of measurement
 ---
+
+<head>
+<meta property="og:image" content="https://docs.lune.co/img/co2-units-of-measurement-preview.png" />
+<meta property="twitter:image" content="https://docs.lune.co/img/co2-units-of-measurement-preview.png" />
+
+
+</head>
+
 
 import Snippet  from '@site/src/components/Snippet';
 import { ApiReferenceSection } from 'lune-ui-lib'
-
-# CO₂ unit of measurement
 
 <div className="sections">
 

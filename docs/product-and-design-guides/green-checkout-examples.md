@@ -1,12 +1,16 @@
 ---
 hide_table_of_contents: true
 sidebar_position: 3
+title: Green checkout examples
 ---
+
+<head>
+<meta property="og:image" content="https://docs.lune.co/img/green-checkout-preview.png" />
+<meta property="twitter:image" content="https://docs.lune.co/img/green-checkout-preview.png" />
+</head>
 
 import Snippet  from '@site/src/components/Snippet';
 import { ApiReferenceSection } from 'lune-ui-lib'
-
-# Green checkout examples
 
 <div className="sections">
 
