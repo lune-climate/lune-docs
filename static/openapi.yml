@@ -4827,46 +4827,35 @@ components:
         legs:
           - route:
               source:
-                lat: 80.960515
-                lon: 23.69781
+                lat: 24.211893
+                lon: 120.608696
               destination:
-                lat: 24.255
-                lon: 120.5075
+                locode: TWTXG
             method: 'diesel_truck'
           - route:
               source:
-                lat: 24.255
-                lon: 120.5075
+                locode: TWTXG
               destination:
-                lat: 25.03
-                lon: 121.51
+                locode: TWTPE
             method:
               vessel_type: 'container_ship'
           - route:
               source:
-                lat: 25.03
-                lon: 121.51
+                locode: TWTPE
               destination:
-                lat: 9.9619
-                lon: 53.5231
+                locode: DEHAM
             method:
               vessel_imo_number: '9893890'
+          - method: maritime_container_terminal
           - route:
               source:
-                lat: 9.9619
-                lon: 53.5231
+                locode: DEHAM
               destination:
-                lat: 52.4857
-                lon: 13.49587
-            method: 'electric_freight_train'
-          - route:
-              source:
-                lat: 52.4857
-                lon: 13.49587
-              destination:
-                lat: 52.362524
-                lon: 13.2937333
-            method: 'diesel_truck'
+                street_line1: Märkische Allee 71
+                postcode: '14979'
+                city: Großbeeren
+                country_code: DEU
+            method: truck_articulated_34t
     Shipment:
       description: |
         Either a mass given in kilograms or tonnes (`mass`) or the number of [Twenty-foot Equivalent
@@ -6140,39 +6129,36 @@ components:
               offset_cost: '13.82'
               insufficient_available_quantity: null
         distance:
-          amount: '22981.4401'
+          amount: '22951.682'
           unit: 'km'
         legs:
           - mass:
-              amount: '0.089758'
+              amount: '0.018195'
               unit: 't'
             distance:
-              amount: '106.9614'
+              amount: '19.09'
               unit: 'km'
             methodology: []
           - mass:
-              amount: '0.030356'
+              amount: '0.019576'
               unit: 't'
             distance:
-              amount: '266.02'
+              amount: '267.02'
               unit: 'km'
             methodology: []
           - mass:
-              amount: '0.897291'
+              amount: '0.901448'
               unit: 't'
             distance:
-              amount: '22247.3894'
+              amount: '22350.48'
               unit: 'km'
             methodology: []
           - mass:
-              amount: '0.048678'
+              amount: '0.031184'
               unit: 't'
-            distance:
-              amount: '313.8612'
-              unit: 'km'
             methodology: []
           - mass:
-              amount: '0.039615'
+              amount: '0.135294'
               unit: 't'
             distance:
               amount: '47.2081'
@@ -6180,51 +6166,41 @@ components:
             methodology: []
         request:
           shipment:
-            amount: '10.36'
-            unit: 't'
+            mass:
+              amount: '10.36'
+              unit: 't'
           legs:
             - route:
                 source:
-                  lat: 120.960515
-                  lon: 23.69781
+                  lat: 24.211893
+                  lon: 120.608696
                 destination:
-                  lat: 24.255
-                  lon: 120.5075
+                  locode: TWTXG
               method: 'diesel_truck'
             - route:
                 source:
-                  lat: 24.255
-                  lon: 120.5075
+                  locode: TWTXG
                 destination:
-                  lat: 25.03
-                  lon: 121.51
+                  locode: TWTPE
               method:
                 vessel_type: 'container_ship'
             - route:
                 source:
-                  lat: 25.03
-                  lon: 121.51
+                  locode: TWTPE
                 destination:
-                  lat: 9.9619
-                  lon: 53.5231
+                  locode: DEHAM
               method:
                 vessel_imo_number: '9893890'
+            - method: maritime_container_terminal
             - route:
                 source:
-                  lat: 9.9619
-                  lon: 53.5231
+                  locode: DEHAM
                 destination:
-                  lat: 52.4857
-                  lon: 13.49587
-              method: 'electric_freight_train'
-            - route:
-                source:
-                  lat: 52.4857
-                  lon: 13.49587
-                destination:
-                  lat: 52.362524
-                  lon: 13.2937333
-              method: 'diesel_truck'
+                  street_line1: Märkische Allee 71
+                  postcode: '14979'
+                  city: Großbeeren
+                  country_code: DEU
+              method: truck_articulated_34t
     CompanyEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
