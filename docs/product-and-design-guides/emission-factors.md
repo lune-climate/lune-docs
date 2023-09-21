@@ -29,7 +29,7 @@ Examples of Emissions Factors include:
 * Oil tanker: 61 gCO₂e / tkm
 * Petrol: 0.062 kgCO₂e / kWh
 
-To get the total emissions of something, we multiple the Emissions Factor by the activity or spend.
+To get the total emissions of something, we multiply the Emissions Factor by the activity or spend.
 
 </div>
 </div>
