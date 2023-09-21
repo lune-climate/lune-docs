@@ -24,7 +24,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.4.1",
+    "@docusaurus/core": "^2.4.3",
     "@docusaurus/plugin-client-redirects": "^2.4.1",
     "@docusaurus/preset-classic": "^2.4.1",
     "@emotion/react": "^11.11.1",
