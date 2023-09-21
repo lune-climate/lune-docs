@@ -147,7 +147,7 @@ export default function EndpointParser(props: { json: any }): JSX.Element {
                     {queryParameters.length !== 0 && (
                         <JsonObjectTable title="Query Parameters">
                             {queryParameters.map((parameters, i) => (
-                                <JsonProperty json={parameters} key={i} />
+                                <JsonProperty level={1} json={parameters} key={i} />
                             ))}
                         </JsonObjectTable>
                     )}
