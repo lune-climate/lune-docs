@@ -14,6 +14,7 @@ components:
       type: object
       required:
         - estimate_id
+        - dashboard_url
         - total_mass_tco2
         - total_distance_km
         - error
@@ -28,6 +29,16 @@ components:
             To understand how we have calculated emissions, visit the following page:
 
             `https://dashboard.lune.co/calculate-emissions/multi-leg-shipping/<ESTIMATE_ID>/results`
+          default: ''
+        dashboard_url:
+          type: string
+          description: |
+            The URL pointing to the specific emission calculation page in the Lune dashboard.
+
+            Here you can:
+            * review your estimate
+            * read how Lune has calculated your emissions
+            * offset your emissions
           default: ''
         total_mass_tco2:
           type: string
