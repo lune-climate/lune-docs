@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@algolia/client-search": "^4.20.0",
-    "@docusaurus/module-type-aliases": "^2.4.1",
+    "@docusaurus/module-type-aliases": "^2.4.3",
     "@jest/globals": "^29.7.0",
     "@tsconfig/docusaurus": "^2.0.1",
     "@types/jest": "^29.5.5",
