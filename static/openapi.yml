@@ -6026,6 +6026,7 @@ components:
           required:
             - methodology
             - distance_calculation_method
+            - route
             - converted_shipment
             - shipment_conversion_method
             - emission_factor
@@ -6039,6 +6040,21 @@ components:
                 `null` in case of logistics sites.
               oneOf:
                 - $ref: '#/components/schemas/DistanceCalculationMethod'
+                - $ref: '#/components/schemas/NullEnum'
+            route:
+              description: |
+                The shipping route.
+
+                `null` in case of logistics sites and situations where the concept of
+                a route doesn't make sense or we're unable to return the route. That
+                includes the following situations at the moment:
+
+                * Routes where source or destination is an address (or both are).
+                * Most land and inland waterways routes.
+                * The actual distance value was provided by the user.
+                * The emission estimate was created before 2023-09-22.
+              oneOf:
+                - $ref: '#/components/schemas/CalculatedRoute'
                 - $ref: '#/components/schemas/NullEnum'
             converted_shipment:
               description: |
@@ -7317,6 +7333,53 @@ components:
               $ref: '#/components/schemas/EmissionFactorEstimateRequest'
             emission_factor:
               $ref: '#/components/schemas/EmissionFactor'
+    CalculatedRoute:
+      description: |
+        A list of locations and distances betwen them.
+
+        At least one leg will always exist.
+
+        The last leg contains the final location (destination) of the route.
+      type: object
+      required:
+        - source
+        - legs
+      properties:
+        source:
+          $ref: '#/components/schemas/CalculatedRouteLocation'
+        legs:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CalculatedRouteLeg'
+    CalculatedRouteLeg:
+      description: |
+        A location and a distance from the previous location (or `source`, if this is the
+        first leg).
+
+        If this is the last leg then the location is the final location (destination) of
+        the route.
+      type: object
+      required:
+        - location
+        - distance
+      properties:
+        location:
+          $ref: '#/components/schemas/CalculatedRouteLocation'
+        distance:
+          $ref: '#/components/schemas/Distance'
+    CalculatedRouteLocation:
+      type: object
+      required:
+        - label
+        - coordinates
+      properties:
+        label:
+          oneOf:
+            - $ref: '#/components/schemas/NullEnum'
+            - type: string
+        coordinates:
+          $ref: '#/components/schemas/GeographicCoordinates'
     NullEnum:
       # This is a hack. Since SustainabilityPageDescription is an enum we need to also have a
       # null enum member in order for this property to be trully nullable from the point of view
