@@ -22,7 +22,7 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 ## What is an Emission Factor?
 
-A value that represents the amount of CO₂e released into the environment per unit of activity (such as km driven, fuel burned, number of items). It is used to estimate emissions from various sources of air pollution.
+A value that represents the amount of CO₂e released into the environment per unit of activity (such as km driven, litres of fuel burned, number of items). It is used to estimate emissions from various sources of air pollution.
 
 Examples of Emissions Factors include:
 * Paddy rice: 0.4867 kgCO₂e / EUR
