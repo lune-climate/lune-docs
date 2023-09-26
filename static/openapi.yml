@@ -2004,6 +2004,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
   /emission-factors/regions:
     get:
       tags:
@@ -2633,6 +2635,7 @@ components:
             - emission_factor_unit_mismatch
             - emission_factor_gated
             - account_scope_incorrect
+            - service_unavailable
         message:
           type: string
           description: |
