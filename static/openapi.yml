@@ -1946,8 +1946,8 @@ paths:
         - name: name
           in: query
           description: |
-            Filter emission factors based on name (case insensitive).
-            The value can appear at any position.
+            Search for emission factors (case insensitive). A combination of semantic and keyword search
+            is used to provide the most relevant results.
           schema:
             type: string
             example: pipe
