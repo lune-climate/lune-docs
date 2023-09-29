@@ -5719,16 +5719,15 @@ components:
                   See https://github.com/greggles/mcc-codes for available codes.
                 example: "0763"
           - type: object
-            x-lune-name: Fuzzy search
+            x-lune-name: Search
             required:
-              - fuzzy_search_term
+              - search_term
             properties:
-              fuzzy_search_term:
+              search_term:
                 type: string
                 description: |
                   The search term to query.
-
-                  Search is resolved using fuzzy matching.
+                  Search is resolved using a combination of semantic and keyword searching.
                 example: Bananas
     Diet:
       description: |
