@@ -2319,7 +2319,7 @@ paths:
             $ref: '#/components/responses/NotFound'
           '429':
             $ref: '#/components/responses/TooManyRequests'
-  /sustainability-pages/{type}/{slug}:
+  /sustainability-pages/public/{type}/{slug}:
     get:
       tags:
         - Sustainability page
