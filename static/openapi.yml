@@ -6842,6 +6842,7 @@ components:
           nullable: true
           oneOf:
             - type: object
+              nullable: true
               x-lune-name: New York to London flights
               required:
                 - format
