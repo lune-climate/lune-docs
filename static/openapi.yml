@@ -672,6 +672,64 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+  /analytics/shipping/public/{account_id}:
+    get:
+      summary: Get analytics for shipping estimates
+      operationId: getAnalyticsShippingEstimates
+      tags:
+        - Analytics
+      parameters:
+        - name: account_id
+          in: path
+          required: true
+          description: The account identifier the analytics belongs to.
+          schema:
+            type: string
+            example: ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz
+        - name: from
+          in: query
+          description:
+            The start date of the custom date range.
+
+            Defaults to 30 days ago if not specified.
+          schema:
+            type: string
+            format: date
+            example: '2019-01-01'
+        - name: through
+          in: query
+          description:
+            The to (inclusive) date of the custom date range.
+
+            Defaults to the current date if not specified.
+          schema:
+            type: string
+            format: date
+            example: '2020-01-31'
+        - name: interval
+          in: query
+          description:
+            The time interval over which metrics should be aggregated.
+
+            Defaults to day if not specified.
+          schema:
+            type: string
+            enum:
+              - day
+              - month
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsShippingEstimates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
   /bundles:
     get:
       summary: List bundles
@@ -4522,6 +4580,58 @@ components:
       properties:
         timeseries:
           $ref: '#/components/schemas/CountTimeseries'
+    AnalyticsShippingEstimates:
+      type: object
+      required:
+        - emission_graph_timeseries
+      properties:
+        emission_graph_timeseries:
+          $ref: '#/components/schemas/ShippingEmissionGraphTimeseries'
+    ShippingEmissionGraphTimeseries:
+      description: Timeseries containing the total emissions (tCO₂e) for the various shipping methods. Each element refers to a particular timeframe as seen on `date`.
+      type: array
+      items:
+        type: object
+        required:
+          - date
+          - air
+          - sea
+          - road
+          - rail
+          - inland_waterway
+        properties:
+          date:
+            type: string
+            format: date
+            example: "2021-09-09"
+          air:
+            type: number
+            example: 21
+          sea:
+            type: number
+            example: 22
+          road:
+            type: number
+            example: 23
+          rail:
+            type: number
+            example: 24
+          inland_waterway:
+            type: number
+            example: 25
+        example:
+          - date: '2022-06-25'
+            air: 231
+            sea: 127
+            road: 730
+            rail: 52
+            inland_waterway: 0
+          - date: '2022-06-27'
+            air: 500
+            sea: 321
+            road: 338
+            rail: 17
+            inland_waterway: 49
     QuantityAndValueTimeseries:
       type: array
       description: A timeseries of quantities and values.
