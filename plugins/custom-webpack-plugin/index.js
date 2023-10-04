@@ -9,7 +9,9 @@ module.exports = function (context, options) {
           fallback: {
             path: require.resolve('path-browserify'),
             url: require.resolve('url/'),
-            process: require.resolve('process/browser')
+            process: require.resolve('process/browser'),
+            crypto: require.resolve('crypto-browserify'),
+            stream: require.resolve('stream-browserify'),
           },
         },
       };
