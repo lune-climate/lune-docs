@@ -5968,6 +5968,7 @@ components:
         - type: object
           required:
             - id
+            - is_shipment
             - quote
             - request
           properties:
@@ -5975,12 +5976,19 @@ components:
               type: string
               description: The emission calculation unique identifier
               example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
+            is_shipment:
+              type: boolean
+              description: |
+                When true, the estimate refers to a shipment.
+                This property exists in order for clients to distinguish between estimates made for informative purposes or during booking flows from estimates made for shipments where goods are moved.
+              example: false
             quote:
               $ref: '#/components/schemas/EstimateQuote'
             request:
               $ref: '#/components/schemas/ShippingEstimateRequest'
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
+        is_shipment: true
         mass:
           amount: '2.969503'
           unit: 't'
@@ -6101,10 +6109,17 @@ components:
       allOf:
         - type: object
           required:
+            - is_shipment
             - legs
             - distance
             - request
           properties:
+            is_shipment:
+              type: boolean
+              description: |
+                When true, the estimate refers to a shipment.
+                This property exists in order for clients to distinguish between estimates made for informative purposes or during booking flows from estimates made for shipments where goods are moved.
+              example: false
             legs:
               type: array
               description: |
@@ -6120,6 +6135,7 @@ components:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
+        is_shipment: false
         mass:
           amount: '1.105698'
           unit: 't'
