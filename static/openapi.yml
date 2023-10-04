@@ -1493,6 +1493,43 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+  /estimates/shipping/{id}/is-shipment:
+    put:
+      summary: Updates the shipping emission estimate shipment status. Calling this endpoint will change the estimate's `is_shipment` property to the provided value
+      operationId: updateShippingEstimateIsShipment
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The estimate's unique identifier
+          schema:
+            type: string
+            example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateShippingEstimateIsShipmentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleShippingEmissionEstimate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
   /estimates/shipping/multi-leg:
     post:
       summary: Create a shipping emission estimate (multi-leg)
@@ -1600,6 +1637,43 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+  /estimates/shipping/multi-leg/{id}/is-shipment:
+    put:
+      summary: Updates the multi-leg shipping emission estimate shipment status. Calling this endpoint will change the estimate's `is_shipment` property to the provided value
+      operationId: updateMultiLegShippingEstimateIsShipment
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The estimate's unique identifier
+          schema:
+            type: string
+            example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateShippingEstimateIsShipmentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiLegShippingEmissionEstimate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
   /estimates/transactions:
     post:
       summary: Create a transaction emission estimate (single)
@@ -4703,7 +4777,7 @@ components:
          - business
          - first
        example: 'economy'
-    ShippingEstimateRequest:
+    StoredShippingEstimateRequest:
       description: Parameters for estimating shipping emissions
       allOf:
         - type: object
@@ -4752,6 +4826,30 @@ components:
             locode: 'NLRTM'
         method:
           vessel_type: 'container_ship'
+    ShippingEstimateRequest:
+      description: Parameters for estimating shipping emissions
+      allOf:
+        - $ref: '#/components/schemas/StoredShippingEstimateRequest'
+        - type: object
+          properties:
+            is_shipment:
+              type: boolean
+              description: |
+                When true, the estimate refers to a shipment.
+                This property exists in order for clients to distinguish between estimates made for informative purposes or during booking flows from estimates made for shipments where goods are moved.
+                You can mark an estimate as shipment at any time.
+              example: true
+      example:
+        shipment:
+          containers: '2'
+        route:
+          source:
+            locode: 'CNSGH'
+          destination:
+            locode: 'NLRTM'
+        method:
+          vessel_type: 'container_ship'
+        is_shipment: true
     ShippingRoute:
       description: |
         Either the shipping distance or the start/destination address pair.
@@ -4775,7 +4873,15 @@ components:
           multiple countries you can either make multiple per-country estimations or choose
           the country with the largest share of the route.
       example: PRT
-    MultiLegShippingEstimateRequest:
+    UpdateShippingEstimateIsShipmentRequest:
+      type: object
+      required:
+        - is_shipment
+      properties:
+        is_shipment:
+          description: Is the emission calculation referring to a shipment that was made in real life.
+          type: boolean
+    StoredMultiLegShippingEstimateRequest:
       type: object
       description: Parameters for estimating multi-leg shipping emissions
       required:
@@ -4823,6 +4929,57 @@ components:
           example: 't'
           $ref: '#/components/schemas/MassUnit'
       example:
+        shipment:
+          mass:
+            amount: '10.36'
+            unit: 't'
+        legs:
+          - route:
+              source:
+                lat: 24.211893
+                lon: 120.608696
+              destination:
+                locode: TWTXG
+            method: 'diesel_truck'
+          - route:
+              source:
+                locode: TWTXG
+              destination:
+                locode: TWTPE
+            method:
+              vessel_type: 'container_ship'
+          - route:
+              source:
+                locode: TWTPE
+              destination:
+                locode: DEHAM
+            method:
+              vessel_imo_number: '9893890'
+          - method: maritime_container_terminal
+          - route:
+              source:
+                locode: DEHAM
+              destination:
+                street_line1: Märkische Allee 71
+                postcode: '14979'
+                city: Großbeeren
+                country_code: DEU
+            method: truck_articulated_34t
+    MultiLegShippingEstimateRequest:
+      description: Parameters for estimating multi-leg shipping emissions
+      allOf:
+        - $ref: '#/components/schemas/StoredMultiLegShippingEstimateRequest'
+        - type: object
+          properties:
+            is_shipment:
+              type: boolean
+              description: |
+                When true, the estimate refers to a shipment.
+                This property exists in order for clients to distinguish between estimates made for informative purposes or during booking flows from estimates made for shipments where goods are moved.
+                You can mark an estimate as shipment at any time.
+              example: true
+      example:
+        is_shipment: true
         shipment:
           mass:
             amount: '10.36'
@@ -5981,6 +6138,7 @@ components:
               description: |
                 When true, the estimate refers to a shipment.
                 This property exists in order for clients to distinguish between estimates made for informative purposes or during booking flows from estimates made for shipments where goods are moved.
+                You can mark an estimate as shipment at any time.
               example: false
             quote:
               $ref: '#/components/schemas/EstimateQuote'
@@ -6119,6 +6277,7 @@ components:
               description: |
                 When true, the estimate refers to a shipment.
                 This property exists in order for clients to distinguish between estimates made for informative purposes or during booking flows from estimates made for shipments where goods are moved.
+                You can mark an estimate as shipment at any time.
               example: false
             legs:
               type: array
