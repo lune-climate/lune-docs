@@ -38,30 +38,24 @@ export function getApiKey(): string | undefined {
 }
 
 export function getPublishableKey(): string | undefined {
-    const { siteConfig } = useDocusaurusContext()
-    if (siteConfig.customFields.DOCS_PUBLISHABLE_KEY) {
-        return siteConfig.customFields.DOCS_PUBLISHABLE_KEY
-    }
-
-    return ExecutionEnvironment.canUseDOM
-        ? document.cookie
-              .split('; ')
-              .find((row) => row.startsWith('docs_publishable_key='))
-              ?.split('=')[1]
-        : undefined
-
     if (!ExecutionEnvironment.canUseDOM) {
         return undefined
     }
 
-    const encodedCookieValue = document.cookie
+    const cookie = document.cookie
         .split('; ')
-        .find((row) => row.startsWith('docs_test_api_key='))
-        ?.split('=')[1]
+        .find((row) => row.startsWith('docs_publishable_key='))
 
-     if (!encodedCookieValue) {
+    if (!cookie) {
         return undefined
-     }
+    }
+
+    const encodedCookieValue = cookie.split('=')[1]
+
+    if (!encodedCookieValue) {
+        return undefined
+    }
+
      return decodeURIComponent(encodedCookieValue)
 }
 
