@@ -4583,11 +4583,14 @@ components:
     AnalyticsShippingEstimates:
       type: object
       required:
-        - emission_graph_timeseries
+        - emission_timeseries
+        - carbon_intensity_timeseries
       properties:
-        emission_graph_timeseries:
-          $ref: '#/components/schemas/ShippingEmissionGraphTimeseries'
-    ShippingEmissionGraphTimeseries:
+        emission_timeseries:
+          $ref: '#/components/schemas/ShippingEmissionTimeseries'
+        carbon_intensity_timeseries:
+          $ref: '#/components/schemas/ShippingCarbonIntensityTimeseries'
+    ShippingEmissionTimeseries:
       description: Timeseries containing the total emissions (tCO₂e) for the various shipping methods. Each element refers to a particular timeframe as seen on `date`.
       type: array
       items:
@@ -4632,6 +4635,9 @@ components:
             road: 338
             rail: 17
             inland_waterway: 49
+    ShippingCarbonIntensityTimeseries:
+      description: Timeseries containing the mean value of the carbon intensities (gCO₂e/tkm) for shipping estimates. The value represents the emission per tonnes transported per kilometer traveled.
+      $ref: '#/components/schemas/AverageTimeseries'
     QuantityAndValueTimeseries:
       type: array
       description: A timeseries of quantities and values.
@@ -4679,6 +4685,28 @@ components:
               format: date
               example: "2021-09-09"
           count:
+            type: number
+        example:
+          - date: '2022-06-25'
+            count: 500
+          - date: '2022-06-26'
+            count: 550
+          - date: '2022-06-27'
+            count: 800
+    AverageTimeseries:
+      type: array
+      description: A timeseries representing averages.
+      items:
+        type: object
+        required:
+          - date
+          - average
+        properties:
+          date:
+            type: string
+            format: date
+            example: "2021-09-09"
+          average:
             type: number
         example:
           - date: '2022-06-25'
