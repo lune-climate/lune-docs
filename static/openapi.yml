@@ -4585,11 +4585,31 @@ components:
       required:
         - emission_timeseries
         - carbon_intensity_timeseries
+        - account
       properties:
         emission_timeseries:
           $ref: '#/components/schemas/ShippingEmissionTimeseries'
         carbon_intensity_timeseries:
           $ref: '#/components/schemas/ShippingCarbonIntensityTimeseries'
+        account:
+          description: Information about the account the analytics are associated with.
+          type: object
+          required:
+            - name
+            - type
+            - logo
+          properties:
+            name:
+              description: The account's name.
+              type: string
+            type:
+              description: The account's type.
+              $ref: '#/components/schemas/AccountType'
+            logo:
+              type: string
+              description: The account's logo URL.
+              example: 'https://client-assets.lune.co/XheugMiTUHynItnaYSvCF.png'
+              nullable: true
     ShippingEmissionTimeseries:
       description: Timeseries containing the total emissions (tCO₂e) for the various shipping methods. Each element refers to a particular timeframe as seen on `date`.
       type: array
@@ -4710,11 +4730,11 @@ components:
             type: number
         example:
           - date: '2022-06-25'
-            count: 500
+            average: 500
           - date: '2022-06-26'
-            count: 550
+            average: 550
           - date: '2022-06-27'
-            count: 800
+            average: 800
     ElectricityEstimateRequest:
       type: object
       description: Parameters for estimating electricity emissions
