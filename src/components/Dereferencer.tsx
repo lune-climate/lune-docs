@@ -33,9 +33,17 @@ export default function Dereferencer(
             const schemaElement = {
                 ...tokenized.slice(1).reduce((acc, current) => acc[current], schema),
             }
+            // The element itself might just be another reference. To keep the properties of the
+            // component even if it's a reference (`description` for example) we keep track of
+            // both versions and give more weight to the unreferenced one.
+            const dereferencedSchemaElement = Dereferencer({
+                ...schemaElement,
+                schemaFilename,
+            })
 
             const nameFromToken = tokenized[3] ? camelCaseToSentenceCase(tokenized[3]) : undefined
             return {
+                ...dereferencedSchemaElement,
                 ...schemaElement,
                 schemaFilename,
                 $ref: element.$ref.toString(),
