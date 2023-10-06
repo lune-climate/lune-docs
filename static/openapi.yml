@@ -4622,6 +4622,7 @@ components:
           - road
           - rail
           - inland_waterway
+          - logistic_site
         properties:
           date:
             type: string
@@ -4642,6 +4643,9 @@ components:
           inland_waterway:
             type: number
             example: 25
+          logistic_site:
+            type: number
+            example: 25
         example:
           - date: '2022-06-25'
             air: 231
@@ -4649,12 +4653,14 @@ components:
             road: 730
             rail: 52
             inland_waterway: 0
+            logistic_site: 2
           - date: '2022-06-27'
             air: 500
             sea: 321
             road: 338
             rail: 17
             inland_waterway: 49
+            logistic_site: 8
     ShippingCarbonIntensityTimeseries:
       description: Timeseries containing the mean value of the carbon intensities (gCO₂e/tkm) for shipping estimates. The value represents the emission per tonnes transported per kilometer traveled.
       $ref: '#/components/schemas/AverageTimeseries'
