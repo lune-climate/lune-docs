@@ -298,6 +298,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg1_trade_lane:
+          $ref: '#/components/schemas/OptionalTradeLane'
         leg1_imo_number:
           type: string
           pattern: '^$|^[0-9]{7}$'
@@ -380,6 +382,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg2_trade_lane:
+          $ref: '#/components/schemas/OptionalTradeLane'
         leg2_imo_number:
           type: string
           pattern: '^$|^[0-9]{7}$'
@@ -462,6 +466,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg3_trade_lane:
+          $ref: '#/components/schemas/OptionalTradeLane'
         leg3_imo_number:
           type: string
           pattern: '^$|^[0-9]{7}$'
@@ -544,6 +550,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg4_trade_lane:
+          $ref: '#/components/schemas/OptionalTradeLane'
         leg4_imo_number:
           type: string
           pattern: '^$|^[0-9]{7}$'
@@ -626,6 +634,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg5_trade_lane:
+          $ref: '#/components/schemas/OptionalTradeLane'
         leg5_imo_number:
           type: string
           pattern: '^$|^[0-9]{7}$'
@@ -708,6 +718,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg6_trade_lane:
+          $ref: '#/components/schemas/OptionalTradeLane'
         leg6_imo_number:
           type: string
           pattern: '^$|^[0-9]{7}$'
@@ -790,6 +802,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg7_trade_lane:
+          $ref: '#/components/schemas/OptionalTradeLane'
         leg7_imo_number:
           type: string
           pattern: '^$|^[0-9]{7}$'
@@ -872,6 +886,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg8_trade_lane:
+          $ref: '#/components/schemas/OptionalTradeLane'
         leg8_imo_number:
           type: string
           pattern: '^$|^[0-9]{7}$'
@@ -954,6 +970,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg9_trade_lane:
+          $ref: '#/components/schemas/OptionalTradeLane'
         leg9_imo_number:
           type: string
           pattern: '^$|^[0-9]{7}$'
@@ -1036,6 +1054,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg10_trade_lane:
+          $ref: '#/components/schemas/OptionalTradeLane'
         leg10_imo_number:
           type: string
           pattern: '^$|^[0-9]{7}$'
@@ -1134,3 +1154,12 @@ components:
       allOf:
         - $ref: '#/components/schemas/MultiLegRowIn'
         - $ref: '#/components/schemas/MultiLegRowResults'
+    OptionalTradeLane:
+      description: |
+        `trade_lane` requires `method` to be `container_ship'.
+      oneOf:
+        - $ref: 'api-schema.yml#/components/schemas/TradeLane'
+        - type: string
+          x-lune-name: No trade lane
+          enum:
+            - ''
