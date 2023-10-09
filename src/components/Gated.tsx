@@ -1,6 +1,6 @@
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
-import useIsBrowser from '@docusaurus/useIsBrowser'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import useIsBrowser from '@docusaurus/useIsBrowser'
 import { decrypt } from '@site/src/crypto'
 import { getPublishableKey } from '@site/src/utils'
 import { Buffer } from 'buffer'
@@ -14,7 +14,7 @@ async function decryptOrUndefined(c: string, key: string): Promise<string | unde
     try {
         return decrypt(c, key)
     } catch (err) {
-        // swallow
+        console.log(err)
         return undefined
     }
 }
@@ -24,7 +24,6 @@ const Gated = ({ children }: { children: string }) => {
     const [content, setContent] = useState<string | undefined>()
     const { siteConfig } = useDocusaurusContext()
 
-
     useEffect(() => {
         if (isBrowser) {
             const key = siteConfig.customFields.DOCS_PUBLISHABLE_KEY ?? getPublishableKey()
@@ -32,7 +31,7 @@ const Gated = ({ children }: { children: string }) => {
                 decryptOrUndefined(children, key).then((content) => setContent(content))
             }
         }
-    }, [content, isBrowser])
+    }, [content, isBrowser, siteConfig])
 
     return <>{content}</>
 }
