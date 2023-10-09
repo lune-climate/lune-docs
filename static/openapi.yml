@@ -2568,19 +2568,19 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: The request is invalid. Parameters may be missing or are invalid
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: The API Key is missing or is invalid
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: '#/components/schemas/ErrorResponse'
     TooManyRequests:
       description: Too many requests have been made in a short period of time
     Forbidden:
@@ -2588,13 +2588,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: '#/components/schemas/ErrorResponse'
     Conflict:
       description: The request could not be completed due to a conflict with the current state of the target resource or resources
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: '#/components/schemas/ErrorResponse'
     UnsupportedMediaType:
       description: The payload format is in an unsupported format.
     ServiceUnavailable:
@@ -2713,17 +2713,27 @@ components:
             - square_meters
             - square_feet
           example: 'square_meters'
-    Errors:
-      description: An error container
+    ErrorResponse:
+      description: |
+        An error response containing the error details.
+
+        The `error` property provides information about the type of error that occurred.
+        Use this property for error handling.
+
+        The `errors` array is present for backwards compatibility purposes. It always
+        contains a single error element which is the same seen in the `error` property.
       type: object
       required:
         - errors
+        - error
       properties:
         errors:
           type: array
           description: An array containing errors
           items:
             $ref: '#/components/schemas/Error'
+        error:
+          $ref: '#/components/schemas/Error'
     Error:
       type: object
       description: Individual error information
@@ -6124,7 +6134,7 @@ components:
       items:
         oneOf:
           - $ref: '#/components/schemas/TransactionEmissionEstimate'
-          - $ref: '#/components/schemas/Errors'
+          - $ref: '#/components/schemas/ErrorResponse'
           - $ref: '#/components/schemas/EmptyObject'
       example:
         - id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
@@ -7339,7 +7349,7 @@ components:
         - ''
     EstimateQuote:
       oneOf:
-        - $ref: '#/components/schemas/Errors'
+        - $ref: '#/components/schemas/ErrorResponse'
         - $ref: '#/components/schemas/OrderQuoteByQuantity'
     Payment:
       description: |
