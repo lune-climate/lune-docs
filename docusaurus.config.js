@@ -37,6 +37,7 @@ const config = {
     },
 
     customFields: {
+        DOCS_DOMAIN: process.env.REACT_DOCS_DOMAIN,
         DASHBOARD_DOMAIN: process.env.REACT_APP_DASHBOARD_DOMAIN,
         API_DOMAIN: process.env.REACT_APP_API_DOMAIN,
         DOCS_PUBLISHABLE_KEY: process.env.DOCS_PUBLISHABLE_KEY,

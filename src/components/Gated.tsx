@@ -5,6 +5,7 @@ import { decrypt } from '@site/src/crypto'
 import { getPublishableKey } from '@site/src/utils'
 import { Buffer } from 'buffer'
 import React, { useEffect, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
 
 if (ExecutionEnvironment.canUseDOM) {
     window.Buffer = window.Buffer || Buffer
@@ -19,7 +20,7 @@ async function decryptOrUndefined(c: string, key: string): Promise<string | unde
     }
 }
 
-const Gated = ({ children }: { children: string }) => {
+const Gated = ({ children, wrapper }: { children: string; wrapper?: React.ReactNode }) => {
     const isBrowser = useIsBrowser()
     const [content, setContent] = useState<string | undefined>()
     const { siteConfig } = useDocusaurusContext()
@@ -33,7 +34,11 @@ const Gated = ({ children }: { children: string }) => {
         }
     }, [content, isBrowser, siteConfig])
 
-    return <>{content}</>
+    return wrapper && content !== undefined ? wrapper(content) : <>{content}</>
+}
+
+export const GatedMarkdown = ({ children }: { children: string }) => {
+    return <Gated wrapper={(c) => <ReactMarkdown>{c}</ReactMarkdown>}>{children}</Gated>
 }
 
 export default Gated

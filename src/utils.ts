@@ -1,6 +1,7 @@
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { useLocation } from '@docusaurus/router'
+import { decrypt } from '@site/src/crypto'
 
 export const AS_BLOB_PLACEHOLDER = '_AS_BLOB_PLACEHOLDER_'
 
@@ -57,6 +58,19 @@ export function getPublishableKey(): string | undefined {
     }
 
      return decodeURIComponent(encodedCookieValue)
+}
+
+export async function isLoggedIn(): Promise<boolean> {
+    const key = getPublishableKey()
+    // manually encrypted
+    const payload = 'KZRn1K9OX1o5P4wk25na3vYS6tj5'
+    try {
+        await decrypt(payload, key)
+        return true
+    } catch (err) {
+        console.log(err)
+        return false
+    }
 }
 
 export function getApiDomain(): string {
