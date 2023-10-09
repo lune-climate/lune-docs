@@ -37,6 +37,28 @@ export function getApiKey(): string | undefined {
         : undefined
 }
 
+export function getPublishableKey(): string | undefined {
+    if (!ExecutionEnvironment.canUseDOM) {
+        return undefined
+    }
+
+    const cookie = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('docs_publishable_key='))
+
+    if (!cookie) {
+        return undefined
+    }
+
+    const encodedCookieValue = cookie.split('=')[1]
+
+    if (!encodedCookieValue) {
+        return undefined
+    }
+
+     return decodeURIComponent(encodedCookieValue)
+}
+
 export function getApiDomain(): string {
     const { siteConfig } = useDocusaurusContext()
     return siteConfig.customFields.API_DOMAIN
