@@ -672,6 +672,64 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+  /analytics/shipping/public/{account_id}:
+    get:
+      summary: Get analytics for shipping estimates
+      operationId: getAnalyticsShippingEstimates
+      tags:
+        - Analytics
+      parameters:
+        - name: account_id
+          in: path
+          required: true
+          description: The account identifier the analytics belongs to.
+          schema:
+            type: string
+            example: ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz
+        - name: from
+          in: query
+          description:
+            The start date of the custom date range.
+
+            Defaults to 30 days ago if not specified.
+          schema:
+            type: string
+            format: date
+            example: '2019-01-01'
+        - name: through
+          in: query
+          description:
+            The to (inclusive) date of the custom date range.
+
+            Defaults to the current date if not specified.
+          schema:
+            type: string
+            format: date
+            example: '2020-01-31'
+        - name: interval
+          in: query
+          description:
+            The time interval over which metrics should be aggregated.
+
+            Defaults to day if not specified.
+          schema:
+            type: string
+            enum:
+              - day
+              - month
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsShippingEstimates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
   /bundles:
     get:
       summary: List bundles
@@ -1493,6 +1551,43 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+  /estimates/shipping/{id}/is-shipment:
+    put:
+      summary: Updates the shipping emission estimate shipment status. Calling this endpoint will change the estimate's `is_shipment` property to the provided value
+      operationId: updateShippingEstimateIsShipment
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The estimate's unique identifier
+          schema:
+            type: string
+            example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateShippingEstimateIsShipmentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleShippingEmissionEstimate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
   /estimates/shipping/multi-leg:
     post:
       summary: Create a shipping emission estimate (multi-leg)
@@ -1600,6 +1695,43 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+  /estimates/shipping/multi-leg/{id}/is-shipment:
+    put:
+      summary: Updates the multi-leg shipping emission estimate shipment status. Calling this endpoint will change the estimate's `is_shipment` property to the provided value
+      operationId: updateMultiLegShippingEstimateIsShipment
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The estimate's unique identifier
+          schema:
+            type: string
+            example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateShippingEstimateIsShipmentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiLegShippingEmissionEstimate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
   /estimates/transactions:
     post:
       summary: Create a transaction emission estimate (single)
@@ -2319,7 +2451,7 @@ paths:
             $ref: '#/components/responses/NotFound'
           '429':
             $ref: '#/components/responses/TooManyRequests'
-  /sustainability-pages/{type}/{slug}:
+  /sustainability-pages/public/{type}/{slug}:
     get:
       tags:
         - Sustainability page
@@ -2436,19 +2568,19 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: The request is invalid. Parameters may be missing or are invalid
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: The API Key is missing or is invalid
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: '#/components/schemas/ErrorResponse'
     TooManyRequests:
       description: Too many requests have been made in a short period of time
     Forbidden:
@@ -2456,13 +2588,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: '#/components/schemas/ErrorResponse'
     Conflict:
       description: The request could not be completed due to a conflict with the current state of the target resource or resources
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Errors'
+            $ref: '#/components/schemas/ErrorResponse'
     UnsupportedMediaType:
       description: The payload format is in an unsupported format.
     ServiceUnavailable:
@@ -2581,17 +2713,27 @@ components:
             - square_meters
             - square_feet
           example: 'square_meters'
-    Errors:
-      description: An error container
+    ErrorResponse:
+      description: |
+        An error response containing the error details.
+
+        The `error` property provides information about the type of error that occurred.
+        Use this property for error handling.
+
+        The `errors` array is present for backwards compatibility purposes. It always
+        contains a single error element which is the same seen in the `error` property.
       type: object
       required:
         - errors
+        - error
       properties:
         errors:
           type: array
           description: An array containing errors
           items:
             $ref: '#/components/schemas/Error'
+        error:
+          $ref: '#/components/schemas/Error'
     Error:
       type: object
       description: Individual error information
@@ -4448,6 +4590,90 @@ components:
       properties:
         timeseries:
           $ref: '#/components/schemas/CountTimeseries'
+    AnalyticsShippingEstimates:
+      type: object
+      required:
+        - emission_timeseries
+        - carbon_intensity_timeseries
+        - account
+      properties:
+        emission_timeseries:
+          $ref: '#/components/schemas/ShippingEmissionTimeseries'
+        carbon_intensity_timeseries:
+          $ref: '#/components/schemas/ShippingCarbonIntensityTimeseries'
+        account:
+          description: Information about the account the analytics are associated with.
+          type: object
+          required:
+            - name
+            - type
+            - logo
+          properties:
+            name:
+              description: The account's name.
+              type: string
+            type:
+              description: The account's type.
+              $ref: '#/components/schemas/AccountType'
+            logo:
+              type: string
+              description: The account's logo URL.
+              example: 'https://client-assets.lune.co/XheugMiTUHynItnaYSvCF.png'
+              nullable: true
+    ShippingEmissionTimeseries:
+      description: Timeseries containing the total emissions (tCO₂e) for the various shipping methods. Each element refers to a particular timeframe as seen on `date`.
+      type: array
+      items:
+        type: object
+        required:
+          - date
+          - air
+          - sea
+          - road
+          - rail
+          - inland_waterway
+          - logistic_site
+        properties:
+          date:
+            type: string
+            format: date
+            example: "2021-09-09"
+          air:
+            type: number
+            example: 21
+          sea:
+            type: number
+            example: 22
+          road:
+            type: number
+            example: 23
+          rail:
+            type: number
+            example: 24
+          inland_waterway:
+            type: number
+            example: 25
+          logistic_site:
+            type: number
+            example: 25
+        example:
+          - date: '2022-06-25'
+            air: 231
+            sea: 127
+            road: 730
+            rail: 52
+            inland_waterway: 0
+            logistic_site: 2
+          - date: '2022-06-27'
+            air: 500
+            sea: 321
+            road: 338
+            rail: 17
+            inland_waterway: 49
+            logistic_site: 8
+    ShippingCarbonIntensityTimeseries:
+      description: Timeseries containing the mean value of the carbon intensities (gCO₂e/tkm) for shipping estimates. The value represents the emission per tonnes transported per kilometer traveled.
+      $ref: '#/components/schemas/AverageTimeseries'
     QuantityAndValueTimeseries:
       type: array
       description: A timeseries of quantities and values.
@@ -4503,6 +4729,28 @@ components:
             count: 550
           - date: '2022-06-27'
             count: 800
+    AverageTimeseries:
+      type: array
+      description: A timeseries representing averages.
+      items:
+        type: object
+        required:
+          - date
+          - average
+        properties:
+          date:
+            type: string
+            format: date
+            example: "2021-09-09"
+          average:
+            type: number
+        example:
+          - date: '2022-06-25'
+            average: 500
+          - date: '2022-06-26'
+            average: 550
+          - date: '2022-06-27'
+            average: 800
     ElectricityEstimateRequest:
       type: object
       description: Parameters for estimating electricity emissions
@@ -4703,7 +4951,7 @@ components:
          - business
          - first
        example: 'economy'
-    ShippingEstimateRequest:
+    StoredShippingEstimateRequest:
       description: Parameters for estimating shipping emissions
       allOf:
         - type: object
@@ -4752,6 +5000,30 @@ components:
             locode: 'NLRTM'
         method:
           vessel_type: 'container_ship'
+    ShippingEstimateRequest:
+      description: Parameters for estimating shipping emissions
+      allOf:
+        - $ref: '#/components/schemas/StoredShippingEstimateRequest'
+        - type: object
+          properties:
+            is_shipment:
+              type: boolean
+              description: |
+                When true, the estimate refers to a shipment.
+                This property exists in order for clients to distinguish between estimates made for informative purposes or during booking flows from estimates made for shipments where goods are moved.
+                You can mark an estimate as shipment at any time.
+              example: true
+      example:
+        shipment:
+          containers: '2'
+        route:
+          source:
+            locode: 'CNSGH'
+          destination:
+            locode: 'NLRTM'
+        method:
+          vessel_type: 'container_ship'
+        is_shipment: true
     ShippingRoute:
       description: |
         Either the shipping distance or the start/destination address pair.
@@ -4775,7 +5047,15 @@ components:
           multiple countries you can either make multiple per-country estimations or choose
           the country with the largest share of the route.
       example: PRT
-    MultiLegShippingEstimateRequest:
+    UpdateShippingEstimateIsShipmentRequest:
+      type: object
+      required:
+        - is_shipment
+      properties:
+        is_shipment:
+          description: Is the emission calculation referring to a shipment that was made in real life.
+          type: boolean
+    StoredMultiLegShippingEstimateRequest:
       type: object
       description: Parameters for estimating multi-leg shipping emissions
       required:
@@ -4823,6 +5103,57 @@ components:
           example: 't'
           $ref: '#/components/schemas/MassUnit'
       example:
+        shipment:
+          mass:
+            amount: '10.36'
+            unit: 't'
+        legs:
+          - route:
+              source:
+                lat: 24.211893
+                lon: 120.608696
+              destination:
+                locode: TWTXG
+            method: 'diesel_truck'
+          - route:
+              source:
+                locode: TWTXG
+              destination:
+                locode: TWTPE
+            method:
+              vessel_type: 'container_ship'
+          - route:
+              source:
+                locode: TWTPE
+              destination:
+                locode: DEHAM
+            method:
+              vessel_imo_number: '9893890'
+          - method: maritime_container_terminal
+          - route:
+              source:
+                locode: DEHAM
+              destination:
+                street_line1: Märkische Allee 71
+                postcode: '14979'
+                city: Großbeeren
+                country_code: DEU
+            method: truck_articulated_34t
+    MultiLegShippingEstimateRequest:
+      description: Parameters for estimating multi-leg shipping emissions
+      allOf:
+        - $ref: '#/components/schemas/StoredMultiLegShippingEstimateRequest'
+        - type: object
+          properties:
+            is_shipment:
+              type: boolean
+              description: |
+                When true, the estimate refers to a shipment.
+                This property exists in order for clients to distinguish between estimates made for informative purposes or during booking flows from estimates made for shipments where goods are moved.
+                You can mark an estimate as shipment at any time.
+              example: true
+      example:
+        is_shipment: true
         shipment:
           mass:
             amount: '10.36'
@@ -5719,16 +6050,15 @@ components:
                   See https://github.com/greggles/mcc-codes for available codes.
                 example: "0763"
           - type: object
-            x-lune-name: Fuzzy search
+            x-lune-name: Search
             required:
-              - fuzzy_search_term
+              - search_term
             properties:
-              fuzzy_search_term:
+              search_term:
                 type: string
                 description: |
                   The search term to query.
-
-                  Search is resolved using fuzzy matching.
+                  Search is resolved using a combination of semantic and keyword searching.
                 example: Bananas
     Diet:
       description: |
@@ -5804,7 +6134,7 @@ components:
       items:
         oneOf:
           - $ref: '#/components/schemas/TransactionEmissionEstimate'
-          - $ref: '#/components/schemas/Errors'
+          - $ref: '#/components/schemas/ErrorResponse'
           - $ref: '#/components/schemas/EmptyObject'
       example:
         - id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
@@ -5969,6 +6299,7 @@ components:
         - type: object
           required:
             - id
+            - is_shipment
             - quote
             - request
           properties:
@@ -5976,12 +6307,20 @@ components:
               type: string
               description: The emission calculation unique identifier
               example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
+            is_shipment:
+              type: boolean
+              description: |
+                When true, the estimate refers to a shipment.
+                This property exists in order for clients to distinguish between estimates made for informative purposes or during booking flows from estimates made for shipments where goods are moved.
+                You can mark an estimate as shipment at any time.
+              example: false
             quote:
               $ref: '#/components/schemas/EstimateQuote'
             request:
               $ref: '#/components/schemas/ShippingEstimateRequest'
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
+        is_shipment: true
         mass:
           amount: '2.969503'
           unit: 't'
@@ -6102,10 +6441,18 @@ components:
       allOf:
         - type: object
           required:
+            - is_shipment
             - legs
             - distance
             - request
           properties:
+            is_shipment:
+              type: boolean
+              description: |
+                When true, the estimate refers to a shipment.
+                This property exists in order for clients to distinguish between estimates made for informative purposes or during booking flows from estimates made for shipments where goods are moved.
+                You can mark an estimate as shipment at any time.
+              example: false
             legs:
               type: array
               description: |
@@ -6121,6 +6468,7 @@ components:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
+        is_shipment: false
         mass:
           amount: '1.105698'
           unit: 't'
@@ -6843,6 +7191,7 @@ components:
           nullable: true
           oneOf:
             - type: object
+              nullable: true
               x-lune-name: New York to London flights
               required:
                 - format
@@ -7000,7 +7349,7 @@ components:
         - ''
     EstimateQuote:
       oneOf:
-        - $ref: '#/components/schemas/Errors'
+        - $ref: '#/components/schemas/ErrorResponse'
         - $ref: '#/components/schemas/OrderQuoteByQuantity'
     Payment:
       description: |
@@ -7382,6 +7731,58 @@ components:
           nullable: true
         coordinates:
           $ref: '#/components/schemas/GeographicCoordinates'
+    TradeLane:
+      type: string
+      description: |
+        Container transport emissions vary per trade lane. When a trade lane is not given we'll
+        use an industry-wide average. Providing an `aggregated_*` trade lane group will result in an
+        a more accurate estimate. Providing an `disaggregated_*` trade lane will result in the best
+        estimate precision.
+
+        The identifiers are kept relatively short for brevity: Mediterranean includes Black Sea and
+        South America includes Central America.
+
+        The trade lanes are bidirectional, for example `disaggregated_asia_to_africa` covers both
+        Asia to Africa and Africa to Asia.
+      enum:
+        - aggregated_panama_trade
+        - aggregated_transatlantic
+        - aggregated_transsuez
+        - aggregated_transpacific
+        - aggregated_other
+
+        - disaggregated_asia_to_africa
+        - disaggregated_asia_to_mediterranean
+        - disaggregated_asia_to_middle_east
+        - disaggregated_asia_to_north_america_east
+        - disaggregated_asia_to_north_america_west
+        - disaggregated_asia_to_north_europe
+        - disaggregated_asia_to_oceania
+        - disaggregated_asia_to_south_america
+        - disaggregated_europe_to_africa
+        - disaggregated_europe_to_south_america
+        - disaggregated_europe_to_middle_east
+        - disaggregated_europe_to_oceania
+        - disaggregated_mediterranean_to_north_america_east
+        - disaggregated_mediterranean_to_north_america_west
+        - disaggregated_north_america_to_africa
+        - disaggregated_north_america_to_oceania
+        - disaggregated_north_america_to_south_america
+        - disaggregated_north_america_to_middle_east
+        - disaggregated_north_europe_to_north_america_east
+        - disaggregated_north_europe_to_north_america_west
+        - disaggregated_south_america_to_africa
+        - disaggregated_intra_africa
+        - disaggregated_intra_north_america
+        - disaggregated_intra_south_america
+        - disaggregated_se_asia_to_ne_asia
+        - disaggregated_intra_ne_asia
+        - disaggregated_intra_se_asia
+        - disaggregated_north_europe_to_mediterranean
+        - disaggregated_intra_mediterranean
+        - disaggregated_intra_north_europe
+        - disaggregated_intra_middle_east
+        - disaggregated_other
     NullEnum:
       # This is a hack. Since SustainabilityPageDescription is an enum we need to also have a
       # null enum member in order for this property to be trully nullable from the point of view
