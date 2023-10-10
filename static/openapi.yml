@@ -4595,12 +4595,16 @@ components:
       required:
         - emission_timeseries
         - carbon_intensity_timeseries
+        - carbon_intensity_total
         - account
       properties:
         emission_timeseries:
           $ref: '#/components/schemas/ShippingEmissionTimeseries'
         carbon_intensity_timeseries:
           $ref: '#/components/schemas/ShippingCarbonIntensityTimeseries'
+        carbon_intensity_total:
+          description: Total carbon intensity for the returned timeframe.
+          type: number
         account:
           description: Information about the account the analytics are associated with.
           type: object
