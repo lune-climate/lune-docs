@@ -40,7 +40,7 @@ const LoginWall = ({ children }: { children: React.ReactNode }) => {
                         className="whiteHover"
                         leftIcon={<ArrowCircleRightIcon />}
                         sx={{ textTransform: 'none' }}
-                        href={`${siteConfig.customFields.DASHBOARD_DOMAIN}/login?redirect=${siteConfig.customFields.DOCS_DOMAIN}${location.pathname}`}
+                        href={`${siteConfig.customFields.DASHBOARD_DOMAIN}/login?force-relogin=true&redirect=${siteConfig.customFields.DOCS_DOMAIN}${location.pathname}`}
                     >
                         Login to access full methodology
                     </Button>
