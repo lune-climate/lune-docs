@@ -61,7 +61,7 @@ Lune needs to know three things:
 
 The following formula is then applied:
 
-`Shipment Method’s Emission Factor x Distance x Cargo weight`
+`Shipment Method’s Emission Factor` × `Distance` × `Cargo weight`
 
 Each of these data points needs to be provided or calculated, let’s see below how it works, one by one.
 
