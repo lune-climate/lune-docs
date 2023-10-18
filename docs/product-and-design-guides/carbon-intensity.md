@@ -88,7 +88,7 @@ Even within the same transport method category, carbon intensity can vary signif
 
 In this example, a company wants to nudge customers in using more EVs for shipping goods. To achieve this they want to show each customer’s carbon intensity, compared to the average.
 
-Carbon intensity ranges between 0 and 100 gCO₂ / tkm (based on their customers’ aggregate data). The average is 42 gCO₂ / tkm.
+Carbon intensity ranges between 0 and 97 gCO₂ / tkm (based on their customers’ aggregate data). The average is 42 gCO₂ / tkm.
 
 </div>
 </div>
