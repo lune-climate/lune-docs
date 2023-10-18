@@ -4169,10 +4169,10 @@ camelcase-css@2.0.1:
   resolved "https://registry.npmjs.org/camelcase-css/-/camelcase-css-2.0.1.tgz"
   integrity sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==
 
-camelcase-keys@^9.1.1:
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/camelcase-keys/-/camelcase-keys-9.1.1.tgz#cacd5f62a5b79c766f0fb78eefc5fbd220924e12"
-  integrity sha512-E+5dzqOoclX4Kbm2kaxeKNmNY67O6V3hyOQohE6xMj/O+HgVvh3F5LF4wSEiksY+SiOMYOJKXEKA7C4Svrd2Kw==
+camelcase-keys@^9.1.2:
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/camelcase-keys/-/camelcase-keys-9.1.2.tgz#d287a4451245325984fe5148359a54397655e264"
+  integrity sha512-nFhquwz7p3nWSHeVYoIkefNPdR2Rt4EuKs9/gaqx3DhJL6HkNHIEcsH+D6N4NvW/MHxc4TT+rp0rc4K7E7x9hw==
   dependencies:
     camelcase "^8.0.0"
     map-obj "5.0.0"
