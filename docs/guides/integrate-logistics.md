@@ -45,7 +45,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 <Tip>
 
-Lune is [Smart Freight Centre](https://www.notion.so/luneco/Shipping-Emission-Calculations-f591e8b57c72421ebb4790a88ef8d0e9) accredited, following the GLEC Framework.
+Lune is [Smart Freight Centre](/product-and-design-guides/logistics-calculations-methodology) accredited, following the GLEC Framework.
 
 </Tip>
 
