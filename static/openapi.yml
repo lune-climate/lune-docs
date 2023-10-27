@@ -5249,7 +5249,8 @@ components:
       description: |
         Vessel sizes:
         * `inland_waterway_motor_vessel_*`:
-          * `small` – less than 80 m / 1000 t
+          * `extra_small` – less than 50 m / 650 t
+          * `small` – 50-80 m (650-1000 t)
           * `medium` – 85-110 m (1000-2000 t)
           * `large` – 135 m (2000-3000 t)
         * `inland_waterway_coupled_convoy` – 163-185 m
@@ -5303,6 +5304,7 @@ components:
         `diesel_freight_train_eu_truck_trailer_only` the shipment size refers to the net load
         within the truck.
       enum:
+        - inland_waterway_motor_vessel_extra_small
         - inland_waterway_motor_vessel_small
         - inland_waterway_motor_vessel_medium
         - inland_waterway_motor_vessel_large
