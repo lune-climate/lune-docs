@@ -5554,6 +5554,8 @@ components:
         Logistics sites are locations where goods are stored, repacked and distributed.
       enum:
         - maritime_container_terminal
+        - maritime_container_terminal_ambient
+        - maritime_container_terminal_chilled
         - transhipment_site_ambient
         - transhipment_site_chilled
         - transhipment_site_mixed
@@ -5563,6 +5565,8 @@ components:
         - warehouse_ambient
         - warehouse_chilled
         - warehouse_mixed
+        - liquid_bulk_terminals_ambient
+        - liquid_bulk_terminals_mixed
     AirportSourceDestination:
       type: object
       x-lune-name: Source and destination
