@@ -7463,16 +7463,19 @@ components:
           format: date-time
           description: Allocation creation timestamp
     OffsetType:
+      description: |
+        Offset type classification
+      oneOf:
+        - $ref: '#/components/schemas/OffsetTypeNonNullable'
+        - $ref: '#/components/schemas/NullEnum'
+      example: 'emissions_reduction'
+    OffsetTypeNonNullable:
       type: string
       description: |
         Offset type classification
       enum:
         - emissions_reduction
         - carbon_removal
-        # We need null to be an explicit enum member here in order for our response validation
-        # middleware to work correctly. This is *in addition to* "nullable: true" below (which is
-        # needed too).
-        - null
       example: 'emissions_reduction'
     SupportedUNSdg:
       type: array
