@@ -3887,13 +3887,7 @@ components:
           example: 'traditional'
           nullable: true
         carbon_permanence:
-          type: string
-          description: The bundle's carbon storage permanence.
-          enum:
-            - long_term
-            - short_term
-            - no_storage
-          example: 'long_term'
+          $ref: '#/components/schemas/CarbonPermanence'
     Bundle:
       description: |
         Group of projects of similar price and characteristics.
@@ -7359,13 +7353,7 @@ components:
                     example: 'emissions_reduction'
                     nullable: true
                   carbon_permanence:
-                    type: string
-                    description: The bundle's carbon storage permanence.
-                    enum:
-                      - long_term
-                      - short_term
-                      - no_storage
-                    example: 'long_term'
+                    $ref: '#/components/schemas/CarbonPermanence'
         un_sdg:
           $ref: '#/components/schemas/SupportedUNSdg'
     Registry:
@@ -7832,3 +7820,12 @@ components:
         # needed too).
         - null
       nullable: true
+    CarbonPermanence:
+      type: string
+      description: The bundle's carbon storage permanence.
+      enum:
+        - long_term
+        - short_term
+        - no_storage
+      example: 'long_term'
+
