@@ -5288,7 +5288,7 @@ components:
         ## Truck fuels
 
         Suffixes such as `_petrol`, `_cng`, `_lpg`, `lng` indicate the vehicle uses a specific fuel.
-        When no fuel is specificied, assume diesel.
+        When no fuel is specified, assume diesel.
 
         ## Train emission factors
 
