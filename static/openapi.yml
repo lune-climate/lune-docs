@@ -5285,6 +5285,11 @@ components:
         If you only know a rough size of the truck you'll do well can choose one of the
         `truck_generic_*` types if outside North America.
 
+        ## Truck fuels
+
+        Suffixes such as `_petrol`, `_cng`, `_lpg`, `lng` indicate the vehicle uses a specific fuel.
+        When no fuel is specificied, assume diesel.
+
         ## Train emission factors
 
         You can explicitly request a US emission factor (`diesel_freight_train_us_average`)
@@ -5355,6 +5360,15 @@ components:
         - truck_articulated_44t
         - truck_articulated_60t
         - truck_articulated_72t
+
+        - truck_generic_van_petrol
+        - truck_generic_van_cng
+        - truck_generic_van_lpg
+        - truck_rigid_7_5t_cng
+        - truck_rigid_12t_cng
+        - truck_rigid_20t_cng
+        - truck_rigid_26t_cng
+        - truck_rigid_26t_lng
 
         - truck_na_van
         - truck_na_general
