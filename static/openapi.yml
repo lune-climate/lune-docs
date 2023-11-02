@@ -5287,7 +5287,7 @@ components:
 
         ## Truck fuels
 
-        Suffixes such as `_petrol`, `_cng`, `_lpg`, `lng` indicate the vehicle uses a specific fuel.
+        Suffixes such as `_petrol`, `_cng`, `_lpg`, `lng`, `_bio_lng` indicate the vehicle uses a specific fuel.
         When no fuel is specified, assume diesel.
 
         ## Truck load characteristics
@@ -5382,6 +5382,15 @@ components:
         - truck_articulated_60t_container
         - truck_articulated_72t_heavy_load
         - truck_articulated_72t_container
+
+        - truck_articulated_40t_si_engine_lng_container
+        - truck_articulated_40t_si_engine_cng
+        - truck_articulated_40t_si_engine_bio_lng
+        - truck_articulated_40t_si_engine_cng_container
+        - truck_articulated_40t_si_engine_bio_lng_container
+        - truck_articulated_40t_hpdi_lng_diesel
+        - truck_articulated_40t_hpdi_cng_diesel
+        - truck_articulated_40t_hpdi_bio_lng_diesel
 
         - truck_na_van
         - truck_na_general
