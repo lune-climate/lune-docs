@@ -5392,6 +5392,16 @@ components:
         - truck_articulated_40t_hpdi_cng_diesel
         - truck_articulated_40t_hpdi_bio_lng_diesel
 
+        - truck_generic_van_electric
+        - truck_rigid_7_5t_electric
+        - truck_rigid_7_5t_electric_light_load
+        - truck_rigid_12t_electric
+        - truck_rigid_12t_electric_light_load
+        - truck_rigid_20t_electric
+        - truck_rigid_20t_electric_light_load
+        - truck_rigid_40t_electric
+        - truck_rigid_40t_electric_light_load
+
         - truck_na_van
         - truck_na_general
         - truck_na_auto_carrier
