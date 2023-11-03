@@ -5235,6 +5235,7 @@ components:
     ShippingMethod:
       oneOf:
         - $ref: '#/components/schemas/SimpleShippingMethod'
+        - $ref: '#/components/schemas/SimpleSeaShippingMethod'
         - $ref: '#/components/schemas/SeaShippingMethod'
         - $ref: '#/components/schemas/ContainerShippingMethod'
         - $ref: '#/components/schemas/IdentifiedVesselShippingMethod'
@@ -5429,6 +5430,162 @@ components:
         - $ref: '#/components/schemas/VariableFuelVariableLoadSeaShippingMethod'
         - $ref: '#/components/schemas/RoRoSeaShippingMethod'
         - $ref: '#/components/schemas/HugeOilTankerSeaShippingMethod'
+    SimpleSeaShippingMethod:
+      description: |
+        ## Deadweight tonnage
+
+        `dwkt` suffixes describe the ship's deadweight kilotonne upper bound, whereas `over_Xdwkt` suffixes describe lower bounds.
+
+        ## Fuels
+
+        Suffixes such as `_hfo` (Heavy fuel oil), `_vlsfo` (Very Low Sulphur Fuel Oil), `_mdo` (Marine diesel oil) describe the ship's fuel.
+      type: string
+      enum:
+        - sea_bulk_carrier_10dwkt_hfo
+        - sea_bulk_carrier_10dwkt_vlsfo
+        - sea_bulk_carrier_10dwkt_mdo
+        - sea_bulk_carrier_35dwkt_hfo
+        - sea_bulk_carrier_35dwkt_vlsfo
+        - sea_bulk_carrier_35dwkt_mdo
+        - sea_bulk_carrier_60dwkt_hfo
+        - sea_bulk_carrier_60dwkt_vlsfo
+        - sea_bulk_carrier_60dwkt_mdo
+        - sea_bulk_carrier_100dwkt_hfo
+        - sea_bulk_carrier_100dwkt_vlsfo
+        - sea_bulk_carrier_100dwkt_mdo
+        - sea_bulk_carrier_200dwkt_hfo
+        - sea_bulk_carrier_200dwkt_vlsfo
+        - sea_bulk_carrier_200dwkt_mdo
+        - sea_bulk_carrier_over_200dwkt_hfo
+        - sea_bulk_carrier_over_200dwkt_vlsfo
+        - sea_bulk_carrier_over_200dwkt_mdo
+
+        - sea_chemical_tanker_5dwkt_hfo
+        - sea_chemical_tanker_5dwkt_vlsfo
+        - sea_chemical_tanker_5dwkt_mdo
+        - sea_chemical_tanker_10dwkt_hfo
+        - sea_chemical_tanker_10dwkt_vlsfo
+        - sea_chemical_tanker_10dwkt_mdo
+        - sea_chemical_tanker_20dwkt_hfo
+        - sea_chemical_tanker_20dwkt_vlsfo
+        - sea_chemical_tanker_20dwkt_mdo
+        - sea_chemical_tanker_40dwkt_hfo
+        - sea_chemical_tanker_40dwkt_vlsfo
+        - sea_chemical_tanker_40dwkt_mdo
+        - sea_chemical_tanker_over_40dwkt_hfo
+        - sea_chemical_tanker_over_40dwkt_vlsfo
+        - sea_chemical_tanker_over_40dwkt_mdo
+
+        - sea_general_cargo_5dwkt_hfo
+        - sea_general_cargo_5dwkt_vlsfo
+        - sea_general_cargo_5dwkt_mdo
+        - sea_general_cargo_10dwkt_hfo
+        - sea_general_cargo_10dwkt_vlsfo
+        - sea_general_cargo_10dwkt_mdo
+        - sea_general_cargo_20dwkt_hfo
+        - sea_general_cargo_20dwkt_vlsfo
+        - sea_general_cargo_20dwkt_mdo
+        - sea_general_cargo_over_20dwkt_hfo
+        - sea_general_cargo_over_20dwkt_vlsfo
+        - sea_general_cargo_over_20dwkt_mdo
+
+        - sea_liquefied_gas_tanker_50dwkt_hfo
+        - sea_liquefied_gas_tanker_50dwkt_vlsfo
+        - sea_liquefied_gas_tanker_50dwkt_mdo
+        - sea_liquefied_gas_tanker_100dwkt_hfo
+        - sea_liquefied_gas_tanker_100dwkt_vlsfo
+        - sea_liquefied_gas_tanker_100dwkt_mdo
+        - sea_liquefied_gas_tanker_200dwkt_hfo
+        - sea_liquefied_gas_tanker_200dwkt_vlsfo
+        - sea_liquefied_gas_tanker_200dwkt_mdo
+        - sea_liquefied_gas_tanker_over_200dwkt_hfo
+        - sea_liquefied_gas_tanker_over_200dwkt_vlsfo
+        - sea_liquefied_gas_tanker_over_200dwkt_mdo
+
+        - sea_oil_tanker_5dwkt_hfo
+        - sea_oil_tanker_5dwkt_vlsfo
+        - sea_oil_tanker_5dwkt_mdo
+        - sea_oil_tanker_10dwkt_hfo
+        - sea_oil_tanker_10dwkt_vlsfo
+        - sea_oil_tanker_10dwkt_mdo
+        - sea_oil_tanker_20dwkt_hfo
+        - sea_oil_tanker_20dwkt_vlsfo
+        - sea_oil_tanker_20dwkt_mdo
+        - sea_oil_tanker_60dwkt_hfo
+        - sea_oil_tanker_60dwkt_vlsfo
+        - sea_oil_tanker_60dwkt_mdo
+        - sea_oil_tanker_80dwkt_hfo
+        - sea_oil_tanker_80dwkt_vlsfo
+        - sea_oil_tanker_80dwkt_mdo
+        - sea_oil_tanker_112dwkt_hfo
+        - sea_oil_tanker_112dwkt_vlsfo
+        - sea_oil_tanker_112dwkt_mdo
+        - sea_oil_tanker_200dwkt_hfo
+        - sea_oil_tanker_200dwkt_vlsfo
+        - sea_oil_tanker_200dwkt_mdo
+        - sea_oil_tanker_over_200dwkt_hfo
+        - sea_oil_tanker_over_200dwkt_vlsfo
+        - sea_oil_tanker_over_200dwkt_mdo
+
+        - sea_other_liquids_tanker_1dwkt_hfo
+        - sea_other_liquids_tanker_1dwkt_vlsfo
+        - sea_other_liquids_tanker_1dwkt_mdo
+        - sea_other_liquids_tanker_over_1dwkt_hfo
+        - sea_other_liquids_tanker_over_1dwkt_vlsfo
+        - sea_other_liquids_tanker_over_1dwkt_mdo
+
+        - sea_ropax_2dwkt_hfo
+        - sea_ropax_2dwkt_vlsfo
+        - sea_ropax_2dwkt_mdo
+        - sea_ropax_5dwkt_hfo
+        - sea_ropax_5dwkt_vlsfo
+        - sea_ropax_5dwkt_mdo
+        - sea_ropax_10dwkt_hfo
+        - sea_ropax_10dwkt_vlsfo
+        - sea_ropax_10dwkt_mdo
+        - sea_ropax_20dwkt_hfo
+        - sea_ropax_20dwkt_vlsfo
+        - sea_ropax_20dwkt_mdo
+        - sea_ropax_over_20dwkt_hfo
+        - sea_ropax_over_20dwkt_vlsfo
+        - sea_ropax_over_20dwkt_mdo
+
+        - sea_refrigerated_bulk_carrier_2dwkt_hfo
+        - sea_refrigerated_bulk_carrier_2dwkt_vlsfo
+        - sea_refrigerated_bulk_carrier_2dwkt_mdo
+        - sea_refrigerated_bulk_carrier_6dwkt_hfo
+        - sea_refrigerated_bulk_carrier_6dwkt_vlsfo
+        - sea_refrigerated_bulk_carrier_6dwkt_mdo
+        - sea_refrigerated_bulk_carrier_10dwkt_hfo
+        - sea_refrigerated_bulk_carrier_10dwkt_vlsfo
+        - sea_refrigerated_bulk_carrier_10dwkt_mdo
+        - sea_refrigerated_bulk_carrier_over_10dwkt_hfo
+        - sea_refrigerated_bulk_carrier_over_10dwkt_vlsfo
+        - sea_refrigerated_bulk_carrier_over_10dwkt_mdo
+
+        - sea_roro_5dwkt_hfo
+        - sea_roro_5dwkt_vlsfo
+        - sea_roro_5dwkt_mdo
+        - sea_roro_10dwkt_hfo
+        - sea_roro_10dwkt_vlsfo
+        - sea_roro_10dwkt_mdo
+        - sea_roro_15dwkt_hfo
+        - sea_roro_15dwkt_vlsfo
+        - sea_roro_15dwkt_mdo
+        - sea_roro_over_15dwkt_hfo
+        - sea_roro_over_15dwkt_vlsfo
+        - sea_roro_over_15dwkt_mdo
+
+        - sea_vehicle_carrier_30dwkt_hfo
+        - sea_vehicle_carrier_30dwkt_vlsfo
+        - sea_vehicle_carrier_30dwkt_mdo
+        - sea_vehicle_carrier_50dwkt_hfo
+        - sea_vehicle_carrier_50dwkt_vlsfo
+        - sea_vehicle_carrier_50dwkt_mdo
+        - sea_vehicle_carrier_over_50dwkt_hfo
+        - sea_vehicle_carrier_over_50dwkt_vlsfo
+        - sea_vehicle_carrier_over_50dwkt_mdo
+
     VariableFuelSeaShippingMethod:
       type: object
       required:
