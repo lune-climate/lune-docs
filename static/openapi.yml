@@ -5593,6 +5593,17 @@ components:
       properties:
         vessel_type:
           type: string
+          description: |
+            Vessel sizes:
+            * `sea_oil_tanker_*`:
+              * `small` – <5 dwkt
+              * `medium` – 20-60 dwkt
+              * `large` – 112-200 dwkt
+            * `sea_general_cargo_*`:
+              * `small` – 5-10 dwkt
+              * `large` – 10-20 dwkt
+            * `sea_bulk_carrier_small` - <10 dwkt
+            * `sea_ropax` – 2-5 dwkt
           enum:
             - sea_oil_tanker_small
             - sea_oil_tanker_medium
@@ -5613,6 +5624,11 @@ components:
       properties:
         vessel_type:
           type: string
+          description: |
+            Vessel sizes:
+            * `sea_bulk_carrier_*`
+              * `medium` – 60-100 dwkt
+              * `large` – 100-200 dwkt
           enum:
             - sea_bulk_carrier_medium
             - sea_bulk_carrier_large
@@ -5643,6 +5659,11 @@ components:
             - MGO
         load:
           type: string
+          description: |
+            Vessel sizes:
+            * `freight_only` - Ro-Ro 5-10 dwkt
+            * `truck_and_trailer` - Ro-Ro <5 dwkt
+            * `trailer_only` - Ro-Ro 5-10 dwkt
           enum:
             - freight_only
             - truck_and_trailer
@@ -5654,6 +5675,7 @@ components:
       properties:
         vessel_type:
           type: string
+          description: Oil tanker >200 dwkt
           enum:
             - sea_oil_tanker_huge
         fuel:
