@@ -1145,6 +1145,7 @@ components:
         Examples: `cargo_plane`, `container_ship`, `diesel_truck`.
       oneOf:
         - $ref: 'api-schema.yml#/components/schemas/SimpleShippingMethod'
+        - $ref: 'api-schema.yml#/components/schemas/SimpleSeaShippingMethod'
         - type: string
           x-lune-name: Container ship method
           enum:
