@@ -120,7 +120,7 @@ Both take content from stdin and return the result on stdout.
 
 To add or edit gated content:
 1. I put the clear text content in a text file eg `content.txt`
-2. Run `cat content.txt | DOCS_PUBLISHABLE_KEY='SECRET' yarn encrypt-content
+2. Run `cat content.txt | DOCS_PUBLISHABLE_KEY='SECRET' yarn encrypt-content`
 3. Paste the result in a `<GatedMarkdown />` component
 
 When making changes do not commit clear text content.
