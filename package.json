@@ -55,7 +55,7 @@
     "@docusaurus/module-type-aliases": "^3.0.0",
     "@jest/globals": "^29.7.0",
     "@tsconfig/docusaurus": "^2.0.2",
-    "@types/jest": "^29.5.7",
+    "@types/jest": "^29.5.8",
     "@types/node": "^20.8.10",
     "@types/react": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "latest",
