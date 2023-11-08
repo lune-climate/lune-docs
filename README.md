@@ -97,3 +97,30 @@ There are two utility methods present. `src/components/ResourceExample` and `src
 first one creates an example of any schema component based on the parsed object. The second creates a
 curl string example given endpoint information, parameters and requestBody. Both of these are used
 to present snippets.
+
+## Gated content
+
+Some content is gated to users who have a Lune Dashboard account.
+
+Gated content is symmetrically encrypted and encapsulated into the `<Gated />` or `<GatedMarkdown />` components.
+
+In development, to view gated content set the `docs_publishable_key` cookie as follows:
+
+```
+document.cookie = `docs_publishable_key=${encodeURIComponent('SECRET')}`
+```
+
+Replace `SECRET` with the publishable key, then refresh the page.
+
+To encrypt or decrypt content use the following two commands: `yarn encrypt-content` and `yarn decrypt-content`.
+
+They require the publishable key as `DOCS_PUBLISHABLE_KEY` environment variable.
+
+Both take content from stdin and return the result on stdout.
+
+To add or edit gated content:
+1. I put the clear text content in a text file eg `content.txt`
+2. Run `cat content.txt | DOCS_PUBLISHABLE_KEY='SECRET' yarn encrypt-content
+3. Paste the result in a `<GatedMarkdown />` component
+
+When making changes do not commit clear text content.
