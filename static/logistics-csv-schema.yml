@@ -216,6 +216,48 @@ components:
 
             For details in regards to Client Accounts visit https://docs.lune.co/api-reference/client-accounts/client-account.
           default: ''
+        client_account_handle:
+          type: string
+          pattern: '^$|^[a-z0-9-_]+$'
+          description: |
+            The client account handle is a unique user defined handle that idenfies your customer.
+
+            A client account is created for every new handle and the emission estimate is stored against the client account.
+
+            If a client account is already associated with the handle, the emission estimate is stored against the existing client account.
+
+            For details in regards to Client Accounts visit https://docs.lune.co/api-reference/client-accounts/client-account.
+
+            Note: `client_account_id` takes precedence of `client_account_handle`.
+          default: ''
+        client_account_currency:
+          type: string
+          description: |
+            The client account's currency.
+
+            This property must be set when `client_account_handle` is set.
+
+            You cannot overwrite a client account's currency.
+          default: ''
+        client_account_name:
+          type: string
+          description: |
+            The client account's name.
+
+            If no value is provided, this will equal the client account handle.
+
+            If `client_account_name` is different from the account's name in Lune's system, the account's name will be changed.
+          default: ''
+        client_account_beneficiary:
+          type: string
+          description: |
+            The client account's beneficiary.
+
+            This is the name that appears on future retirements that are made in this account.
+            If none is present, the organisation beneficiary will be used instead.
+
+            If `client_account_beneficiary` is different from the account's beneficiary in Lune's system, the account's beneficiary will be changed.
+          default: ''
         mass_kg:
           type: string
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
