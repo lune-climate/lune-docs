@@ -1065,7 +1065,7 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-  /orders/by-idempotency-key/{idempotencyKey}:
+  /orders/by-idempotency-key/{idempotency_key}:
     get:
       summary: Get an order by idempotency key
       operationId: getOrderByIdempotencyKey
@@ -1074,7 +1074,7 @@ paths:
       tags:
         - Orders
       parameters:
-        - name: idempotencyKey
+        - name: idempotency_key
           in: path
           required: true
           description: |
