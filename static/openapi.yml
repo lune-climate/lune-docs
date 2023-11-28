@@ -5225,6 +5225,14 @@ components:
               example: '40.501'
             cargo_type:
               type: string
+              description: |
+                If omitted, `average` is assumed.
+
+                The following conversions apply:
+                * `lightweight`: 1 container = 6 tonnes
+                * `average`: 1 container = 10 tonnes
+                * `heavyweight`: 1 container = 14.5 tonnes
+                * `container_only`: 1 container = 2 tonnes
               enum:
                 - lightweight
                 - average
