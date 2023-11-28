@@ -222,6 +222,37 @@ const sidebars = {
 
         {
           type: 'category',
+          label: 'Logistics customer analytics',
+          link: {
+            type: 'doc',
+            id: 'guides/logistics-customer-analytics',
+          },
+          items: [
+            {
+              type: 'link',
+              label: 'Overview',
+              href: '/guides/logistics-customer-analytics#overview',
+            },
+            {
+              type: 'link',
+              label: 'Requirements',
+              href: '/guides/logistics-customer-analytics#requirements',
+            },
+            {
+              type: 'link',
+              label: 'Client Account analytics URL',
+              href: '/guides/logistics-customer-analytics#client-account-analytics-url',
+            },
+            {
+              type: 'link',
+              label: 'Embed the URL in your app',
+              href: '/guides/logistics-customer-analytics#embed-the-url-in-your-app',
+            },
+          ]
+        },
+
+        {
+          type: 'category',
           label: 'Share your climate impact',
           link: {
             type: 'doc',
