@@ -49,7 +49,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 ## Requirements
 
 1. Create Client Accounts with handles
-2. Perform emission estimates through Client Accounts
+2. Calculate emission estimates through Client Accounts
 3. Mark emission estimates as shipments
 
 </div>
@@ -76,7 +76,7 @@ It is URL friendly, therefore it can be included in links.
 </div>
 <div>
 
-### Perform emission estimates through Client Accounts
+### Calculate emission estimates through Client Accounts
 
 Emission estimates must be performed with a specific Client Account.
 
