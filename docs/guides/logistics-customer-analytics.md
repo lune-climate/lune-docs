@@ -16,9 +16,9 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 ## Overview
 
 In this guide, you will learn how to embed a link to a no-code analytics page in order for you customers to:
-1. view shipment emissions analytics
-2. explore emission estimates for their shipments
-3. understand how individual estimates were calculated.
+1. View shipment emissions analytics
+2. Explore emission estimates for their shipments
+3. Understand how individual estimates were calculated.
 
 </div>
 <div>
@@ -64,6 +64,8 @@ For Client Account details follow [this link](/key-concepts/client-accounts).
 
 When creating a Client Account provide a `handle`.
 The handle must be unique per organisation and can only contain lowercase alphanumeric characters, underscore and dashes.
+
+Note: you may re-use the same handle in live mode and test mode.
 
 <Tip>
 
