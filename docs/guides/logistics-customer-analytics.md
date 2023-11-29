@@ -35,7 +35,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 <>
 
-![logistics-csv-upload](/img/logistics-sheets-overview.png)
+![overview](/img/intro-analytics-page.png)
 
 </>
 </ApiReferenceSection>
@@ -74,6 +74,19 @@ It is URL friendly, therefore it can be included in links.
 </Tip>
 
 </div>
+</div>
+
+<>
+
+![client-accounts-with-handles](/img/client-account-handles.png)
+
+</>
+
+</ApiReferenceSection>
+
+<ApiReferenceSection>
+
+<div className="paragraphSections">
 <div>
 
 ### Calculate emission estimates through Client Accounts
@@ -85,6 +98,20 @@ To act as a Client Account
 * via the [Logistics CSV spreadsheet](/guides/logistics-sheets), provide a `handle` in the `client_account_handle` column. Client Accounts are created if required.
 
 </div>
+
+</div>
+
+<>
+
+![calculate-via-client-accounts](/img/calculate-via-client-accounts.png)
+
+</>
+
+</ApiReferenceSection>
+
+<ApiReferenceSection>
+
+<div className="paragraphSections">
 <div>
 
 ### Mark emission estimates as shipment
@@ -101,7 +128,7 @@ In order for the analytics page to display analytics for shipments, emission est
 
 <>
 
-![emission-estimates-client-accounts](/img/logistics-sheets-download-csv-template.png)
+![mark-as-shipment](/img/mark-as-shipment.png)
 
 </>
 
@@ -138,7 +165,7 @@ Note: for test Client Accounts use the following url: `https://sustainabilty.lun
 
 <>
 
-![construct-analytics-url](/img/logistics-sheets-download-csv-template.png)
+![client-account-analytics-url](/img/client-account-analytics-generate-url.png)
 
 </>
 
@@ -164,7 +191,7 @@ This enables your customers to:
 
 <>
 
-![](/img/logistics-sheets-download-csv-template.png)
+![analytics-embed-url](/img/analytics-embed-url.png)
 
 </>
 
