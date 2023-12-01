@@ -5013,6 +5013,8 @@ components:
 
                 You can mark an estimate as shipment at any time.
               example: true
+            shipped_at:
+              $ref: '#/components/schemas/ShippedAt'
       example:
         shipment:
           containers: '2'
@@ -5024,6 +5026,7 @@ components:
         method:
           vessel_type: 'container_ship'
         is_shipment: true
+        shipped_at: '2023-11-20T10:20:30Z'
     ShippingRoute:
       description: |
         Either the shipping distance or the start/destination address pair.
@@ -5159,8 +5162,11 @@ components:
 
                 You can mark an estimate as shipment at any time.
               example: true
+            shipped_at:
+              $ref: '#/components/schemas/ShippedAt'
       example:
         is_shipment: true
+        shipped_at: '2023-11-20T10:20:30Z'
         shipment:
           mass:
             amount: '10.36'
@@ -8089,6 +8095,6 @@ components:
         The date and time of shipping the goods for the purpose of analytics (it doesn't
         affect emission calculations in any way).
 
-        Defaults to the current time when creating estimates.
-
-        Remains unchanged when updating estimates.
+        If a value is provided when creating or updating an estimate we use the value.
+        Otherwise defaults to the current time when creating estimates and remains
+        unchanged when updating estimates.
