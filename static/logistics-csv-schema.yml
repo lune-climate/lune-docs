@@ -258,6 +258,8 @@ components:
 
             If `client_account_beneficiary` is different from the account's beneficiary in Lune's system, the account's beneficiary will be changed.
           default: ''
+        shipped_at:
+          $ref: 'api-schema.yml#/components/schemas/ShippedAt'
         mass_kg:
           type: string
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
