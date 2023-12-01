@@ -258,6 +258,15 @@ components:
 
             If `client_account_beneficiary` is different from the account's beneficiary in Lune's system, the account's beneficiary will be changed.
           default: ''
+        is_shipment:
+          type: string
+          description: Is this an estimate for an actual shipment?
+          default: 'false'
+          enum:
+            - 'TRUE'
+            - 'true'
+            - 'FALSE'
+            - 'false'
         shipped_at:
           $ref: 'api-schema.yml#/components/schemas/ShippedAt'
         mass_kg:
