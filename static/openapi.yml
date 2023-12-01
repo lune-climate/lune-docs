@@ -6568,6 +6568,7 @@ components:
           required:
             - id
             - is_shipment
+            - shipped_at
             - quote
             - request
           properties:
@@ -6584,6 +6585,8 @@ components:
 
                 You can mark an estimate as shipment at any time.
               example: false
+            shipped_at:
+              $ref: '#/components/schemas/ShippedAt'
             quote:
               $ref: '#/components/schemas/EstimateQuote'
             request:
@@ -6591,6 +6594,7 @@ components:
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
         is_shipment: true
+        shipped_at: '2023-11-20T10:20:30Z'
         mass:
           amount: '2.969503'
           unit: 't'
@@ -6712,6 +6716,7 @@ components:
         - type: object
           required:
             - is_shipment
+            - shipped_at
             - legs
             - distance
             - request
@@ -6725,6 +6730,8 @@ components:
 
                 You can mark an estimate as shipment at any time.
               example: false
+            shipped_at:
+              $ref: '#/components/schemas/ShippedAt'
             legs:
               type: array
               description: |
@@ -6741,6 +6748,7 @@ components:
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
         is_shipment: false
+        shipped_at: '2023-11-20T10:20:30Z'
         mass:
           amount: '1.105698'
           unit: 't'
@@ -8074,4 +8082,13 @@ components:
         - short_term
         - no_storage
       example: 'long_term'
+    ShippedAt:
+      type: string
+      format: date-time
+      description: |
+        The date and time of shipping the goods for the purpose of analytics (it doesn't
+        affect emission calculations in any way).
 
+        Defaults to the current time when creating estimates.
+
+        Remains unchanged when updating estimates.
