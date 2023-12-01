@@ -208,7 +208,7 @@ A successful 200 response will return a paginated list of emission factors order
 
 ## Calculate a product's emissions
 
-Once an emission factor has been picked, use its `id` to [calculate the emissions](api-reference/emission-estimates/create-emission-factor-estimate) for <u>one unit</u> of your supplier's product.
+Once an emission factor has been picked, use its `id` to [calculate the emissions](/api-reference/emission-estimates/create-emission-factor-estimate) for <u>one unit</u> of your supplier's product.
 
 <div>
 </div>
