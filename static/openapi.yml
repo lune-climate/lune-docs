@@ -4465,7 +4465,6 @@ components:
             `handle` is a client defined URL-friendly string that identifies the account.
 
             The `handle` is unique per organisation and account type.
-        
         currency:
           type: string
           description: The Account's currency
