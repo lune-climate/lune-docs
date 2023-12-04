@@ -1580,6 +1580,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleShippingEmissionEstimate'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -1724,6 +1726,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MultiLegShippingEmissionEstimate'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
