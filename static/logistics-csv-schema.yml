@@ -220,7 +220,7 @@ components:
           type: string
           pattern: '^$|^[a-z0-9-_]+$'
           description: |
-            The client account handle is a unique user defined handle that idenfies your customer.
+            The client account handle is a unique user defined handle that identifies your customer.
 
             A client account is created for every new handle and the emission estimate is stored against the client account.
 
