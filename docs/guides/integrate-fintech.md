@@ -86,7 +86,7 @@ To calculate an [estimate of CO₂ emissions](/api-reference/emission-estimates/
 
 <Tip>
 
-Lune is in the process of rolling out support for merchant-level emissions calculations.
+As product input you can use MCC (eg `"category_code": "5411"`) or free text search (eg `"search_term": "iphone"`).
 
 </Tip>
 
