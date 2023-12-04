@@ -5793,6 +5793,12 @@ components:
             - disaggregated_other
     IdentifiedVesselShippingMethod:
       description: |
+        This method uses either the vessel's IMO number or the vessel name in order to select an emission factor, falling back to trade lane emissions factors if provided.
+      oneOf:
+        - $ref: '#/components/schemas/IdentifiedVesselByIMOShippingMethod'
+        - $ref: '#/components/schemas/IdentifiedVesselByNameShippingMethod'
+    IdentifiedVesselByIMOShippingMethod:
+      description: |
         This method uses the vessel's IMO number emission factors when found, falling back to trade lane emissions factors if provided.
       oneOf:
         - type: object
@@ -5816,6 +5822,31 @@ components:
                   The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
                 type: string
                 pattern: '^[0-9]{7}$'
+          - $ref: '#/components/schemas/ContainerShippingMethod'
+    IdentifiedVesselByNameShippingMethod:
+      description: |
+        This method uses the vessel's name to select an emission factors, falling back to trade lane emissions factors if provided. If the vessel name matches
+        multiple vessels with different IMO's or no vessel at all, the fallback is used.
+      oneOf:
+        - type: object
+          x-lune-name: Vessel Name
+          required:
+            - vessel_name
+          properties:
+            vessel_name:
+              description: |
+                The vessel's name.
+              type: string
+        - x-lune-name: Container ship vessel name
+          allOf:
+          - type: object
+            required:
+              - vessel_name
+            properties:
+              vessel_name:
+                description: |
+                  The vessel's name.
+                type: string
           - $ref: '#/components/schemas/ContainerShippingMethod'
     LogisticsSiteMethod:
       type: string
