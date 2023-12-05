@@ -6893,6 +6893,7 @@ components:
             - shipped_at
             - legs
             - distance
+            - adjusted_distance
             - request
           properties:
             is_shipment:
@@ -6916,6 +6917,8 @@ components:
                 $ref: '#/components/schemas/ShippingLegEmissionEstimate'
             distance:
               $ref: '#/components/schemas/Distance'
+            adjusted_distance:
+              $ref: '#/components/schemas/AdjustedDistance'
             request:
               $ref: '#/components/schemas/MultiLegShippingEstimateRequest'
         - $ref: '#/components/schemas/EmissionEstimateResponse'
