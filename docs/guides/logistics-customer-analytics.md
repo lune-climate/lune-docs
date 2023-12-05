@@ -120,9 +120,9 @@ To act as a Client Account
 
 Emission estimates are not always performed for shipments. For instance, you may perform estimates during the booking flow.
 
-In order for the analytics page to display analytics for shipments, emission estimates must be marked as shipments, either:
-* via the API through **[PLACEHOLDER]** endpoint
-* via the Logistics CSV spreadsheet by populating the `is_shipment` column with `true`
+In order for the analytics page to display analytics for shipments, emission estimates must be marked as shipments, by setting the `is_shipment` variable.
+
+This can be done via the [API](/api-reference/emission-estimates/update-shipping-estimate-metadata/) or the [Logistics CSV spreadsheet](/guides/logistics-sheets#reference).
 
 
 </div>
