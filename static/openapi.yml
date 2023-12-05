@@ -2748,6 +2748,26 @@ components:
             - nm
           example: 'km'
           description: Unit, `km` for kilometers, `mi` for miles
+    AdjustedDistance:
+      description: |
+        Distance estimation after distance adjustment factors have been applied.
+        Adjusted factors are decided by GLEC and are added to make distances more realistic.
+      type: object
+      required:
+        - amount
+        - unit
+      properties:
+        amount:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '40.501'
+        unit:
+          type: string
+          enum:
+            - km
+            - mi
+            - nm
+          example: 'km'
     DistanceCalculationMethod:
       description: |
         * `great_circle_distance` – Great-circle distance (as the crow flies)
@@ -6801,6 +6821,8 @@ components:
           properties:
             distance:
               $ref: '#/components/schemas/Distance'
+            adjusted_distance:
+              $ref: '#/components/schemas/AdjustedDistance'
             distance_calculation_method:
               description: |
                 The method we used to determine the shipping distance.
@@ -8174,11 +8196,14 @@ components:
       required:
         - location
         - distance
+        - adjusted_distance
       properties:
         location:
           $ref: '#/components/schemas/CalculatedRouteLocation'
         distance:
           $ref: '#/components/schemas/Distance'
+        adjusted_distance:
+          $ref: '#/components/schemas/AdjustedDistance'
     CalculatedRouteLocation:
       type: object
       required:
