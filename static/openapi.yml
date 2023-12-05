@@ -7304,6 +7304,13 @@ components:
         beneficiary:
           description: The account beneficiary.
           type: string
+        handle:
+          type: string
+          pattern: '^[a-z0-9-_]+$'
+          description: |
+            `handle` is a client defined URL-friendly string that identifies the account.
+
+            The `handle` is unique per organisation and account type.
       example:
         name: 'ACME'
         beneficiary: 'ACME Inc'
@@ -7325,6 +7332,13 @@ components:
           description: The account beneficiary.
           type: string
           minLength: 1
+        handle:
+          type: string
+          pattern: '^[a-z0-9-_]+$'
+          description: |
+            `handle` is a client defined URL-friendly string that identifies the account.
+
+            The `handle` is unique per organisation and account type.
       example:
         name: 'ACME'
         currency: 'USD'
