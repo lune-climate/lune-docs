@@ -5186,18 +5186,27 @@ components:
             You can mark an estimate as shipment at any time.
           type: boolean
     UpdateShippingEstimateMetadataRequest:
-      type: object
-      required:
-        - is_shipment
-      properties:
-        is_shipment:
-          description: |
-            When true, the emission estimate refers to an actual shipment of goods, will be included in Lune analytics and can be included in any CO2 emissions reporting.
+      oneOf:
+        - type: object
+          required:
+            - is_shipment
+          properties:
+            is_shipment:
+              description: |
+                When true, the emission estimate refers to an actual shipment of goods, will be included in Lune analytics and can be included in any CO2 emissions reporting.
 
-            This property exists to distinguish booking quotes or forecasts from actual shipments where goods are moved.
+                This property exists to distinguish booking quotes or forecasts from actual shipments where goods are moved.
 
-            You can mark an estimate as shipment at any time.
-          type: boolean
+                You can mark an estimate as shipment at any time.
+              type: boolean
+            shipped_at:
+              $ref: '#/components/schemas/ShippedAt'
+        - type: object
+          required:
+            - shipped_at
+          properties:
+            shipped_at:
+              $ref: '#/components/schemas/ShippedAt'
     StoredMultiLegShippingEstimateRequest:
       type: object
       description: Parameters for estimating multi-leg shipping emissions
