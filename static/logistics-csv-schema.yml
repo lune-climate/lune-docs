@@ -361,6 +361,13 @@ components:
 
             When an imo is provided, the leg's method is ignored.
           default: ''
+        leg1_vessel_name:
+          type: string
+          description: |
+            The vessel's name. If an IMO is provided this property will be unused.
+
+            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
         leg1_country:
           type: string
           description:
@@ -444,6 +451,13 @@ components:
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
 
             When an imo is provided, the leg's method is ignored.
+          default: ''
+        leg2_vessel_name:
+          type: string
+          description: |
+            The vessel's name. If an IMO is provided this property will be unused.
+
+            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
           default: ''
         leg2_country:
           type: string
@@ -529,6 +543,13 @@ components:
 
             When an imo is provided, the leg's method is ignored.
           default: ''
+        leg3_vessel_name:
+          type: string
+          description: |
+            The vessel's name. If an IMO is provided this property will be unused.
+
+            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
         leg3_country:
           type: string
           description:
@@ -612,6 +633,13 @@ components:
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
 
             When an imo is provided, the leg's method is ignored.
+          default: ''
+        leg4_vessel_name:
+          type: string
+          description: |
+            The vessel's name. If an IMO is provided this property will be unused.
+
+            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
           default: ''
         leg4_country:
           type: string
@@ -697,6 +725,13 @@ components:
 
             When an imo is provided, the leg's method is ignored.
           default: ''
+        leg5_vessel_name:
+          type: string
+          description: |
+            The vessel's name. If an IMO is provided this property will be unused.
+
+            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
         leg5_country:
           type: string
           description:
@@ -780,6 +815,13 @@ components:
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
 
             When an imo is provided, the leg's method is ignored.
+          default: ''
+        leg6_vessel_name:
+          type: string
+          description: |
+            The vessel's name. If an IMO is provided this property will be unused.
+
+            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
           default: ''
         leg6_country:
           type: string
@@ -865,6 +907,13 @@ components:
 
             When an imo is provided, the leg's method is ignored.
           default: ''
+        leg7_vessel_name:
+          type: string
+          description: |
+            The vessel's name. If an IMO is provided this property will be unused.
+
+            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
         leg7_country:
           type: string
           description:
@@ -948,6 +997,13 @@ components:
             The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
 
             When an imo is provided, the leg's method is ignored.
+          default: ''
+        leg8_vessel_name:
+          type: string
+          description: |
+            The vessel's name. If an IMO is provided this property will be unused.
+
+            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
           default: ''
         leg8_country:
           type: string
@@ -1033,6 +1089,13 @@ components:
 
             When an imo is provided, the leg's method is ignored.
           default: ''
+        leg9_vessel_name:
+          type: string
+          description: |
+            The vessel's name. If an IMO is provided this property will be unused.
+
+            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
         leg9_country:
           type: string
           description:
@@ -1117,6 +1180,13 @@ components:
 
             When an imo is provided, the leg's method is ignored.
           default: ''
+        leg10_vessel_name:
+          type: string
+          description: |
+            The vessel's name. If an IMO is provided this property will be unused.
+
+            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
         leg10_country:
           type: string
           description:
@@ -1191,7 +1261,7 @@ components:
       description: |
         The transport method.
 
-        Required unless `imo` is provided.
+        Required unless `imo` or `vessel_name` is provided.
 
         Pick one of the following options.
 
