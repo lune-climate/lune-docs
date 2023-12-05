@@ -2870,6 +2870,7 @@ components:
             - emission_factor_gated
             - account_scope_incorrect
             - service_unavailable
+            - handle_not_unique
         message:
           type: string
           description: |
@@ -7447,6 +7448,13 @@ components:
           description: The bundle portfolio unique identifier.
           type: string
           example: 'jvqkOq7vX2K18HHydar0W23ZGJdc91Pa'
+        handle:
+          type: string
+          pattern: '^[a-z0-9-_]+$'
+          description: |
+            `handle` is a client defined URL-friendly string that identifies the account.
+
+            The `handle` is unique per organisation and account type.
       example:
         name: 'ACME'
         beneficiary: 'ACME Inc'
@@ -7468,6 +7476,13 @@ components:
           type: string
           example: 'jvqkOq7vX2K18HHydar0W23ZGJdc91Pa'
           nullable: true
+        handle:
+          type: string
+          pattern: '^[a-z0-9-_]+$'
+          description: |
+            `handle` is a client defined URL-friendly string that identifies the account.
+
+            The `handle` is unique per organisation and account type.
       example:
         name: 'ACME'
         beneficiary: 'ACME Inc'
