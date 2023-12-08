@@ -40,6 +40,18 @@ components:
             * read how Lune has calculated your emissions
             * offset your emissions
           default: ''
+        client_account_analytics_url:
+          type: string
+          description: |
+            The URL pointing to the specific client account's analytics page.
+
+            This column is populated when `client_account_handle` is provided.
+
+            Here your customers can:
+            * view their shipment analytics
+            * view individual shipment estimates
+            * read how Lune has calculated their emissions
+          default: ''
         total_mass_tco2:
           type: string
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
