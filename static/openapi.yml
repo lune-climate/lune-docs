@@ -7137,6 +7137,7 @@ components:
         - DKK
         - NOK
         - BGN
+        - INR
       example: "GBP"
     MonetaryAmountValue:
       type: string
