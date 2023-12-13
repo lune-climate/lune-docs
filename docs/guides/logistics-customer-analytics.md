@@ -151,7 +151,7 @@ Because the `handle` was define by you, you are able to construct the URL for yo
 The URL is as follows:
 
 ```
-https://sustainabilty.lune.co/logistics/<ORG_ID>/<HANDLE>
+https://sustainability.lune.co/logistics/<ORG_ID>/<HANDLE>
 ```
 
 **Where**:
@@ -160,7 +160,7 @@ https://sustainabilty.lune.co/logistics/<ORG_ID>/<HANDLE>
 - `<HANDLE>` is the handle defined by you.
 
 
-Note: for test Client Accounts use the following url: `https://sustainabilty.lune.co/logistics/test/<ORG_ID>/<HANDLE>`.
+Note: for test Client Accounts use the following url: `https://sustainability.lune.co/logistics/test/<ORG_ID>/<HANDLE>`.
 
 </div>
 </div>
