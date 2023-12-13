@@ -363,6 +363,17 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg1_refrigerated:
+          description: |
+            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
+            result in lower emissions.
+          type: string
+          default: "false"
+          enum:
+            - 'TRUE'
+            - 'true'
+            - 'FALSE'
+            - 'false'
         leg1_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
         leg1_imo_number:
@@ -454,6 +465,17 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg2_refrigerated:
+          description: |
+            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
+            result in lower emissions.
+          type: string
+          default: "false"
+          enum:
+            - 'TRUE'
+            - 'true'
+            - 'FALSE'
+            - 'false'
         leg2_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
         leg2_imo_number:
@@ -545,6 +567,17 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg3_refrigerated:
+          description: |
+            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
+            result in lower emissions.
+          type: string
+          default: "false"
+          enum:
+            - 'TRUE'
+            - 'true'
+            - 'FALSE'
+            - 'false'
         leg3_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
         leg3_imo_number:
@@ -636,6 +669,17 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg4_refrigerated:
+          description: |
+            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
+            result in lower emissions.
+          type: string
+          default: "false"
+          enum:
+            - 'TRUE'
+            - 'true'
+            - 'FALSE'
+            - 'false'
         leg4_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
         leg4_imo_number:
@@ -727,6 +771,17 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg5_refrigerated:
+          description: |
+            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
+            result in lower emissions.
+          type: string
+          default: "false"
+          enum:
+            - 'TRUE'
+            - 'true'
+            - 'FALSE'
+            - 'false'
         leg5_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
         leg5_imo_number:
@@ -818,6 +873,17 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg6_refrigerated:
+          description: |
+            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
+            result in lower emissions.
+          type: string
+          default: "false"
+          enum:
+            - 'TRUE'
+            - 'true'
+            - 'FALSE'
+            - 'false'
         leg6_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
         leg6_imo_number:
@@ -909,6 +975,17 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg7_refrigerated:
+          description: |
+            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
+            result in lower emissions.
+          type: string
+          default: "false"
+          enum:
+            - 'TRUE'
+            - 'true'
+            - 'FALSE'
+            - 'false'
         leg7_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
         leg7_imo_number:
@@ -1000,6 +1077,17 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg8_refrigerated:
+          description: |
+            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
+            result in lower emissions.
+          type: string
+          default: "false"
+          enum:
+            - 'TRUE'
+            - 'true'
+            - 'FALSE'
+            - 'false'
         leg8_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
         leg8_imo_number:
@@ -1091,6 +1179,17 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg9_refrigerated:
+          description: |
+            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
+            result in lower emissions.
+          type: string
+          default: "false"
+          enum:
+            - 'TRUE'
+            - 'true'
+            - 'FALSE'
+            - 'false'
         leg9_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
         leg9_imo_number:
@@ -1182,6 +1281,17 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg10_refrigerated:
+          description: |
+            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
+            result in lower emissions.
+          type: string
+          default: "false"
+          enum:
+            - 'TRUE'
+            - 'true'
+            - 'FALSE'
+            - 'false'
         leg10_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
         leg10_imo_number:
