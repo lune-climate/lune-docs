@@ -8104,7 +8104,6 @@ components:
           description: Source version of the emission factor.
           type: string
           example: '1.0'
-          nullable: true
         publication_year:
           description: Publication year of the emission factor
           type: number
