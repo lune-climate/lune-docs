@@ -7138,6 +7138,12 @@ components:
         - NOK
         - BGN
         - INR
+        - SGD
+        - AED
+        - AUD
+        - HUF
+        - ISK
+        - CZK
       example: "GBP"
     MonetaryAmountValue:
       type: string
