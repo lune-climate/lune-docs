@@ -8090,6 +8090,7 @@ components:
         - id
         - name
         - source
+        - source_version
         - publication_year
         - numerator_unit
         - denominator_unit
