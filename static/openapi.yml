@@ -2093,43 +2093,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /estimates/individual:
-    post:
-      summary: Create an individual's emission estimate
-      description: |
-        Estimate emissions produced by an individual for a year. This includes travel emissions, food, drinks, energy and shopping activities.
-
-        The result is an estimate of a year-worth of emissions.
-      operationId: createIndividualEstimate
-      security:
-        - BearerAuth: []
-      tags:
-        - Emission estimates
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/IndividualEstimateRequest'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IndividualEmissionEstimate'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '409':
-          $ref: '#/components/responses/Conflict'
-        '415':
-          $ref: '#/components/responses/UnsupportedMediaType'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        '503':
-          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/emission-factor:
     post:
       summary: Create an estimate using a specific emission factor
@@ -6192,131 +6155,6 @@ components:
           category_code: '5818'
           name: 'Netflix'
           country_code: 'USA'
-    IndividualEstimateRequest:
-      description: |
-        Parameters for estimating an individual's emissions
-
-        All relevant values are yearly values.
-      type: object
-      required:
-        - country_code
-        - car_use
-        - short_flights
-        - medium_flights
-        - long_flights
-        - days_per_week_using_public_transport
-        - diet
-        - monthly_grocery_expenses
-        - monthly_restaurant_expenses
-        - monthly_clothing_expenses
-        - monthly_furniture_appliances_expenses
-        - monthly_other_expenses
-        - electricity_consumption
-        - green_electricity_used
-        - gas_consumption
-      properties:
-        name:
-          description: A name to reference this calculation.
-          type: string
-        country_code:
-          type: string
-          description: The three-letter country code of the country where the company is located.
-          example:  GBR
-        car_use:
-          type: boolean
-          description: Does the individual use a car?
-          example: false
-        car_fuel_type:
-          type: string
-          description: How is the car powered?
-          default: gasoline
-          example:  gasoline
-          enum:
-            - gasoline
-            - electric
-            - hybrid
-        average_car_distance_travelled:
-          $ref: '#/components/schemas/Distance'
-          description: Average yearly distance travelled per car
-          example:
-            amount: '6600'
-            unit: 'km'
-          default:
-            amount: '8000'
-            unit: 'km'
-        short_flights:
-          type: integer
-          description: Number of short (under 3 hours) flights per year
-          minimum: 0
-          example: 6
-        medium_flights:
-          type: integer
-          description: Number of medium (between 3 and 6 hours) flights per year
-          minimum: 0
-          example: 4
-        long_flights:
-          type: integer
-          description: Number of long (over 6 hours) flights per year
-          minimum: 0
-          example: 1
-        days_per_week_using_public_transport:
-          type: integer
-          description: Number of days per week commuting by public transport
-          minimum: 0
-          example: 2
-        diet:
-          $ref: '#/components/schemas/Diet'
-          example: medium_meat_eater
-        monthly_grocery_expenses:
-          $ref: '#/components/schemas/MonetaryAmount'
-          description: Food, supermarket, farmers market, fishmongers etc... expenses
-          example:
-            amount: '1500'
-            currency: 'EUR'
-        monthly_restaurant_expenses:
-          $ref: '#/components/schemas/MonetaryAmount'
-          description: Dining and take out expenses
-          example:
-            amount: '300'
-            currency: 'EUR'
-        monthly_clothing_expenses:
-          $ref: '#/components/schemas/MonetaryAmount'
-          description: Clothing expenses
-          example:
-            amount: '400'
-            currency: 'EUR'
-        monthly_furniture_appliances_expenses:
-          $ref: '#/components/schemas/MonetaryAmount'
-          description: Furniture and appliances expenses
-          example:
-            amount: '300'
-            currency: 'EUR'
-        monthly_other_expenses:
-          $ref: '#/components/schemas/MonetaryAmount'
-          description: Other such as phone, laptops, any other "item" you can think of.
-          example:
-            amount: '200'
-            currency: 'EUR'
-        electricity_consumption:
-          type: integer
-          description: Annual electricity consumption in kWh
-          minimum: 0
-          example: 11000
-        green_electricity_used:
-          type: boolean
-          description: Is the electricity provided by renewable source(s)?
-          example: true
-        gas_consumption:
-          type: integer
-          description: Annual natural gas consumption in cubic meters
-          minimum: 0
-          example: 200
-        bundle_selection:
-          $ref: '#/components/schemas/BundleSelectionRequest'
-        quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
     CompanyEstimateRequest:
       description: |
         Parameters for estimating emissions associated with operating a company.
@@ -6567,15 +6405,6 @@ components:
           properties:
             request:
               $ref: '#/components/schemas/FlightEstimateRequest'
-    IndividualEmissionEstimate:
-      allOf:
-        - $ref: '#/components/schemas/EmissionEstimateResponse'
-        - type: object
-          required:
-            - request
-          properties:
-            request:
-              $ref: '#/components/schemas/IndividualEstimateRequest'
     BatchTransactionEmissionEstimate:
       type: array
       description: |
