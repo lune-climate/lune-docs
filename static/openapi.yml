@@ -1551,45 +1551,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /estimates/shipping/{id}/is-shipment:
-    put:
-      summary: Updates the shipping emission estimate shipment status. Calling this endpoint will change the estimate's `is_shipment` property to the provided value
-      operationId: updateShippingEstimateIsShipment
-      security:
-        - BearerAuth: []
-      tags:
-        - Emission estimates
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The estimate's unique identifier
-          schema:
-            type: string
-            example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateShippingEstimateIsShipmentRequest'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SingleShippingEmissionEstimate'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '415':
-          $ref: '#/components/responses/UnsupportedMediaType'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
   /estimates/shipping/{id}/metadata:
     patch:
       summary: Updates a shipping emission estimate's metadata.
@@ -1741,45 +1702,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /estimates/shipping/multi-leg/{id}/is-shipment:
-    put:
-      summary: Updates the multi-leg shipping emission estimate shipment status. Calling this endpoint will change the estimate's `is_shipment` property to the provided value
-      operationId: updateMultiLegShippingEstimateIsShipment
-      security:
-        - BearerAuth: []
-      tags:
-        - Emission estimates
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The estimate's unique identifier
-          schema:
-            type: string
-            example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateShippingEstimateIsShipmentRequest'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MultiLegShippingEmissionEstimate'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '415':
-          $ref: '#/components/responses/UnsupportedMediaType'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
   /estimates/shipping/multi-leg/{id}/metadata:
     patch:
       summary: Updates a multi-leg shipping emission estimate's metadata.
@@ -5135,19 +5057,6 @@ components:
           multiple countries you can either make multiple per-country estimations or choose
           the country with the largest share of the route.
       example: PRT
-    UpdateShippingEstimateIsShipmentRequest:
-      type: object
-      required:
-        - is_shipment
-      properties:
-        is_shipment:
-          description: |
-            When true, the emission estimate refers to an actual shipment of goods, will be included in Lune analytics and can be included in any CO2 emissions reporting.
-
-            This property exists to distinguish booking quotes or forecasts from actual shipments where goods are moved.
-
-            You can mark an estimate as shipment at any time.
-          type: boolean
     UpdateShippingEstimateMetadataRequest:
       oneOf:
         - type: object
