@@ -86,7 +86,7 @@ paths:
       security:
         - BearerAuth: []
       tags:
-        - Accounts
+        - Client accounts
       responses:
         '200':
           description: OK
