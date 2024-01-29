@@ -1553,7 +1553,7 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
   /estimates/shipping/{id}/metadata:
     patch:
-      summary: Updates a shipping emission estimate's metadata.
+      summary: Update a shipping emission estimate's metadata
       description: |
         This method allows updating a selection of estimate metadata without going through
         a full estimate update (with all the necessary inputs).
@@ -1704,7 +1704,7 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
   /estimates/shipping/multi-leg/{id}/metadata:
     patch:
-      summary: Updates a multi-leg shipping emission estimate's metadata.
+      summary: Update a multi-leg shipping emission estimate's metadata
       description: |
         This method allows updating a selection of estimate metadata without going through
         a full estimate update (with all the necessary inputs).
