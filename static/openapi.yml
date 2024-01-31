@@ -3969,6 +3969,17 @@ components:
         - un_sdg
         - media
         - disabled
+        - crediting_start_date
+        - crediting_end_date
+        - registration_date
+        - protocol
+        - methodology
+        - durability
+        - additional_standards_met
+        - verifying_body
+        - risk_of_reversal
+        - risk_of_predicted_emissions
+        - avg_annual_emission_reductions
       properties:
         id:
           type: string
@@ -4064,6 +4075,69 @@ components:
           items:
             $ref: '#/components/schemas/Media'
           description: A list of images and videos belonging to the project.
+        crediting_start_date:
+          type: string
+          format: date
+          example: '2024-01-01'
+          description: Project’s crediting period start date.
+          nullable: true
+        crediting_end_date:
+          type: string
+          format: date
+          example: '2024-01-01'
+          description: Project’s crediting period end date.
+          nullable: true
+        registration_date:
+          type: string
+          format: date
+          example: '2024-01-01'
+          description: Date the project was registered in the registry.
+          nullable: true
+        protocol:
+          type: array
+          items:
+            type: string
+          example: [ 'Verra VCS', 'Verra CCB' ]
+          description: The standard followed to assure that a carbon offset project delivers on carbon reduction or removal.
+          nullable: true
+        methodology:
+          type: string
+          example: 'VM0007'
+          description: Detailed application of the broader principles set out in the protocol.
+          nullable: true
+        durability:
+          type: string
+          example: '100+'
+          description: Expected duration of the carbon storage (carbon removal projects only).
+          nullable: true
+        additional_standards_met:
+          type: array
+          items:
+            type: string
+          example: [ 'CCB Third Edition' ]
+          description: Any additional standards the project meets.
+          nullable: true
+        verifying_body:
+          type: string
+          example: 'SCS Global Services'
+          description: Independent entity assessing compliance of carbon projects with protocol and methodology.
+          nullable: true
+        risk_of_reversal:
+          type: string
+          example: 'Use of Verra buffer pool'
+          description: Mitigation plan for the risk of reversal.
+          nullable: true
+        risk_of_predicted_emissions:
+          type: string
+          example: 'Non-issuance of credits'
+          description: Mitigation plan for the risk of predicted reductions or removals not occurring.
+          nullable: true
+        avg_annual_emission_reductions:
+          type: string
+          example: '333978'
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          description: Estimated average annual reductions or removals.
+          nullable: true
     Project:
       description: |
         A Project represents the entity which issues carbon credits because of its environmental activity which reduces, avoids, or removes emissions from the atmosphere.
