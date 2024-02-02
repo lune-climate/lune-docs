@@ -1551,15 +1551,15 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /estimates/shipping/{id}/metadata:
+  /estimates/shipping/{id}/annotations:
     patch:
-      summary: Update a shipping emission estimate's metadata
+      summary: Update a shipping emission estimate's annotations
       description: |
-        This method allows updating a selection of estimate metadata without going through
+        This method allows updating a selection of estimate annotations without going through
         a full estimate update (with all the necessary inputs).
 
         Only properties included in the input data are updated.
-      operationId: updateShippingEstimateMetadata
+      operationId: updateShippingEstimateAnnotations
       security:
         - BearerAuth: []
       tags:
@@ -1577,7 +1577,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateShippingEstimateMetadataRequest'
+              $ref: '#/components/schemas/UpdateShippingEstimateAnnotationsRequest'
       responses:
         '200':
           description: OK
@@ -1702,15 +1702,15 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /estimates/shipping/multi-leg/{id}/metadata:
+  /estimates/shipping/multi-leg/{id}/annotations:
     patch:
-      summary: Update a multi-leg shipping emission estimate's metadata
+      summary: Update a multi-leg shipping emission estimate's annotations
       description: |
-        This method allows updating a selection of estimate metadata without going through
+        This method allows updating a selection of estimate annotations without going through
         a full estimate update (with all the necessary inputs).
 
         Only properties included in the input data are updated.
-      operationId: updateMultiLegShippingEstimateMetadata
+      operationId: updateMultiLegShippingEstimateAnnotations
       security:
         - BearerAuth: []
       tags:
@@ -1728,7 +1728,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateShippingEstimateMetadataRequest'
+              $ref: '#/components/schemas/UpdateShippingEstimateAnnotationsRequest'
       responses:
         '200':
           description: OK
@@ -5131,7 +5131,7 @@ components:
           multiple countries you can either make multiple per-country estimations or choose
           the country with the largest share of the route.
       example: PRT
-    UpdateShippingEstimateMetadataRequest:
+    UpdateShippingEstimateAnnotationsRequest:
       oneOf:
         - type: object
           x-lune-name: '`is_shipment` with optional `shipped_at`'
