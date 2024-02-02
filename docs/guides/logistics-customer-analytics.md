@@ -122,7 +122,7 @@ Emission estimates are not always performed for shipments. For instance, you may
 
 In order for the analytics page to display analytics for shipments, emission estimates must be marked as shipments, by setting the `is_shipment` variable.
 
-This can be done via the [API](/api-reference/emission-estimates/update-shipping-estimate-metadata/) or the [Logistics CSV spreadsheet](/guides/logistics-sheets#reference).
+This can be done via the [API](/api-reference/emission-estimates/update-shipping-estimate-annotations/) or the [Logistics CSV spreadsheet](/guides/logistics-sheets#reference).
 
 
 </div>
