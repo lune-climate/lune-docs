@@ -17,6 +17,7 @@ components:
         - dashboard_url
         - total_mass_tco2
         - total_distance_km
+        - total_adjusted_distance_km
         - error
         - leg1_estimated_distance_km
         - leg1_total_tco2
@@ -62,6 +63,11 @@ components:
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
           description: Overall shipment distance in km.
           default: ''
+        total_adjusted_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: Overall shipment distance in km inclusive of distance adjustment factors.
+          default: ''
         error:
           type: string
           default: ''
@@ -79,6 +85,12 @@ components:
 
             Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
           default: ''
+        leg1_estimated_adjusted_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance inclusive of distance adjustment factors in km.
+          default: ''
         leg1_total_tco2:
           type: string
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
@@ -91,6 +103,12 @@ components:
             Leg estimated distance in km.
 
             Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg2_estimated_adjusted_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance inclusive of distance adjustment factors in km.
           default: ''
         leg2_total_tco2:
           type: string
@@ -105,6 +123,12 @@ components:
 
             Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
           default: ''
+        leg3_estimated_adjusted_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance inclusive of distance adjustment factors in km.
+          default: ''
         leg3_total_tco2:
           type: string
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
@@ -117,6 +141,12 @@ components:
             Leg estimated distance in km.
 
             Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg4_estimated_adjusted_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance inclusive of distance adjustment factors in km.
           default: ''
         leg4_total_tco2:
           type: string
@@ -131,6 +161,12 @@ components:
 
             Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
           default: ''
+        leg5_estimated_adjusted_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance inclusive of distance adjustment factors in km.
+          default: ''
         leg5_total_tco2:
           type: string
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
@@ -143,6 +179,12 @@ components:
             Leg estimated distance in km.
 
             Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg6_estimated_adjusted_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance inclusive of distance adjustment factors in km.
           default: ''
         leg6_total_tco2:
           type: string
@@ -157,6 +199,12 @@ components:
 
             Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
           default: ''
+        leg7_estimated_adjusted_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance inclusive of distance adjustment factors in km.
+          default: ''
         leg7_total_tco2:
           type: string
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
@@ -169,6 +217,12 @@ components:
             Leg estimated distance in km.
 
             Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg8_estimated_adjusted_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance inclusive of distance adjustment factors in km.
           default: ''
         leg8_total_tco2:
           type: string
@@ -183,6 +237,12 @@ components:
 
             Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
           default: ''
+        leg9_estimated_adjusted_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance inclusive of distance adjustment factors in km.
+          default: ''
         leg9_total_tco2:
           type: string
           pattern: '^$|^[0-9]+(\.[0-9]+)?$'
@@ -195,6 +255,12 @@ components:
             Leg estimated distance in km.
 
             Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+          default: ''
+        leg10_estimated_adjusted_distance_km:
+          type: string
+          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+          description: |
+            Leg estimated distance inclusive of distance adjustment factors in km.
           default: ''
         leg10_total_tco2:
           type: string
