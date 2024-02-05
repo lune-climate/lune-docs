@@ -2776,6 +2776,7 @@ components:
             - account_scope_incorrect
             - service_unavailable
             - handle_not_unique
+            - estimate_idempotency_already_exists
         message:
           type: string
           description: |
@@ -4856,6 +4857,8 @@ components:
           $ref: '#/components/schemas/MassUnit'
         metadata:
           $ref: '#/components/schemas/Metadata'
+        idempotency_key:
+          $ref: '#/components/schemas/EstimateIdempotencyKey'
     FlightEstimateRequest:
       type: object
       description: Parameters for estimating emissions for commercial plane travel
@@ -4885,6 +4888,8 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/Metadata'
+        idempotency_key:
+          $ref: '#/components/schemas/EstimateIdempotencyKey'
     PassengerFlightEstimateRequest:
       type: object
       description: Parameters for estimating emissions for commercial plane travel
@@ -4991,6 +4996,8 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/Metadata'
+        idempotency_key:
+          $ref: '#/components/schemas/EstimateIdempotencyKey'
     PassengerTransportationEmissionEstimate:
       description: |
         An emission estimate result for passenger transport involving multiple legs.
@@ -5067,6 +5074,8 @@ components:
               $ref: '#/components/schemas/ShippedAt'
             metadata:
               $ref: '#/components/schemas/Metadata'
+            idempotency_key:
+              $ref: '#/components/schemas/EstimateIdempotencyKey'
         - oneOf:
           - type: object
             x-lune-name: Shipping
@@ -5126,7 +5135,7 @@ components:
     UpdateShippingEstimateAnnotationsRequest:
       oneOf:
         - type: object
-          x-lune-name: '`is_shipment` with optional `shipped_at` and `metadata`'
+          x-lune-name: '`is_shipment` with optional `shipped_at`, `metadata` and `idempotency_key`'
           required:
             - is_shipment
           properties:
@@ -5142,8 +5151,10 @@ components:
               $ref: '#/components/schemas/ShippedAt'
             metadata:
               $ref: '#/components/schemas/Metadata'
+            idempotency_key:
+              $ref: '#/components/schemas/EstimateIdempotencyKey'
         - type: object
-          x-lune-name: '`shipped_at` with optional `metadata`'
+          x-lune-name: '`shipped_at` with optional `metadata` and `idempotency_key`'
           required:
             - shipped_at
           properties:
@@ -5151,13 +5162,24 @@ components:
               $ref: '#/components/schemas/ShippedAt'
             metadata:
               $ref: '#/components/schemas/Metadata'
+            idempotency_key:
+              $ref: '#/components/schemas/EstimateIdempotencyKey'
         - type: object
-          x-lune-name: Only `metadata`
+          x-lune-name: '`metadata` with optional `idempotency_key`'
           required:
             - metadata
           properties:
             metadata:
               $ref: '#/components/schemas/Metadata'
+            idempotency_key:
+              $ref: '#/components/schemas/EstimateIdempotencyKey'
+        - type: object
+          x-lune-name: Only `idempotency_key`
+          required:
+            - idempotency_key
+          properties:
+            idempotency_key:
+              $ref: '#/components/schemas/EstimateIdempotencyKey'
     MultiLegShippingEstimateRequest:
       type: object
       description: Parameters for estimating multi-leg shipping emissions
@@ -5218,6 +5240,8 @@ components:
           $ref: '#/components/schemas/ShippedAt'
         metadata:
           $ref: '#/components/schemas/Metadata'
+        idempotency_key:
+          $ref: '#/components/schemas/EstimateIdempotencyKey'
       example:
         is_shipment: true
         shipped_at: '2023-11-20T10:20:30Z'
@@ -6094,6 +6118,8 @@ components:
           $ref: '#/components/schemas/MassUnit'
         metadata:
           $ref: '#/components/schemas/Metadata'
+        idempotency_key:
+          $ref: '#/components/schemas/EstimateIdempotencyKey'
       example:
         value:
           value: '8.99'
@@ -6226,6 +6252,8 @@ components:
           type: string
         metadata:
           $ref: '#/components/schemas/Metadata'
+        idempotency_key:
+          $ref: '#/components/schemas/EstimateIdempotencyKey'
     CompanyCloudUse:
       type: object
       description: Company's use of cloud services
@@ -6323,6 +6351,8 @@ components:
           $ref: '#/components/schemas/Mass'
         metadata:
           $ref: '#/components/schemas/Metadata'
+        idempotency_key:
+          $ref: '#/components/schemas/EstimateIdempotencyKey'
     EmissionEstimateResponse:
       description: An emission estimate result including a quote
       allOf:
@@ -6867,6 +6897,16 @@ components:
                 remote_employee:
                   description: Emissions associated with remote employees (electricity, heating etc.)
                   $ref: '#/components/schemas/Mass'
+    EstimateIdempotencyKey:
+      type: string
+      maxLength: 100
+      example: 5bd808a954e
+      description: |
+        Account-unique identifier provided by the client.
+
+        `idempotency_key` has two purposes:
+        1. Clients can safely retry estimate requests without accidentally performing the same operation multiple times.
+        2. Clients can use `idempotency_key` to reconcile estimates with entities on their system.
     Metadata:
       description: |
           An arbitrary dictionary (key-value pairs) to store application-specific information.
@@ -7964,6 +8004,8 @@ components:
           $ref: '#/components/schemas/MassUnit'
         metadata:
           $ref: '#/components/schemas/Metadata'
+        idempotency_key:
+          $ref: '#/components/schemas/EstimateIdempotencyKey'
     EmissionFactorEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
