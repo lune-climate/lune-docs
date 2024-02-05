@@ -4854,6 +4854,8 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
     FlightEstimateRequest:
       type: object
       description: Parameters for estimating emissions for commercial plane travel
@@ -4881,6 +4883,8 @@ components:
         name:
           description: A name used to reference this calculation.
           type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
     PassengerFlightEstimateRequest:
       type: object
       description: Parameters for estimating emissions for commercial plane travel
@@ -4985,6 +4989,8 @@ components:
         name:
           description: A name to reference this calculation.
           type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
     PassengerTransportationEmissionEstimate:
       description: |
         An emission estimate result for passenger transport involving multiple legs.
@@ -5059,6 +5065,8 @@ components:
               example: true
             shipped_at:
               $ref: '#/components/schemas/ShippedAt'
+            metadata:
+              $ref: '#/components/schemas/Metadata'
         - oneOf:
           - type: object
             x-lune-name: Shipping
@@ -5118,7 +5126,7 @@ components:
     UpdateShippingEstimateAnnotationsRequest:
       oneOf:
         - type: object
-          x-lune-name: '`is_shipment` with optional `shipped_at`'
+          x-lune-name: '`is_shipment` with optional `shipped_at` and `metadata`'
           required:
             - is_shipment
           properties:
@@ -5132,13 +5140,24 @@ components:
               type: boolean
             shipped_at:
               $ref: '#/components/schemas/ShippedAt'
+            metadata:
+              $ref: '#/components/schemas/Metadata'
         - type: object
-          x-lune-name: Only `shipped_at`
+          x-lune-name: '`shipped_at` with optional `metadata`'
           required:
             - shipped_at
           properties:
             shipped_at:
               $ref: '#/components/schemas/ShippedAt'
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+        - type: object
+          x-lune-name: Only `metadata`
+          required:
+            - metadata
+          properties:
+            metadata:
+              $ref: '#/components/schemas/Metadata'
     MultiLegShippingEstimateRequest:
       type: object
       description: Parameters for estimating multi-leg shipping emissions
@@ -5197,6 +5216,8 @@ components:
           example: true
         shipped_at:
           $ref: '#/components/schemas/ShippedAt'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
       example:
         is_shipment: true
         shipped_at: '2023-11-20T10:20:30Z'
@@ -6071,6 +6092,8 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
       example:
         value:
           value: '8.99'
@@ -6201,6 +6224,8 @@ components:
         name:
           description: A name to reference this calculation.
           type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
     CompanyCloudUse:
       type: object
       description: Company's use of cloud services
@@ -6296,6 +6321,8 @@ components:
       properties:
         mass:
           $ref: '#/components/schemas/Mass'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
     EmissionEstimateResponse:
       description: An emission estimate result including a quote
       allOf:
@@ -6527,6 +6554,8 @@ components:
               $ref: '#/components/schemas/EstimateQuote'
             request:
               $ref: '#/components/schemas/ShippingEstimateRequest'
+            metadata:
+              $ref: '#/components/schemas/Metadata'
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
         is_shipment: true
@@ -7933,6 +7962,8 @@ components:
           description: Selects to which precision to truncate the quantities assigned to each bundle.
           example: 't'
           $ref: '#/components/schemas/MassUnit'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
     EmissionFactorEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
