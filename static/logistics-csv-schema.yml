@@ -1463,9 +1463,16 @@ components:
             - container_ship
             - ''
     MultiLegRowOut:
+      type: object
+      unevaluatedProperties: false
       allOf:
         - $ref: '#/components/schemas/MultiLegRowIn'
         - $ref: '#/components/schemas/MultiLegRowResults'
+    MultiLegRowInStrict:
+      type: object
+      unevaluatedProperties: false
+      allOf:
+        - $ref: '#/components/schemas/MultiLegRowIn'
     OptionalTradeLane:
       description: |
         `trade_lane` requires `method` to be `container_ship'.
