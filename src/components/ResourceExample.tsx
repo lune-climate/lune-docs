@@ -11,7 +11,8 @@ function isHighLevelElement(property: any): boolean {
         property.name === '' ||
         !property.name ||
         // High level components are not be a ref, but are still to be treated as such
-        property.name === property.component
+        property.name === property.component ||
+        (property.level && [0, 1].includes(property.level) && property.type === 'object')
     )
 }
 
@@ -124,7 +125,7 @@ export default function ResourceExample(
             propertiesParsed.additionalProperties || [],
         )
         const properties = isHighLevelElement(propertiesParsed)
-            ? omitNotRequired && propertiesParsed.required
+            ? omitNotRequired && Array.isArray(propertiesParsed.required)
                 ? allProperties.filter((p) => propertiesParsed.required.includes(p.name))
                 : allProperties
             : allProperties
