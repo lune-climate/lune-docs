@@ -5860,9 +5860,52 @@ components:
     IdentifiedVesselShippingMethod:
       description: |
         This method uses either the vessel's IMO number or the vessel name in order to select an emission factor, falling back to trade lane emissions factors if provided.
-      oneOf:
-        - $ref: '#/components/schemas/IdentifiedVesselByIMOShippingMethod'
-        - $ref: '#/components/schemas/IdentifiedVesselByNameShippingMethod'
+
+        If vessel tracking is to be used the `vessel_tracking` data needs to be provided.
+      allOf:
+        - oneOf:
+          - $ref: '#/components/schemas/IdentifiedVesselByIMOShippingMethod'
+          - $ref: '#/components/schemas/IdentifiedVesselByNameShippingMethod'
+        - type: object
+          properties:
+            vessel_tracking:
+              type: object
+              required:
+                - departure_at
+                - arrival_at
+              properties:
+                departure_at:
+                  description: |
+                    The timestamp of the departure from the source port.
+
+                    The more precise the better. Rule of thumb: you can be half a day off
+                    and a vessel should still be tracked correctly unless the transport is
+                    significantly shorter than half a day.
+                  # Why allOf with a single item? Because we can't have $ref and other properties
+                  # (like description here) at the same level.
+                  allOf:
+                    - $ref: '#/components/schemas/Timestamp'
+                arrival_at:
+                  description: |
+                    The timestamp of the arrival to the destination port.
+
+                    The more precise the better. Rule of thumb: you can be half a day off
+                    and a vessel should still be tracked correctly unless the transport is
+                    significantly shorter than half a day.
+
+                    We can only perform vessel tracking for shipments that finished more than
+                    24 hours ago.
+                  # Why allOf with a single item? Because we can't have $ref and other properties
+                  # (like description here) at the same level.
+                  allOf:
+                    - $ref: '#/components/schemas/Timestamp'
+                mmsi_number:
+                  description: |
+                    The vessel's MMSI number at the time of arrival to the destination port.
+
+                    Optional but can help with identifying the vessel to track if provided.
+                  type: string
+                  pattern: '^[0-9]{9}$'
     IdentifiedVesselByIMOShippingMethod:
       description: |
         This method uses the vessel's IMO number emission factors when found, falling back to trade lane emissions factors if provided.
