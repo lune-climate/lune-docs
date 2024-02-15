@@ -1445,6 +1445,65 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+  /estimates/shipping/all:
+    get:
+      summary: List all shipping estimates
+      description: |
+        Returns single and multi-leg shipping estimates paginated in reverse order.
+      operationId: listAllShipingEstimates
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      parameters:
+        - $ref: "#/components/parameters/LimitPagination"
+        - $ref: "#/components/parameters/AfterPagination"
+        - name: is_shipment
+          in: query
+          description: |
+            When true, the emission estimate refers to an actual shipment of goods.
+
+            This property exists to distinguish booking quotes or forecasts from actual shipments where goods are moved.
+
+            By default, all estimates are returned.
+          schema:
+            type: boolean
+            example: true
+        - name: from
+          in: query
+          description: |
+            When set, the result includes estimates created at or after the timestamp.
+
+            Both `from` and `through` are either provided or missing.
+          schema:
+            type: string
+            format: date-time
+            example: '2019-01-01T12:30:00Z'
+        - name: through
+          in: query
+          description: |
+            When set, the result includes estimates created at or before the timestamp.
+
+            Both `from` and `through` are either provided or missing.
+          schema:
+            type: string
+            format: date-time
+            example: '2020-01-31T10:30:00Z'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAnyShippingEmissionEstimates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/shipping:
     post:
       summary: Create a shipping emission estimate (single)
@@ -6893,6 +6952,22 @@ components:
                   city: Großbeeren
                   country_code: DEU
               method: truck_articulated_34t
+    AnyShippingEmissionEstimate:
+      oneOf:
+        - $ref: '#/components/schemas/SingleShippingEmissionEstimate'
+        - $ref: '#/components/schemas/MultiLegShippingEmissionEstimate'
+    PaginatedAnyShippingEmissionEstimates:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedBase'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              type: array
+              description: Paginated single and multi-leg shipping emission estimates
+              items:
+                $ref: '#/components/schemas/AnyShippingEmissionEstimate'
     CompanyEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
