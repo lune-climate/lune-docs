@@ -16,8 +16,14 @@
  *    3 import { useLocation } from '@docusaurus/router'
  *
  */
-import * as to from 'to-case'
 
 export function camelCaseToSentenceCase(s: string): string {
-    return to.sentence(s.replace(/([A-Z])/g, ' $1'))
+    // Intermediate stage, spaceSeparated will contain something like 'asd QWE Zxc Xxx'
+    const spaceSeparated = s
+        .replace(/(?!^)([A-Z][a-z]+)/g, ' $1')
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+    const caseCorrected = spaceSeparated
+        .replace(/^(.)/, part => part.toUpperCase())
+        .replace(/(?!^)([A-Z][a-z])/g, part => part.toLowerCase())
+    return caseCorrected
 }
