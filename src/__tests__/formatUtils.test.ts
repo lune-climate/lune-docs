@@ -8,7 +8,7 @@ describe('utils', () => {
         ['helloThereTiger', 'Hello there tiger'],
         ['ABC123', 'A b c123'],
         ['ABCCode', 'A b c code'],
-    ])('camelCaseToSentenceCase should return the expected string', (input, expected) => {
+    ])('camelCaseToSentenceCase should convert "%s" to "%s"', (input, expected) => {
         expect(camelCaseToSentenceCase(input)).toEqual(expected)
     })
 })
