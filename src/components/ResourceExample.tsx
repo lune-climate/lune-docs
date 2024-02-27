@@ -71,6 +71,10 @@ function createExampleProperty(
 }
 
 function processPropertyWithChildren(property: any, children: any[] | any) {
+    // A hacky safety measure needed as long as this code is effectively untyped
+    if (children === undefined || children === null) {
+        throw new Error(`Bad children value for ${JSON.stringify(property, null, 2)}: ${children}`)
+    }
     // Due to omitNotRequired, children objects might be empty, which means we don't
     // want to show this property as a whole. Object.keys works for objects or arrays
     const processedChildren = Object.keys(children).length === 0 ? undefined : children
@@ -110,6 +114,12 @@ export default function ResourceExample(
             omitNotRequired,
             isLuneJsExample,
         )
+        // A hacky safety measure needed as long as this code is effectively untyped
+        if (first === undefined || first === null) {
+            throw new Error(
+                `Expected an example for ${JSON.stringify(propertiesParsed.jsons[0], null, 2)} as a first element of ${JSON.stringify(propertiesParsed, null, 2)} but got ${first}`,
+            )
+        }
         return processPropertyWithChildren(propertiesParsed, first)
     } else if (propertiesParsed.type === 'array') {
         const children = propertiesParsed.jsons.map((property) =>
