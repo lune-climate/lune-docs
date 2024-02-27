@@ -2730,6 +2730,21 @@ components:
         - user_input
         - osrm
         - vessel_tracking
+    DistanceCalculationDetails:
+      type: object
+      required: 
+        - vessel_tracking
+      properties:  
+        vessel_tracking: 
+          oneOf: 
+            - $ref: '#/components/schemas/NullEnum'
+            - type: object
+              required: 
+                - message
+              properties: 
+                message:
+                  type: string
+                  example: "AIS tracking is only available for departures within the past 3 months."
     ConvertedShipment:
       type: object
       required:
@@ -6748,6 +6763,7 @@ components:
           required:
             - methodology
             - distance_calculation_method
+            - distance_calculation_details
             - route
             - converted_shipment
             - shipment_conversion_method
@@ -6809,6 +6825,12 @@ components:
                 enum:
                   - imo_unavailable_container_ship_fallback
                   - imo_unavailable_container_ship_trade_lane_fallback
+            distance_calculation_details: 
+              description: |
+                Information regarding why an alternative distance calculation method was used.
+              oneOf: 
+                - $ref: '#/components/schemas/NullEnum'
+                - $ref: '#/components/schemas/DistanceCalculationDetails'
     MultiLegShippingEmissionEstimate:
       description: |
         An emission estimate result for a transport involving multiple legs.
