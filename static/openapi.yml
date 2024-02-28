@@ -851,6 +851,34 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+  /projects/{id}/perimeter:
+    get:
+      summary: Get a project's perimeter
+      operationId: getProjectPerimeter
+      security:
+        - BearerAuth: []
+      tags:
+        - Projects
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The project's unique identifier
+          schema:
+            type: string
+            example: 1vE213P96LbXNap56NAqVoM7knOedQg4
+      responses:
+        '200':
+          description: OK
+          x-lune-response-component: 'Project perimeter'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectPerimeter'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
   /projects/by-slug/{slug}:
     get:
       summary: Get a project by slug
@@ -4461,6 +4489,19 @@ components:
                     type: number
                   credits_issued:
                     type: number
+    ProjectPerimeter:
+      description: |
+        An object containing detailed geographical coordinates outlining a project's perimeter.
+      type: object
+      required:
+        - coordinates
+      properties:
+        coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GeographicCoordinates'
     MuiIcon:
       type: string
       example: 'tree'
