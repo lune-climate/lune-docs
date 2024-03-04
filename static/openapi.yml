@@ -6664,9 +6664,15 @@ components:
         - type: object
           required:
             - request
+            - emission_factor
           properties:
             request:
               $ref: '#/components/schemas/TransactionEstimateRequest'
+            emission_factor:
+              description: This property is `null` for any estimate created before 01/03/2024
+              oneOf:
+                - $ref: '#/components/schemas/EmissionFactor'
+                - $ref: '#/components/schemas/NullEnum'
             search_term_match:
               type: string
               description: |
