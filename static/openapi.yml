@@ -4268,6 +4268,7 @@ components:
             - carbon_credits
             - timeline
             - carbon_storage_over_time
+            - datasets
           properties:
             bundles:
               type: array
@@ -4305,6 +4306,32 @@ components:
                     minLength: 1
                   image_url:
                     type: string
+                    minLength: 1
+            datasets:
+              nullable: true
+              description: |
+                Datasets available for the project.
+              
+                For instance Forest loss or Biodiversity.
+              type: array
+              items:
+                type: object
+                required:
+                  - dataset
+                  - description
+                  - thumbnail_url
+                properties:
+                  dataset:
+                    type: string
+                    description: Dataset's name.
+                    minLength: 1
+                  description:
+                    type: string
+                    description: Project specific commentary regarding the dataset.
+                    minLength: 1
+                  thumbnail_url:
+                    type: string
+                    description: Project specific thumbnail URL regarding the dataset.
                     minLength: 1
             quality_assessment:
               description: |
