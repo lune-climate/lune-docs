@@ -339,7 +339,11 @@ const sidebars = {
           ]
         },
 
-
+        {
+          type: 'link',
+          label: 'How to calculate shipping emissions using vessel tracking',
+          href: '/guides/how-to-vessel-track',
+        },
       ],
     },
     {
