@@ -6698,7 +6698,7 @@ components:
             emission_factor:
               description: This property is `null` for any estimate created before 01/03/2024
               oneOf:
-                - $ref: '#/components/schemas/EmissionFactor'
+                - $ref: '#/components/schemas/EmissionFactorWithGasEmissions'
                 - $ref: '#/components/schemas/NullEnum'
             search_term_match:
               type: string
@@ -6875,7 +6875,7 @@ components:
                 - $ref: '#/components/schemas/ShipmentConversionMethod'
                 - $ref: '#/components/schemas/NullEnum'
             emission_factor:
-              $ref: '#/components/schemas/EmissionFactor'
+              $ref: '#/components/schemas/EmissionFactorWithGasEmissions'
             methodology:
               type: array
               description: |
@@ -8162,6 +8162,21 @@ components:
         region:
           type: string
           description: The name of the region that the emission factor covers.
+    EmissionFactorWithGasEmissions:
+      allOf:
+        - $ref: '#/components/schemas/EmissionFactor'
+        - type: object
+          required:
+            - gas_emissions
+          properties:
+            gas_emissions:
+              description: |
+                Detailed information about the gas emissions.
+
+                This property is always set as of March 2024.
+              oneOf:
+                - $ref: '#/components/schemas/GasEmissions'
+                - $ref: '#/components/schemas/NullEnum'
     PaginatedEmissionFactors:
       allOf:
         - $ref: '#/components/schemas/PaginatedBase'
@@ -8228,7 +8243,7 @@ components:
             request:
               $ref: '#/components/schemas/EmissionFactorEstimateRequest'
             emission_factor:
-              $ref: '#/components/schemas/EmissionFactor'
+              $ref: '#/components/schemas/EmissionFactorWithGasEmissions'
     CalculatedRoute:
       description: |
         A list of locations and distances betwen them.
