@@ -1,3 +1,7 @@
+---
+hide_table_of_contents: true
+---
+
 # How to calculate shipping emissions using vessel tracking
 
 In this guide we'll explore calculating shipping emissions with vessel tracking (AIS tracking)
