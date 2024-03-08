@@ -13,7 +13,7 @@ calculation methods.
 
 In order to proceed with the steps provided you need
 
-* A Lune API key in the `LUNE_API_KEY` environment variable
+* A Lune API key
 * Vessel tracking enabled in your Lune organisation
 * cURL and jq installed (or be willing to adapt the procedure to your tools)
 
