@@ -1,6 +1,7 @@
 ---
 hide_table_of_contents: true
 ---
+import Snippet  from '@site/src/components/Snippet'
 
 # How to calculate shipping emissions using vessel tracking
 
@@ -22,8 +23,10 @@ A request template containing information needed to
 [calculate shipping emissions](/api-reference/emission-estimates/create-shipping-estimate)
 using vessel tracking:
 
-
-```json
+<Snippet
+    header="Sample request"
+    language="json"
+    code={`
 {
     "route": {
         "source": {"locode": "SGSIN"},
@@ -40,8 +43,7 @@ using vessel tracking:
     "shipment": {
         "containers": "2"
     }
-}
-```
+}`}/>
 
 You need to adapt the template to your situation (you may need to read
 [the API reference](/api-reference/emission-estimates/create-shipping-estimate)
@@ -61,23 +63,25 @@ Optionally:
 
   `vessel_tracking` would then look like
 
-  ```json
-  {
+  <Snippet
+    language="json"
+    code={`{
       "departure_on": "2023-12-27",
       "arrival_on": "2024-01-29",
       "mmsi_number": "636023063"
-  } 
-  ```
+  }`}/>
 
 ## Making the request
 
 Once you have the right data send it to the Lune API like so:
 
-```
-curl 'https://api.lune.co/v1/estimates/shipping' \
-  -H "Authorization: Bearer $LUNE_API_KEY" \
-  -H 'Content-Type: application/json' \
-  -X POST \
+<Snippet
+    header="Sample cURL command"
+    language="bash"
+    code={`curl 'https://api.lune.co/v1/estimates/shipping' \\
+  -H "Authorization: Bearer $API_KEY" \\
+  -H 'Content-Type: application/json' \\
+  -X POST \\
   -d '{
     "route": {
         "source": {"locode": "SGSIN"},
@@ -93,23 +97,23 @@ curl 'https://api.lune.co/v1/estimates/shipping' \
     "shipment": {
         "containers": "2"
     }
-}' | jq
-```
+}' | jq`}/>
+
 
 ## Interpreting the response
 
-If everything goes well you should see something like below (showing only the relevant parts
-of the response).
+If everything goes well you should see a response like below. The relevant parts are:
 
-The confirmation the vessel tracking was used for the distance calculation:
+* A confirmation that `vessel_tracking` distance calculation method has been used
+* The distance
+* The route the vessel took
+* The estimated emissions (`mass`)
 
-```json
+<Snippet
+    header="Sample emission response (only the relevant parts)"
+    language="json"
+    code={`{
   "distance_calculation_method": "vessel_tracking",
-```
-
-The calculated distance and the vessel's route:
-
-```json
   "distance": {
     "unit": "km",
     "amount": "24453.17"
@@ -117,6 +121,10 @@ The calculated distance and the vessel's route:
   "adjusted_distance": {
     "unit": "km",
     "amount": "24453.17"
+  },
+  "mass": {
+    "unit": "t",
+    "amount": "4.328158"
   },
   "route": {
     "legs": [
@@ -198,13 +206,5 @@ The calculated distance and the vessel's route:
       }
     }
   },
-```
-
-The estimated emissions:
-
-```json
-  "mass": {
-    "unit": "t",
-    "amount": "4.328158"
-  },
-```
+  ...
+}`}/>
