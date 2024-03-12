@@ -6081,7 +6081,7 @@ components:
           properties:
             vessel_name:
               description: |
-                The vessel's name.
+                The vessel's name, case-insensitive.
               type: string
         - x-lune-name: Container ship vessel name
           allOf:
