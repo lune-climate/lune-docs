@@ -6504,6 +6504,7 @@ components:
             properties:
               search_term:
                 type: string
+                minLength: 1
                 description: |
                   The search term to query.
                   Search is resolved using a combination of semantic and keyword searching.
