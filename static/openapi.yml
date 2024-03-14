@@ -6711,14 +6711,15 @@ components:
 
                 The emission factor for this term is used to compute the emission estimate.
             diet_factor:
+              x-lune-name: Diet factor
               oneOf: 
                 - type: string
-                  x-lune-name: Diet factor
                   description: The diet factor that was applied to the emission factor.
                   example: '0.6495'
                   pattern: '^[0-9]+(\.[0-9]+)?$'
                 - $ref: '#/components/schemas/NullEnum'
             exchange_rate:
+              x-lune-name: Exchange rate
               oneOf:
                 - type: string
                   description: |
@@ -6729,6 +6730,7 @@ components:
                   pattern: '^[0-9]+(\.[0-9]+)?$'
                 - $ref: '#/components/schemas/NullEnum'
             exchange_rate_date:
+              x-lune-name: Exchange rate date
               oneOf:
                 - type: string
                   description: Date the exchange rate was taken.
