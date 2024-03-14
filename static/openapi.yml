@@ -6712,14 +6712,16 @@ components:
                 The emission factor for this term is used to compute the emission estimate.
             diet_factor:
               oneOf: 
-                - type: string
+                - x-lune-name: Diet factor
+                  type: string
                   description: The diet factor that was applied to the emission factor.
                   example: '0.6495'
                   pattern: '^[0-9]+(\.[0-9]+)?$'
                 - $ref: '#/components/schemas/NullEnum'
             exchange_rate:
               oneOf:
-                - type: string
+                - x-lune-name: Exchange rate
+                  type: string
                   description: |
                    The exchange rate that was used to convert from the requested currency to the Emission Factor currency. 
                    For example, if the transaction was for £200, multiply by the exchange factor (1.1686 EUR / GBP)
@@ -6729,7 +6731,8 @@ components:
                 - $ref: '#/components/schemas/NullEnum'
             exchange_rate_date:
               oneOf:
-                - type: string
+                - x-lune-name: Exchange rate date
+                  type: string
                   description: Date the exchange rate was taken.
                   example: '2024-01-01'
                   format: date 
