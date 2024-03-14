@@ -6693,6 +6693,9 @@ components:
           required:
             - request
             - emission_factor
+            - diet_factor
+            - exchange_rate
+            - exchange_rate_date
           properties:
             request:
               $ref: '#/components/schemas/TransactionEstimateRequest'
@@ -6707,6 +6710,31 @@ components:
                 The most accurate term matching the search.
 
                 The emission factor for this term is used to compute the emission estimate.
+            diet_factor:
+              oneOf: 
+                - type: string
+                  x-lune-name: Diet factor
+                  description: The diet factor that was applied to the emission factor.
+                  example: '0.6495'
+                  pattern: '^[0-9]+(\.[0-9]+)?$'
+                - $ref: '#/components/schemas/NullEnum'
+            exchange_rate:
+              oneOf:
+                - type: string
+                  description: |
+                   The exchange rate that was used to convert from the requested currency to the Emission Factor currency. 
+                   For example, if the transaction was for £200, multiply by the exchange factor (1.1686 EUR / GBP)
+                   to obtain the value (€233.72) in the Emission Factor's currency.
+                  example: '0.2667'
+                  pattern: '^[0-9]+(\.[0-9]+)?$'
+                - $ref: '#/components/schemas/NullEnum'
+            exchange_rate_date:
+              oneOf:
+                - type: string
+                  description: Date the exchange rate was taken.
+                  example: '2024-01-01'
+                  format: date 
+                - $ref: '#/components/schemas/NullEnum'
       example:
         id: '04QD7GPaBx5b6Y6mJlZyONXLvrZljRE2'
         mass:
@@ -6743,6 +6771,9 @@ components:
             category_code: '5818'
             name: 'Netflix'
             country_code: 'USA'
+        diet_factor: null
+        exchange_rate: '0.2667'
+        exchange_rate_date: '2024-01-01'
     SingleShippingEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/ShippingLegEmissionEstimate'
