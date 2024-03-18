@@ -2760,16 +2760,16 @@ components:
         - vessel_tracking
     DistanceCalculationDetails:
       type: object
-      required: 
+      required:
         - vessel_tracking
-      properties:  
-        vessel_tracking: 
-          oneOf: 
+      properties:
+        vessel_tracking:
+          oneOf:
             - type: object
               x-lune-name: Vessel tracking details
-              required: 
+              required:
                 - message
-              properties: 
+              properties:
                 message:
                   type: string
                   example: "AIS tracking is only available for departures within the past 3 months."
@@ -4311,7 +4311,7 @@ components:
               nullable: true
               description: |
                 Datasets available for the project.
-              
+
                 For instance Forest loss or Biodiversity.
               type: array
               items:
@@ -4701,7 +4701,7 @@ components:
                     enum:
                       - 'Not certified'
                       - 'Not yet allocated'
-                description: The project's Verification Standard Entity name or equivalent organization. 
+                description: The project's Verification Standard Entity name or equivalent organization.
                   If a project has no registry, 'Not certified' is returned.
                   If a project has yet to be assigned, 'Not yet allocated' is returned.
                 example: 'Verra'
@@ -6711,7 +6711,7 @@ components:
 
                 The emission factor for this term is used to compute the emission estimate.
             diet_factor:
-              oneOf: 
+              oneOf:
                 - x-lune-name: Diet factor
                   type: string
                   description: The diet factor that was applied to the emission factor.
@@ -6723,8 +6723,8 @@ components:
                 - x-lune-name: Exchange rate
                   type: string
                   description: |
-                   The exchange rate that was used to convert from the requested currency to the Emission Factor currency. 
-                   
+                   The exchange rate that was used to convert from the requested currency to the Emission Factor currency.
+
                    For example, if the transaction was for £200, multiply by the exchange factor (1.1686 EUR / GBP)
                    to obtain the value (€233.72) in the Emission Factor's currency.
                   example: '0.2667'
@@ -6736,7 +6736,7 @@ components:
                   type: string
                   description: Date the exchange rate was taken.
                   example: '2024-01-01'
-                  format: date 
+                  format: date
                 - $ref: '#/components/schemas/NullEnum'
       example:
         id: '04QD7GPaBx5b6Y6mJlZyONXLvrZljRE2'
@@ -6922,10 +6922,10 @@ components:
                 enum:
                   - imo_unavailable_container_ship_fallback
                   - imo_unavailable_container_ship_trade_lane_fallback
-            distance_calculation_details: 
+            distance_calculation_details:
               description: |
                 Information regarding why an alternative distance calculation method was used.
-              oneOf: 
+              oneOf:
                 - $ref: '#/components/schemas/DistanceCalculationDetails'
                 - $ref: '#/components/schemas/NullEnum'
     MultiLegShippingEmissionEstimate:
