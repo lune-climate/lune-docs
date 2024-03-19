@@ -1053,7 +1053,7 @@ components:
         leg6_departure_on:
           description: |
             The date of the departure from the source port.
-
+            
             If `leg6_departure_on` and `leg6_arrival_on` and one of `leg6_imo_number`, `leg6_vessel_name` is provided, vessel tracking will be attempted.
           type: string
           pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
@@ -1525,7 +1525,7 @@ components:
         leg10_departure_on:
           description: |
             The date of the departure from the source port.
-
+            
             If `leg10_departure_on` and `leg10_arrival_on` and one of `leg10_imo_number`, `leg10_vessel_name` is provided, vessel tracking will be attempted.
           type: string
           pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
@@ -1534,7 +1534,7 @@ components:
             The date of the arrival to the destination port.
 
             If `leg10_departure_on` and `leg10_arrival_on` and one of `leg10_imo_number`, `leg10_vessel_name` is provided, vessel tracking will be attempted.
-
+            
             We can only perform vessel tracking for shipments that finished more than 24 hours ago.
           type: string
         leg10_country:
