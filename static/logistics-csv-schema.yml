@@ -464,6 +464,8 @@ components:
           description: |
             The date of the departure from the source port.
 
+            Vessel tracking is only available for departures within the past 3 months.
+
             If `leg1_departure_on` and `leg1_arrival_on` and one of `leg1_imo_number`, `leg1_vessel_name` is provided, vessel tracking will be attempted.
           type: string
           pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
@@ -581,6 +583,8 @@ components:
         leg2_departure_on:
           description: |
             The date of the departure from the source port.
+
+            Vessel tracking is only available for departures within the past 3 months.
 
             If `leg2_departure_on` and `leg2_arrival_on` and one of `leg2_imo_number`, `leg2_vessel_name` is provided, vessel tracking will be attempted.
           type: string
@@ -700,6 +704,8 @@ components:
           description: |
             The date of the departure from the source port.
 
+            Vessel tracking is only available for departures within the past 3 months.
+
             If `leg3_departure_on` and `leg3_arrival_on` and one of `leg3_imo_number`, `leg3_vessel_name` is provided, vessel tracking will be attempted.
           type: string
           pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
@@ -817,6 +823,8 @@ components:
         leg4_departure_on:
           description: |
             The date of the departure from the source port.
+
+            Vessel tracking is only available for departures within the past 3 months.
 
             If `leg4_departure_on` and `leg4_arrival_on` and one of `leg4_imo_number`, `leg4_vessel_name` is provided, vessel tracking will be attempted.
           type: string
@@ -936,6 +944,8 @@ components:
           description: |
             The date of the departure from the source port.
 
+            Vessel tracking is only available for departures within the past 3 months.
+
             If `leg5_departure_on` and `leg5_arrival_on` and one of `leg5_imo_number`, `leg5_vessel_name` is provided, vessel tracking will be attempted.
           type: string
           pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
@@ -1053,6 +1063,8 @@ components:
         leg6_departure_on:
           description: |
             The date of the departure from the source port.
+
+            Vessel tracking is only available for departures within the past 3 months.
             
             If `leg6_departure_on` and `leg6_arrival_on` and one of `leg6_imo_number`, `leg6_vessel_name` is provided, vessel tracking will be attempted.
           type: string
@@ -1172,6 +1184,8 @@ components:
           description: |
             The date of the departure from the source port.
 
+            Vessel tracking is only available for departures within the past 3 months.
+
             If `leg7_departure_on` and `leg7_arrival_on` and one of `leg7_imo_number`, `leg7_vessel_name` is provided, vessel tracking will be attempted.
           type: string
           pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
@@ -1289,6 +1303,8 @@ components:
         leg8_departure_on:
           description: |
             The date of the departure from the source port.
+
+            Vessel tracking is only available for departures within the past 3 months.
 
             If `leg8_departure_on` and `leg8_arrival_on` and one of `leg8_imo_number`, `leg8_vessel_name` is provided, vessel tracking will be attempted.
           type: string
@@ -1408,6 +1424,8 @@ components:
           description: |
             The date of the departure from the source port.
 
+            Vessel tracking is only available for departures within the past 3 months.
+
             If `leg9_departure_on` and `leg9_arrival_on` and one of `leg9_imo_number`, `leg9_vessel_name` is provided, vessel tracking will be attempted.
           type: string
           pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
@@ -1525,6 +1543,8 @@ components:
         leg10_departure_on:
           description: |
             The date of the departure from the source port.
+
+            Vessel tracking is only available for departures within the past 3 months.
             
             If `leg10_departure_on` and `leg10_arrival_on` and one of `leg10_imo_number`, `leg10_vessel_name` is provided, vessel tracking will be attempted.
           type: string
