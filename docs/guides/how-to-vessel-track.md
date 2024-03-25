@@ -43,7 +43,7 @@ Vessel tracking is only available for departures within the past 3 months.
 
 <>
 
-![fintech-transactions](/img/AIS.png)
+![AIS](/img/AIS.png)
 
 </>
 
