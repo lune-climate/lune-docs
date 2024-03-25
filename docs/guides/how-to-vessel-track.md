@@ -3,6 +3,7 @@ hide_table_of_contents: true
 ---
 import Snippet  from '@site/src/components/Snippet'
 import { ApiReferenceSection } from 'lune-ui-lib'
+import Tip from '@site/src/components/Tip';
 
 # How to calculate shipping emissions using vessel tracking
 
@@ -30,6 +31,14 @@ In order to proceed with the steps provided you need
 
 </div>
 
+<div>
+<Tip>
+
+Vessel tracking is only available for departures within the past 3 months.
+
+</Tip>
+
+</div>
 </div>
 
 <>
