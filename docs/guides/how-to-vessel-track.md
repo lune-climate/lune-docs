@@ -60,6 +60,8 @@ to see what's permitted):
 3. Change `vessel_imo_number` to match your vessel and change the `departure_on` and `arrival_on`
    dates to match your shipment dates.
 
+   Make sure `departure_on` date is within the past 3 months: vessel tracking is only available for departures within the past 3 months.
+
 Optionally:
 
 * You can replace `vessel_imo_number` with `vessel_name` if you don't know the vessel's IMO
