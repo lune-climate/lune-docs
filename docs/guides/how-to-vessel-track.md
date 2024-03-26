@@ -3,7 +3,6 @@ hide_table_of_contents: true
 ---
 import Snippet  from '@site/src/components/Snippet'
 import { ApiReferenceSection } from 'lune-ui-lib'
-import Tip from '@site/src/components/Tip';
 
 # How to calculate shipping emissions using vessel tracking
 
