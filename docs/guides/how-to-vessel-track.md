@@ -2,12 +2,23 @@
 hide_table_of_contents: true
 ---
 import Snippet  from '@site/src/components/Snippet'
+import { ApiReferenceSection } from 'lune-ui-lib'
 
 # How to calculate shipping emissions using vessel tracking
+
+<div className="sections">
+
+<ApiReferenceSection>
+<div className="paragraphSections">
+
+<div>
 
 In this guide we'll explore calculating shipping emissions with vessel tracking (AIS tracking)
 used to calculate the distance for better results compared to other, less precise distance
 calculation methods.
+
+</div>
+<div>
 
 ## Prerequisites
 
@@ -17,33 +28,28 @@ In order to proceed with the steps provided you need
 * Vessel tracking enabled in your Lune organisation
 * cURL and jq installed (or be willing to adapt the procedure to your tools)
 
+</div>
+
+</div>
+
+<>
+
+![AIS](/img/AIS.png)
+
+</>
+
+</ApiReferenceSection>
+
+<ApiReferenceSection>
+<div className="paragraphSections">
+
+<div>
+
 ## Gathering the data
 
 A request template containing information needed to
 [calculate shipping emissions](/api-reference/emission-estimates/create-shipping-estimate)
 using vessel tracking:
-
-<Snippet
-    header="Sample request"
-    language="json"
-    code={`
-{
-    "route": {
-        "source": {"locode": "SGSIN"},
-        "destination": {"locode": "USNYC"}
-    },
-    "method": {
-        "vessel_type": "container_ship",
-        "vessel_tracking": {
-            "departure_on": "2023-12-27",
-            "arrival_on": "2024-01-29"
-        },
-        "vessel_imo_number": "9260419"
-    },
-    "shipment": {
-        "containers": "2"
-    }
-}`}/>
 
 You need to adapt the template to your situation (you may need to read
 [the API reference](/api-reference/emission-estimates/create-shipping-estimate)
@@ -71,9 +77,50 @@ Optionally:
       "mmsi_number": "636023063"
   }`}/>
 
+</div>
+</div>
+
+<div className="miniSections">
+
+<Snippet
+    header="Sample request"
+    language="json"
+    code={`{
+    "route": {
+        "source": {"locode": "SGSIN"},
+        "destination": {"locode": "USNYC"}
+    },
+    "method": {
+        "vessel_type": "container_ship",
+        "vessel_tracking": {
+            "departure_on": "2023-12-27",
+            "arrival_on": "2024-01-29"
+        },
+        "vessel_imo_number": "9260419"
+    },
+    "shipment": {
+        "containers": "2"
+    }
+}`}/>
+
+</div>
+
+</ApiReferenceSection>
+
+<ApiReferenceSection>
+
+<div className="paragraphSections">
+
+<div>
+
 ## Making the request
 
 Once you have the right data send it to the Lune API like so:
+
+</div>
+</div>
+
+<div className="miniSections">
 
 <Snippet
     header="Sample cURL command"
@@ -97,8 +144,17 @@ Once you have the right data send it to the Lune API like so:
     "shipment": {
         "containers": "2"
     }
-}' | jq`}/>
+}'`}/>
 
+</div>
+
+</ApiReferenceSection>
+
+<ApiReferenceSection>
+
+<div className="paragraphSections">
+
+<div>
 
 ## Interpreting the response
 
@@ -108,6 +164,11 @@ If everything goes well you should see a response like below. The relevant parts
 * The distance
 * The route the vessel took
 * The estimated emissions (`mass`)
+
+</div>
+</div>
+
+<div className="miniSections">
 
 <Snippet
     header="Sample emission response (only the relevant parts)"
@@ -208,3 +269,9 @@ If everything goes well you should see a response like below. The relevant parts
   },
   ...
 }`}/>
+
+</div>
+
+</ApiReferenceSection>
+
+</div>

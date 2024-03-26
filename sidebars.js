@@ -346,7 +346,28 @@ const sidebars = {
             type: 'doc',
             id: 'guides/how-to-vessel-track',
           },
-          items: [],
+          items: [
+            {
+              type: 'link',
+              label: 'Prerequisites',
+              href: '/guides/how-to-vessel-track#prerequisites',
+            },
+            {
+              type: 'link',
+              label: 'Gathering the data',
+              href: '/guides/how-to-vessel-track#gathering-the-data',
+            },
+            {
+              type: 'link',
+              label: 'Making the request',
+              href: '/guides/how-to-vessel-track#making-the-request',
+            },
+            {
+              type: 'link',
+              label: 'Intepreting the response',
+              href: '/guides/how-to-vessel-track#interpreting-the-response',
+            },
+          ],
         },
       ],
     },
