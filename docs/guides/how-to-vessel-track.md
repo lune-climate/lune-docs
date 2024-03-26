@@ -31,14 +31,6 @@ In order to proceed with the steps provided you need
 
 </div>
 
-<div>
-<Tip>
-
-Vessel tracking is only available for departures within the past 3 months.
-
-</Tip>
-
-</div>
 </div>
 
 <>
@@ -68,6 +60,8 @@ to see what's permitted):
 2. Change the `route` to reflect where you're shipping from and to.
 3. Change `vessel_imo_number` to match your vessel and change the `departure_on` and `arrival_on`
    dates to match your shipment dates.
+
+   Make sure `departure_on` date is within the past 3 months: vessel tracking is only available for departures within the past 3 months.
 
 Optionally:
 
