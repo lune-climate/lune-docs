@@ -435,7 +435,8 @@ components:
         leg1_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions.
+            result in lower emissions. For road transport this value is also taken in consideration if
+            set to `true`, the appropriate refrigerated shipping method will be used.
           type: string
           default: "false"
           enum:
@@ -555,7 +556,8 @@ components:
         leg2_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions.
+            result in lower emissions. For road transport this value is also taken in consideration if
+            set to `true`, the appropriate refrigerated shipping method will be used.
           type: string
           default: "false"
           enum:
@@ -675,7 +677,8 @@ components:
         leg3_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions.
+            result in lower emissions. For road transport this value is also taken in consideration if
+            set to `true`, the appropriate refrigerated shipping method will be used.
           type: string
           default: "false"
           enum:
@@ -795,7 +798,8 @@ components:
         leg4_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions.
+            result in lower emissions. For road transport this value is also taken in consideration if
+            set to `true`, the appropriate refrigerated shipping method will be used.
           type: string
           default: "false"
           enum:
@@ -915,7 +919,8 @@ components:
         leg5_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions.
+            result in lower emissions. For road transport this value is also taken in consideration if
+            set to `true`, the appropriate refrigerated shipping method will be used.
           type: string
           default: "false"
           enum:
@@ -1035,7 +1040,8 @@ components:
         leg6_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions.
+            result in lower emissions. For road transport this value is also taken in consideration if
+            set to `true`, the appropriate refrigerated shipping method will be used.
           type: string
           default: "false"
           enum:
@@ -1155,7 +1161,8 @@ components:
         leg7_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions.
+            result in lower emissions. For road transport this value is also taken in consideration if
+            set to `true`, the appropriate refrigerated shipping method will be used.
           type: string
           default: "false"
           enum:
@@ -1275,7 +1282,8 @@ components:
         leg8_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions.
+            result in lower emissions. For road transport this value is also taken in consideration if
+            set to `true`, the appropriate refrigerated shipping method will be used.
           type: string
           default: "false"
           enum:
@@ -1395,7 +1403,8 @@ components:
         leg9_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions.
+            result in lower emissions. For road transport this value is also taken in consideration if
+            set to `true`, the appropriate refrigerated shipping method will be used.
           type: string
           default: "false"
           enum:
@@ -1515,7 +1524,8 @@ components:
         leg10_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions.
+            result in lower emissions. For road transport this value is also taken in consideration if
+            set to `true`, the appropriate refrigerated shipping method will be used.
           type: string
           default: "false"
           enum:
