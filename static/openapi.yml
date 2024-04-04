@@ -7470,7 +7470,7 @@ components:
           $ref: '#/components/schemas/CurrencyCode'
           example: 'GBP'
         beneficiary:
-          description: The account beneficiary.
+          description: The account beneficiary. Leading and trailing spaces are removed.
           type: string
         handle:
           type: string
@@ -7497,7 +7497,7 @@ components:
           $ref: '#/components/schemas/CurrencyCode'
           example: 'GBP'
         beneficiary:
-          description: The account beneficiary.
+          description: The account beneficiary. Leading and trailing spaces are removed.
           type: string
           minLength: 1
         handle:
@@ -7623,7 +7623,7 @@ components:
           description: The account name.
           type: string
         beneficiary:
-          description: The account beneficiary.
+          description: The account beneficiary. Leading and trailing spaces are removed.
           type: string
           minLength: 1
         bundle_portfolio_id:
@@ -7649,7 +7649,7 @@ components:
           description: The account name.
           type: string
         beneficiary:
-          description: The account beneficiary.
+          description: The account beneficiary. Leading and trailing spaces are removed.
           type: string
           minLength: 1
           nullable: true
