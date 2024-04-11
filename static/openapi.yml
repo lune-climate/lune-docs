@@ -4559,8 +4559,6 @@ components:
       type: string
       description: |
           The account's type.
-
-          See the <a href="#section/Live-and-test-accounts">Live and test accounts section</a> for details.
       enum:
         - live
         - test
