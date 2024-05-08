@@ -2694,6 +2694,11 @@ components:
           example: '40.501'
         unit:
           $ref: '#/components/schemas/MassUnit'
+    QuantityTrunc:
+      description: Selects to which precision to truncate quantities specific to carbon offsetting.
+      example: 't'
+      allOf:
+        - $ref: '#/components/schemas/MassUnit'
     MassUnit:
       type: string
       description: Unit, `t` for tonne, `kg` for kilogram, `g` for gram
@@ -2916,9 +2921,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: Specific to carbon offsetting, selects to which precision to truncate quantities.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
       example:
         mass:
           amount: '12.07'
@@ -2938,9 +2941,7 @@ components:
           items:
             $ref: '#/components/schemas/BundleMass'
         quantity_trunc:
-          description: Specific to carbon offsetting, selects to which precision to truncate quantities.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
     CreateOrderByQuantityRequest:
       type: object
       oneOf:
@@ -2982,9 +2983,7 @@ components:
           $ref: '#/components/schemas/Metadata'
           default: {}
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
     CreateOrderByQuantityWithBundleMass:
       type: object
       description: Order by Quantity details
@@ -3013,9 +3012,7 @@ components:
           $ref: '#/components/schemas/Metadata'
           default: {}
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
     OrderQuoteByValueRequest:
       type: object
       required:
@@ -3032,9 +3029,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
       example:
         value: '770.30'
     CreateOrderByValueRequest:
@@ -3069,9 +3064,7 @@ components:
           $ref: '#/components/schemas/Metadata'
           default: {}
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
       example:
         value: '0.54'
     CreateOrderByEstimateRequest:
@@ -3099,9 +3092,7 @@ components:
           $ref: '#/components/schemas/Metadata'
           default: {}
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
     BundleSelectionRequest:
       type: array
       description: |
@@ -5002,9 +4993,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
         metadata:
           $ref: '#/components/schemas/Metadata'
         idempotency_key:
@@ -5030,9 +5019,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
         name:
           description: A name used to reference this calculation.
           type: string
@@ -5138,9 +5125,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
         name:
           description: A name to reference this calculation.
           type: string
@@ -5208,9 +5193,7 @@ components:
             bundle_selection:
               $ref: '#/components/schemas/BundleSelectionRequest'
             quantity_trunc:
-              description: Selects to which precision to truncate the quantities assigned to each bundle.
-              example: 't'
-              $ref: '#/components/schemas/MassUnit'
+              $ref: '#/components/schemas/QuantityTrunc'
             is_shipment:
               type: boolean
               description: |
@@ -5374,9 +5357,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
         is_shipment:
           type: boolean
           description: |
@@ -6350,9 +6331,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
         metadata:
           $ref: '#/components/schemas/Metadata'
         idempotency_key:
@@ -6481,9 +6460,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
         name:
           description: A name to reference this calculation.
           type: string
@@ -8315,9 +8292,7 @@ components:
         bundle_selection:
           $ref: '#/components/schemas/BundleSelectionRequest'
         quantity_trunc:
-          description: Selects to which precision to truncate the quantities assigned to each bundle.
-          example: 't'
-          $ref: '#/components/schemas/MassUnit'
+          $ref: '#/components/schemas/QuantityTrunc'
         metadata:
           $ref: '#/components/schemas/Metadata'
         idempotency_key:
