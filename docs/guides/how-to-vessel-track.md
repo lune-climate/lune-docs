@@ -3,6 +3,7 @@ hide_table_of_contents: true
 ---
 import Snippet  from '@site/src/components/Snippet'
 import { ApiReferenceSection } from 'lune-ui-lib'
+import Tip from '@site/src/components/Tip';
 
 # How to calculate shipping emissions using vessel tracking
 
@@ -27,6 +28,15 @@ In order to proceed with the steps provided you need
 * A Lune API key
 * Vessel tracking enabled in your Lune organisation
 * cURL and jq installed (or be willing to adapt the procedure to your tools)
+
+</div>
+<div>
+
+<Tip>
+
+Note: the shipment departure has to be within the past 3 months and the arrival has to be more than 24h ago.
+
+</Tip>
 
 </div>
 
