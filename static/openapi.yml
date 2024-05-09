@@ -8093,6 +8093,7 @@ components:
         - lune
         - glec
         - emsa
+        - cbam
       example: exiobase
     EmissionFactorLogicalUnit:
       type: string
