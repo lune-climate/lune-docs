@@ -1517,6 +1517,7 @@ paths:
             type: string
             format: date-time
             example: '2020-01-31T10:30:00Z'
+        - $ref: '#/components/parameters/EstimateMassUnit'
       responses:
         '200':
           description: OK
@@ -1540,6 +1541,8 @@ paths:
         - BearerAuth: []
       tags:
         - Emission estimates
+      parameters:
+        - $ref: '#/components/parameters/EstimateMassUnit'
       requestBody:
         required: true
         content:
@@ -1581,6 +1584,7 @@ paths:
           schema:
             type: string
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+        - $ref: '#/components/parameters/EstimateMassUnit'
       responses:
         '200':
           description: OK
@@ -1611,6 +1615,7 @@ paths:
           schema:
             type: string
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+        - $ref: '#/components/parameters/EstimateMassUnit'
       requestBody:
         required: true
         content:
@@ -1691,6 +1696,8 @@ paths:
         - BearerAuth: []
       tags:
         - Emission estimates
+      parameters:
+        - $ref: '#/components/parameters/EstimateMassUnit'
       requestBody:
         required: true
         content:
@@ -1732,6 +1739,7 @@ paths:
           schema:
             type: string
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+        - $ref: '#/components/parameters/EstimateMassUnit'
       responses:
         '200':
           description: OK
@@ -1762,6 +1770,7 @@ paths:
           schema:
             type: string
             example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+        - $ref: '#/components/parameters/EstimateMassUnit'
       requestBody:
         required: true
         content:
@@ -2624,6 +2633,16 @@ components:
       schema:
         type: string
         example: 0vE213P96LbXNap56NAqVoM7knOedQg4
+    EstimateMassUnit:
+      name: estimate_mass_unit
+      in: query
+      required: false
+      description: |
+        By default estimate mass units are returned in tonnes.
+
+        Estimate mass units in responses are converted to `estimate_mass_unit` when set.
+      schema:
+        $ref: '#/components/schemas/MassUnit'
   responses:
     NotFound:
       description: The specified resource was not found
