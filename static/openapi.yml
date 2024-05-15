@@ -8318,6 +8318,11 @@ components:
           $ref: '#/components/schemas/Metadata'
         idempotency_key:
           $ref: '#/components/schemas/EstimateIdempotencyKey'
+      example:
+        emission_factor_id: 'rKqngNM0G65a9p474WYDQ4xdXWBe82JV'
+        activity:
+          value: '1525.45'
+          unit: 'USD'
     EmissionFactorEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
@@ -8330,6 +8335,53 @@ components:
               $ref: '#/components/schemas/EmissionFactorEstimateRequest'
             emission_factor:
               $ref: '#/components/schemas/EmissionFactorWithGasEmissions'
+      example:
+        mass:
+          amount: '1.040105'
+          unit: 't'
+        emission_factor:
+          id: 'rKqngNM0G65a9p474WYDQ4xdXWBe82JV'
+          name: 'Basic iron and steel and of ferro-alloys and first products thereof'
+          region: 'United States of America'
+          source: 'exiobase'
+          created_at: '2023-05-05T17:42:20.751Z'
+          gas_emissions:
+            co2e: '0.738411878489'
+          numerator_unit: 'kg'
+          source_version: '3.8.2'
+          denominator_unit: 'EUR'
+          publication_year: '2021'
+        request:
+          activity:
+            unit: 'USD'
+            value: '1525.45'
+          emission_factor_id: 'rKqngNM0G65a9p474WYDQ4xdXWBe82JV'
+          metadata: {}
+        metadata: {}
+        id: 'ljmkOq7vXd238gAE9WALWQ8ZGVD5ExNz'
+        quote:
+          bundles:
+            - bundle_id: 'q9aKx7b6nNXMk3Yv3pD1mlW5Od2eLZE8'
+              quantity: '0.988099'
+              unit_price: '6.5'
+              bundle_name: 'Conserving forests in Asia'
+              offset_cost: '6.43'
+              gross_unit_price: '7.22'
+              insufficient_available_quantity: null
+            - bundle_id: 'xWaKJL3okjD46VpJ4yGXnQNZRe1vzP0w'
+              quantity: '0.052005'
+              unit_price: '250'
+              bundle_name: 'Ocean Carbon Removal'
+              offset_cost: '13.01'
+              gross_unit_price: '277.78'
+              insufficient_available_quantity: null
+          currency: 'USD'
+          requested_value: null
+          estimated_quantity: '1.040104'
+          requested_quantity: '1.040105'
+          estimated_commission: '2.17'
+          estimated_total_cost: '21.59'
+          estimated_offset_cost: '19.42'
     CalculatedRoute:
       description: |
         A list of locations and distances betwen them.
