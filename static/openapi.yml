@@ -7860,6 +7860,7 @@ components:
                   type: string
                   description: The custom description of the sustainability page provided in the configuration.
                   example: 'This is a custom description'
+                  nullable: true
         logo:
           type: string
           description: The sustainability page logo URL.
