@@ -1865,10 +1865,6 @@ paths:
                 $ref: '#/components/schemas/TransactionEmissionEstimate'
         '204':
           description: No content
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EmptyObject'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
