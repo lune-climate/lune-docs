@@ -1939,12 +1939,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionEmissionEstimate'
-        '204':
-          description: No content
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EmptyObject'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -1981,6 +1975,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionEmissionEstimate'
+        '204':
+          description: No content
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
