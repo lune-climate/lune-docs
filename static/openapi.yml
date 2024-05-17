@@ -8107,6 +8107,7 @@ components:
         - emsa
         - cbam
         - ademe
+        - idemat
       example: exiobase
     EmissionFactorLogicalUnit:
       type: string
@@ -8141,6 +8142,7 @@ components:
             - room*night
             - ha
             - hour
+            - seconds
             - kWh
             - 'kWh ICV'
             - 'kWh LHV'
@@ -8175,6 +8177,7 @@ components:
             - fte*working_hour
             - TEU
             - TEU*km
+            - p
             - A4_sheets
           example: item
     GasEmissions:
