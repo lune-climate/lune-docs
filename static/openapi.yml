@@ -3465,15 +3465,12 @@ components:
           description: Requested quantity of CO2 offsets to purchase in tonnes.
         requested_value:
           description: Requested value of CO2 offsets to purchase in the account's currency.
-          type: string
-          pattern: '^[0-9]+(\.[0-9]+)?$'
-          example: '7700'
-          nullable: true
+          oneOf:
+            - $ref: '#/components/schemas/NullEnum'
         estimate_id:
-          type: string
           description: The emission calculation unique identifier
-          example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
-          nullable: true
+          oneOf:
+            - $ref: '#/components/schemas/NullEnum'
     OrderByQuantity:
       title: Order by quantity
       allOf:
@@ -3527,16 +3524,13 @@ components:
           pattern: '^[0-9]+(\.[0-9]+)?$'
           example: '7700'
         requested_quantity:
-          type: string
-          pattern: '^[0-9]+(\.[0-9]+)?$'
-          example: '1045'
           description: Requested quantity of CO2 offsets to purchase in tonnes.
-          nullable: true
+          oneOf:
+            - $ref: '#/components/schemas/NullEnum'
         estimate_id:
-          type: string
           description: The emission calculation unique identifier
-          example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
-          nullable: true
+          oneOf:
+            - $ref: '#/components/schemas/NullEnum'
     OrderByValue:
       title: Order by value
       allOf:
@@ -3581,28 +3575,27 @@ components:
       title: Order by emission estimate
       allOf:
         - $ref: '#/components/schemas/OrderBase'
-        - type: object
-          required:
-            - estimate_id
-            - requested_value
-            - requested_quantity
-          properties:
-            estimate_id:
-              type: string
-              description: The emission calculation unique identifier
-              example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
-            requested_value:
-              description: Requested value of CO2 offsets to purchase in the account's currency.
-              type: string
-              pattern: '^[0-9]+(\.[0-9]+)?$'
-              example: '7700'
-              nullable: true
-            requested_quantity:
-              type: string
-              pattern: '^[0-9]+(\.[0-9]+)?$'
-              example: '1045'
-              description: Requested quantity of CO2 offsets to purchase in tonnes.
-              nullable: true
+        - $ref: '#/components/schemas/OrderByEstimateProperties'
+    OrderByEstimateProperties:
+      type: object
+      required:
+        - estimate_id
+        - requested_value
+        - requested_quantity
+      properties:
+        estimate_id:
+          type: string
+          description: The emission calculation unique identifier
+          example: '90ng23MKvLqbkpMwMw7yMBD4wJQrV6O6'
+        requested_value:
+          description: Requested value of CO2 offsets to purchase in the account's currency.
+          oneOf:
+            - $ref: '#/components/schemas/NullEnum'
+        requested_quantity:
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '1045'
+          description: Requested quantity of CO2 offsets to purchase in tonnes.
     Order:
       type: object
       description: |
@@ -3618,6 +3611,7 @@ components:
         - type: object
           oneOf:
             - $ref: '#/components/schemas/OrderByQuantityProperties'
+            - $ref: '#/components/schemas/OrderByEstimateProperties'
             - $ref: '#/components/schemas/OrderByValueProperties'
           discriminator:
             propertyName: type
@@ -8014,7 +8008,9 @@ components:
         - order
       properties:
         order:
-          $ref: '#/components/schemas/Order'
+          allOf:
+            - $ref: '#/components/schemas/OrderBase'
+            - $ref: '#/components/schemas/OrderByQuantityProperties'
         type:
           type: string
           enum:
