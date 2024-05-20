@@ -8552,6 +8552,7 @@ components:
         # needed too).
         - null
       nullable: true
+      example: null
     CarbonPermanence:
       type: string
       description: The bundle's carbon storage permanence.
