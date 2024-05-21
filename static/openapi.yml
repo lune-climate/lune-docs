@@ -2450,8 +2450,8 @@ paths:
             type: string
             example: 'ljmkOq7vXd239gAE9WALWQ8ZGVD5ExNz'
       responses:
-        '200':
-          description: OK
+        '204':
+          description: No Content
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
