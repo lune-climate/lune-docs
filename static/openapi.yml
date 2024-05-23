@@ -6458,6 +6458,10 @@ components:
           $ref: '#/components/schemas/Metadata'
         idempotency_key:
           $ref: '#/components/schemas/EstimateIdempotencyKey'
+      example:
+        is_transaction: true
+        metadata:
+          user_id: u-38925d
     CompanyEstimateRequest:
       description: |
         Parameters for estimating emissions associated with operating a company.
