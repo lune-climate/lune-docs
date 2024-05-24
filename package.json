@@ -79,7 +79,7 @@
     "process": "^0.11.10",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
-    "ts-unused-exports": "^10.0.1",
+    "ts-unused-exports": "^10.1.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.5",
     "url": "^0.11.3"
