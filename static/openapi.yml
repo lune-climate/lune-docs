@@ -2873,6 +2873,11 @@ components:
                 message:
                   type: string
                   example: "AIS tracking is only available for departures within the past 3 months."
+                adjustments:
+                  type: array
+                  items:
+                    type: string
+                    example: "The source location has been adjusted to fit port location."
             - $ref: '#/components/schemas/NullEnum'
     ConvertedShipment:
       type: object
