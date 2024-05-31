@@ -2882,7 +2882,7 @@ components:
                   type: array
                   items:
                     type: string
-                    example: "The source location has been adjusted to fit port location."
+                    example: "The source location has been snapped to the closest port (142.67km away)."
             - $ref: '#/components/schemas/NullEnum'
     ConvertedShipment:
       type: object
@@ -6159,14 +6159,14 @@ components:
               properties:
                 departure_on:
                   description: |
-                    The date of the departure from the source port.
+                    The date of the departure from the source port in UTC time zone.
 
                     Vessel tracking is only available for departures within the past 3 months.
                   type: string
                   format: date
                 arrival_on:
                   description: |
-                    The date of the arrival to the destination port.
+                    The date of the arrival to the destination port in UTC time zone.
 
                     We can only perform vessel tracking for shipments that finished more than
                     24 hours ago.
