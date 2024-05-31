@@ -6074,6 +6074,7 @@ components:
             - LNG
     ContainerShippingMethod:
       type: object
+      additionalProperties: false
       required:
         - vessel_type
       properties:
