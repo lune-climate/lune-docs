@@ -129,6 +129,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -204,6 +206,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -245,6 +249,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -286,6 +292,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -319,6 +327,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -396,6 +406,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -439,6 +451,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -480,6 +494,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -934,6 +950,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -966,6 +984,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -998,6 +1018,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1155,6 +1177,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1190,6 +1214,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1241,6 +1267,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1292,6 +1320,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1324,6 +1354,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1399,6 +1431,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1433,6 +1467,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1467,6 +1503,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1562,6 +1600,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1637,6 +1677,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1685,6 +1727,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1719,6 +1763,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1794,6 +1840,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1842,6 +1890,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1875,6 +1925,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1914,6 +1966,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -1996,6 +2050,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -2069,6 +2125,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -2108,6 +2166,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -2181,6 +2241,8 @@ paths:
           $ref: '#/components/responses/NotFound'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -2213,6 +2275,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '429':
           $ref: '#/components/responses/TooManyRequests'
   /emission-factors:
@@ -2364,6 +2428,8 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -2432,6 +2498,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '429':
           $ref: '#/components/responses/TooManyRequests'
     delete:
@@ -2537,6 +2605,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -2570,6 +2640,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '409':
           $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
@@ -2758,6 +2830,8 @@ components:
       description: The payload format is in an unsupported format.
     ServiceUnavailable:
       description: The service is temporarily unavailable. You may retry.
+    PayloadTooLarge:
+      description: The request is larger than 100kB.
   schemas:
     ElectricityConsumption:
       type: object
