@@ -7460,6 +7460,7 @@ components:
         - HUF
         - ISK
         - CZK
+        - CAD
       example: "GBP"
     MonetaryAmountValue:
       type: string
