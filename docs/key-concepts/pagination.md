@@ -16,7 +16,7 @@ import Snippet  from '@site/src/components/Snippet';
 
 All GET endpoints that return an array of resources are paginated.
 
-Lune supports **cursor-based pagination**. This means that, to get all objects, you must paginate through the results by providing the last resource id as a *after* query parameter.
+Lune supports **cursor-based pagination**. This means that, to get all objects, you must paginate through the results by providing *next_cursor* as the *after* query parameter for subsequent page requests.
 
 Each result includes a *has_more* boolean field. If this is true, then the next page requested will return additional results.
 
@@ -39,6 +39,7 @@ By default, each page returns 10 objects, however, by setting *limit* you can re
     language="json"
     code={`{
   "has_more": false,
+  "next_cursor": "48601af52aef3968e4730fbf60589e2e2852ed23",
   "data": [
     {
       "id": "34e9a1c3e12fc0a45d08b4a956a626a16862230b",
