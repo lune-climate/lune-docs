@@ -2775,9 +2775,7 @@ components:
       description: |
         A cursor for use in pagination.
 
-        *after* is an object ID that defines your place in the list.
-
-        For instance, if you make a list request and receive 100 objects, ending with *foo*, your subsequent call can include *after=foo* in order to fetch the next page of the list.
+        The cursor that points to the starting item of the next page of results. If not provided, the first page of results is returned.
       schema:
         type: string
         example: 0vE213P96LbXNap56NAqVoM7knOedQg4
@@ -3876,6 +3874,7 @@ components:
       type: object
       required:
         - has_more
+        - next_cursor
       properties:
         has_more:
           type: boolean
@@ -3885,6 +3884,13 @@ components:
             If false, this set comprises the end of the array.
 
             Part of a paginated response.
+        next_cursor:
+          description: |
+            The cursor value to be used as the after parameter for fetching the next page of results.
+
+            `null` if `has_more` is `false`.
+          type: string
+          nullable: true
     PaginatedOrders:
       allOf:
         - $ref: '#/components/schemas/PaginatedBase'
