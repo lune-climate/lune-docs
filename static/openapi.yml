@@ -4767,9 +4767,7 @@ components:
 
             The `handle` is unique per organisation and account type.
         currency:
-          type: string
-          description: The Account's currency
-          example: 'GBP'
+          $ref: '#/components/schemas/AccountCurrencyCode'
         type:
           $ref: '#/components/schemas/AccountType'
         logo:
@@ -7443,9 +7441,11 @@ components:
         currency:
           $ref: "#/components/schemas/CurrencyCode"
           example: GBP
-    CurrencyCode:
+    AccountCurrencyCode:
       type: string
       description: |
+        The account's currency.
+
         ISO 4217 3 character currency code.
 
         Note: Lune does not support all currency codes.
@@ -7468,6 +7468,185 @@ components:
         - CZK
         - CAD
       example: "GBP"
+    CurrencyCode:
+      type: string
+      description: |
+        ISO 4217 3 character currency code.
+
+        Note: Lune supports most but not all currency codes.
+      example: "GBP"
+      enum:
+        - AED
+        - AFN
+        - ALL
+        - AMD
+        - ANG
+        - AOA
+        - ARS
+        - AUD
+        - AWG
+        - AZN
+        - BAM
+        - BBD
+        - BDT
+        - BGN
+        - BHD
+        - BIF
+        - BMD
+        - BND
+        - BOB
+        - BRL
+        - BSD
+        - BTC
+        - BTN
+        - BWP
+        - BYN
+        - BYR
+        - BZD
+        - CAD
+        - CDF
+        - CHF
+        - CLF
+        - CLP
+        - CNY
+        - CNH
+        - COP
+        - CRC
+        - CUC
+        - CUP
+        - CVE
+        - CZK
+        - DJF
+        - DKK
+        - DOP
+        - DZD
+        - EGP
+        - ERN
+        - ETB
+        - EUR
+        - FJD
+        - FKP
+        - GBP
+        - GEL
+        - GGP
+        - GHS
+        - GIP
+        - GMD
+        - GNF
+        - GTQ
+        - GYD
+        - HKD
+        - HNL
+        - HRK
+        - HTG
+        - HUF
+        - IDR
+        - ILS
+        - IMP
+        - INR
+        - IQD
+        - IRR
+        - ISK
+        - JEP
+        - JMD
+        - JOD
+        - JPY
+        - KES
+        - KGS
+        - KHR
+        - KMF
+        - KPW
+        - KRW
+        - KWD
+        - KYD
+        - KZT
+        - LAK
+        - LBP
+        - LKR
+        - LRD
+        - LSL
+        - LTL
+        - LVL
+        - LYD
+        - MAD
+        - MDL
+        - MGA
+        - MKD
+        - MMK
+        - MNT
+        - MOP
+        - MRU
+        - MUR
+        - MVR
+        - MWK
+        - MXN
+        - MYR
+        - MZN
+        - NAD
+        - NGN
+        - NIO
+        - NOK
+        - NPR
+        - NZD
+        - OMR
+        - PAB
+        - PEN
+        - PGK
+        - PHP
+        - PKR
+        - PLN
+        - PYG
+        - QAR
+        - RON
+        - RSD
+        - RUB
+        - RWF
+        - SAR
+        - SBD
+        - SCR
+        - SDG
+        - SEK
+        - SGD
+        - SHP
+        - SLE
+        - SLL
+        - SOS
+        - SRD
+        - STD
+        - SVC
+        - SYP
+        - SZL
+        - THB
+        - TJS
+        - TMT
+        - TND
+        - TOP
+        - TRY
+        - TTD
+        - TWD
+        - TZS
+        - UAH
+        - UGX
+        - USD
+        - UYU
+        - UZS
+        - VEF
+        - VES
+        - VND
+        - VUV
+        - WST
+        - XAF
+        - XAG
+        - XAU
+        - XCD
+        - XDR
+        - XOF
+        - XPF
+        - YER
+        - ZAR
+        - ZMK
+        - ZMW
+        - ZWL
     MonetaryAmountValue:
       type: string
       pattern: ^[0-9]+(\.[0-9]+)?$
@@ -7664,9 +7843,7 @@ components:
           description: The account name.
           type: string
         currency:
-          description: The account currency.
-          $ref: '#/components/schemas/CurrencyCode'
-          example: 'GBP'
+          $ref: '#/components/schemas/AccountCurrencyCode'
         beneficiary:
           description: The account beneficiary. Leading and trailing spaces are removed.
           type: string
@@ -7692,7 +7869,7 @@ components:
           type: string
         currency:
           description: The account currency.
-          $ref: '#/components/schemas/CurrencyCode'
+          $ref: '#/components/schemas/AccountCurrencyCode'
           example: 'GBP'
         beneficiary:
           description: The account beneficiary. Leading and trailing spaces are removed.
