@@ -3065,6 +3065,8 @@ components:
             - service_unavailable
             - handle_not_unique
             - estimate_idempotency_already_exists
+            - airport_route_required
+            - future_departure_invalid
         message:
           type: string
           description: |
@@ -5636,6 +5638,7 @@ components:
       oneOf:
         - $ref: '#/components/schemas/SimpleShippingMethod'
         - $ref: '#/components/schemas/SimpleSeaShippingMethod'
+        - $ref: '#/components/schemas/AirShippingMethod'
         - $ref: '#/components/schemas/SeaShippingMethod'
         - $ref: '#/components/schemas/ContainerShippingMethod'
         - $ref: '#/components/schemas/IdentifiedVesselShippingMethod'
@@ -6083,6 +6086,21 @@ components:
           enum:
             - HFO
             - MGO
+    AirShippingMethod:
+      type: object
+      required:
+        - flight_number
+        - departure_on
+      properties:
+        flight_number:
+          type: string
+          description: Flight number in either ICAO or IATA format.
+          example: 'BA15'
+        departure_on:
+          type: string
+          description: Departure date of the flight. The date is in UTC timezone. Dates that are over 24 hours in the future are not allowed.
+          format: date
+          example: '2024-01-01'
     VariableFuelVariableLoadSeaShippingMethod:
       type: object
       required:
@@ -7169,11 +7187,13 @@ components:
                 Summary of the methodology used to calculate emissions or any value which is a prerequisite.
 
                 `imo_unavailable_container_ship_fallback`: the vessel IMO was not found, therefore a generic container ship emission factor has been used.
+                `flight_number_unavailable_fallback`: the flight number could not be found or the aircraft is currently not supported, therefore a generic plane method has been used.
               items:
                 type: string
                 enum:
                   - imo_unavailable_container_ship_fallback
                   - imo_unavailable_container_ship_trade_lane_fallback
+                  - flight_number_unavailable_fallback
             distance_calculation_details:
               description: |
                 Information regarding why an alternative distance calculation method was used.
