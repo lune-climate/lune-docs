@@ -6390,7 +6390,7 @@ components:
       properties:
         locode:
           type: string
-          pattern: ^[A-Z]{5}$
+          pattern: ^[A-Z]{2}[A-Z0-9]{3}$
           description: UN LOCODE. For a full list of options (https://unece.org/trade/cefact/unlocode-code-list-country-and-territory)
           example: ESBCN
     ShippingSourceDestination:
