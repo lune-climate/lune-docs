@@ -7133,7 +7133,7 @@ components:
               locode: 'NLRTM'
           method:
             vessel_type: 'container_ship'
-    ShippingLegEmissionEstimate:
+    BaseShippingLegEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimate'
         - type: object
@@ -7142,8 +7142,6 @@ components:
             - distance_calculation_method
             - distance_calculation_details
             - route
-            - converted_shipment
-            - shipment_conversion_method
             - emission_factor
           properties:
             distance:
@@ -7154,7 +7152,7 @@ components:
               description: |
                 The method we used to determine the shipping distance.
 
-                `null` in case of logistics sites.
+                `null` in case of logistics sites or when resolved_legs is set.
               oneOf:
                 - $ref: '#/components/schemas/DistanceCalculationMethod'
                 - $ref: '#/components/schemas/NullEnum'
@@ -7172,22 +7170,6 @@ components:
                 * The emission estimate was created before 2023-09-22.
               oneOf:
                 - $ref: '#/components/schemas/CalculatedRoute'
-                - $ref: '#/components/schemas/NullEnum'
-            converted_shipment:
-              description: |
-                The shipment after conversion to the emission factor unit (mass to/from TEU).
-
-                `null` if no conversion was necessary.
-              oneOf:
-                - $ref: '#/components/schemas/ConvertedShipment'
-                - $ref: '#/components/schemas/NullEnum'
-            shipment_conversion_method:
-              description: |
-                The method we used to convert the shipment to the emission factor unit.
-
-                `null` if no conversion was necessary.
-              oneOf:
-                - $ref: '#/components/schemas/ShipmentConversionMethod'
                 - $ref: '#/components/schemas/NullEnum'
             emission_factor:
               $ref: '#/components/schemas/EmissionFactorWithGasEmissions'
@@ -7207,9 +7189,108 @@ components:
             distance_calculation_details:
               description: |
                 Information regarding why an alternative distance calculation method was used.
+                `null` in case several resolved legs are presented.
               oneOf:
                 - $ref: '#/components/schemas/DistanceCalculationDetails'
                 - $ref: '#/components/schemas/NullEnum'
+            methodology_details:
+              description: Details about the parameters and calculations used in the methodology for estimating emissions.
+              type: object
+              properties:
+                flight:
+                  description: Freight flight methodology details.
+                  required:
+                    - aircraft_name
+                    - aircraft_configuration
+                    - aircraft_capacity_tonnes
+                    - load_factor
+                    - flight_fuel_consumed_tonnes
+                    - distance_adjustment_factor
+                    - emission_share
+                  properties:
+                    aircraft_name:
+                      description: Name of the identified aircraft
+                      type: string
+                    aircraft_configuration:
+                      description: Configuration of the aircraft
+                      type: string
+                      enum:
+                        - belly_freight
+                        - cargo
+                    aircraft_capacity_tonnes:
+                       description: Total capacity of the aircraft.
+                       type: object
+                       required:
+                         - passenger
+                         - cargo
+                       properties:
+                         passenger:
+                           type: number
+                         cargo:
+                           type: number
+                    load_factor:
+                       description: |
+                         Load factor for the provided flight. If the exact flight load factor is not
+                         known a global average from IATA will be used.
+                       type: object
+                       required:
+                         - passenger
+                         - cargo
+                       properties:
+                         passenger:
+                           type: number
+                         cargo:
+                           type: number
+                    flight_fuel_consumed_tonnes:
+                      description: Estimate of the fuel consumed by the flight, measured in tonnes.
+                      type: number
+                    distance_adjustment_factor:
+                      description: Value of the Distance Adjustment Factor (DAF) as specified by the GLEC.
+                      type: number
+                    emission_share:
+                      description: |
+                        Fraction (ranging from 0 to 1) of total flight leg emissions for which the shipment is responsible.
+                      type: number
+    ResolvedShippingLegEmissionEstimate:
+      allOf:
+        - $ref: '#/components/schemas/BaseShippingLegEmissionEstimate'
+        - type: object
+          required:
+            - method
+          properties:
+            method:
+              $ref: '#/components/schemas/ShippingMethod'
+    ShippingLegEmissionEstimate:
+      allOf:
+        - $ref: '#/components/schemas/BaseShippingLegEmissionEstimate'
+        - type: object
+          required:
+            - converted_shipment
+            - shipment_conversion_method
+          properties:
+            converted_shipment:
+              description: |
+                The shipment after conversion to the emission factor unit (mass to/from TEU).
+
+                `null` if no conversion was necessary.
+              oneOf:
+                - $ref: '#/components/schemas/ConvertedShipment'
+                - $ref: '#/components/schemas/NullEnum'
+            shipment_conversion_method:
+              description: |
+                The method we used to convert the shipment to the emission factor unit.
+
+                `null` if no conversion was necessary.
+              oneOf:
+                - $ref: '#/components/schemas/ShipmentConversionMethod'
+                - $ref: '#/components/schemas/NullEnum'
+            resolved_legs:
+              description: |
+                If the input shipping method results in multiple legs being detected, each
+                leg will be calculated and shown separately.
+              type: array
+              items:
+                $ref: '#/components/schemas/ResolvedShippingLegEmissionEstimate'
     MultiLegShippingEmissionEstimate:
       description: |
         An emission estimate result for a transport involving multiple legs.
