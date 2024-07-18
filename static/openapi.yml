@@ -6541,6 +6541,8 @@ components:
 
             You can mark an estimate as transaction at any time.
           example: false
+        transaction_processed_at:
+          $ref: '#/components/schemas/TransactionProcessedAt'
       example:
         value:
           value: '8.99'
@@ -6561,12 +6563,15 @@ components:
 
             You can mark an estimate as transaction at any time.
           example: false
+        transaction_processed_at:
+          $ref: '#/components/schemas/TransactionProcessedAt'
         metadata:
           $ref: '#/components/schemas/Metadata'
         idempotency_key:
           $ref: '#/components/schemas/EstimateIdempotencyKey'
       example:
         is_transaction: true
+        transaction_processed_at: '2023-07-17T14:30:00Z'
         metadata:
           user_id: u-38925d
     CompanyEstimateRequest:
@@ -6954,6 +6959,7 @@ components:
             - exchange_rate
             - exchange_rate_date
             - is_transaction
+            - transaction_processed_at
           properties:
             request:
               $ref: '#/components/schemas/TransactionEstimateRequest'
@@ -7007,6 +7013,10 @@ components:
 
                     You can mark an estimate as transaction at any time.
                   example: false
+                - $ref: '#/components/schemas/NullEnum'
+            transaction_processed_at:
+              oneOf:
+                - $ref: '#/components/schemas/TransactionProcessedAt'
                 - $ref: '#/components/schemas/NullEnum'
       example:
         id: '04QD7GPaBx5b6Y6mJlZyONXLvrZljRE2'
@@ -8949,6 +8959,23 @@ components:
       description: |
         The date and time of shipping the goods for the purpose of analytics (it doesn't
         affect emission calculations in any way).
+
+        If a value is provided when creating or updating an estimate we use the value.
+        Otherwise defaults to the current time when creating estimates and remains
+        unchanged when updating estimates.
+
+        This property must be formatted as RFC 3339, section 5.6 timestamp.
+
+        Examples:
+        * 2023-12-01T12:30:30.000Z
+        * 2023-12-01T12:30:30Z
+        * 2023-12-01T11:30:30+01.00
+    TransactionProcessedAt:
+      x-lune-name: Transaction processed at
+      type: string
+      format: date-time
+      description: |
+        This property captures the exact date and time at which the transaction was recorded and processed.
 
         If a value is provided when creating or updating an estimate we use the value.
         Otherwise defaults to the current time when creating estimates and remains
