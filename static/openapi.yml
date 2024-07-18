@@ -7198,6 +7198,7 @@ components:
               type: object
               properties:
                 flight:
+                  type: object
                   description: Freight flight methodology details.
                   required:
                     - aircraft_name

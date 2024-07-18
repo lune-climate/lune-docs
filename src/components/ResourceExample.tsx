@@ -117,7 +117,15 @@ export default function ResourceExample(
         // A hacky safety measure needed as long as this code is effectively untyped
         if (first === undefined) {
             throw new Error(
-                `Expected an example for ${JSON.stringify(propertiesParsed.jsons[0], null, 2)} as a first element of ${JSON.stringify(propertiesParsed, null, 2)} but got ${first}`,
+                `Expected an example for ${JSON.stringify(
+                    propertiesParsed.jsons[0],
+                    null,
+                    2,
+                )} as a first element of ${JSON.stringify(
+                    propertiesParsed,
+                    null,
+                    2,
+                )} but got ${first}`,
             )
         }
         // We may have a legitimate case for null example values if a given property is always null.
