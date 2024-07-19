@@ -9064,7 +9064,6 @@ components:
         * 2023-12-01T12:30:30Z
         * 2023-12-01T11:30:30+01.00
     TransactionProcessedAt:
-      x-lune-name: Transaction processed at
       type: string
       format: date-time
       description: |
