@@ -7233,9 +7233,6 @@ components:
                 - $ref: '#/components/schemas/ShipmentConversionMethod'
                 - $ref: '#/components/schemas/NullEnum'
             resolved_legs:
-              description: |
-                If the input shipping method results in multiple legs being detected, each
-                leg will be calculated and shown separately.
               oneOf:
                 - type: array
                   items:
