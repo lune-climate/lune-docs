@@ -7207,6 +7207,10 @@ components:
           properties:
             method:
               $ref: '#/components/schemas/ShippingMethod'
+    ResolvedEmissionEstimateLegs:
+      type: array
+      items:
+        $ref: '#/components/schemas/ResolvedShippingLegEmissionEstimate'
     ShippingLegEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/BaseShippingLegEmissionEstimate'
@@ -7233,10 +7237,11 @@ components:
                 - $ref: '#/components/schemas/ShipmentConversionMethod'
                 - $ref: '#/components/schemas/NullEnum'
             resolved_legs:
+              description: |
+                If the input shipping method results in multiple legs being detected, each
+                leg will be calculated and shown separately.
               oneOf:
-                - type: array
-                  items:
-                    $ref: '#/components/schemas/ResolvedShippingLegEmissionEstimate'
+                - $ref: '#/components/schemas/ResolvedEmissionEstimateLegs'
                 - $ref: '#/components/schemas/NullEnum'
     MultiLegShippingEmissionEstimate:
       description: |
