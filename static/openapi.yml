@@ -2921,6 +2921,8 @@ components:
         * `user_input` – the distance was provided to us directly
         * `osrm` – we used Open Source Routing Machine, the OpenStreetMap Data Routing Engine
         * `vessel_tracking` – we used the AIS data to track the vessel's route
+        * `carrier_schedule_stops` – we used the sea distance algorithm to calculate the distance
+          between the stops reported in the carrier schedule
       type: string
       enum:
         - great_circle_distance
@@ -2930,10 +2932,12 @@ components:
         - user_input
         - osrm
         - vessel_tracking
+        - carrier_schedule_stops
     DistanceCalculationDetails:
       type: object
       required:
         - vessel_tracking
+        - carrier_schedule_stops
       properties:
         vessel_tracking:
           oneOf:
@@ -2955,6 +2959,22 @@ components:
                   items:
                     type: string
                     example: "The source location has been snapped to the closest port (142.67km away)."
+            - $ref: '#/components/schemas/NullEnum'
+        carrier_schedule_stops:
+          oneOf:
+            - type: object
+              x-lune-name: Carrier schedule stops details
+              required:
+                - message
+              properties:
+                message:
+                  description: |
+                    The human-readable message describing the details of how we used or failed to use
+                    carrier schedule stops to calculate the route.
+
+                    The property is meant only for informational purposes and its exact format can
+                    change.
+                  type: string
             - $ref: '#/components/schemas/NullEnum'
     ConvertedShipment:
       type: object
