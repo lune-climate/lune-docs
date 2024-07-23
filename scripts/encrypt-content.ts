@@ -7,7 +7,7 @@ async function main() {
         return
     }
 
-    const stdin = process.openStdin()
+    const stdin = process.stdin
     let clearText = ''
     stdin.on('data', (chunk) => {
         clearText += chunk
