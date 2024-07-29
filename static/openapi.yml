@@ -8645,6 +8645,7 @@ components:
         - cbam
         - ademe
         - idemat
+        - iata
       example: exiobase
     EmissionFactorLogicalUnit:
       type: string
