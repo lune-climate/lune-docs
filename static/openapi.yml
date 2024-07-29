@@ -3058,6 +3058,7 @@ components:
             - order_value_invalid
             - bundle_id_invalid
             - id_invalid
+            - distance_invalid
             - test_account_name_update_disallowed
             - validation_error
             - bundle_selection_ratios_invalid_format
