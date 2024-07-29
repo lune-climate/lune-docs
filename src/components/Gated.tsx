@@ -6,7 +6,6 @@ import { getPublishableKey } from '@site/src/utils'
 import { Buffer } from 'buffer'
 import React, { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 
 if (ExecutionEnvironment.canUseDOM) {
     window.Buffer = window.Buffer || Buffer
@@ -39,11 +38,7 @@ const Gated = ({ children, wrapper }: { children: string; wrapper?: React.ReactN
 }
 
 export const GatedMarkdown = ({ children }: { children: string }) => {
-    return (
-        <Gated wrapper={(c) => <ReactMarkdown remarkPlugins={[remarkGfm]}>{c}</ReactMarkdown>}>
-            {children}
-        </Gated>
-    )
+    return <Gated wrapper={(c) => <ReactMarkdown>{c}</ReactMarkdown>}>{children}</Gated>
 }
 
 export default Gated
