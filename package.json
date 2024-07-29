@@ -82,7 +82,7 @@
     "ts-unused-exports": "^10.1.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4",
-    "url": "^0.11.3"
+    "url": "^0.11.4"
   },
   "browserslist": {
     "production": [
