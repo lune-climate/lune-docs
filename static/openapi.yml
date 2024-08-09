@@ -5663,6 +5663,7 @@ components:
         - $ref: '#/components/schemas/SeaShippingMethod'
         - $ref: '#/components/schemas/ContainerShippingMethod'
         - $ref: '#/components/schemas/IdentifiedVesselShippingMethod'
+        - $ref: '#/components/schemas/InferredVesselShippingMethod'
     SimpleShippingMethod:
       type: string
       description: |
@@ -6350,6 +6351,105 @@ components:
                   The vessel's name.
                 type: string
           - $ref: '#/components/schemas/ContainerShippingMethod'
+    VesselInferenceMethodError:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          description: |
+            Describes details of any errors resulting from vessel inference
+          type: string
+    VesselInferenceMethodDetails:
+      type: object
+      required:
+        - method
+        - details
+      properties:
+        method:
+          type: string
+          enum:
+            - carrier_schedules
+            - ais_port_calls
+          description: |
+            * `carrier_schedules` – Vessel ID inferred using carrier schedules
+            * `ais_port_calls` – Vessel ID inferred using historic AIS data
+        details:
+          description: |
+            Describes details of vessel inference method
+          type: string
+    VesselInferenceMethod:
+      oneOf:
+          - $ref: '#/components/schemas/VesselInferenceMethodError'
+          - $ref: '#/components/schemas/VesselInferenceMethodDetails'
+    InferredVesselShippingMethod:
+      description: |
+        This method uses either carrier schedules or historic AIS data to infer the vessel and consequently the route
+        of the shipment.
+      type: object
+      required:
+        - vessel_inference
+      properties:
+        vessel_inference:
+          type: object
+          required:
+            - departure_on
+            - arrival_on
+            - carrier_name
+          properties:
+            departure_on:
+              description: |
+                The date of the departure from the source port in UTC time zone.
+
+                Carrier Schedule inference can be used to infer schedules departing up to (7*24)-1 days in the future
+                AIS Port Call inference can be used to infer schedules arriving up 2 days in the past.
+              type: string
+              format: date
+            arrival_on:
+              description: |
+                The date of the arrival to the destination port in UTC time zone.
+
+                Carrier Schedule inference can be used to infer schedules departing up to (7*24)-1 days in the future
+                AIS Port Call inference can be used to infer schedules arriving up 2 days in the past.
+              type: string
+              format: date
+            carrier_name:
+              description: |
+                The carrier used for shipment
+
+              type: string
+              enum:
+                - ALIANÇA
+                - ANL
+                - CMA CGM
+                - CNC
+                - COSCO SHIPPING
+                - CROWLEY
+                - EVERGREEN
+                - GOLD STAR LINE
+                - HAIHUA SHIPPING
+                - HAMBURG SÜD
+                - HAPAG-LLOYD
+                - HMM
+                - ICL
+                - JINJIANG SHIPPING
+                - KAMBARA KISEN
+                - KOREA MARINE TRANSPORT
+                - MAERSK
+                - MATSON
+                - MCC
+                - MSC
+                - Namsung
+                - ONE
+                - OOCL
+                - PIL
+                - SEAGO
+                - SEALAND
+                - SITC
+                - SM LINE
+                - WAN HAI
+                - YANG MING
+                - ZIM
     LogisticsSiteMethod:
       type: string
       description: |
@@ -7169,6 +7269,15 @@ components:
             - emission_factor
             - methodology_details
           properties:
+            vessel_inference_details:
+              description: |
+                The method we used to infer a vessel from client provided input.
+
+                `null` when vessel identifier provided by client or no vessel inference not relevant to estimation.
+              oneOf:
+                - $ref: '#/components/schemas/VesselInferenceMethod'
+                - $ref: '#/components/schemas/NullEnum'
+
             distance:
               $ref: '#/components/schemas/Distance'
             adjusted_distance:
