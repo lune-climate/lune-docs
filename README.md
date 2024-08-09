@@ -112,15 +112,25 @@ document.cookie = `docs_publishable_key=${encodeURIComponent('SECRET')}`
 
 Replace `SECRET` with the publishable key, then refresh the page.
 
-To encrypt or decrypt content use the following two commands: `yarn encrypt-content` and `yarn decrypt-content`.
+To encrypt or decrypt content use the following two commands, `yarn encrypt-content` and `yarn decrypt-content`, for example:
+
+```
+yarn encrypt-content docs/product-and-design-guides/logistics-calculations-methodology.md
+yarn decrypt-content docs/product-and-design-guides/logistics-calculations-methodology.md
+```
 
 They require the publishable key as `DOCS_PUBLISHABLE_KEY` environment variable.
 
-Both take content from stdin and return the result on stdout.
+Both commands can take multiple files as parameters.
 
-To add or edit gated content:
-1. I put the clear text content in a text file eg `content.txt`
-2. Run `cat content.txt | DOCS_PUBLISHABLE_KEY='SECRET' yarn encrypt-content`
-3. Paste the result in a `<GatedMarkdown />` component
+To edit gated content:
+1. Run `yarn decrypt-content THE_FILE_YOU_ARE_EDITING`
+2. Edit the content
+3. Run `yarn encrypt-content THE_FILE_YOU_ARE_EDITING`
+
+To add gated content:
+1. Add content wrapped in `<!-- BEGIN GATED CONTENT, DO NOT COMMIT THIS AS-IS -->` and
+   `<!-- END GATED CONTENT, DO NOT COMMIT THIS AS-IS -->`
+2. Run `yarn encrypt-content THE_FILE_YOU_ARE_EDITING`
 
 When making changes do not commit clear text content.
