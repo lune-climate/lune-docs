@@ -27,7 +27,7 @@
     "decrypt-content": "ts-node -r tsconfig-paths/register scripts/decrypt-content.ts"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.4.3",
+    "@docusaurus/core": "^3.5.1",
     "@docusaurus/plugin-client-redirects": "^2.4.3",
     "@docusaurus/preset-classic": "^2.4.3",
     "@emotion/react": "^11.13.0",
