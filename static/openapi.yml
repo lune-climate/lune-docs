@@ -4768,6 +4768,7 @@ components:
         - logo
         - beneficiary
         - bundle_portfolio_id
+        - external_pages_visibility
       properties:
         id:
           type: string
@@ -4811,6 +4812,13 @@ components:
           description: Bundle portfolio id tied to the account.
           example: 'Jvhh30a6272NauKv92J7FG1c6Jfxd2E1'
           nullable: true
+        external_pages_visibility:
+          type: string
+          enum:
+            - public
+            - hidden
+          description: |
+            Enum to control the visibility of external pages such as sustainability and analytics pages.
     AggregatedAnalyticsByProperty:
       type: object
       required:
@@ -8110,6 +8118,13 @@ components:
             `handle` is a client defined URL-friendly string that identifies the account.
 
             The `handle` is unique per organisation and account type.
+        external_pages_visibility:
+          type: string
+          enum:
+            - public
+            - hidden
+          description: |
+            Enum to control the visibility of external pages such as sustainability and analytics pages.
       example:
         name: 'ACME'
         beneficiary: 'ACME Inc'
@@ -8138,6 +8153,13 @@ components:
             `handle` is a client defined URL-friendly string that identifies the account.
 
             The `handle` is unique per organisation and account type.
+        external_pages_visibility:
+          type: string
+          enum:
+            - public
+            - hidden
+          description: |
+            Enum to control the visibility of external pages such as sustainability and analytics pages.
       example:
         name: 'ACME'
         currency: 'USD'
