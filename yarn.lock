@@ -2222,11 +2222,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/module-type-aliases@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "@docusaurus/module-type-aliases@npm:3.4.0"
+"@docusaurus/module-type-aliases@npm:^3.5.1":
+  version: 3.5.1
+  resolution: "@docusaurus/module-type-aliases@npm:3.5.1"
   dependencies:
-    "@docusaurus/types": "npm:3.4.0"
+    "@docusaurus/types": "npm:3.5.1"
     "@types/history": "npm:^4.7.11"
     "@types/react": "npm:*"
     "@types/react-router-config": "npm:*"
@@ -2236,7 +2236,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: 10c0/37645717442eaf2d62dcb972db544f5231392f1dbeb7499d725cef50b4c2762d7a95facff8a759f9127814861c6ccb859f69661f1634b7bf8c27be13f9d3e626
+  checksum: 10c0/4ffac163da4887230759c273eddde0f34ddee65c1f26ef0ee53efca4aa98017481e94fa0d56b8240871bf11ca330401d128508adfc679526b18329db46c2a76b
   languageName: node
   linkType: hard
 
@@ -2570,9 +2570,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/types@npm:3.4.0":
-  version: 3.4.0
-  resolution: "@docusaurus/types@npm:3.4.0"
+"@docusaurus/types@npm:3.5.1":
+  version: 3.5.1
+  resolution: "@docusaurus/types@npm:3.5.1"
   dependencies:
     "@mdx-js/mdx": "npm:^3.0.0"
     "@types/history": "npm:^4.7.11"
@@ -2586,7 +2586,7 @@ __metadata:
   peerDependencies:
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10c0/c86b95dfbf02db6faa9bb4d6c552d54f2e57924a95937cff6f1884e0ef66f7bbaf84e645fffa229f2571fea6ee469d3dd15abff20f81f7dc886ad38c4c79cbdb
+  checksum: 10c0/34c6816bea33125ffaf6986ce14d09b94af3dc9f41a92aa2bb25ef42bcdf6af0f182f3e35a11c43f106458d3caf93b184bacb982ec1c0eee85fcd4c9b68e0e10
   languageName: node
   linkType: hard
 
@@ -7360,7 +7360,7 @@ __metadata:
   dependencies:
     "@algolia/client-search": "npm:^4.24.0"
     "@docusaurus/core": "npm:^2.4.3"
-    "@docusaurus/module-type-aliases": "npm:^3.4.0"
+    "@docusaurus/module-type-aliases": "npm:^3.5.1"
     "@docusaurus/plugin-client-redirects": "npm:^2.4.3"
     "@docusaurus/preset-classic": "npm:^2.4.3"
     "@emotion/react": "npm:^11.13.0"
