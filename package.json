@@ -51,7 +51,7 @@
     "worker-loader": "^3.0.8"
   },
   "devDependencies": {
-    "@algolia/client-search": "^4.24.0",
+    "@algolia/client-search": "^5.0.0",
     "@docusaurus/module-type-aliases": "^3.5.2",
     "@jest/globals": "^29.7.0",
     "@tsconfig/docusaurus": "^2.0.3",
