@@ -322,7 +322,7 @@ A 200 response code confirms the Sustainability page has been updated.  A 409 re
 
 ## Get a Sustainability page
 
-You can [retrieve a Sustainability page](/api-reference/sustainability-page/get-public-sustainability-page) via the API.
+You can [retrieve a Sustainability page](/api-reference/sustainability-page/get-public-sustainability-page-by-slug) via the API.
 
 </div>
 <div>
