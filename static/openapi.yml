@@ -2677,7 +2677,7 @@ paths:
       tags:
         - Sustainability page
       summary: Get a sustainability page
-      operationId: getPublicSustainabilityPage
+      operationId: getPublicSustainabilityPageBySlug
       description:
         Get the current account's public sustainability summary info.
       parameters:
@@ -2703,6 +2703,46 @@ paths:
                 $ref: '#/components/schemas/PublicSustainabilityPage'
         '400':
           $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /sustainability-pages/public/{organisation_id}/{type}/{handle}:
+    get:
+      tags:
+        - Sustainability page
+      summary: Get a sustainability page
+      operationId: getPublicSustainabilityPageByHandle
+      description:
+        Get the current account's public sustainability summary info.
+      parameters:
+        - name: organisation_id
+          in: path
+          required: true
+          description: The unique identifier of the organisation this account belongs to
+          schema:
+            example: 'VndoQ0PZjGMzvYOZGwqy6kbgN1eOJx9B'
+            type: string
+        - name: type
+          in: path
+          required: true
+          description: The type of the sustainability page.
+          schema:
+            $ref: '#/components/schemas/AccountType'
+        - name: handle
+          in: path
+          required: true
+          description: The handle of the sustainability page's account.
+          schema:
+            type: string
+            example: 'acme'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicSustainabilityPage'
         '404':
           $ref: '#/components/responses/NotFound'
         '429':
