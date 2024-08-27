@@ -5506,6 +5506,257 @@ components:
         - $ref: '#/components/schemas/ShippingSourceDestination'
     ShippingCountryCode:
       type: string
+      enum:
+        - AFG
+        - ALA
+        - ALB
+        - DZA
+        - ASM
+        - AND
+        - AGO
+        - AIA
+        - ATA
+        - ATG
+        - ARG
+        - ARM
+        - ABW
+        - AUS
+        - AUT 
+        - AZE
+        - BHS
+        - BHR 
+        - BGD
+        - BRB
+        - BLR
+        - BEL
+        - BLZ
+        - BEN
+        - BMU
+        - BTN
+        - BOL
+        - BES
+        - BIH
+        - BWA
+        - BVT
+        - BRA
+        - IOT
+        - BRN
+        - BGR
+        - BFA
+        - BDI
+        - CPV
+        - KHM
+        - CMR
+        - CAN
+        - CYM
+        - CAF
+        - TCD
+        - CHL
+        - CHN
+        - CXR
+        - CCK
+        - COL
+        - COM
+        - COG
+        - COD
+        - COK
+        - CRI
+        - CIV
+        - HRV
+        - CUB
+        - CUW
+        - CYP
+        - CZE
+        - DNK
+        - DJI
+        - DMA
+        - DOM
+        - ECU
+        - EGY
+        - SLV
+        - GNQ
+        - ERI
+        - EST
+        - SWZ
+        - ETH
+        - FLK
+        - FRO
+        - FJI
+        - FIN
+        - FRA
+        - GUF
+        - PYF
+        - ATF
+        - GAB
+        - GMB
+        - GEO
+        - DEU
+        - GHA
+        - GIB
+        - GRC
+        - GRL
+        - GRD
+        - GLP
+        - GUM
+        - GTM
+        - GGY
+        - GIN
+        - GNB
+        - GUY
+        - HTI
+        - HMD
+        - VAT
+        - HND
+        - HKG
+        - HUN
+        - ISL
+        - IND
+        - IDN
+        - IRN
+        - IRQ
+        - IRL
+        - IMN
+        - ISR
+        - ITA
+        - JAM
+        - JPN
+        - JEY
+        - JOR
+        - KAZ
+        - KEN
+        - KIR
+        - PRK
+        - KOR
+        - XKX
+        - KWT
+        - KGZ
+        - LAO
+        - LVA
+        - LBN
+        - LSO
+        - LBR
+        - LBY
+        - LIE
+        - LTU
+        - LUX
+        - MAC
+        - MKD
+        - MDG
+        - MWI
+        - MYS
+        - MDV
+        - MLI
+        - MLT
+        - MHL
+        - MTQ
+        - MRT
+        - MUS
+        - MYT
+        - MEX
+        - FSM
+        - MDA
+        - MCO
+        - MNG
+        - MNE
+        - MSR
+        - MAR
+        - MOZ
+        - MMR
+        - NAM
+        - NRU
+        - NPL
+        - NLD
+        - NCL
+        - NZL
+        - NIC
+        - NER
+        - NGA
+        - NIU
+        - NFK
+        - MNP
+        - NOR
+        - OMN
+        - PAK
+        - PLW
+        - PSE
+        - PAN
+        - PNG
+        - PRY
+        - PER
+        - PHL
+        - PCN
+        - POL
+        - PRT
+        - PRI
+        - QAT
+        - REU
+        - ROU
+        - RUS
+        - RWA
+        - BLM
+        - SHN
+        - KNA
+        - LCA
+        - MAF
+        - SPM
+        - VCT
+        - WSM
+        - SMR
+        - STP
+        - SAU
+        - SEN
+        - SRB
+        - SYC
+        - SLE
+        - SGP
+        - SXM
+        - SVK
+        - SVN
+        - SLB
+        - SOM
+        - ZAF
+        - SGS
+        - SSD
+        - ESP
+        - LKA
+        - SDN
+        - SUR
+        - SJM
+        - SWE
+        - CHE
+        - SYR
+        - TWN
+        - TJK
+        - TZA
+        - THA
+        - TLS
+        - TGO
+        - TKL
+        - TON
+        - TTO
+        - TUN
+        - TUR
+        - TKM
+        - TCA
+        - TUV
+        - UGA
+        - UKR
+        - ARE
+        - GBR
+        - USA
+        - UMI
+        - URY
+        - UZB
+        - VUT
+        - VEN
+        - VNM
+        - VGB
+        - VIR
+        - WLF
+        - ESH
+        - YEM
+        - ZMB
+        - ZWE
       description: |
           The three-letter code of the country where the shipping takes place, if applicable.
 
@@ -7132,6 +7383,7 @@ components:
             - exchange_rate_date
             - is_transaction
             - transaction_processed_at
+            - external_estimate_url
           properties:
             request:
               $ref: '#/components/schemas/TransactionEstimateRequest'
@@ -7139,6 +7391,11 @@ components:
               description: This property is `null` for any estimate created before 01/03/2024
               oneOf:
                 - $ref: '#/components/schemas/EmissionFactorWithGasEmissions'
+                - $ref: '#/components/schemas/NullEnum'
+            external_estimate_url:
+              description: 'An external accessible URL linking to a detailed page that provides complete information about the estimate.'
+              oneOf:
+                - $ref: '#/components/schemas/Url'
                 - $ref: '#/components/schemas/NullEnum'
             search_term_match:
               type: string
@@ -7239,6 +7496,7 @@ components:
             - shipped_at
             - quote
             - request
+            - external_estimate_url
           properties:
             id:
               type: string
@@ -7261,6 +7519,11 @@ components:
               $ref: '#/components/schemas/ShippingEstimateRequest'
             metadata:
               $ref: '#/components/schemas/Metadata'
+            external_estimate_url:
+              description: 'An external accessible URL linking to a detailed page that provides complete information about the estimate.'
+              oneOf:
+                - $ref: '#/components/schemas/Url'
+                - $ref: '#/components/schemas/NullEnum'
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
         is_shipment: true
@@ -7444,6 +7707,7 @@ components:
             - distance
             - adjusted_distance
             - request
+            - external_estimate_url
           properties:
             is_shipment:
               type: boolean
@@ -7470,6 +7734,11 @@ components:
               $ref: '#/components/schemas/AdjustedDistance'
             request:
               $ref: '#/components/schemas/MultiLegShippingEstimateRequest'
+            external_estimate_url:
+              description: 'An external accessible URL linking to a detailed page that provides complete information about the estimate.'
+              oneOf:
+                - $ref: '#/components/schemas/Url'
+                - $ref: '#/components/schemas/NullEnum'
         - $ref: '#/components/schemas/EmissionEstimateResponse'
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
