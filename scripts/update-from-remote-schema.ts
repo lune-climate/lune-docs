@@ -90,7 +90,7 @@ hide_table_of_contents: true
 
 # Changelog
 
-In chronological order, here is presented all changes to the Lune API.
+In chronological order, here are all changes to the Lune API
 `
     const changelog: string[] = fs.readFileSync('static/changelog.md', 'utf8').split('\n')
     const perDayChanges = new Map<string, string[]>()
