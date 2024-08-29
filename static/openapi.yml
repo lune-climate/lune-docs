@@ -3090,6 +3090,7 @@ components:
           description: Immutable string representing a specific error.
           example: account_suspended
           enum:
+            - api_version_invalid
             - account_suspended
             - bundle_selection_ratios_invalid
             - bundle_selection_bundle_invalid
