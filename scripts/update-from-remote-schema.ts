@@ -81,6 +81,63 @@ function formatFilename(filename: string): string {
     )
 }
 
+function createChangelogPage(): string {
+    const pageIntro = `---
+sidebar_position: 12
+sidebar_label: Changelog
+hide_table_of_contents: true
+---
+
+# Changelog
+
+In chronological order, here are all changes to the Lune API
+`
+    const changelog: string[] = fs.readFileSync('static/changelog.md', 'utf8').split('\n')
+    const perDayChanges = new Map<string, string[]>()
+    let currentDay: string | undefined
+    let currentEntry: string = ''
+    // Aggregate changes on a per-day basis since it's how we want to present them
+    for (const line of changelog) {
+        const trimmedLine = line.trim()
+        // Ignore blank lines
+        if (trimmedLine === '') {
+            continue
+        }
+
+        // This demarks a new entry so we store currentEntry if it exists and restart an entry
+        if (trimmedLine.includes('# [')) {
+            if (currentDay) {
+                const currentElem = perDayChanges.get(currentDay) ?? []
+                perDayChanges.set(currentDay, currentElem.concat(currentEntry))
+            }
+            // The last 10 chars in a new entry should always contain the date
+            currentDay = trimmedLine.slice(-10)
+            if (trimmedLine.includes('[New Version]')) {
+                const versionName = trimmedLine.match(/`([^`]*)`/)![0]
+                currentEntry = `**Introduced calendar version ${versionName}**`
+            } else {
+                // Other entries have their info in subsequent lines
+                currentEntry = ''
+            }
+        } else {
+            currentEntry = currentEntry + trimmedLine
+        }
+    }
+    // Make sure the last element is added
+    if (currentDay) {
+        const currentElem = perDayChanges.get(currentDay) ?? []
+        perDayChanges.set(currentDay, currentElem.concat(currentEntry))
+    }
+
+    let orderedChanges = ''
+    // Go through all the days in order and aggregate changes as wanted
+    for (const day of [...perDayChanges.keys()].sort()) {
+        orderedChanges = orderedChanges + `### ${day}:\n- ${perDayChanges.get(day)!.join('\n- ')}\n`
+    }
+
+    return pageIntro + orderedChanges
+}
+
 async function main() {
     // Clear resources and endpoints
     const directoriesToClean = ['docs/api-reference', 'docs/all-resources']
@@ -202,6 +259,9 @@ async function main() {
     // state and handle any references in the schema itself. It would maybe allow the components written
     // above to instead have a pointer, but that wasn't thought at first.
     writeFile(`src/components/APISchemaContext.tsx`, createContextAPISchema(schema))
+
+    // Create changelog guide containing the whole OpenAPI schema.
+    writeFile(`docs/key-concepts/changelog.md`, createChangelogPage())
 
     process.exit(0)
 }
