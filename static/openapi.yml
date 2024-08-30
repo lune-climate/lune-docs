@@ -2341,15 +2341,12 @@ paths:
 
             * `never` (the default) means no region fallback is performed and only emission
               factors that match the specified region(s) are returned.
-            * `as_needed` means region fallback is only performed if the lookup using exact match
-              didn't yield any results.
             * `always` means the emission factors for related regions are unconditionally included
               in the results.
           schema:
             type: string
             enum:
               - never
-              - as_needed
               - always
         - name: unit
           in: query
