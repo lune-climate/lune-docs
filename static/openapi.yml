@@ -2319,8 +2319,10 @@ paths:
           in: query
           description: |
             Filter emission factors based on region (case insensitive).
-            The value must be an exact match.
             When omitted, all regions are returned.
+
+            The `region_fallback` parameter controls how `region` is interpreted, by default
+            an exact match is required.
 
             Countries are included in regions but there are also broader geographic regions like Europe or Asia.
           schema:
@@ -2329,6 +2331,26 @@ paths:
               type: string
               example: Europe
           allowReserved: true
+        - name: region_fallback
+          in: query
+          description: |
+            Controls how `region` is interpreted and if region fallback is performed.
+
+            Region fallback is looking up emission factors for regions related to the specified
+            regions.
+
+            * `never` (the default) means no region fallback is performed and only emission
+              factors that match the specified region(s) are returned.
+            * `as_needed` means region fallback is only performed if the lookup using exact match
+              didn't yield any results.
+            * `always` means the emission factors for related regions are unconditionally included
+              in the results.
+          schema:
+            type: string
+            enum:
+              - never
+              - as_needed
+              - always
         - name: unit
           in: query
           description: |
