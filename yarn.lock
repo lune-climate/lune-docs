@@ -7394,7 +7394,7 @@ __metadata:
     clsx: "npm:^2.1.1"
     commander-plus: "npm:^0.0.6"
     crypto-browserify: "npm:^3.12.0"
-    docusaurus-lunr-search: "npm:^3.4.0"
+    docusaurus-lunr-search: "npm:^3.5.0"
     dotenv: "npm:^16.4.5"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
@@ -7448,9 +7448,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docusaurus-lunr-search@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "docusaurus-lunr-search@npm:3.4.0"
+"docusaurus-lunr-search@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "docusaurus-lunr-search@npm:3.5.0"
   dependencies:
     autocomplete.js: "npm:^0.37.0"
     clsx: "npm:^1.2.1"
@@ -7470,7 +7470,7 @@ __metadata:
     "@docusaurus/core": ^2.0.0-alpha.60 || ^2.0.0 || ^3.0.0
     react: ^16.8.4 || ^17 || ^18
     react-dom: ^16.8.4 || ^17 || ^18
-  checksum: 10c0/81aac7d8aa4a8be2f54c83198978d5a2a9a8a88eb798f54c075fe10860fd0b52b35f5943b5b2e18f24bdb96a97fe386349837905b386477a5d635177e4ed7f68
+  checksum: 10c0/b3ed4f5bb90d1c1bd76e633ef7a83e8158cb71935268587ff7fb2063444422bcea1cea555305a5e79de818fc02982bdf33279d2c161367c228248f7f56959da9
   languageName: node
   linkType: hard
 
