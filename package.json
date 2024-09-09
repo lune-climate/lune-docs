@@ -57,7 +57,7 @@
     "@tsconfig/docusaurus": "^2.0.3",
     "@types/jest": "^29.5.12",
     "@types/node": "^22.5.4",
-    "@types/react": "^18.3.4",
+    "@types/react": "^18.3.5",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "commander-plus": "^0.0.6",
