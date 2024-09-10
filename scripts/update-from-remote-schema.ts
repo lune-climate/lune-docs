@@ -83,7 +83,7 @@ function formatFilename(filename: string): string {
 
 function createChangelogPage(): string {
     const pageIntro = `---
-sidebar_position: 12
+sidebar_position: 13
 sidebar_label: Changelog
 hide_table_of_contents: true
 ---
