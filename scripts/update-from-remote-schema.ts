@@ -16,7 +16,7 @@ function writeFile(dir: string, data: string): void {
 
 // the sidebar does not fit long labels well
 function shortenEmissionEstimatesLabel(label: string): string {
-    return label.replace(/emission estimate/g, 'estimate');
+    return label.replace(/emission estimate/g, 'estimate')
 }
 
 function createEndpointMDX(data: any, sidebarPosition?: number, sidebarLabel?: string): string {
@@ -73,7 +73,7 @@ function formatFilename(filename: string): string {
         .replace(/^([A-Z])[a-z]/, (v) => v.toLowerCase())
     return (
         camelCase
-            .replace(/([A-Z])[a-z]/g, function (v) {
+            .replace(/([A-Z])[a-z]/g, function(v) {
                 return `-${v.toLowerCase()}`
             })
             // Make acronyms lowercase
@@ -192,7 +192,12 @@ async function main() {
             }
             return acc
         }, [] as any[])
-        const resourceJSON = { ...data, component: component, endpoints: linkedEndpoints, schemaFilename: 'api-schema.yml' }
+        const resourceJSON = {
+            ...data,
+            component,
+            endpoints: linkedEndpoints,
+            schemaFilename: 'api-schema.yml',
+        }
         const filename = formatFilename(component)
         // Sentence case conversion to present on sidebar
         const label = component
@@ -208,7 +213,7 @@ async function main() {
             link: {
                 id: filename,
                 type: 'doc',
-            }
+            },
         }
 
         writeFile(`${folderDir}/_category_.json`, JSON.stringify(directoryInfo, null, 2))
@@ -232,7 +237,13 @@ async function main() {
                     )
                 }
 
-                const endpointJSON = { ...data, schemaFilename: 'api-schema.yml', tag: tag, method: method, path: path }
+                const endpointJSON = {
+                    ...data,
+                    schemaFilename: 'api-schema.yml',
+                    tag,
+                    method,
+                    path,
+                }
                 writeFile(
                     `${folderDir}/${formatFilename(data.operationId)}.mdx`,
                     createEndpointMDX(endpointJSON),
@@ -245,7 +256,7 @@ async function main() {
     let component: string
     let data: any
     for ([component, data] of Object.entries(schema.components.schemas)) {
-        const resourceJSON = { ...data, component: component, schemaFilename: 'api-schema.yml' }
+        const resourceJSON = { ...data, component, schemaFilename: 'api-schema.yml' }
         const filename = formatFilename(component)
         // Sentence case conversion to present on sidebar
         const label = component
