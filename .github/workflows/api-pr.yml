@@ -28,6 +28,21 @@ jobs:
     - name: API Reference update
       run: yarn api-reference
 
+    # Changelog might have changed so update generated page automatically
+    - name: Add changes
+      run: |
+        git add docs/key-concepts/changelog.md
+
+    - name: Commit changes
+      run: |
+        git diff --cached --quiet || git commit -m "Update Changelog page"
+
+    - name: Push changes
+      run: |
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+
     - name: pull-request
       uses: repo-sync/pull-request@v2
       with:
