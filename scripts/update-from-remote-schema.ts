@@ -95,44 +95,36 @@ In chronological order, here are all changes to the Lune API
     const changelog: string[] = fs.readFileSync('static/changelog.md', 'utf8').split('\n')
     const perDayChanges = new Map<string, string[]>()
     let currentDay: string | undefined
-    let currentEntry: string = ''
+
+    function append(line: string): void {
+        if (currentDay === undefined) {
+            throw new Error(`Found changes before any date definition`)
+        }
+        const existing = perDayChanges.get(currentDay) ?? []
+        perDayChanges.set(currentDay, [...existing, line])
+    }
+
     // Aggregate changes on a per-day basis since it's how we want to present them
     for (const line of changelog) {
         const trimmedLine = line.trim()
-        // Ignore blank lines
-        if (trimmedLine === '') {
-            continue
-        }
-
         // This demarks a new entry so we store currentEntry if it exists and restart an entry
         if (trimmedLine.includes('# [')) {
-            if (currentDay) {
-                const currentElem = perDayChanges.get(currentDay) ?? []
-                perDayChanges.set(currentDay, currentElem.concat(currentEntry))
-            }
             // The last 10 chars in a new entry should always contain the date
             currentDay = trimmedLine.slice(-10)
             if (trimmedLine.includes('[New Version]')) {
                 const versionName = trimmedLine.match(/`([^`]*)`/)![0]
-                currentEntry = `**Introduced calendar version ${versionName}**`
-            } else {
-                // Other entries have their info in subsequent lines
-                currentEntry = ''
+                append(`**Introduced calendar version ${versionName}**`)
+                append('')
             }
         } else {
-            currentEntry = currentEntry + trimmedLine
+            append(trimmedLine)
         }
-    }
-    // Make sure the last element is added
-    if (currentDay) {
-        const currentElem = perDayChanges.get(currentDay) ?? []
-        perDayChanges.set(currentDay, currentElem.concat(currentEntry))
     }
 
     let orderedChanges = ''
     // Go through all the days in order and aggregate changes as wanted
     for (const day of [...perDayChanges.keys()].sort()) {
-        orderedChanges = orderedChanges + `### ${day}:\n- ${perDayChanges.get(day)!.join('\n- ')}\n`
+        orderedChanges = orderedChanges + `### ${day}:\n${perDayChanges.get(day)!.join('\n')}\n`
     }
 
     return pageIntro + orderedChanges
