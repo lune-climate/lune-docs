@@ -155,7 +155,7 @@ const sidebars = {
 
         {
           type: 'category',
-          label: 'Green banking',
+          label: 'Green spend management',
           link: {
             type: 'doc',
             id: 'guides/integrate-fintech',

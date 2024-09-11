@@ -100,7 +100,7 @@ In this guide, you will learn how to interact with the Lune API to:
 <div>
 <>
 
-![payments](/img/home-acmebank.png)
+![spend-management](/img/home-spendmanagement.png)
 
 </>
 
@@ -108,7 +108,7 @@ In this guide, you will learn how to interact with the Lune API to:
 
 <>
 
-## Green Banking
+## Green Spend Management
 
 In this guide, you will learn how to interact with the Lune API to:
 

@@ -10,7 +10,7 @@ import Tip from '@site/src/components/Tip';
 import { indent } from '@site/src/utils';
 import { ApiReferenceSection } from 'lune-ui-lib'
 
-# Green banking
+# Green spend management
 <div className="sections">
 
 <ApiReferenceSection>
@@ -38,7 +38,7 @@ In this guide, you will learn how to interact with the Lune API to:
 This guide is primarily aimed at Product Managers and developers looking
 to integrate CO₂ emissions estimations and offsetting into an existing end-user experience.
 
-Feel free to contact our [support team](mailto:support@lune.com) if you encounter any issues integrating our logistics use case.
+Feel free to contact our [support team](mailto:support@lune.com) if you encounter any issues integrating our spend management use case.
 
 </div>
 <div>
@@ -56,7 +56,7 @@ Feel free to contact our [support team](mailto:support@lune.com) if you encounte
 
 <>
 
-![fintech-transactions](/img/fintech-transactions.png)
+![spend-management-dashboard](/img/spend-management-dashboard.png)
 
 </>
 
@@ -244,7 +244,7 @@ Convert `mass.amount`s to the same unit before summing.
   }
 ]`} />
 
-![fintech-transactions](/img/fintech-transactions.png)
+![spend-management-transactions](/img/spend-management-transactions.png)
 
 </div>
 </ApiReferenceSection>
@@ -334,7 +334,7 @@ A successful 200 request will return the total cost of offsetting the CO₂ emis
   ]
 }`} />
 
-![fintech-offsetnow](/img/fintech-offsetnow.png)
+![spend-management-offsetnow](/img/spend-management-offsetnow.png)
 
 </div>
 
@@ -441,7 +441,7 @@ To [offset emissions](/api-reference/orders/create-order-by-mass), pass in the c
   "requested_value": null
 }`} />
 
-![fintech-offsetnow](/img/fintech-confirmation.png)
+![spend-management-confirmation](/img/spend-management-confirmation.png)
 
 </div>
 
