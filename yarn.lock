@@ -3259,6 +3259,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@js-joda/core@npm:^5.6.3":
+  version: 5.6.3
+  resolution: "@js-joda/core@npm:5.6.3"
+  checksum: 10c0/0d49154592f1f32db0a57cf33ccc254a9518cae69eae3f625fad4ec26ef8b386981c8bf3c41831708048d77be3bdf55e09fda44275f458ad8d19c16c8a986a06
+  languageName: node
+  linkType: hard
+
+"@js-joda/locale_en@npm:^4.14.0":
+  version: 4.14.0
+  resolution: "@js-joda/locale_en@npm:4.14.0"
+  peerDependencies:
+    "@js-joda/core": ">=3.2.0"
+    "@js-joda/timezone": ^2.3.0
+  checksum: 10c0/2c7613f2287a6db2ba8471b8893aa3f2417e72f55b22eb5c413f37c34a3d2a365fe57a39db9c257965104e8666e36c2a0cc5c12a8f0750f89dc60fb691ac3e90
+  languageName: node
+  linkType: hard
+
+"@js-joda/timezone@npm:^2.21.1":
+  version: 2.21.1
+  resolution: "@js-joda/timezone@npm:2.21.1"
+  peerDependencies:
+    "@js-joda/core": ">=1.11.0"
+  checksum: 10c0/15597159a1ed816460b1923174314e9cc941356d1f28ce681acb98bd3bf1b9cd57614e0708c2532900d8fd11ef72fca27307405a9404a6ffa12400eb379e42f2
+  languageName: node
+  linkType: hard
+
 "@leichtgewicht/ip-codec@npm:^2.0.1":
   version: 2.0.4
   resolution: "@leichtgewicht/ip-codec@npm:2.0.4"
@@ -7391,6 +7417,9 @@ __metadata:
     "@emotion/react": "npm:^11.13.0"
     "@emotion/styled": "npm:^11.13.0"
     "@jest/globals": "npm:^29.7.0"
+    "@js-joda/core": "npm:^5.6.3"
+    "@js-joda/locale_en": "npm:^4.14.0"
+    "@js-joda/timezone": "npm:^2.21.1"
     "@mdx-js/react": "npm:^1.6.22"
     "@mui/material": "npm:^5.16.6"
     "@tsconfig/docusaurus": "npm:^2.0.3"
