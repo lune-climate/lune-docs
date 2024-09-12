@@ -7175,9 +7175,12 @@ components:
       minimum: 0
       maximum: 100
     Merchant:
-      allOf:
+      oneOf:
         - type: object
+          x-lune-name: Merchant category code
+          additionalProperties: false
           required:
+            - category_code
             - country_code
           properties:
             name:
@@ -7188,32 +7191,36 @@ components:
               type: string
               description: The three-letter code of the merchant's country.
               example:  GBR
-        - oneOf:
-          - type: object
-            x-lune-name: Merchant category code
-            required:
-              - category_code
-            properties:
-              category_code:
-                type: string
-                description: |
-                  An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding
-                  to the transaction.
+            category_code:
+              type: string
+              description: |
+                An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding
+                to the transaction.
 
-                  See https://github.com/greggles/mcc-codes for available codes.
-                example: "0763"
-          - type: object
-            x-lune-name: Search
-            required:
-              - search_term
-            properties:
-              search_term:
-                type: string
-                minLength: 1
-                description: |
-                  The search term to query.
-                  Search is resolved using a combination of semantic and keyword searching.
-                example: Bananas
+                See https://github.com/greggles/mcc-codes for available codes.
+              example: "0763"
+        - type: object
+          x-lune-name: Search
+          additionalProperties: false
+          required:
+            - search_term
+            - country_code
+          properties:
+            name:
+              type: string
+              description: The name of the merchant.
+              example: The Corner Store
+            country_code:
+              type: string
+              description: The three-letter code of the merchant's country.
+              example:  GBR
+            search_term:
+              type: string
+              minLength: 1
+              description: |
+                The search term to query.
+                Search is resolved using a combination of semantic and keyword searching.
+              example: Bananas
     Diet:
       description: |
         A diet followed by an individual.
