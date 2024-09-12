@@ -98,10 +98,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/client-common@npm:5.3.2":
-  version: 5.3.2
-  resolution: "@algolia/client-common@npm:5.3.2"
-  checksum: 10c0/55571917f52ffd90167d900652c0769c8ba4ddd3e7db41309da66a6f0ef645eca49fc80c44f738fc0870f4b14d8e3378cb04883e79670d4aecc59b0d9d74c808
+"@algolia/client-common@npm:5.4.0":
+  version: 5.4.0
+  resolution: "@algolia/client-common@npm:5.4.0"
+  checksum: 10c0/f5503254ead56e4ad6996f51861ed5203a63ed6c4db9506a9547056c7f4ec612fee14a2912795f3c99caad35a1db794c15f25380b7423bb7c6726bc0e1b2c800
   languageName: node
   linkType: hard
 
@@ -127,14 +127,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/client-search@npm:^5.3.2":
-  version: 5.3.2
-  resolution: "@algolia/client-search@npm:5.3.2"
+"@algolia/client-search@npm:^5.4.0":
+  version: 5.4.0
+  resolution: "@algolia/client-search@npm:5.4.0"
   dependencies:
-    "@algolia/client-common": "npm:5.3.2"
-    "@algolia/requester-browser-xhr": "npm:5.3.2"
-    "@algolia/requester-node-http": "npm:5.3.2"
-  checksum: 10c0/93f30646e840a0041d9951758da4fbd7ef412ee144b6ae3c4d65eb3a2079048f5911521993c891ad99dba76bc047bdc5cbfac027e1e44a95381d8afbef9f3dd4
+    "@algolia/client-common": "npm:5.4.0"
+    "@algolia/requester-browser-xhr": "npm:5.4.0"
+    "@algolia/requester-fetch": "npm:5.4.0"
+    "@algolia/requester-node-http": "npm:5.4.0"
+  checksum: 10c0/e1fcb488e84ef742da16ef0f89d0f330ce917ad4518fcd4c87025a09689d8a2e5cb39d7008cdfc9796a1f66906bca9191a4a294a7d55c1bfec25c927fa64fa25
   languageName: node
   linkType: hard
 
@@ -170,12 +171,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/requester-browser-xhr@npm:5.3.2":
-  version: 5.3.2
-  resolution: "@algolia/requester-browser-xhr@npm:5.3.2"
+"@algolia/requester-browser-xhr@npm:5.4.0":
+  version: 5.4.0
+  resolution: "@algolia/requester-browser-xhr@npm:5.4.0"
   dependencies:
-    "@algolia/client-common": "npm:5.3.2"
-  checksum: 10c0/0a49a110ce9a100068666777e6f985c98c3c1bd932322ae217663748a00f6fc4c344077e20199d7b404d7cbdf0516f4317473edcb23ccb0aad98e2389607fa3e
+    "@algolia/client-common": "npm:5.4.0"
+  checksum: 10c0/c49328eab4e100269cc4c6df00f7e9c148e02ef82b7ba70649052d83cb6888c2ac24c60e74441f8717f21077fc69aaee3739b8d6165f4ac6743cf73d2dd5d2fd
   languageName: node
   linkType: hard
 
@@ -183,6 +184,15 @@ __metadata:
   version: 4.14.2
   resolution: "@algolia/requester-common@npm:4.14.2"
   checksum: 10c0/cca158b61d24ad395afb9b367e8c55987a68743b7f4561faeb2d3166b0e26c01a82a20675eb7846fa0a39b77b92a3ad300dc5fa798d85a2719874dd905290be7
+  languageName: node
+  linkType: hard
+
+"@algolia/requester-fetch@npm:5.4.0":
+  version: 5.4.0
+  resolution: "@algolia/requester-fetch@npm:5.4.0"
+  dependencies:
+    "@algolia/client-common": "npm:5.4.0"
+  checksum: 10c0/522300a9ebd1df3fd31b7a533f36e3bb008192e05ab4e96ad72fdd78e8dc0c775c2e80e4b1fe56c36b2e4d4690a5ed0bb5c53a5491bc45b7e50e50e5bb7b98a3
   languageName: node
   linkType: hard
 
@@ -195,12 +205,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/requester-node-http@npm:5.3.2":
-  version: 5.3.2
-  resolution: "@algolia/requester-node-http@npm:5.3.2"
+"@algolia/requester-node-http@npm:5.4.0":
+  version: 5.4.0
+  resolution: "@algolia/requester-node-http@npm:5.4.0"
   dependencies:
-    "@algolia/client-common": "npm:5.3.2"
-  checksum: 10c0/4993a825280a2435fc0b20f34b21e7f804b6e59596b5601362200f58692a45ce3a1bad2f9395e43ce6aaa9592022fa4d7b79142607d8c0ba736f4d6e4a3d2d09
+    "@algolia/client-common": "npm:5.4.0"
+  checksum: 10c0/ed283ef53f9201340f0d19a62afceacc6ca95748d8baa09b8ae5abde4b61f283c914bf2ef77623a51a7519df06b5f554f986b3c8ff102427f6c4bd1bbd5fa4c0
   languageName: node
   linkType: hard
 
@@ -7373,7 +7383,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "docs@workspace:."
   dependencies:
-    "@algolia/client-search": "npm:^5.3.2"
+    "@algolia/client-search": "npm:^5.4.0"
     "@docusaurus/core": "npm:^2.4.3"
     "@docusaurus/module-type-aliases": "npm:^3.5.2"
     "@docusaurus/plugin-client-redirects": "npm:^2.4.3"
