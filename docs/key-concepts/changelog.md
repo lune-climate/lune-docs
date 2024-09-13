@@ -8,7 +8,7 @@ hide_table_of_contents: true
 
 In chronological order, here are all changes to the Lune API
 
-## 2024-08-08
+## Version `2024-08-08`
 
 ** August 29, 2024 **
 

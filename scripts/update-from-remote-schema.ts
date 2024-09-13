@@ -134,8 +134,10 @@ In chronological order, here are all changes to the Lune API
 
     let orderedChanges = ''
     // Go through all the days in order and aggregate changes as wanted
-    for (const day of [...perDayChanges.keys()].sort().reverse()) {
-        orderedChanges = orderedChanges + `## ${day}\n${perDayChanges.get(day)!.join('\n')}\n`
+    for (const version of [...perDayChanges.keys()].sort().reverse()) {
+        orderedChanges =
+            orderedChanges +
+            `## Version \`${version}\`\n${perDayChanges.get(version)!.join('\n')}\n`
     }
 
     return pageIntro + orderedChanges
