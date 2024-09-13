@@ -1,4 +1,6 @@
 #!/usr/bin/env -S yarn run-ts
+import { DateTimeFormatter, LocalDate } from '@js-joda/core'
+import { Locale } from '@js-joda/locale_en'
 const program = require('commander-plus')
 const yaml = require('js-yaml')
 const fs = require('fs')
@@ -91,31 +93,40 @@ hide_table_of_contents: true
 # Changelog
 
 In chronological order, here are all changes to the Lune API
+
 `
     const changelog: string[] = fs.readFileSync('static/changelog.md', 'utf8').split('\n')
     const perDayChanges = new Map<string, string[]>()
-    let currentDay: string | undefined
+    let currentVersion: string | undefined
+
+    function extractEventDate(line: string): string {
+        // The last 10 chars in a new entry should always contain the date but we want
+        // to present in a different format so it isn't confused with an API version
+        return LocalDate.parse(line.slice(-10)).format(
+            DateTimeFormatter.ofPattern('MMMM d, yyyy').withLocale(Locale.ENGLISH),
+        )
+    }
 
     function append(line: string): void {
-        if (currentDay === undefined) {
-            throw new Error(`Found changes before any date definition`)
+        if (currentVersion === undefined) {
+            throw new Error(`Found changes before any api version definition`)
         }
-        const existing = perDayChanges.get(currentDay) ?? []
-        perDayChanges.set(currentDay, [...existing, line])
+        const existing = perDayChanges.get(currentVersion) ?? []
+        perDayChanges.set(currentVersion, [...existing, line])
     }
 
     // Aggregate changes on a per-day basis since it's how we want to present them
     for (const line of changelog) {
         const trimmedLine = line.trim()
         // This demarks a new entry so we store currentEntry if it exists and restart an entry
-        if (trimmedLine.includes('# [')) {
-            // The last 10 chars in a new entry should always contain the date
-            currentDay = trimmedLine.slice(-10)
-            if (trimmedLine.includes('[New Version]')) {
-                const versionName = trimmedLine.match(/`([^`]*)`/)![0]
-                append(`**Introduced calendar version ${versionName}**`)
-                append('')
-            }
+        if (trimmedLine.startsWith('# [New Version')) {
+            currentVersion = trimmedLine.match(/`(\d{4}-\d{2}-\d{2})`/g)![0].slice(1, -1)
+        } else if (trimmedLine.startsWith('## [Non-Breaking')) {
+            append(`** ${extractEventDate(trimmedLine)} **`)
+            append('')
+        } else if (trimmedLine.startsWith('## [Breaking')) {
+            append(`** ${extractEventDate(trimmedLine)} - *[Breaking change]* **`)
+            append('')
         } else {
             append(trimmedLine)
         }
@@ -123,8 +134,10 @@ In chronological order, here are all changes to the Lune API
 
     let orderedChanges = ''
     // Go through all the days in order and aggregate changes as wanted
-    for (const day of [...perDayChanges.keys()].sort()) {
-        orderedChanges = orderedChanges + `### ${day}:\n${perDayChanges.get(day)!.join('\n')}\n`
+    for (const version of [...perDayChanges.keys()].sort().reverse()) {
+        orderedChanges =
+            orderedChanges +
+            `## Version \`${version}\`\n${perDayChanges.get(version)!.join('\n')}\n`
     }
 
     return pageIntro + orderedChanges
