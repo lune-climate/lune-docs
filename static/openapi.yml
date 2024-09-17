@@ -5983,6 +5983,7 @@ components:
         - $ref: '#/components/schemas/ContainerShippingMethod'
         - $ref: '#/components/schemas/IdentifiedVesselShippingMethod'
         - $ref: '#/components/schemas/InferredVesselShippingMethod'
+        - $ref: '#/components/schemas/RoadShippingMethod'
     SimpleShippingMethod:
       type: string
       description: |
@@ -6769,6 +6770,77 @@ components:
                 - WAN HAI
                 - YANG MING
                 - ZIM
+    RoadShippingMethod:
+      description: |
+        Calculate emissions for road vehicles based on input parameters such as vehicle type, fuel type, load factor, empty runs factor, etc.
+      type: object
+      additionalProperties: false
+      required:
+        - vehicle_type
+        - fuel
+      properties:
+        vehicle_type:
+          type: string
+          enum:
+          - truck_generic_van
+          - truck_rigid_7_5t
+          - truck_rigid_12t
+          - truck_rigid_20t
+          - truck_rigid_26t
+          - truck_rigid_32t
+          - truck_articulated_34t
+          - truck_articulated_40t
+        fuel:
+          type: string
+          enum:
+            - gasoline
+            - diesel
+            - 99_diesel_1_biodiesel
+            - 98_diesel_2_biodiesel
+            - 95_diesel_5_biodiesel
+            - 93_diesel_7_biodiesel
+            - 90_diesel_10_biodiesel
+            - 80_diesel_20_biodiesel
+            - 50_diesel_50_biodiesel
+            - ethanol_from_corn
+            - hvo_from_tallow
+            - lpg
+            - cng
+        gradient:
+          description: |
+            Describes the road's topology.
+
+            If not defined, the most representative value is chosen.
+          allOf:
+            - $ref: '#/components/schemas/RoadGradient'
+        load_factor:
+          description: |
+            Measure of how fully a vehicle is utilising its cargo capacity.
+
+            If not defined, the most representative value is chosen.
+          allOf:
+            - $ref: '#/components/schemas/RoadLoadFactor'
+        empty_runs_factor:
+          description: |
+            Empty runs factor measures the proportion of a vehicle's travel that occurs without carrying any cargo.
+
+            If not defined, the most representative value is chosen.
+          allOf:
+            - $ref: '#/components/schemas/RoadEmptyRunsFactor'
+        situation:
+          description: |
+            Situation describes the driving environment and road condition.
+
+            If not defined, the most representative value is chosen.
+          allOf:
+            - $ref: '#/components/schemas/RoadSituation'
+        emission_standard:
+          description: |
+            The vehicle's emission standard for pollution.
+
+            If not defined, the most representative value is chosen.
+          allOf:
+            - $ref: '#/components/schemas/RoadEmissionStandard'
     LogisticsSiteMethod:
       type: string
       description: |
@@ -7668,6 +7740,7 @@ components:
             methodology_details:
               oneOf:
                 - $ref: '#/components/schemas/MethodologyDetails'
+                - $ref: '#/components/schemas/RoadMethodologyDetails'
                 - $ref: '#/components/schemas/NullEnum'
     ResolvedShippingLegEmissionEstimate:
       allOf:
@@ -7935,10 +8008,69 @@ components:
                 remote_employee:
                   description: Emissions associated with remote employees (electricity, heating etc.)
                   $ref: '#/components/schemas/Mass'
+    RoadMethodologyDetails:
+      description: |
+        Details about the parameters and calculations used in the methodology for estimating road emissions.
+      type: object
+      additionalProperties: false
+      required:
+        - energy_consumption
+        - vehicle_capacity
+        - load_factor
+        - empty_runs_factor
+        - emission_standard
+        - capacity_utilisation
+        - situation
+        - gradient
+      properties:
+        energy_consumption:
+          type: object
+          additionalProperties: false
+          description: |
+            The vehicle's energy consumption for the journey.
+
+            This value is a function of capacity utilisation.
+          required:
+            - amount
+            - unit
+          properties:
+            amount:
+              type: string
+              pattern: '^[0-9]+(\.[0-9]+)?$'
+              example: '30.50'
+            unit:
+              type: string
+              enum:
+                - MJ/tkm
+              example: 'MJ/tkm'
+        vehicle_capacity:
+          description: The vehicle's capacity in tonnes.
+          type: string
+          pattern: '^[0-9]+(\.[0-9]+)?$'
+          example: '2.9'
+        load_factor:
+          $ref: '#/components/schemas/RoadLoadFactor'
+        empty_runs_factor:
+          $ref: '#/components/schemas/RoadEmptyRunsFactor'
+        emission_standard:
+          $ref: '#/components/schemas/RoadEmissionStandard'
+        capacity_utilisation:
+          description: |
+            The vehicle's capacity utilisation, which is a function of load factor and empty runs factor.
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          example: 0.50
+        situation:
+          $ref: '#/components/schemas/RoadSituation'
+        gradient:
+          $ref: '#/components/schemas/RoadGradient'
     MethodologyDetails:
       description: |
         Details about the parameters and calculations used in the methodology for estimating emissions.
       type: object
+      additionalProperties: false
       properties:
         flight:
           description: Freight flight methodology details.
@@ -9585,3 +9717,39 @@ components:
         * 2023-12-01T12:30:30.000Z
         * 2023-12-01T12:30:30Z
         * 2023-12-01T11:30:30+01.00
+    RoadGradient:
+      description: Describes the road's topology.
+      type: string
+      enum:
+        - flat
+        - hilly
+        - mountainous
+    RoadLoadFactor:
+      description: Measure of how fully a vehicle is utilising its cargo capacity.
+      type: number
+      format: float
+      minimum: 0
+      maximum: 1
+    RoadEmptyRunsFactor:
+      description: Empty runs factor measures the proportion of a vehicle's travel that occurs without carrying any cargo.
+      type: number
+      format: float
+      minimum: 0
+      maximum: 1
+    RoadSituation:
+      description: Situation describes the driving environment and road condition.
+      type: string
+      enum:
+        - city_urban_freeflow
+        - motorway_urban_freeflow
+        - motorway_rural_freeflow
+    RoadEmissionStandard:
+      description: The vehicle's emission standard for pollution.
+      type: string
+      enum:
+        - euro1
+        - euro2
+        - euro3
+        - euro4
+        - euro5
+        - euro6
