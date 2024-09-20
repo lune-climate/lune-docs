@@ -308,6 +308,17 @@ components:
 
             Note: `client_account_id` takes precedence of `client_account_handle`.
           default: ''
+        client_account_external_pages_visibility:
+          description:
+            Controls the visibility of external pages such as sustainability and analytics pages.
+
+            Defaults to `hidden`.
+          oneOf:
+            - $ref: 'api-schema.yml#/components/schemas/AccountExternalPagesVisibility'
+            - type: string
+              x-lune-name: Blank
+              enum:
+                - ''
         client_account_currency:
           type: string
           description: |
