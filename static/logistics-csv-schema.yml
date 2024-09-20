@@ -443,6 +443,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg1_fuel:
+          $ref: '#/components/schemas/Fuel'
         leg1_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
@@ -564,6 +566,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg2_fuel:
+          $ref: '#/components/schemas/Fuel'
         leg2_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
@@ -685,6 +689,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg3_fuel:
+          $ref: '#/components/schemas/Fuel'
         leg3_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
@@ -806,6 +812,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg4_fuel:
+          $ref: '#/components/schemas/Fuel'
         leg4_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
@@ -927,6 +935,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg5_fuel:
+          $ref: '#/components/schemas/Fuel'
         leg5_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
@@ -1048,6 +1058,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg6_fuel:
+          $ref: '#/components/schemas/Fuel'
         leg6_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
@@ -1169,6 +1181,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg7_fuel:
+          $ref: '#/components/schemas/Fuel'
         leg7_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
@@ -1290,6 +1304,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg8_fuel:
+          $ref: '#/components/schemas/Fuel'
         leg8_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
@@ -1411,6 +1427,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg9_fuel:
+          $ref: '#/components/schemas/Fuel'
         leg9_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
@@ -1532,6 +1550,8 @@ components:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg10_fuel:
+          $ref: '#/components/schemas/Fuel'
         leg10_refrigerated:
           description: |
             A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
@@ -1660,10 +1680,23 @@ components:
       oneOf:
         - $ref: 'api-schema.yml#/components/schemas/SimpleShippingMethod'
         - $ref: 'api-schema.yml#/components/schemas/SimpleSeaShippingMethod'
+        - $ref: 'api-schema.yml#/components/schemas/RoadShippingMethod'
         - type: string
           x-lune-name: Container ship method
           enum:
             - container_ship
+            - ''
+    Fuel:
+      description: |
+        The vehicle's fuel.
+
+        Only supported for the following vehicles: `truck_generic_van`, `truck_rigid_7_5t`, `truck_rigid_12t`, `truck_rigid_20t`, `truck_rigid_26t`, `truck_rigid_32t`, `truck_articulated_34t`, `truck_articulated_40t`
+      default: ''
+      oneOf:
+        - $ref: 'api-schema.yml#/components/schemas/RoadFuel'
+        - type: string
+          x-lune-name: No fuel
+          enum:
             - ''
     MultiLegRowOut:
       type: object
