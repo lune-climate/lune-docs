@@ -6791,21 +6791,7 @@ components:
           - truck_articulated_34t
           - truck_articulated_40t
         fuel:
-          type: string
-          enum:
-            - gasoline
-            - diesel
-            - 99_diesel_1_biodiesel
-            - 98_diesel_2_biodiesel
-            - 95_diesel_5_biodiesel
-            - 93_diesel_7_biodiesel
-            - 90_diesel_10_biodiesel
-            - 80_diesel_20_biodiesel
-            - 50_diesel_50_biodiesel
-            - ethanol_from_corn
-            - hvo_from_tallow
-            - lpg
-            - cng
+          $ref: '#/components/schemas/RoadFuel'
         gradient:
           description: |
             Describes the road's topology.
@@ -9752,6 +9738,23 @@ components:
         - euro4
         - euro5
         - euro6
+    RoadFuel:
+      description: The vehicle's fuel.
+      type: string
+      enum:
+        - gasoline
+        - diesel
+        - 99_diesel_1_biodiesel
+        - 98_diesel_2_biodiesel
+        - 95_diesel_5_biodiesel
+        - 93_diesel_7_biodiesel
+        - 90_diesel_10_biodiesel
+        - 80_diesel_20_biodiesel
+        - 50_diesel_50_biodiesel
+        - ethanol_from_corn
+        - hvo_from_tallow
+        - lpg
+        - cng
     AccountExternalPagesVisibility:
         type: string
         enum:
