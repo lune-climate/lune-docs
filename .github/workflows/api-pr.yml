@@ -35,7 +35,9 @@ jobs:
 
     - name: Commit changes
       run: |
-        git diff --cached --quiet || git commit -m "Update Changelog page"
+        git diff --cached --quiet || git -c user.name="Lune Engineering" -c user.email="eng@lune.co" commit -m "Update Changelog page"
+      env:
+        GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
 
     - name: Push changes
       run: |
