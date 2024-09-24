@@ -1896,6 +1896,37 @@ paths:
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+  /estimates/smart-scan:
+    post:
+      summary: Create emission estimate(s) via receipt or invoice data.
+      operationId: createSmartScanEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmartScanEstimateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartScanEmissionEstimate'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
   /estimates/transactions:
     post:
       summary: Create a transaction emission estimate (single)
@@ -7006,6 +7037,59 @@ components:
             category_code: '5818'
             name: 'Netflix'
             country_code: 'USA'
+    UnstructuredKeyValue:
+      description: |
+          An arbitrary dictionary (key-value pairs).
+
+          Lune attempts to extract valuable information from here.
+      type: object
+      additionalProperties:
+        type: string
+    # TODO Reuse this in all estimate request components. Keeping changes contained for now
+    BaseEstimateRequest:
+      type: object
+      description: Base parameters for estimating emissions.
+      properties:
+        name:
+          description: A name to reference this calculation.
+          type: string
+        bundle_selection:
+          $ref: '#/components/schemas/BundleSelectionRequest'
+        quantity_trunc:
+          $ref: '#/components/schemas/QuantityTrunc'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        idempotency_key:
+          $ref: '#/components/schemas/EstimateIdempotencyKey'
+    TransactionEstimateRequestData:
+      type: object
+      description: Parameters for estimating emissions associated with purchasing goods or services.
+      properties:
+        value:
+          $ref: '#/components/schemas/MonetaryAmountValue'
+        currency:
+          $ref: "#/components/schemas/CurrencyCode"
+          example: GBP
+        merchant:
+          description: Merchant from whom the goods or services the purchase was made
+          $ref: '#/components/schemas/OptionalMerchant'
+        diet:
+          description: Individual diet. Used to better estimate  food-related purchases.
+          $ref: '#/components/schemas/Diet'
+    SmartScanEstimateRequest:
+      allOf:
+        - type: object
+          required:
+            - unstructured_data
+          properties:
+            unstructured_data:
+              description: Data to be used to create the appropriate emission estimate.
+              type: object
+              properties:
+                key_value:
+                  $ref: '#/components/schemas/UnstructuredKeyValue'
+        - $ref: '#/components/schemas/BaseEstimateRequest'
+        - $ref: '#/components/schemas/TransactionEstimateRequestData'
     TransactionEstimateRequest:
       type: object
       description: Parameters for estimating emissions associated with purchasing goods or services.
@@ -7232,57 +7316,106 @@ components:
       type: integer
       minimum: 0
       maximum: 100
+    OptionalMerchantViaCategory:
+      type: object
+      x-lune-name: Merchant category code
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          description: The name of the merchant.
+          example: The Corner Store
+        country_code:
+          type: string
+          description: The three-letter code of the merchant's country.
+          example:  GBR
+        category_code:
+          type: string
+          description: |
+            An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding
+            to the transaction.
+
+            See https://github.com/greggles/mcc-codes for available codes.
+          example: "0763"
+    MerchantViaCategory:
+      type: object
+      x-lune-name: Merchant category code
+      additionalProperties: false
+      required:
+        - category_code
+        - country_code
+      properties:
+        name:
+          type: string
+          description: The name of the merchant.
+          example: The Corner Store
+        country_code:
+          type: string
+          description: The three-letter code of the merchant's country.
+          example:  GBR
+        category_code:
+          type: string
+          description: |
+            An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding
+            to the transaction.
+
+            See https://github.com/greggles/mcc-codes for available codes.
+          example: "0763"
+    OptionalMerchantViaSearch:
+      type: object
+      x-lune-name: Search
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          description: The name of the merchant.
+          example: The Corner Store
+        country_code:
+          type: string
+          description: The three-letter code of the merchant's country.
+          example:  GBR
+        search_term:
+          type: string
+          minLength: 1
+          description: |
+            The search term to query.
+            Search is resolved using a combination of semantic and keyword searching.
+          example: Bananas
+    MerchantViaSearch:
+      type: object
+      x-lune-name: Search
+      additionalProperties: false
+      required:
+        - search_term
+        - country_code
+      properties:
+        name:
+          type: string
+          description: The name of the merchant.
+          example: The Corner Store
+        country_code:
+          type: string
+          description: The three-letter code of the merchant's country.
+          example:  GBR
+        category:
+          type: string
+          description: A category the transaction belongs to.
+          example: Advertising services
+        search_term:
+          type: string
+          minLength: 1
+          description: |
+            The search term to query.
+            Search is resolved using a combination of semantic and keyword searching.
+          example: Bananas
+    OptionalMerchant:
+      oneOf:
+        - $ref: '#/components/schemas/OptionalMerchantViaCategory'
+        - $ref: '#/components/schemas/OptionalMerchantViaSearch'
     Merchant:
       oneOf:
-        - type: object
-          x-lune-name: Merchant category code
-          additionalProperties: false
-          required:
-            - category_code
-            - country_code
-          properties:
-            name:
-              type: string
-              description: The name of the merchant.
-              example: The Corner Store
-            country_code:
-              type: string
-              description: The three-letter code of the merchant's country.
-              example:  GBR
-            category_code:
-              type: string
-              description: |
-                An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding
-                to the transaction.
-
-                See https://github.com/greggles/mcc-codes for available codes.
-              example: "0763"
-        - type: object
-          x-lune-name: Search
-          additionalProperties: false
-          required:
-            - search_term
-            - country_code
-          properties:
-            name:
-              type: string
-              description: The name of the merchant.
-              example: The Corner Store
-            country_code:
-              type: string
-              description: The three-letter code of the merchant's country.
-              example:  GBR
-            category:
-              type: string
-              description: A category the transaction belongs to.
-              example: Advertising services
-            search_term:
-              type: string
-              minLength: 1
-              description: |
-                The search term to query.
-                Search is resolved using a combination of semantic and keyword searching.
-              example: Bananas
+        - $ref: '#/components/schemas/MerchantViaCategory'
+        - $ref: '#/components/schemas/MerchantViaSearch'
     Diet:
       description: |
         A diet followed by an individual.
@@ -7343,6 +7476,55 @@ components:
           properties:
             request:
               $ref: '#/components/schemas/FlightEstimateRequest'
+    SmartScanEmissionEstimateLineItem:
+      type: object
+      description: Smart scan line item estimate.
+      allOf:
+        - type: object
+          required:
+            - mass
+            - type
+          properties:
+            mass:
+              $ref: '#/components/schemas/Mass'
+            type:
+              type: string
+              description: |
+                Identifies the type of the line item emission estimate. New values are expected to be
+                introduced over time and considered to be a non breaking change.
+              example: transaction
+              enum:
+                - transaction
+        - type: object
+          oneOf:
+            - $ref: '#/components/schemas/TransactionEmissionEstimateBaseFields'
+          discriminator:
+            propertyName: type
+            mapping:
+              transaction: '#/components/schemas/TransactionEmissionEstimateBaseFields'
+    SmartScanEmissionEstimateLineItems:
+      type: array
+      description: Line items for the smart scan estimate. At least one line item will always exist.
+      items:
+        $ref: '#/components/schemas/SmartScanEmissionEstimateLineItem'
+    SmartScanEmissionEstimate:
+      allOf:
+        - $ref: '#/components/schemas/EmissionEstimateResponse'
+        - type: object
+          required:
+            - request
+            - external_estimate_url
+            - line_items
+          properties:
+            request:
+              $ref: '#/components/schemas/SmartScanEstimateRequest'
+            external_estimate_url:
+              description: 'An external accessible URL linking to a detailed page that provides complete information about the estimate.'
+              oneOf:
+                - $ref: '#/components/schemas/Url'
+                - $ref: '#/components/schemas/NullEnum'
+            line_items:
+              $ref: '#/components/schemas/SmartScanEmissionEstimateLineItems'
     BatchTransactionEmissionEstimate:
       type: array
       description: |
@@ -7460,65 +7642,70 @@ components:
               category_code: '5818'
               name: 'Netflix'
               country_code: 'USA'
+    TransactionEmissionEstimateBaseFields:
+      type: object
+      required:
+        - emission_factor
+        - diet_factor
+        - exchange_rate
+        - exchange_rate_date
+      properties:
+        emission_factor:
+          description: This property is `null` for any estimate created before 01/03/2024
+          oneOf:
+            - $ref: '#/components/schemas/EmissionFactorWithGasEmissions'
+            - $ref: '#/components/schemas/NullEnum'
+        search_term_match:
+          type: string
+          description: |
+            The most accurate term matching the search.
+
+            The emission factor for this term is used to compute the emission estimate.
+        diet_factor:
+          oneOf:
+            - x-lune-name: Diet factor
+              type: string
+              description: The diet factor that was applied to the emission factor.
+              example: '0.6495'
+              pattern: '^[0-9]+(\.[0-9]+)?$'
+            - $ref: '#/components/schemas/NullEnum'
+        exchange_rate:
+          oneOf:
+            - x-lune-name: Exchange rate
+              type: string
+              description: |
+               The exchange rate that was used to convert from the requested currency to the Emission Factor currency.
+
+               For example, if the transaction was for £200, multiply by the exchange factor (1.1686 EUR / GBP)
+               to obtain the value (€233.72) in the Emission Factor's currency.
+              example: '0.2667'
+              pattern: '^[0-9]+(\.[0-9]+)?$'
+            - $ref: '#/components/schemas/NullEnum'
+        exchange_rate_date:
+          oneOf:
+            - x-lune-name: Exchange rate date
+              type: string
+              description: Date the exchange rate was taken.
+              example: '2024-01-01'
+              format: date
+            - $ref: '#/components/schemas/NullEnum'
     TransactionEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
+        - $ref: '#/components/schemas/TransactionEmissionEstimateBaseFields'
         - type: object
           required:
             - request
-            - emission_factor
-            - diet_factor
-            - exchange_rate
-            - exchange_rate_date
             - is_transaction
             - transaction_processed_at
             - external_estimate_url
           properties:
             request:
               $ref: '#/components/schemas/TransactionEstimateRequest'
-            emission_factor:
-              description: This property is `null` for any estimate created before 01/03/2024
-              oneOf:
-                - $ref: '#/components/schemas/EmissionFactorWithGasEmissions'
-                - $ref: '#/components/schemas/NullEnum'
             external_estimate_url:
               description: 'An external accessible URL linking to a detailed page that provides complete information about the estimate.'
               oneOf:
                 - $ref: '#/components/schemas/Url'
-                - $ref: '#/components/schemas/NullEnum'
-            search_term_match:
-              type: string
-              description: |
-                The most accurate term matching the search.
-
-                The emission factor for this term is used to compute the emission estimate.
-            diet_factor:
-              oneOf:
-                - x-lune-name: Diet factor
-                  type: string
-                  description: The diet factor that was applied to the emission factor.
-                  example: '0.6495'
-                  pattern: '^[0-9]+(\.[0-9]+)?$'
-                - $ref: '#/components/schemas/NullEnum'
-            exchange_rate:
-              oneOf:
-                - x-lune-name: Exchange rate
-                  type: string
-                  description: |
-                   The exchange rate that was used to convert from the requested currency to the Emission Factor currency.
-
-                   For example, if the transaction was for £200, multiply by the exchange factor (1.1686 EUR / GBP)
-                   to obtain the value (€233.72) in the Emission Factor's currency.
-                  example: '0.2667'
-                  pattern: '^[0-9]+(\.[0-9]+)?$'
-                - $ref: '#/components/schemas/NullEnum'
-            exchange_rate_date:
-              oneOf:
-                - x-lune-name: Exchange rate date
-                  type: string
-                  description: Date the exchange rate was taken.
-                  example: '2024-01-01'
-                  format: date
                 - $ref: '#/components/schemas/NullEnum'
             is_transaction:
               oneOf:
