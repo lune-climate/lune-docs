@@ -1925,6 +1925,8 @@ paths:
           $ref: '#/components/responses/Conflict'
         '415':
           $ref: '#/components/responses/UnsupportedMediaType'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
   /estimates/transactions:
@@ -2900,6 +2902,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: The input is valid but could not be processed correctly to perform the operation.
     TooManyRequests:
       description: Too many requests have been made in a short period of time
     Forbidden:
@@ -3179,6 +3183,7 @@ components:
             - estimate_idempotency_already_exists
             - airport_route_required
             - future_departure_invalid
+            - smart_scan_inference_failure
         message:
           type: string
           description: |
