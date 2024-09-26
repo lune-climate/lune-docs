@@ -7088,6 +7088,8 @@ components:
         diet:
           description: Individual diet. Used to better estimate  food-related purchases.
           $ref: '#/components/schemas/Diet'
+        region_fallback:
+          $ref: '#/components/schemas/RegionFallback'
     SmartScanEstimateRequest:
       allOf:
         - type: object
