@@ -7527,16 +7527,10 @@ components:
         - type: object
           required:
             - request
-            - external_estimate_url
             - line_items
           properties:
             request:
               $ref: '#/components/schemas/SmartScanEstimateRequest'
-            external_estimate_url:
-              description: 'An external accessible URL linking to a detailed page that provides complete information about the estimate.'
-              oneOf:
-                - $ref: '#/components/schemas/Url'
-                - $ref: '#/components/schemas/NullEnum'
             line_items:
               $ref: '#/components/schemas/SmartScanEmissionEstimateLineItems'
     BatchTransactionEmissionEstimate:
@@ -9572,6 +9566,7 @@ components:
         - denominator_unit
         - created_at
         - region
+        - category
       properties:
         id:
           description: The emission factor unique identifier
@@ -9605,6 +9600,10 @@ components:
         region:
           type: string
           description: The name of the region that the emission factor covers.
+        category: 
+          type: string
+          nullable: true
+          description: A category that describes the emission factor.
     EmissionFactorWithGasEmissions:
       allOf:
         - $ref: '#/components/schemas/EmissionFactor'
