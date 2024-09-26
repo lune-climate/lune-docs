@@ -6826,6 +6826,9 @@ components:
           - truck_rigid_32t
           - truck_articulated_34t
           - truck_articulated_40t
+          - truck_articulated_44t
+          - truck_articulated_60t
+          - truck_articulated_72t
         fuel:
           $ref: '#/components/schemas/RoadFuel'
         gradient:
