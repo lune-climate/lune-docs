@@ -7140,6 +7140,8 @@ components:
           example: false
         transaction_processed_at:
           $ref: '#/components/schemas/TransactionProcessedAt'
+        region_fallback:
+          $ref: '#/components/schemas/RegionFallback'
       example:
         value:
           value: '8.99'
@@ -9972,3 +9974,16 @@ components:
           Controls the visibility of external pages such as sustainability and analytics pages.
 
           Defaults to `hidden`.
+    RegionFallback:          
+      type: string
+      description: |
+        Controls how geographical constraints are interpreted and if a fallback is performed.
+        For example, how fields like `country_code` and `region` are interpreted.
+
+        * `never` (the default) means no fallback is performed and only emission
+          factors that match the specified geographical area are returned.
+        * `always` means the emission factors for related geographic areas are unconditionally included
+          in the results.
+      enum:
+        - never
+        - always
