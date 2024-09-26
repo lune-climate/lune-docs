@@ -9920,6 +9920,15 @@ components:
         - city_urban_freeflow
         - motorway_urban_freeflow
         - motorway_rural_freeflow
+        - city_urban_heavy_traffic
+        - city_urban_stop_and_go
+        - motorway_urban_heavy_traffic
+        - motorway_urban_stop_and_go
+        - motorway_rural_heavy_traffic
+        - motorway_rural_stop_and_go
+        - arterial_road_rural_freeflow
+        - arterial_road_rural_heavy_traffic
+        - arterial_road_rural_stop_and_go
     RoadEmissionStandard:
       description: The vehicle's emission standard for pollution.
       type: string
