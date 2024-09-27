@@ -3188,6 +3188,7 @@ components:
             - airport_route_required
             - future_departure_invalid
             - smart_scan_inference_failure
+            - smart_scan_creation_failure
         message:
           type: string
           description: |
