@@ -7056,8 +7056,13 @@ components:
 
           Lune attempts to extract valuable information from here.
       type: object
-      additionalProperties:
-        type: string
+      additionalProperties: true
+      example:
+        id: 123
+        amount:
+          value: "10"
+          currency: "EUR"
+        line_items: [{ amount: "1" }, { amount: "9" }]
     # TODO Reuse this in all estimate request components. Keeping changes contained for now
     BaseEstimateRequest:
       type: object
