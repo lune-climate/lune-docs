@@ -7056,8 +7056,7 @@ components:
 
           Lune attempts to extract valuable information from here.
       type: object
-      additionalProperties:
-        type: string
+      additionalProperties: true
     # TODO Reuse this in all estimate request components. Keeping changes contained for now
     BaseEstimateRequest:
       type: object
