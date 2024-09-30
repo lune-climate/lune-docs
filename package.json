@@ -59,7 +59,7 @@
     "@js-joda/timezone": "^2.21.1",
     "@tsconfig/docusaurus": "^2.0.3",
     "@types/jest": "^29.5.13",
-    "@types/node": "^22.7.2",
+    "@types/node": "^22.7.3",
     "@types/react": "^18.3.9",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
