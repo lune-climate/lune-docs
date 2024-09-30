@@ -5,17 +5,16 @@ const lightCodeTheme = require('prism-react-renderer').themes.github
 const darkCodeTheme = require('prism-react-renderer').themes.dracula
 require('dotenv').config()
 
-
 function redirectDirectory(path, oldDir, newDir) {
-  const pathItems = path.split('/')
-  // redirect /resources/* -> /api-reference/*
-  if (pathItems.length > 1 && pathItems[0] === '' && pathItems[1] === newDir) {
-    const oldPath = [`/${oldDir}`, ...(pathItems.slice(2))].join('/')
-    console.log(`redirect ${oldPath} -> ${path}`)
-    return oldPath
-  }
-  // undefined results in no redirect
-  return undefined
+    const pathItems = path.split('/')
+    // redirect /resources/* -> /api-reference/*
+    if (pathItems.length > 1 && pathItems[0] === '' && pathItems[1] === newDir) {
+        const oldPath = [`/${oldDir}`, ...pathItems.slice(2)].join('/')
+        console.log(`redirect ${oldPath} -> ${path}`)
+        return oldPath
+    }
+    // undefined results in no redirect
+    return undefined
 }
 
 /** @type {import('@docusaurus/types').Config} */
@@ -150,8 +149,16 @@ const config = {
         },
     staticDirectories: ['static'],
     scripts: [
-      { src: '/js/lune.js', defer: true },
-      ...(process.env.ENABLE_PLAUSIBLE ? [{ defer: true, 'data-domain': 'docs.lune.co', src: 'https://plausible.io/js/plausible.js' }] : [])
+        { src: '/js/lune.js', defer: true },
+        ...(process.env.ENABLE_PLAUSIBLE
+            ? [
+                  {
+                      defer: true,
+                      'data-domain': 'docs.lune.co',
+                      src: 'https://plausible.io/js/plausible.js',
+                  },
+              ]
+            : []),
     ],
     plugins: [
         [
@@ -163,35 +170,41 @@ const config = {
         ],
         require.resolve('./plugins/custom-webpack-plugin'),
         [
-          "@docusaurus/plugin-client-redirects", // Note: this only works for production builds
-          {
-            redirects: [
-              {
-                to: '/api-reference/bundles/get-bundle',
-                from: ['/api-reference/projects/get-bundle', '/resources/projects/get-bundle'],
-              },
-              {
-                to: '/api-reference/bundles/list-bundles',
-                from: ['/api-reference/projects/list-bundles', '/resources/projects/list-bundles'],
-              }
-            ],
-            createRedirects: (path) => {
-              // this function, at build time, generates static redirects
+            '@docusaurus/plugin-client-redirects', // Note: this only works for production builds
+            {
+                redirects: [
+                    {
+                        to: '/api-reference/bundles/get-bundle',
+                        from: [
+                            '/api-reference/projects/get-bundle',
+                            '/resources/projects/get-bundle',
+                        ],
+                    },
+                    {
+                        to: '/api-reference/bundles/list-bundles',
+                        from: [
+                            '/api-reference/projects/list-bundles',
+                            '/resources/projects/list-bundles',
+                        ],
+                    },
+                ],
+                createRedirects: (path) => {
+                    // this function, at build time, generates static redirects
 
-              let newPath = redirectDirectory(path, 'resources', 'api-reference')
-              if (newPath) {
-                return newPath
-              }
-              newPath = redirectDirectory(path, 'api', 'key-concepts')
-              if (newPath) {
-                return newPath
-              }
+                    let newPath = redirectDirectory(path, 'resources', 'api-reference')
+                    if (newPath) {
+                        return newPath
+                    }
+                    newPath = redirectDirectory(path, 'api', 'key-concepts')
+                    if (newPath) {
+                        return newPath
+                    }
 
-              // undefined results in no redirect
-              return undefined
-            }
-          }
-        ]
+                    // undefined results in no redirect
+                    return undefined
+                },
+            },
+        ],
     ],
 }
 
