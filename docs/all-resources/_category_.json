@@ -1,7 +1,7 @@
 {
-  "label": "All Resources",
-  "position": 3,
-  "collapsible": true,
-  "collapsed": true,
-  "className": "hidden-sidebar"
+    "label": "All Resources",
+    "position": 3,
+    "collapsible": true,
+    "collapsed": true,
+    "className": "hidden-sidebar"
 }
