@@ -1929,6 +1929,8 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/transactions:
     post:
       summary: Create a transaction emission estimate (single)
@@ -7396,6 +7398,10 @@ components:
           type: string
           description: The three-letter code of the merchant's country.
           example:  GBR
+        category:
+          type: string
+          description: A category the transaction belongs to.
+          example: Advertising services
         search_term:
           type: string
           minLength: 1

@@ -1,41 +1,35 @@
 {
-  "extends": "@tsconfig/docusaurus/tsconfig.json",
-  "compilerOptions": {
-    "target": "ES2019",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "outDir": "dist",
-    "rootDir": "src",
-    "jsx": "react",
-    "strict": true,
-    "strictFunctionTypes": true,
-    "noImplicitThis": true,
-    "noImplicitAny": false,
-    "alwaysStrict": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitReturns": true,
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["./*"],
-      "@site/*": ["./*"]
-    },
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types": [
-      "node",
-      "jest",
-      "mixpanel"
-    ],
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "include": ["src/**/*.tsx", "src/**/**/*.tsx"],
-  "ts-node": {
+    "extends": "@tsconfig/docusaurus/tsconfig.json",
     "compilerOptions": {
-        "module": "commonjs"
+        "target": "ES2019",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "outDir": "dist",
+        "rootDir": "src",
+        "jsx": "react",
+        "strict": true,
+        "strictFunctionTypes": true,
+        "noImplicitThis": true,
+        "noImplicitAny": false,
+        "alwaysStrict": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noImplicitReturns": true,
+        "baseUrl": "./",
+        "paths": {
+            "@/*": ["./*"],
+            "@site/*": ["./*"]
+        },
+        "typeRoots": ["node_modules/@types"],
+        "types": ["node", "jest", "mixpanel"],
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "include": ["src/**/*.tsx", "src/**/**/*.tsx"],
+    "ts-node": {
+        "compilerOptions": {
+            "module": "commonjs"
+        }
     }
-  }
 }
