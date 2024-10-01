@@ -106,7 +106,7 @@ Lune Pay can be configured by providing several optional query parameters:
 - `external_id` is a customer-defined id.  It serves two purposes:
   1. It enforces flow uniqueness.  If a customer has completed a payment with a specific `external_id`, it cannot complete additional payments with the same `external_id`
   2. it is appended to `redirect_url` as a query parameter.  Customers can use `external_id` for flow reconciliation
-- `bundle_id` is the id of the bundle or bundles (multiples are supported) to display.  If not set, the account's default bundle selection is displayed.  You can extract bundle ids by using the API's [list project bundles endpoint](api-reference/bundles/list-bundles)
+- `bundle_id` is the id of the bundle or bundles (multiples are supported) to display.  If not set, the account's default bundle selection is displayed.  You can extract bundle ids by using the API's [list project bundles endpoint](/api-reference/bundles/list-bundles)
 
 </div>
 <div>
