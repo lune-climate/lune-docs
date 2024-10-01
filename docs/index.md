@@ -55,8 +55,7 @@ In this guide, you will learn how to interact with the Lune API to:
     leftIcon={<ArrowCircleRightIcon />}
     sx={{ textTransform: 'none' }}
     href="/guides/integrate-logistics"
->Get Started
-</Button>
+>Get Started</Button>
 </>
 </div>
 </div>
@@ -88,8 +87,7 @@ In this guide, you will learn how to interact with the Lune API to:
     leftIcon={<ArrowCircleRightIcon />}
     sx={{ textTransform: 'none' }}
     href="/guides/integrate-payments"
->Get Started
-</Button>
+>Get Started</Button>
 </>
 
 </div>
@@ -122,8 +120,7 @@ In this guide, you will learn how to interact with the Lune API to:
     leftIcon={<ArrowCircleRightIcon />}
     sx={{ textTransform: 'none' }}
     href="/guides/integrate-fintech"
->Get Started
-</Button>
+>Get Started</Button>
 </>
 
 </div>
@@ -154,8 +151,7 @@ Create climate positive customer experiences by integrating innovative carbon re
     leftIcon={<ArrowCircleRightIcon />}
     sx={{ textTransform: 'none' }}
     href="/key-concepts/introduction"
->View API Reference
-</Button>
+>View API Reference</Button>
 
 </div>
 </div>
@@ -202,8 +198,7 @@ Learn how to use the right units of measurement, communicate complex concepts to
     leftIcon={<ArrowCircleRightIcon />}
     sx={{ textTransform: 'none' }}
     href="/product-and-design-guides/co2-units-of-measurement"
->View product & design guides
-</Button>
+>View product & design guides</Button>
 
 </div>
 </div>
