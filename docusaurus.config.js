@@ -24,7 +24,7 @@ const config = {
     url: 'https://docs.lune.co',
     baseUrl: '/',
     onBrokenLinks: 'throw',
-    onBrokenMarkdownLinks: 'warn',
+    onBrokenMarkdownLinks: 'throw',
     favicon: 'img/favicon.png',
 
     // Even if you don't use internalization, you can use this field to set useful
