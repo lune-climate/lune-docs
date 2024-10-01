@@ -7398,6 +7398,10 @@ components:
           type: string
           description: The three-letter code of the merchant's country.
           example:  GBR
+        category:
+          type: string
+          description: A category the transaction belongs to.
+          example: Advertising services
         search_term:
           type: string
           minLength: 1
