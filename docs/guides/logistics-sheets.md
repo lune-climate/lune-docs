@@ -205,7 +205,7 @@ We apply your API rate limit when processing a sheet.
 </div>
 <div>
 
-#### Results
+### Results
 
 The following columns are added to the columns provided by you.
 
