@@ -1,4 +1,6 @@
 ---
+sidebar_position: 12
+sidebar_label: Smart Scan
 hide_table_of_contents: true
 ---
 

@@ -368,37 +368,6 @@ const sidebars = {
                         },
                     ],
                 },
-
-                {
-                    type: 'category',
-                    label: 'Smart scan',
-                    link: {
-                        type: 'doc',
-                        id: 'guides/smart-scan',
-                    },
-                    items: [
-                        {
-                            type: 'link',
-                            label: 'Prerequisites',
-                            href: '/guides/smart-scan#prerequisites',
-                        },
-                        {
-                            type: 'link',
-                            label: 'Gathering the data',
-                            href: '/guides/smart-scan#input-data',
-                        },
-                        {
-                            type: 'link',
-                            label: 'Making the request',
-                            href: '/guides/smart-scan#making-the-request',
-                        },
-                        {
-                            type: 'link',
-                            label: 'Intepreting the response',
-                            href: '/guides/smart-scan#interpreting-the-response',
-                        },
-                    ],
-                },
             ],
         },
         {
