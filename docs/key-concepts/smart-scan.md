@@ -79,7 +79,7 @@ the appropriate smart scan emission estimate.
 <div className="miniSections">
 
 <Snippet
-header="Sample request"
+header="Sample request body"
 language="json"
 code={`{
     "currency": "USD",
