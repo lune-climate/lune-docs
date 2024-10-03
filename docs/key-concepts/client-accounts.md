@@ -27,12 +27,12 @@ Accounts and Client Accounts support the same feature set, the fundamental diffe
 </div>
 <div>
 
-##### When to use Client Accounts
+### When to use Client Accounts
 
 If you are a B2B business and the ultimate consumer of Lune's services is your customer, we recommend you use Client Accounts.
 
 
-##### When not to use Client Accounts
+### When not to use Client Accounts
 
 It is recommend that you don't use Client Accounts if:
 * you use Lune not for you customers but for your own company's needs
