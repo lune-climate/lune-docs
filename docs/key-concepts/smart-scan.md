@@ -17,8 +17,6 @@ import Tip from '@site/src/components/Tip';
 
 <div>
 
-In this guide we'll explore calculating transaction emissions via the smart scan functionality.
-
 The smart scan functionality allows you to provide data in multiple formats and without any
 prior knowledge of the data structure. Lune analyses this input and deduces the transactions
 that took place and calculates the associated emissions.
@@ -40,7 +38,7 @@ your particular use case.
 
 <>
 
-![AIS](/img/smart-scan.png)
+![Smart Scan](/img/smart-scan.png)
 
 </>
 
