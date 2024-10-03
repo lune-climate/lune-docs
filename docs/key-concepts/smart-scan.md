@@ -69,9 +69,9 @@ invoice, receipts etc.
 
 The example provided is for a case of a transaction done in US dollars for
 `cloud computing` services. The full details of this transaction are present on a
-receipt and not known by the client, instead OCR is ran on this receipt and the
-information sent to Lune which extracts the transaction information and creates
-the appropriate smart scan emission estimate.
+receipt and not known by the client, instead we use Mindee to extract information
+from the receipt sent it directly to Lune which extracts the transaction data and
+creates the appropriate smart scan emission estimate.
 
 </div>
 </div>
