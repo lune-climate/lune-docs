@@ -21,6 +21,10 @@ The smart scan functionality allows you to provide data in multiple formats and 
 prior knowledge of the data structure. Lune analyses this input and deduces the transactions
 that took place and calculates the associated emissions.
 
+This functionality is particularly useful for cases where you have no concrete information
+regarding transactions which you want to estimate, but have several pieces of data that can
+help guide this discovery: receipts, invoices, emails etc.
+
 <Tip>
 
 Note: This functionality is currently on beta and should not be relied on without some initial
@@ -30,20 +34,6 @@ your particular use case.
 </Tip>
 
 </div>
-<div>
-
-## Prerequisites
-
-In order to proceed with the steps provided you need
-
--   A Lune API key
--   cURL and jq installed (or be willing to adapt the procedure to your tools)
-
-</div>
-<div>
-
-</div>
-
 </div>
 
 <>
@@ -75,9 +65,11 @@ this and extract any relevant data, combining it with the structured data to
 produce a final estimate. This can be for example OCR data extracted from
 invoice, receipts etc.
 
-The sample request provided combines both inputs: it is known that the
-transaction was done in US dollars and refers to `cloud computing` services while
-more detailed information is extracted from the receipt via OCR.
+The example provided is for a case of a transaction done in US dollars for
+`cloud computing` services. The full details of this transaction are present on a
+receipt and not known by the client, instead OCR is ran on this receipt and the
+information sent to Lune which extracts the transaction information and creates
+the appropriate smart scan emission estimate.
 
 </div>
 </div>
@@ -124,64 +116,22 @@ code={`{
 
 <div>
 
-## Making the request
+## The smart scan estimate
 
-Once you have the right data send it to the Lune API like so:
+A smart scan estimate contains information about the provided transaction as a whole
+but also detailed information about the detailed items when possible.
 
-</div>
-</div>
+The `mass` and `quote` fields contain total information about the estimate, showcasing
+the total emissions and the appropriate quote to offset it in Lune.
 
-<div className="miniSections">
+The `line_items` field contains detailed information about item detected in the input.
+This field will always contain at least one element. At this point in time, only
+estimates of type `transaction` can be produced, but emissions that are calculated
+based on the actual activity that happened (for example flying from Porto to London)
+is coming in the near future.
 
-<Snippet
-header="Sample cURL command"
-language="bash"
-code={`curl 'https://api.lune.co/v1/estimates/smart-scan' \\
-  -H "Authorization: Bearer $API_KEY" \\
-  -H 'Content-Type: application/json' \\
-  -X POST \\
-  -d '{
-    "currency": "USD",
-    "merchant": {
-      "category": "cloud computing"
-    },
-    "unstructured_data": {
-      "key_value": {
-        "prediction": {
-          "locale": {
-            "language": "en",
-            "currency": "USD"
-          },
-          "line_items": [
-            {
-              "description": "AWS Lambda",
-              "total_amount": 10
-            },
-            {
-              "description": "AWS EC2",
-              "total_amount": 200
-            }
-          ]
-        }
-      }
-    }
-}'`}/>
-
-</div>
-
-</ApiReferenceSection>
-
-<ApiReferenceSection>
-
-<div className="paragraphSections">
-
-<div>
-
-## Interpreting the response
-
-If everything goes well you should see a response similar to the presented here. The
-`mass` and `quote` fields contain informantion about the estimate as whole, while
-`line_items` contains detailed information about each line item detected in the input.
+See on the right a sample response for the input seen above. Several fields are ommitted
+to keep things more readable.
 
 </div>
 </div>
@@ -199,7 +149,6 @@ code={`{
   "quote": {
     "currency": "GBP",
     "estimated_quantity": "0.03612",
-    ...
   },
   "line_items": [
     {
@@ -208,15 +157,11 @@ code={`{
         "amount": "0.00172"
       },
       "type": "transaction",
-      "diet_factor": null,
-      "exchange_rate": null,
       "emission_factor": {
-        "id": "XJvWdBbNaDVokYz0GlqAP9lZG6zwj7K1",
         "name": "Data processing and hosting",
         "region": "United States of America",
         "source": "epa",
         "category": "cloud computing",
-        "created_at": "2024-07-24T14:00:13.489Z",
         "gas_emissions": {
           "co2": "0.139",
           "co2e": "0.172",
@@ -225,11 +170,8 @@ code={`{
           "nitrous_oxide": "0"
         },
         "numerator_unit": "kg",
-        "source_version": "1.1.1",
         "denominator_unit": "USD",
-        "publication_year": 2022
       },
-      "exchange_rate_date": null
     },
     {
       "mass": {
@@ -237,15 +179,11 @@ code={`{
         "amount": "0.0344"
       },
       "type": "transaction",
-      "diet_factor": null,
-      "exchange_rate": null,
       "emission_factor": {
-        "id": "XJvWdBbNaDVokYz0GlqAP9lZG6zwj7K1",
         "name": "Data processing and hosting",
         "region": "United States of America",
         "source": "epa",
         "category": "cloud computing",
-        "created_at": "2024-07-24T14:00:13.489Z",
         "gas_emissions": {
           "co2": "0.139",
           "co2e": "0.172",
@@ -260,8 +198,7 @@ code={`{
       },
       "exchange_rate_date": null
     }
-  ],
-  ...
+  ]
 }`}/>
 
 </div>
