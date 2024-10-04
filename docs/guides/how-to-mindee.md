@@ -18,8 +18,7 @@ import Tip from '@site/src/components/Tip';
 In this guide we'll explore calculating [smart scan emission estimates](/key-concepts/smart-scan)
 using an invoice processed in Mindee.
 
-Mindee performs OCR in this receipt which can then be forwarded directly to Lune to create the
-appropriate emission estimate.
+Mindee performs OCR of receipts, the output of which is supported by Lune to estimate emissions.
 
 </div>
 <div>
