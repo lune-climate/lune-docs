@@ -27,8 +27,8 @@ Mindee performs OCR of receipts, the output of which is supported by Lune to est
 
 In order to proceed with the steps provided you need
 
+-   A Mindee account and are already scanning invoices.
 -   An invoice you want to create an emission estimate for
--   A valid Mindee account with enough allowance to parse the invoice
 -   A Lune API key
 -   cURL and jq installed (or be willing to adapt the procedure to your tools)
 
