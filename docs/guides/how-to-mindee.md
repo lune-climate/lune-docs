@@ -54,16 +54,8 @@ In order to proceed with the steps provided you need
 
 ## Creating the smart scan estimate
 
-The first thing is to extract the invoice information using Mindee. We'll be showing
-steps for extracting this information using the `Live Interface` but their API could
-also be used.
-
--   Head to `https://platform.mindee.com/mindee/invoices/live-interface`
--   Upload the invoice you want to create emission estimates for
--   Wait for the document to be processed.
--   Download the resulting `API response`. We will reference this file as `mindee.json`
-
-With the unstructured data in hand you can know easily reference it when contacting
+The first thing is to extract the invoice information using Mindee. With this unstructured
+data in hand you can know easily reference it when contacting
 Lune. The full smart scan estimate request properties can be seen
 [here](/api-reference/emission-estimates/create-smart-scan-estimate), adapt any fields
 that are present as you need.
