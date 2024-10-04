@@ -17,13 +17,15 @@ import Tip from '@site/src/components/Tip';
 
 <div>
 
-The smart scan functionality allows you to provide data in multiple formats and without any
-prior knowledge of the data structure. Lune analyses this input and deduces the transactions
-that took place and calculates the associated emissions.
+The smart scan functionality allows you to provide data in multiple formats without any
+prior knowledge of the data structure. Lune analyses this input, deduces the transactions, and
+calculates the associated emissions.
 
-This functionality is particularly useful for cases where you have no concrete information
-regarding transactions which you want to estimate, but have several pieces of data that can
-help guide this discovery: receipts, invoices, emails etc.
+This functionality is beneficial for cases where you have no concrete information regarding
+transactions you want to estimate, but have several pieces of data that can help guide this
+discovery such as receipts, invoices, and emails. By leveraging various data sources, smart scan
+enables a more comprehensive understanding of your financial activities and their environmental
+impact, even when dealing with fragmented or diverse information.
 
 <Tip>
 
