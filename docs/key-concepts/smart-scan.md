@@ -52,25 +52,35 @@ accuracy for your specific needs.
 
 ## Input data
 
-The smart scan functionality accepts a combination of data in two main formats:
+The smart scan functionality accepts data in two main formats:
 
--   Structured transaction estimate data, similar to [Transaction estimates](/api-reference/emission-estimates/create-transaction-estimate)
--   Unstructured data in a text format. Information regarding the transactions for which we want to calculate emissions should be present.
+1. **Structured transaction estimate data**
 
-The structured transaction estimate data allows to define any properties that
-you have prior knowledge regarding the estimates, guaranteeing that these fields
-will be respected regardless of any other input.
+    - Similar to [Transaction estimates](/api-reference/emission-estimates/create-transaction-estimate)
+    - Allows you to define known properties of the estimates
+    - Guarantees these fields will be respected regardless of other input
 
-The unstructured text data can contain any relevant information. Lune will parse
-this and extract any relevant data, combining it with the structured data to
-produce a final estimate. This can be for example OCR data extracted from
-invoice, receipts etc.
+2. **Unstructured data in text format**
+    - Can contain any relevant information about the transactions
+    - Lune parses this to extract relevant data
+    - Combined with structured data to produce a final estimate
+    - Examples: OCR data extracted from invoices, receipts, etc.
 
-The example provided is for a case of a transaction done in US dollars for
-`cloud computing` services. The full details of this transaction are present on a
-receipt and not known by the client, instead we use Mindee to extract information
-from the receipt sent it directly to Lune which extracts the transaction data and
-creates the appropriate smart scan emission estimate.
+### How It Works
+
+1. Lune analyzes both structured and unstructured data
+2. Extracts relevant information from unstructured text
+3. Combines this with any provided structured data
+4. Produces a final emission estimate
+
+### Example Use Case
+
+-   **Transaction**: US dollar payment for cloud computing services
+-   **Scenario**: Full transaction details are on an invoice, not known by the client
+-   **Data**: Mindee was used to extract information from the invoice
+
+This approach allows for accurate emission estimates even when complete transaction
+details are not initially available to the client.
 
 </div>
 </div>
