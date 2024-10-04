@@ -30,7 +30,7 @@ In order to proceed with the steps provided you need
 -   A Mindee account and are already scanning invoices.
 -   An invoice you want to create an emission estimate for
 -   A Lune API key
--   cURL and jq installed (or be willing to adapt the procedure to your tools)
+-   cURL and jq installed or your preferred tools
 
 </div>
 <div>
