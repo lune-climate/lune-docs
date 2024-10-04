@@ -129,20 +129,27 @@ code={`{
 
 ## The smart scan estimate
 
-A smart scan estimate contains information about the provided transaction as a whole
-but also detailed information about the detailed items when possible.
+A smart scan estimate provides:
 
-The `mass` and `quote` fields contain total information about the estimate, showcasing
-the total emissions and the appropriate quote to offset it in Lune.
+-   Overall transaction information:
 
-The `line_items` field contains detailed information about item detected in the input.
-This field will always contain at least one element. At this point in time, only
-estimates of type `transaction` can be produced, but emissions that are calculated
-based on the actual activity that happened (for example flying from Porto to London)
-is coming in the near future.
+    -   `mass`: Total emissions
+    -   `quote`: Appropriate offset quote in Lune
 
-See on the right a sample response for the input seen above. Several fields are ommitted
-to keep things more readable.
+-   Detailed item information:
+    -   `line_items`: Contains at least one element with details of detected items
+
+Currently, only `transaction` type estimates are available. Future updates will include
+activity-based emissions (e.g., flights).
+
+The smart scan accepts:
+
+1. Structured transaction estimate data
+2. Unstructured text data (e.g., OCR from invoices)
+
+Lune analyzes both, extracting and combining information to produce the final estimate.
+
+Note: Sample responses omits some fields for readability.
 
 </div>
 </div>
