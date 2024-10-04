@@ -29,9 +29,8 @@ impact, even when dealing with fragmented or diverse information.
 
 <Tip>
 
-Note: This functionality is currently on beta and should not be relied on without some initial
-human verification of the results. Contact us to improve the results of this functionality on
-your particular use case.
+Note: This feature is in beta. Please verify results manually. Contact us to help improve its
+accuracy for your specific needs.
 
 </Tip>
 
