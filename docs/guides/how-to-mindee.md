@@ -54,12 +54,12 @@ In order to proceed with the steps provided you need
 
 ## Creating the smart scan estimate
 
-The first thing is to extract the invoice information using Mindee. This can be used
-as the unstructured when contacting Lune.
+The first thing is to extract the invoice information using Mindee. This can then be used
+as the unstructured data when contacting Lune.
 
-The full smart scan estimate request properties can be seen
-[here](/api-reference/emission-estimates/create-smart-scan-estimate), adapt any fields
-that are present as you need.
+Build a smart scan estimate request.
+[here](/api-reference/emission-estimates/create-smart-scan-estimate). The `unstructured_data`
+property will be used to send Mindee response, adapt all other fields as you see fit.
 
 For this example, let's make it a scenario where we know beforehand that all of our
 receipts will be in USD and the category is `cloud computing`. To use the previously
