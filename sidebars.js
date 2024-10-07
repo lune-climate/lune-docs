@@ -368,6 +368,27 @@ const sidebars = {
                         },
                     ],
                 },
+
+                {
+                    type: 'category',
+                    label: 'How to calculate emissions using Mindee',
+                    link: {
+                        type: 'doc',
+                        id: 'guides/how-to-mindee',
+                    },
+                    items: [
+                        {
+                            type: 'link',
+                            label: 'Prerequisites',
+                            href: '/guides/how-to-mindee#prerequisites',
+                        },
+                        {
+                            type: 'link',
+                            label: 'Gathering the data',
+                            href: '/guides/how-to-mindee#creating-the-smart-scan-estimate',
+                        },
+                    ],
+                },
             ],
         },
         {
