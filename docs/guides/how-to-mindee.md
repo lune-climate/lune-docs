@@ -41,7 +41,7 @@ In order to proceed with the steps provided you need
 
 <>
 
-![Invoice](/img/invoice.png)
+![Smart Scan](/img/smart-scan.png)
 
 </>
 
