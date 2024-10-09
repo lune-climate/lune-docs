@@ -7683,6 +7683,14 @@ components:
             The most accurate term matching the search.
 
             The emission factor for this term is used to compute the emission estimate.
+        search_term_match_score: 
+          type: number
+          format: float
+          minimum: 0
+          maximum: 2
+          description: | 
+            Populated if semantic search was used to find a match to the provided search term or category
+            Indicates confidence in the match from 0 - 2, 0 being most confident.
         diet_factor:
           oneOf:
             - x-lune-name: Diet factor
