@@ -439,6 +439,10 @@ components:
 
             One of `address`, `pickup_coordinates`, `pickup_locode` is required.
           default: ''
+        pickup_airport_code:
+          $ref: '#/components/schemas/OptionalAirportCode'
+        leg1_airport_code:
+          $ref: '#/components/schemas/OptionalAirportCode'
         leg1_method:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
@@ -473,6 +477,13 @@ components:
             The vessel's name. If an IMO is provided this property will be unused.
 
             When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
+        leg1_flight_number:
+          type: string
+          description: |
+            Flight number in either ICAO or IATA format.
+
+            Requires `leg1_departure_on`.
           default: ''
         leg1_departure_on:
           description: |
@@ -562,6 +573,8 @@ components:
 
             One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
           default: ''
+        leg2_airport_code:
+          $ref: '#/components/schemas/OptionalAirportCode'
         leg2_method:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
@@ -596,6 +609,13 @@ components:
             The vessel's name. If an IMO is provided this property will be unused.
 
             When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
+        leg2_flight_number:
+          type: string
+          description: |
+            Flight number in either ICAO or IATA format.
+
+            Requires `leg2_departure_on`.
           default: ''
         leg2_departure_on:
           description: |
@@ -685,6 +705,8 @@ components:
 
             One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
           default: ''
+        leg3_airport_code:
+          $ref: '#/components/schemas/OptionalAirportCode'
         leg3_method:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
@@ -719,6 +741,13 @@ components:
             The vessel's name. If an IMO is provided this property will be unused.
 
             When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
+        leg3_flight_number:
+          type: string
+          description: |
+            Flight number in either ICAO or IATA format.
+
+            Requires `leg3_departure_on`.
           default: ''
         leg3_departure_on:
           description: |
@@ -808,6 +837,8 @@ components:
 
             One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
           default: ''
+        leg4_airport_code:
+          $ref: '#/components/schemas/OptionalAirportCode'
         leg4_method:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
@@ -842,6 +873,13 @@ components:
             The vessel's name. If an IMO is provided this property will be unused.
 
             When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
+        leg4_flight_number:
+          type: string
+          description: |
+            Flight number in either ICAO or IATA format.
+
+            Requires `leg4_departure_on`.
           default: ''
         leg4_departure_on:
           description: |
@@ -931,6 +969,8 @@ components:
 
             One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
           default: ''
+        leg5_airport_code:
+          $ref: '#/components/schemas/OptionalAirportCode'
         leg5_method:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
@@ -965,6 +1005,13 @@ components:
             The vessel's name. If an IMO is provided this property will be unused.
 
             When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
+        leg5_flight_number:
+          type: string
+          description: |
+            Flight number in either ICAO or IATA format.
+
+            Requires `leg5_departure_on`.
           default: ''
         leg5_departure_on:
           description: |
@@ -1054,6 +1101,8 @@ components:
 
             One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
           default: ''
+        leg6_airport_code:
+          $ref: '#/components/schemas/OptionalAirportCode'
         leg6_method:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
@@ -1088,6 +1137,13 @@ components:
             The vessel's name. If an IMO is provided this property will be unused.
 
             When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
+        leg6_flight_number:
+          type: string
+          description: |
+            Flight number in either ICAO or IATA format.
+
+            Requires `leg6_departure_on`.
           default: ''
         leg6_departure_on:
           description: |
@@ -1177,6 +1233,8 @@ components:
 
             One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
           default: ''
+        leg7_airport_code:
+          $ref: '#/components/schemas/OptionalAirportCode'
         leg7_method:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
@@ -1211,6 +1269,13 @@ components:
             The vessel's name. If an IMO is provided this property will be unused.
 
             When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
+        leg7_flight_number:
+          type: string
+          description: |
+            Flight number in either ICAO or IATA format.
+
+            Requires `leg7_departure_on`.
           default: ''
         leg7_departure_on:
           description: |
@@ -1300,6 +1365,8 @@ components:
 
             One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
           default: ''
+        leg8_airport_code:
+          $ref: '#/components/schemas/OptionalAirportCode'
         leg8_method:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
@@ -1334,6 +1401,13 @@ components:
             The vessel's name. If an IMO is provided this property will be unused.
 
             When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
+        leg8_flight_number:
+          type: string
+          description: |
+            Flight number in either ICAO or IATA format.
+
+            Requires `leg8_departure_on`.
           default: ''
         leg8_departure_on:
           description: |
@@ -1423,6 +1497,8 @@ components:
 
             One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
           default: ''
+        leg9_airport_code:
+          $ref: '#/components/schemas/OptionalAirportCode'
         leg9_method:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
@@ -1457,6 +1533,13 @@ components:
             The vessel's name. If an IMO is provided this property will be unused.
 
             When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
+        leg9_flight_number:
+          type: string
+          description: |
+            Flight number in either ICAO or IATA format.
+
+            Requires `leg9_departure_on`.
           default: ''
         leg9_departure_on:
           description: |
@@ -1546,6 +1629,8 @@ components:
 
             One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
           default: ''
+        leg10_airport_code:
+          $ref: '#/components/schemas/OptionalAirportCode'
         leg10_method:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
@@ -1580,6 +1665,13 @@ components:
             The vessel's name. If an IMO is provided this property will be unused.
 
             When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
+          default: ''
+        leg10_flight_number:
+          type: string
+          description: |
+            Flight number in either ICAO or IATA format.
+
+            Requires `leg10_departure_on`.
           default: ''
         leg10_departure_on:
           description: |
@@ -1737,5 +1829,20 @@ components:
         - $ref: 'api-schema.yml#/components/schemas/ShippedAt'
         - type: string
           x-lune-name: No trade lane
+          enum:
+            - ''
+    OptionalAirportCode:
+      description: IATA or ICAO airport code
+      oneOf:
+        - type: string
+          x-lune-name: IATA airport code
+          description: IATA Airport code
+          pattern: ^[A-Z]{3}$
+        - type: string
+          x-lune-name: ICAO airport code
+          description: ICAO Airport code
+          pattern: ^[A-Z]{4}[A-Z]?$
+        - type: string
+          x-lune-name: No airport code
           enum:
             - ''
