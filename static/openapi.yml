@@ -7692,6 +7692,8 @@ components:
         - diet_factor
         - exchange_rate
         - exchange_rate_date
+        - search_term_match
+        - search_term_match_score
       properties:
         emission_factor:
           description: This property is `null` for any estimate created before 01/03/2024
@@ -7700,12 +7702,14 @@ components:
             - $ref: '#/components/schemas/NullEnum'
         search_term_match:
           type: string
+          nullable: true
           description: |
             The most accurate term matching the search.
 
             The emission factor for this term is used to compute the emission estimate.
         search_term_match_score: 
           type: number
+          nullable: true
           format: float
           minimum: 0
           maximum: 2
