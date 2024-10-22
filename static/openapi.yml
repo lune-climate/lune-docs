@@ -8391,8 +8391,11 @@ components:
       example: '1985-04-12T23:20:50.52Z'
     Url:
       type: string
-      pattern: '^https:\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
-      description: An HTTPS URL
+      format: https-url
+      description: |
+        An HTTPS URL.
+
+        The URL must match the following regular expression: `^https:\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$`
       example: 'https://lune.co'
     MonetaryAmount:
       type: object
