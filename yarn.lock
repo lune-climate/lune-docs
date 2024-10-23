@@ -98,10 +98,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/client-common@npm:5.9.1":
-  version: 5.9.1
-  resolution: "@algolia/client-common@npm:5.9.1"
-  checksum: 10c0/92994fa2d225a84e907961a2de32d5641ea0b2e9b8de5cdd6742c1a26670545a916fa9987938308de50f76cf021599e39ee98efd48db2ba65f2036a3909c1bbe
+"@algolia/client-common@npm:5.10.0":
+  version: 5.10.0
+  resolution: "@algolia/client-common@npm:5.10.0"
+  checksum: 10c0/7896fe6c1b26d0b634b40cdf4d808cef3e0a9310e784711d1f94d0dba5ade00acd8bb9d17b04c0af2baa44cbc76022b4387ae2d04abeb3666050c9c6d767f22f
   languageName: node
   linkType: hard
 
@@ -127,15 +127,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/client-search@npm:^5.9.1":
-  version: 5.9.1
-  resolution: "@algolia/client-search@npm:5.9.1"
+"@algolia/client-search@npm:^5.10.0":
+  version: 5.10.0
+  resolution: "@algolia/client-search@npm:5.10.0"
   dependencies:
-    "@algolia/client-common": "npm:5.9.1"
-    "@algolia/requester-browser-xhr": "npm:5.9.1"
-    "@algolia/requester-fetch": "npm:5.9.1"
-    "@algolia/requester-node-http": "npm:5.9.1"
-  checksum: 10c0/687f1bd2e211b06b37594be52d97263099eef4e9c78d85778cb9d209efcb4d7f7bf3a0ca9647a1714ab8e8d8867cf749662e0d81055f31a9df71126b0b1ab2b4
+    "@algolia/client-common": "npm:5.10.0"
+    "@algolia/requester-browser-xhr": "npm:5.10.0"
+    "@algolia/requester-fetch": "npm:5.10.0"
+    "@algolia/requester-node-http": "npm:5.10.0"
+  checksum: 10c0/adbcfb9af9435e454263961694a4f91a435a61d13ba69749b80d95496e6abd8b51ea4016e025ea8a8b8b46cda3f186ece1d9f894559fdc6711339f4a92eff57c
   languageName: node
   linkType: hard
 
@@ -171,12 +171,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/requester-browser-xhr@npm:5.9.1":
-  version: 5.9.1
-  resolution: "@algolia/requester-browser-xhr@npm:5.9.1"
+"@algolia/requester-browser-xhr@npm:5.10.0":
+  version: 5.10.0
+  resolution: "@algolia/requester-browser-xhr@npm:5.10.0"
   dependencies:
-    "@algolia/client-common": "npm:5.9.1"
-  checksum: 10c0/6ae89ef2b52e0d842bbf0330f25663edd73624de5c1b95c1e8b268c83aed166b7eceaf140c7a8ee5fc306d8f8ccd2c0600e747710a612e6804db69f9aeaf24a9
+    "@algolia/client-common": "npm:5.10.0"
+  checksum: 10c0/bdf7bd5f69c88dc428099504a54011cfcb247a63b1ab2597ce96834c7a9e35d9b221791275101b7431214c7afb5786a2a92727d112c5b1dfdc75c991475f8c58
   languageName: node
   linkType: hard
 
@@ -187,12 +187,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/requester-fetch@npm:5.9.1":
-  version: 5.9.1
-  resolution: "@algolia/requester-fetch@npm:5.9.1"
+"@algolia/requester-fetch@npm:5.10.0":
+  version: 5.10.0
+  resolution: "@algolia/requester-fetch@npm:5.10.0"
   dependencies:
-    "@algolia/client-common": "npm:5.9.1"
-  checksum: 10c0/af2a19646aa609759d8595a0522185af2b9f895e0539b32e467eeb5b0ef4fc2373d951cd5e86c726818e4264a64475b5e14ca20708178f723ac0e89902fda47d
+    "@algolia/client-common": "npm:5.10.0"
+  checksum: 10c0/fb8b8b7e0adcd65c11e6916c977c7da7c1a267724c7dd3731d623b7c2efdff90a2089e2a940a5ee2233e66b78885360c04eff2c3c4b7ad90506ea18f9da1c141
   languageName: node
   linkType: hard
 
@@ -205,12 +205,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@algolia/requester-node-http@npm:5.9.1":
-  version: 5.9.1
-  resolution: "@algolia/requester-node-http@npm:5.9.1"
+"@algolia/requester-node-http@npm:5.10.0":
+  version: 5.10.0
+  resolution: "@algolia/requester-node-http@npm:5.10.0"
   dependencies:
-    "@algolia/client-common": "npm:5.9.1"
-  checksum: 10c0/fc19d3e3c512f7b6a1624a4dd9871186c26423fcb2eff129f65919f7524e18c62875c0cb743c8fda4072d1ec6315a47ffaf8b069cf07009ac1c2f73bafa84081
+    "@algolia/client-common": "npm:5.10.0"
+  checksum: 10c0/fa166a8ab3f18c8e66de002105a294010a47995424eb76cf2eb77f72b4b6ad91a1dcdc4e6bc866f8bf393cccc1c7e1b1e677cbee9f2bc3f68495cea5a6b91c96
   languageName: node
   linkType: hard
 
@@ -7679,7 +7679,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "docs@workspace:."
   dependencies:
-    "@algolia/client-search": "npm:^5.9.1"
+    "@algolia/client-search": "npm:^5.10.0"
     "@docusaurus/core": "npm:^2.4.3"
     "@docusaurus/module-type-aliases": "npm:^3.5.2"
     "@docusaurus/plugin-client-redirects": "npm:^2.4.3"
