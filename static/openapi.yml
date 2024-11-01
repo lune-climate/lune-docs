@@ -7855,6 +7855,17 @@ components:
               oneOf:
                 - $ref: '#/components/schemas/Url'
                 - $ref: '#/components/schemas/NullEnum'
+            source:
+              type: string
+              description: Identifies the source used to create the estimate.
+              example: dashboard
+              enum:
+                - api
+                - dashboard
+                - csv
+                - chain_io
+                - ecotransit_csv
+                - widget
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
         is_shipment: true
@@ -7899,6 +7910,7 @@ components:
               locode: 'NLRTM'
           method:
             vessel_type: 'container_ship'
+        source: 'api'
     BaseShippingLegEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimate'
@@ -8071,6 +8083,17 @@ components:
               oneOf:
                 - $ref: '#/components/schemas/Url'
                 - $ref: '#/components/schemas/NullEnum'
+            source:
+              type: string
+              description: Identifies the source used to create the estimate.
+              example: dashboard
+              enum:
+                - api
+                - dashboard
+                - csv
+                - chain_io
+                - ecotransit_csv
+                - widget
         - $ref: '#/components/schemas/EmissionEstimateResponse'
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
@@ -8175,6 +8198,7 @@ components:
                   city: Großbeeren
                   country_code: DEU
               method: truck_articulated_34t
+        source: 'api'
     AnyShippingEmissionEstimate:
       oneOf:
         - $ref: '#/components/schemas/SingleShippingEmissionEstimate'
