@@ -106,7 +106,7 @@ Within the response, any failed transactions will be returned with an error code
 **Where**:
 
 - `$CLIENT_ACCOUNT_ID` is the unique identifier for the client
-- `value.value` defines the shipment load; in this example, 40 tonnes
+- `value.value` defines the monetary amount; in this example, 8.99.
 - `value.currency` is the currency in which the transaction was completed
 - `merchant.category_code` is the Merchant Category Code (MCC) used to classify the type of goods and services that are transacted
 - `merchant.name` is the name of merchant in the transaction
