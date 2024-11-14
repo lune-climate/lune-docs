@@ -7406,13 +7406,7 @@ components:
           description: The three-letter code of the merchant's country.
           example:  GBR
         category_code:
-          type: string
-          description: |
-            An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding
-            to the transaction.
-
-            See https://github.com/greggles/mcc-codes for available codes.
-          example: "0763"
+          $ref: '#/components/schemas/MerchantCategoryCode'
     MerchantViaCategory:
       type: object
       x-lune-name: Merchant category code
@@ -7577,11 +7571,61 @@ components:
                 - transaction
         - type: object
           oneOf:
-            - $ref: '#/components/schemas/TransactionEmissionEstimateBaseFields'
+            - $ref: '#/components/schemas/SmartScanEstimateTransactionLineItem'
           discriminator:
             propertyName: type
             mapping:
-              transaction: '#/components/schemas/TransactionEmissionEstimateBaseFields'
+              transaction: '#/components/schemas/SmartScanEstimateTransactionLineItem'
+    SmartScanEstimateTransactionLineItem:
+      type: object
+      description:
+        A Smart scan transaction line item describing the properties that have been idenfitied.
+      allOf:
+        - $ref: '#/components/schemas/TransactionEmissionEstimateBaseFields'
+        - allOf:
+            - type: object
+              required:
+                - country_code
+                - value
+              properties:
+                country_code:
+                  type: string
+                  description: The 3-character country code that has been identified.
+                  example: 'USA'
+                value:
+                  $ref: '#/components/schemas/MonetaryAmount'
+            - oneOf:
+              - type: object
+                required:
+                  - item
+                  - category
+                  - category_code
+                properties:
+                  item:
+                    type: string
+                    description: The line items that has been identified.
+                    example: 'Office desks'
+                  category:
+                    oneOf:
+                      - type: string
+                        x-lune-name: Category
+                        description: The category that has been identified.
+                        example: 'Furniture'
+                      - $ref: '#/components/schemas/NullEnum'
+                  category_code:
+                    $ref: '#/components/schemas/NullEnum'
+              - type: object
+                required:
+                  - item
+                  - category
+                  - category_code
+                properties:
+                  item:
+                    $ref: '#/components/schemas/NullEnum'
+                  category:
+                    $ref: '#/components/schemas/NullEnum'
+                  category_code:
+                    $ref: '#/components/schemas/MerchantCategoryCode'
     SmartScanEmissionEstimateLineItems:
       type: array
       description: Line items for the smart scan estimate. At least one line item will always exist.
@@ -10092,3 +10136,11 @@ components:
       enum:
         - never
         - always
+    MerchantCategoryCode:
+      type: string
+      description: |
+        An ISO 18245 Merchant Category Code (leading zeros need to be preserved) corresponding
+        to the transaction.
+
+        See https://github.com/greggles/mcc-codes for available codes.
+      example: "0763"
