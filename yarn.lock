@@ -3566,19 +3566,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/icons-material@npm:^6.1.6":
-  version: 6.1.6
-  resolution: "@mui/icons-material@npm:6.1.6"
+"@mui/icons-material@npm:^6.1.7":
+  version: 6.1.7
+  resolution: "@mui/icons-material@npm:6.1.7"
   dependencies:
     "@babel/runtime": "npm:^7.26.0"
   peerDependencies:
-    "@mui/material": ^6.1.6
+    "@mui/material": ^6.1.7
     "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
     react: ^17.0.0 || ^18.0.0 || ^19.0.0
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/a6eb10be3cc356fd404febf29a3b26fa63b6b09d3148736fb05279954905186e9804869ff18220840ae92dbdeddfd407c2d0c72b9e165e01fd6bbc620b6b39d7
+  checksum: 10c0/89f6d69dce35aa0b2fd2586f0de3a01171ba85b6c2b848dd0d1cfca0840778eafc90465efeb822451f4066df9791099ff8a683df4cacea98bc3affbc9b80c891
   languageName: node
   linkType: hard
 
@@ -7740,7 +7740,7 @@ __metadata:
     "@js-joda/locale_en": "npm:^4.14.0"
     "@js-joda/timezone": "npm:^2.21.1"
     "@mdx-js/react": "npm:^1.6.22"
-    "@mui/icons-material": "npm:^6.1.6"
+    "@mui/icons-material": "npm:^6.1.7"
     "@mui/material": "npm:^6.1.7"
     "@tsconfig/docusaurus": "npm:^2.0.3"
     "@types/jest": "npm:^29.5.14"
