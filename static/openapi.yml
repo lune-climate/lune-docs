@@ -7771,6 +7771,7 @@ components:
         - exchange_rate_date
         - search_term_match
         - search_term_match_score
+        - semantic_matching_model
       properties:
         emission_factor:
           description: This property is `null` for any estimate created before 01/03/2024
@@ -7801,6 +7802,11 @@ components:
               example: '0.6495'
               pattern: '^[0-9]+(\.[0-9]+)?$'
             - $ref: '#/components/schemas/NullEnum'
+        semantic_matching_model:
+          type: string
+          nullable: true
+          description: |
+            The text embedding model used to support semantic search
         exchange_rate:
           oneOf:
             - x-lune-name: Exchange rate
