@@ -385,7 +385,7 @@ const sidebars = {
                         {
                             type: 'link',
                             label: 'Gathering the data',
-                            href: '/guides/how-to-mindee#creating-the-smart-scan-estimate',
+                            href: '/guides/how-to-mindee#creating-the-transaction-document-estimate',
                         },
                     ],
                 },

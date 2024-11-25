@@ -6,7 +6,7 @@ import Snippet from '@site/src/components/Snippet'
 import { ApiReferenceSection } from 'lune-ui-lib'
 import Tip from '@site/src/components/Tip';
 
-# Smart scan
+# Transaction documents
 
 <div className="sections">
 
@@ -15,7 +15,7 @@ import Tip from '@site/src/components/Tip';
 
 <div>
 
-In this guide we'll explore calculating [smart scan emission estimates](/key-concepts/smart-scan)
+In this guide we'll explore calculating [transaction document emission estimates](/key-concepts/transaction-documents)
 using an invoice processed in Mindee.
 
 Mindee performs OCR of receipts, the output of which is supported by Lune to estimate emissions.
@@ -41,7 +41,7 @@ In order to proceed with the steps provided you need
 
 <>
 
-![Smart Scan](/img/smart-scan.png)
+![Transaction document](/img/smart-scan.png)
 
 </>
 
@@ -52,18 +52,18 @@ In order to proceed with the steps provided you need
 
 <div>
 
-## Creating the smart scan estimate
+## Creating the transaction document estimate
 
 The first thing is to extract the invoice information using Mindee. This can then be used
 as the unstructured data when contacting Lune.
 
-Build a smart scan estimate request.
-[here](/api-reference/emission-estimates/create-smart-scan-estimate). The `unstructured_data`
+Build a transaction document estimate request
+[here](/api-reference/emission-estimates/create-transaction-document-estimate). The `unstructured_data`
 property will be used to send Mindee response, adapt all other fields as you see fit.
 
 For this example, let's make it a scenario where we know beforehand that all of our
 receipts will be in USD and the category is `cloud computing`. To use the previously
-extracted invoice information and contact Lune in order to create the smart scan estimate
+extracted invoice information and contact Lune in order to create the transaction document estimate
 we can use the sample command
 
 <Tip>
@@ -82,7 +82,7 @@ correct path as necessary.
 <Snippet
 header="Sample cURL command"
 language="bash"
-code={`curl 'https://api.lune.co/v1/estimates/smart-scan' \\
+code={`curl 'https://api.lune.co/v1/estimates/transaction-documents' \\
   -H "Authorization: Bearer $API_KEY" \\
   -H 'Content-Type: application/json' \\
   -X POST \\

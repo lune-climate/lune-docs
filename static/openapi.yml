@@ -1896,10 +1896,10 @@ paths:
           $ref: '#/components/responses/UnsupportedMediaType'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-  /estimates/smart-scan:
+  /estimates/transaction-documents:
     post:
       summary: Create emission estimate(s) via receipt or invoice data.
-      operationId: createSmartScanEstimate
+      operationId: createTransactionDocumentEstimate
       security:
         - BearerAuth: []
       tags:
@@ -1909,14 +1909,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SmartScanEstimateRequest'
+              $ref: '#/components/schemas/TransactionDocumentEstimateRequest'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SmartScanEmissionEstimate'
+                $ref: '#/components/schemas/TransactionDocumentEmissionEstimate'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -1931,10 +1931,10 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
-  /estimates/smart-scan/{id}:
+  /estimates/transaction-documents/{id}:
     get:
-      summary: Get a smart-scan emission estimate
-      operationId: getSmartScanEstimate
+      summary: Get a transaction document emission estimate
+      operationId: getTransactionDocumentEstimate
       security:
         - BearerAuth: []
       tags:
@@ -1953,7 +1953,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SmartScanEmissionEstimate'
+                $ref: '#/components/schemas/TransactionDocumentEmissionEstimate'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -3241,8 +3241,8 @@ components:
             - estimate_idempotency_already_exists
             - airport_route_required
             - future_departure_invalid
-            - smart_scan_inference_failure
-            - smart_scan_creation_failure
+            - transaction_document_inference_failure
+            - transaction_document_creation_failure
         message:
           type: string
           description: |
@@ -7150,7 +7150,7 @@ components:
           $ref: '#/components/schemas/Diet'
         region_fallback:
           $ref: '#/components/schemas/RegionFallback'
-    SmartScanEstimateRequest:
+    TransactionDocumentEstimateRequest:
       allOf:
         - type: object
           required:
@@ -7550,9 +7550,9 @@ components:
           properties:
             request:
               $ref: '#/components/schemas/FlightEstimateRequest'
-    SmartScanEmissionEstimateLineItem:
+    TransactionDocumentEmissionEstimateLineItem:
       type: object
-      description: Smart scan line item estimate.
+      description: Transcation document line item estimate.
       allOf:
         - type: object
           required:
@@ -7571,15 +7571,15 @@ components:
                 - transaction
         - type: object
           oneOf:
-            - $ref: '#/components/schemas/SmartScanEstimateTransactionLineItem'
+            - $ref: '#/components/schemas/TransactionDocumentEstimateTransactionLineItem'
           discriminator:
             propertyName: type
             mapping:
-              transaction: '#/components/schemas/SmartScanEstimateTransactionLineItem'
-    SmartScanEstimateTransactionLineItem:
+              transaction: '#/components/schemas/TransactionDocumentEstimateTransactionLineItem'
+    TransactionDocumentEstimateTransactionLineItem:
       type: object
       description:
-        A Smart scan transaction line item describing the properties that have been idenfitied.
+        A transaction document line item describing the properties that have been idenfitied.
       allOf:
         - $ref: '#/components/schemas/TransactionEmissionEstimateBaseFields'
         - allOf:
@@ -7628,12 +7628,12 @@ components:
                     $ref: '#/components/schemas/NullEnum'
                   category_code:
                     $ref: '#/components/schemas/MerchantCategoryCode'
-    SmartScanEmissionEstimateLineItems:
+    TransactionDocumentEmissionEstimateLineItems:
       type: array
-      description: Line items for the smart scan estimate. At least one line item will always exist.
+      description: Line items for the transaction document estimate. At least one line item will always exist.
       items:
-        $ref: '#/components/schemas/SmartScanEmissionEstimateLineItem'
-    SmartScanEmissionEstimate:
+        $ref: '#/components/schemas/TransactionDocumentEmissionEstimateLineItem'
+    TransactionDocumentEmissionEstimate:
       allOf:
         - $ref: '#/components/schemas/EmissionEstimateResponse'
         - type: object
@@ -7642,9 +7642,9 @@ components:
             - line_items
           properties:
             request:
-              $ref: '#/components/schemas/SmartScanEstimateRequest'
+              $ref: '#/components/schemas/TransactionDocumentEstimateRequest'
             line_items:
-              $ref: '#/components/schemas/SmartScanEmissionEstimateLineItems'
+              $ref: '#/components/schemas/TransactionDocumentEmissionEstimateLineItems'
     BatchTransactionEmissionEstimate:
       type: array
       description: |

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 12
-sidebar_label: Smart Scan
+sidebar_label: Transaction documents
 hide_table_of_contents: true
 ---
 
@@ -8,7 +8,7 @@ import Snippet from '@site/src/components/Snippet'
 import { ApiReferenceSection } from 'lune-ui-lib'
 import Tip from '@site/src/components/Tip';
 
-# Smart scan
+# Transaction documents
 
 <div className="sections">
 
@@ -17,13 +17,13 @@ import Tip from '@site/src/components/Tip';
 
 <div>
 
-The smart scan functionality allows you to provide data in multiple formats without any
+The transaction documents functionality allows you to provide data in multiple formats without any
 prior knowledge of the data structure. Lune analyses this input, deduces the transactions, and
 calculates the associated emissions.
 
 This functionality is beneficial for cases where you have no concrete information regarding
 transactions you want to estimate, but have several pieces of data that can help guide this
-discovery such as receipts, invoices, and emails. By leveraging various data sources, smart scan
+discovery such as receipts, invoices, and emails. By leveraging various data sources, the functionality
 enables a more comprehensive understanding of your financial activities and their environmental
 impact, even when dealing with fragmented or diverse information.
 
@@ -52,7 +52,7 @@ accuracy for your specific needs.
 
 ## Input data
 
-The smart scan functionality accepts data in two main formats:
+The transactionn documents functionality accepts data in two main formats:
 
 1. **Structured transaction estimate data**
 
@@ -127,9 +127,9 @@ code={`{
 
 <div>
 
-## The smart scan estimate
+## The transaction document estimate
 
-A smart scan estimate provides:
+A transaction document estimate provides:
 
 -   Overall transaction information:
 
@@ -142,7 +142,7 @@ A smart scan estimate provides:
 Currently, only `transaction` type estimates are available. Future updates will include
 activity-based emissions (e.g., flights).
 
-The smart scan accepts:
+The endpoint accepts:
 
 1. Structured transaction estimate data
 2. Unstructured text data (e.g., OCR from invoices)
