@@ -12,7 +12,7 @@ In chronological order, here are all changes to the Lune API
 
 ** September 23, 2024 **
 
-Added the new `transaction endpoint` endpoint. The endpoint enables clients to create emission estimates
+Added the new `smart-scan` endpoint. The endpoint enables clients to create emission estimates
 with unstructured data. Lune will attempt to parse whatever information is available and create
 the appropriate emission estimate.
 
