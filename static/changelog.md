@@ -1,7 +1,7 @@
 # [New Version] `2024-08-08` - 2024-08-08
 
 ## [Non-Breaking Change] - 2024-09-23
-Added the new `transaction endpoint` endpoint. The endpoint enables clients to create emission estimates
+Added the new `transaction-documents` endpoint. The endpoint enables clients to create emission estimates
 with unstructured data. Lune will attempt to parse whatever information is available and create
 the appropriate emission estimate.
 
