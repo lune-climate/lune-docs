@@ -52,7 +52,7 @@ accuracy for your specific needs.
 
 ## Input data
 
-The transactionn documents functionality accepts data in two main formats:
+The [transaction documents endpoint](/api-reference/emission-estimates/create-transaction-document-estimate) accepts data in two main formats:
 
 1. **Structured transaction estimate data**
 
