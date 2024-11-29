@@ -11,7 +11,7 @@ import Snippet  from '@site/src/components/Snippet';
 import Tip from '@site/src/components/Tip';
 import { ApiReferenceSection } from 'lune-ui-lib'
 
-# Logistics CSV spreadsheet calculations
+# Logistics CSV V2 spreadsheet calculations
 
 <div className="sections">
 
@@ -24,6 +24,9 @@ import { ApiReferenceSection } from 'lune-ui-lib'
 
 In this guide, you will learn how to calculate emissions for shipments by:
 * filling and uploading a CSV spreadsheet
+
+This guide has been updated to reflect **version 2 of spreadsheet calculations**. However, we still support version 1
+spreadsheets.
 
 </div>
 <div>
@@ -66,7 +69,9 @@ Navigate to the [logistics spreadsheet calculation](https://dashboard.lune.co/ca
 
 Click on the 'Download CSV template' button to download the template.
 
-The template contains sample data. Amend and/or delete rows to fit your data.
+There are 4 templates, one for every transport mode we support: rail, sea, road & air. Templates contain sample data.
+Amend and/or delete rows to fit your data. Combine the different transport modes into a shipment's legs for more
+complex journeys.
 
 Do not delete the header row.
 
@@ -118,7 +123,7 @@ Required inputs are:
 2. Cargo weight
 3. Transport mode
 
-In addition, a value for **version** is required and must be set to `1`.
+In addition, a value for **version** is required and must be set to `2`.
 
 <br />
 
@@ -126,15 +131,24 @@ In addition, a value for **version** is required and must be set to `1`.
 
 **Route**
 
-For origin, input one of **address**, **UN/LOCODE**, or **geographical coordinates** as follows:
+For shipment origin/destination, fill the **source** and eac **leg{x}_destination** column with one of the location types below:
 
-- Address: `pickup_country` is required and at least one of `pickup_street`, `pickup_postcode`, `pickup_city`. Note: pickup_country is a 3-letter country code.
-- [UN/LOCODE](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory): `pickup_locode`
-- Coordinates: `pickup_coordinates`. Pick up geographical coordinates formatted as `lat <number> lon <number>`
+- A comma-seperated address, ending with a country code. Where the country code is a 3-letter ISO 3166 country code.
+This cannot be a country code alone, you must provide more than one address line.
 
-For stops and destinations, the same format applies for `leg1_country`, `leg2_country`, and so on.
+    
+    Examples:
+    Apple Lane, London, SW1A 2AA, GBR
+    Ontario, CAN
 
-Note: you can mix and e.g., enter pickup as address and destination as UN/LOCODE. If Route is used, Lune calculates the distance.
+
+- A UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+- An IATA or ICAO airport code
+- Geographical coordinates formatted as 'lat <number> lon <number>'.
+
+
+    Example:
+    lat 12.33 lon -91.21
 
 **Distance**
 
@@ -152,10 +166,10 @@ Input either cargo weight in kg or in TEU, or both.
 
 #### Transport mode
 
-The transport method for the first leg is entered in `leg1_method` or `leg1_imo_number`.
+The transport method for the first leg is entered in `leg1_method` or `leg1_vessel_identification` or `leg1_flight_number`.
 
 - `leg1_method`: Must be in Lune’s accepted format. See the list of available transport methods in the [Reference](#reference) below. Examples: `cargo_plane`, `container_ship`, `diesel_truck`, `truck_articulated_40t.`
-- `leg1_imo_number`: The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix. When an IMO number is provided, the leg's method is ignored.
+- `leg1_vessel_identification`: The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix or a vessel name. When an identifier is provided, the leg's method is ignored.
 
 <br />
 
