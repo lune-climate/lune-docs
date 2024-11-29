@@ -7980,6 +7980,7 @@ components:
                 - chain_io
                 - ecotransit_csv
                 - widget
+                - ecotransit
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
         is_shipment: true
@@ -8209,6 +8210,7 @@ components:
                 - chain_io
                 - ecotransit_csv
                 - widget
+                - ecotransit
         - $ref: '#/components/schemas/EmissionEstimateResponse'
       example:
         id: '08QD7GPaBx5b6Y6mJlWyONXLvrZljRE2'
