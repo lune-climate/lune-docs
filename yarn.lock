@@ -7846,7 +7846,7 @@ __metadata:
     to-case: "npm:^2.0.0"
     ts-jest: "npm:^29.2.5"
     ts-node: "npm:^10.9.2"
-    ts-unused-exports: "npm:^10.1.0"
+    ts-unused-exports: "npm:^11.0.1"
     tsconfig-paths: "npm:^4.2.0"
     typescript: "npm:^5.6.3"
     url: "npm:^0.11.4"
@@ -17591,9 +17591,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-unused-exports@npm:^10.1.0":
-  version: 10.1.0
-  resolution: "ts-unused-exports@npm:10.1.0"
+"ts-unused-exports@npm:^11.0.1":
+  version: 11.0.1
+  resolution: "ts-unused-exports@npm:11.0.1"
   dependencies:
     chalk: "npm:^4.0.0"
     tsconfig-paths: "npm:^3.9.0"
@@ -17604,7 +17604,7 @@ __metadata:
       optional: false
   bin:
     ts-unused-exports: bin/ts-unused-exports
-  checksum: 10c0/55a6757ca6f9b99a50794ec03caf06d5b74b2dbdd72a189b98f1a72caa34159c44045c7f21d492847b525b8317b973516a2fb48f9487c54c5292557d4e44c49c
+  checksum: 10c0/cc5218c7edef9dae880dc78ddb90152c1f3184d2882cf9e40eba1349dab26c74a3034f0c8f7d3654ca45778e663ed55b975d55c7ad765877772b4788a06ca0a7
   languageName: node
   linkType: hard
 
