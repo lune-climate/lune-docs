@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Lune Logistics CSV Reference
-  version: '1.0'
+  version: '2.0'
   contact:
     name: Lune Support
     email: support@lune.co
@@ -78,194 +78,65 @@ components:
 
             Please correct the provided data.
         leg1_estimated_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance in km.
-
-            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
-          default: ''
+          $ref: '#/components/schemas/EstimatedDistance'
         leg1_estimated_adjusted_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance inclusive of distance adjustment factors in km.
-          default: ''
+          $ref: '#/components/schemas/EstimatedAdjustedDistance'
         leg1_total_tco2:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: Leg emission estimate in tCO2e.
-          default: ''
+          $ref: '#/components/schemas/TotalCo2'
         leg2_estimated_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance in km.
-
-            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
-          default: ''
+          $ref: '#/components/schemas/EstimatedDistance'
         leg2_estimated_adjusted_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance inclusive of distance adjustment factors in km.
-          default: ''
+          $ref: '#/components/schemas/EstimatedAdjustedDistance'
         leg2_total_tco2:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: Leg emission estimate in tCO2e.
-          default: ''
+          $ref: '#/components/schemas/TotalCo2'
         leg3_estimated_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance in km.
-
-            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
-          default: ''
+          $ref: '#/components/schemas/EstimatedDistance'
         leg3_estimated_adjusted_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance inclusive of distance adjustment factors in km.
-          default: ''
+          $ref: '#/components/schemas/EstimatedAdjustedDistance'
         leg3_total_tco2:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: Leg emission estimate in tCO2e.
-          default: ''
+          $ref: '#/components/schemas/TotalCo2'
         leg4_estimated_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance in km.
-
-            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
-          default: ''
+          $ref: '#/components/schemas/EstimatedDistance'
         leg4_estimated_adjusted_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance inclusive of distance adjustment factors in km.
-          default: ''
+          $ref: '#/components/schemas/EstimatedAdjustedDistance'
         leg4_total_tco2:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: Leg emission estimate in tCO2e.
-          default: ''
+          $ref: '#/components/schemas/TotalCo2'
         leg5_estimated_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance in km.
-
-            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
-          default: ''
+          $ref: '#/components/schemas/EstimatedDistance'
         leg5_estimated_adjusted_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance inclusive of distance adjustment factors in km.
-          default: ''
+          $ref: '#/components/schemas/EstimatedAdjustedDistance'
         leg5_total_tco2:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: Leg emission estimate in tCO2e.
-          default: ''
+          $ref: '#/components/schemas/TotalCo2'
         leg6_estimated_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance in km.
-
-            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
-          default: ''
+          $ref: '#/components/schemas/EstimatedDistance'
         leg6_estimated_adjusted_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance inclusive of distance adjustment factors in km.
-          default: ''
+          $ref: '#/components/schemas/EstimatedAdjustedDistance'
         leg6_total_tco2:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: Leg emission estimate in tCO2e.
-          default: ''
+          $ref: '#/components/schemas/TotalCo2'
         leg7_estimated_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance in km.
-
-            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
-          default: ''
+          $ref: '#/components/schemas/EstimatedDistance'
         leg7_estimated_adjusted_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance inclusive of distance adjustment factors in km.
-          default: ''
+          $ref: '#/components/schemas/EstimatedAdjustedDistance'
         leg7_total_tco2:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: Leg emission estimate in tCO2e.
-          default: ''
+          $ref: '#/components/schemas/TotalCo2'
         leg8_estimated_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance in km.
-
-            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
-          default: ''
+          $ref: '#/components/schemas/EstimatedDistance'
         leg8_estimated_adjusted_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance inclusive of distance adjustment factors in km.
-          default: ''
+          $ref: '#/components/schemas/EstimatedAdjustedDistance'
         leg8_total_tco2:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: Leg emission estimate in tCO2e.
-          default: ''
+          $ref: '#/components/schemas/TotalCo2'
         leg9_estimated_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance in km.
-
-            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
-          default: ''
+          $ref: '#/components/schemas/EstimatedDistance'
         leg9_estimated_adjusted_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance inclusive of distance adjustment factors in km.
-          default: ''
+          $ref: '#/components/schemas/EstimatedAdjustedDistance'
         leg9_total_tco2:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: Leg emission estimate in tCO2e.
-          default: ''
+          $ref: '#/components/schemas/TotalCo2'
         leg10_estimated_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance in km.
-
-            Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
-          default: ''
+          $ref: '#/components/schemas/EstimatedDistance'
         leg10_estimated_adjusted_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg estimated distance inclusive of distance adjustment factors in km.
-          default: ''
+          $ref: '#/components/schemas/EstimatedAdjustedDistance'
         leg10_total_tco2:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: Leg emission estimate in tCO2e.
+          $ref: '#/components/schemas/TotalCo2'
     MultiLegRowIn:
       type: object
       required:
@@ -273,11 +144,12 @@ components:
       properties:
         version:
           type: string
-          pattern: '^[0-9]+$'
+          enum:
+            - '2'
           description: |
             The row's schema version.
-
-            Must be set to `1`.
+            
+            Must be set to `2`.
         shipment_id:
           type: string
           description: |
@@ -354,11 +226,9 @@ components:
 
             If left blank, `false` is used.
           enum:
-            - ''
-            - 'TRUE'
             - 'true'
-            - 'FALSE'
             - 'false'
+            - ''
         shipped_at:
           $ref: '#/components/schemas/OptionalShippedAt'
         mass_kg:
@@ -377,1390 +247,275 @@ components:
             Shipment in containers.
 
             One of `mass_kg` and `containers` is mandatory. You may provide both for more accurate estimates.
-        pickup_country:
-          type: string
-          description: |
-            Pick up 3-letter ISO 3166 country code.
-
-            `pickup_country`, `pickup_city`, `pickup_postcode`, `pickup_street` are fields that form an `address`.
-
-            One of `address`, `pickup_coordinates`, `pickup_locode` is required.
-
-            As part of an `address`, to ensure accuracy, `pickup_country` is required and at least one of `pickup_street`, `pickup_postcode`, `pickup_city`.
-
-            Examples: `GBR`, `ISR`.
-          default: ''
-        pickup_city:
-          type: string
-          description: |
-            Pick up city.
-
-            `pickup_country`, `pickup_city`, `pickup_postcode`, `pickup_street` are fields that form an `address`.
-
-            One of `address`, `pickup_coordinates`, `pickup_locode` is required.
-
-            As part of an `address`, to ensure accuracy, `pickup_country` is required and at least one of `pickup_street`, `pickup_postcode`, `pickup_city`.
-          default: ''
-        pickup_postcode:
-          type: string
-          description: |
-            Pick up postcode or zipcode.
-
-            `pickup_country`, `pickup_city`, `pickup_postcode`, `pickup_street` are fields that form an `address`.
-
-            One of `address`, `pickup_coordinates`, `pickup_locode` is required.
-
-            As part of an `address`, to ensure accuracy, `pickup_country` is required and at least one of `pickup_street`, `pickup_postcode`, `pickup_city`.
-          default: ''
-        pickup_street:
-          type: string
-          description: |
-            Pick up street.
-
-            `pickup_country`, `pickup_city`, `pickup_postcode`, `pickup_street` are fields that form an `address`.
-
-            One of `address`, `pickup_coordinates`, `pickup_locode` is required.
-
-            As part of an `address`, to ensure accuracy, `pickup_country` is required and at least one of `pickup_street`, `pickup_postcode`, `pickup_city`.
-          default: ''
-        pickup_coordinates:
-          type: string
-          description: |
-            Pick up geographical coordinates formatted as 'lat <number> lon <number>'.
-
-            One of `address`, `pickup_coordinates`, `pickup_locode` is required.
-          pattern: '^$|^lat -?[0-9]+(\.[0-9]+)? lon -?[0-9]+(\.[0-9]+)?$'
-          default: ''
-        pickup_locode:
-          type: string
-          pattern: '^$|^[A-Z]{5}$'
-          description: |
-            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
-
-            One of `address`, `pickup_coordinates`, `pickup_locode` is required.
-          default: ''
-        pickup_airport_code:
-          $ref: '#/components/schemas/OptionalAirportCode'
-        leg1_airport_code:
-          $ref: '#/components/schemas/OptionalAirportCode'
+        source:
+          $ref: '#/components/schemas/SourceDestination'
         leg1_method:
           $ref: '#/components/schemas/Method'
           description: Leg transport method
           default: ''
+        leg1_destination:
+          $ref: '#/components/schemas/SourceDestination'
+        leg1_refrigerated:
+          $ref: '#/components/schemas/Refrigerated'
         leg1_fuel:
           $ref: '#/components/schemas/Fuel'
-        leg1_refrigerated:
-          description: |
-            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions. For road transport this value is also taken in consideration if
-            set to `true`, the appropriate refrigerated shipping method will be used.
-          type: string
-          default: "false"
-          enum:
-            - 'TRUE'
-            - 'true'
-            - 'FALSE'
-            - 'false'
         leg1_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
-        leg1_imo_number:
-          type: string
-          pattern: '^$|^[0-9]{7}$'
-          description: |
-            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
-
-            When an imo is provided, the leg's method is ignored.
-          default: ''
-        leg1_vessel_name:
-          type: string
-          description: |
-            The vessel's name. If an IMO is provided this property will be unused.
-
-            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
-          default: ''
-        leg1_flight_number:
-          type: string
-          description: |
-            Flight number in either ICAO or IATA format.
-
-            Requires `leg1_departure_on`.
-          default: ''
         leg1_departure_on:
-          description: |
-            The date of the departure from the source port.
-
-            Vessel tracking is only available for departures within the past 3 months.
-
-            If `leg1_departure_on` and `leg1_arrival_on` and one of `leg1_imo_number`, `leg1_vessel_name` is provided, vessel tracking will be attempted.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
+          $ref: '#/components/schemas/DepartureOnDate'
         leg1_arrival_on:
-          description: |
-            The date of the arrival to the destination port.
-
-            If `leg1_departure_on` and `leg1_arrival_on` and one of `leg1_imo_number`, `leg1_vessel_name` is provided, vessel tracking will be attempted.
-
-            We can only perform vessel tracking for shipments that finished more than 24 hours ago.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
-        leg1_country:
-          type: string
-          description:
-            Pick up 3-letter ISO 3166 country code.
-
-            `leg1_country`, `leg1_city`, `leg1_postcode`, `leg1_street` are fields that form an `address`.
-
-            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg1_country` is required and at least one of `leg1_street`, `leg1_postcode`, `leg1_city`.
-
-            Examples `GBR`, `ISR`.
-          default: ''
-        leg1_city:
-          type: string
-          description: |
-            Leg city.
-
-            `leg1_country`, `leg1_city`, `leg1_postcode`, `leg1_street` are fields that form an `address`.
-
-            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg1_country` is required and at least one of `leg1_street`, `leg1_postcode`, `leg1_city`.
-          default: ''
-        leg1_postcode:
-          type: string
-          description: |
-            Leg postcode or zipcode.
-
-            `leg1_country`, `leg1_city`, `leg1_postcode`, `leg1_street` are fields that form an `address`.
-
-            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg1_country` is required and at least one of `leg1_street`, `leg1_postcode`, `leg1_city`.
-          default: ''
-        leg1_street:
-          type: string
-          description: |
-            Leg street.
-
-            `leg1_country`, `leg1_city`, `leg1_postcode`, `leg1_street` are fields that form an `address`.
-
-            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg1_country` is required and at least one of `leg1_street`, `leg1_postcode`, `leg1_city`.
-          default: ''
-        leg1_coordinates:
-          type: string
-          description: |
-            Leg geographical coordinates formatted as 'lat <number> lon <number>'
-
-            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
-          pattern: '^$|^lat -?[0-9]+(\.[0-9]+)? lon -?[0-9]+(\.[0-9]+)?$'
-          default: ''
-        leg1_locode:
-          type: string
-          pattern: '^$|^[A-Z]{5}$'
-          description: |
-            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
-
-            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
-          default: ''
+          $ref: '#/components/schemas/ArrivalOnDate'
+        leg1_vessel_identification:
+          $ref: '#/components/schemas/VesselIdentification'
+        leg1_flight_number:
+          $ref: '#/components/schemas/FlightNumber'
         leg1_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg provided distance.
-
-            One of `address`, `leg1_coordinates`, `leg1_locode`, `leg1_distance_km` is required.
-          default: ''
-        leg2_airport_code:
-          $ref: '#/components/schemas/OptionalAirportCode'
+          $ref: '#/components/schemas/LegDistance'
         leg2_method:
           $ref: '#/components/schemas/Method'
-          description: Leg transport method
-          default: ''
+        leg2_destination:
+          $ref: '#/components/schemas/SourceDestination'
+        leg2_refrigerated:
+          $ref: '#/components/schemas/Refrigerated'
         leg2_fuel:
           $ref: '#/components/schemas/Fuel'
-        leg2_refrigerated:
-          description: |
-            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions. For road transport this value is also taken in consideration if
-            set to `true`, the appropriate refrigerated shipping method will be used.
-          type: string
-          default: "false"
-          enum:
-            - 'TRUE'
-            - 'true'
-            - 'FALSE'
-            - 'false'
         leg2_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
-        leg2_imo_number:
-          type: string
-          pattern: '^$|^[0-9]{7}$'
-          description: |
-            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
-
-            When an imo is provided, the leg's method is ignored.
-          default: ''
-        leg2_vessel_name:
-          type: string
-          description: |
-            The vessel's name. If an IMO is provided this property will be unused.
-
-            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
-          default: ''
-        leg2_flight_number:
-          type: string
-          description: |
-            Flight number in either ICAO or IATA format.
-
-            Requires `leg2_departure_on`.
-          default: ''
         leg2_departure_on:
-          description: |
-            The date of the departure from the source port.
-
-            Vessel tracking is only available for departures within the past 3 months.
-
-            If `leg2_departure_on` and `leg2_arrival_on` and one of `leg2_imo_number`, `leg2_vessel_name` is provided, vessel tracking will be attempted.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
+          $ref: '#/components/schemas/DepartureOnDate'
         leg2_arrival_on:
-          description: |
-            The date of the arrival to the destination port.
-
-            If `leg2_departure_on` and `leg2_arrival_on` and one of `leg2_imo_number`, `leg2_vessel_name` is provided, vessel tracking will be attempted.
-
-            We can only perform vessel tracking for shipments that finished more than 24 hours ago.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
-        leg2_country:
-          type: string
-          description:
-            Pick up 3-letter ISO 3166 country code.
-
-            `leg2_country`, `leg2_city`, `leg2_postcode`, `leg2_street` are fields that form an `address`.
-
-            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg2_country` is required and at least one of `leg2_street`, `leg2_postcode`, `leg2_city`.
-
-            Examples `GBR`, `ISR`.
-          default: ''
-        leg2_city:
-          type: string
-          description: |
-            Leg city.
-
-            `leg2_country`, `leg2_city`, `leg2_postcode`, `leg2_street` are fields that form an `address`.
-
-            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg2_country` is required and at least one of `leg2_street`, `leg2_postcode`, `leg2_city`.
-          default: ''
-        leg2_postcode:
-          type: string
-          description: |
-            Leg postcode or zipcode.
-
-            `leg2_country`, `leg2_city`, `leg2_postcode`, `leg2_street` are fields that form an `address`.
-
-            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg2_country` is required and at least one of `leg2_street`, `leg2_postcode`, `leg2_city`.
-          default: ''
-        leg2_street:
-          type: string
-          description: |
-            Leg street.
-
-            `leg2_country`, `leg2_city`, `leg2_postcode`, `leg2_street` are fields that form an `address`.
-
-            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg2_country` is required and at least one of `leg2_street`, `leg2_postcode`, `leg2_city`.
-          default: ''
-        leg2_coordinates:
-          type: string
-          description: |
-            Leg geographical coordinates formatted as 'lat <number> lon <number>'
-
-            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
-          pattern: '^$|^lat -?[0-9]+(\.[0-9]+)? lon -?[0-9]+(\.[0-9]+)?$'
-          default: ''
-        leg2_locode:
-          type: string
-          pattern: '^$|^[A-Z]{5}$'
-          description: |
-            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
-
-            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
-          default: ''
+          $ref: '#/components/schemas/ArrivalOnDate'
+        leg2_vessel_identification:
+          $ref: '#/components/schemas/VesselIdentification'
+        leg2_flight_number:
+          $ref: '#/components/schemas/FlightNumber'
         leg2_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg provided distance.
-
-            One of `address`, `leg2_coordinates`, `leg2_locode`, `leg2_distance_km` is required.
-          default: ''
-        leg3_airport_code:
-          $ref: '#/components/schemas/OptionalAirportCode'
+          $ref: '#/components/schemas/LegDistance'
         leg3_method:
           $ref: '#/components/schemas/Method'
-          description: Leg transport method
-          default: ''
+        leg3_destination:
+          $ref: '#/components/schemas/SourceDestination'
+        leg3_refrigerated:
+          $ref: '#/components/schemas/Refrigerated'
         leg3_fuel:
           $ref: '#/components/schemas/Fuel'
-        leg3_refrigerated:
-          description: |
-            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions. For road transport this value is also taken in consideration if
-            set to `true`, the appropriate refrigerated shipping method will be used.
-          type: string
-          default: "false"
-          enum:
-            - 'TRUE'
-            - 'true'
-            - 'FALSE'
-            - 'false'
         leg3_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
-        leg3_imo_number:
-          type: string
-          pattern: '^$|^[0-9]{7}$'
-          description: |
-            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
-
-            When an imo is provided, the leg's method is ignored.
-          default: ''
-        leg3_vessel_name:
-          type: string
-          description: |
-            The vessel's name. If an IMO is provided this property will be unused.
-
-            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
-          default: ''
-        leg3_flight_number:
-          type: string
-          description: |
-            Flight number in either ICAO or IATA format.
-
-            Requires `leg3_departure_on`.
-          default: ''
         leg3_departure_on:
-          description: |
-            The date of the departure from the source port.
-
-            Vessel tracking is only available for departures within the past 3 months.
-
-            If `leg3_departure_on` and `leg3_arrival_on` and one of `leg3_imo_number`, `leg3_vessel_name` is provided, vessel tracking will be attempted.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
+          $ref: '#/components/schemas/DepartureOnDate'
         leg3_arrival_on:
-          description: |
-            The date of the arrival to the destination port.
-
-            If `leg3_departure_on` and `leg3_arrival_on` and one of `leg3_imo_number`, `leg3_vessel_name` is provided, vessel tracking will be attempted.
-
-            We can only perform vessel tracking for shipments that finished more than 24 hours ago.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
-        leg3_country:
-          type: string
-          description:
-            Pick up 3-letter ISO 3166 country code.
-
-            `leg3_country`, `leg3_city`, `leg3_postcode`, `leg3_street` are fields that form an `address`.
-
-            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg3_country` is required and at least one of `leg3_street`, `leg3_postcode`, `leg3_city`.
-
-            Examples `GBR`, `ISR`.
-          default: ''
-        leg3_city:
-          type: string
-          description: |
-            Leg city.
-
-            `leg3_country`, `leg3_city`, `leg3_postcode`, `leg3_street` are fields that form an `address`.
-
-            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg3_country` is required and at least one of `leg3_street`, `leg3_postcode`, `leg3_city`.
-          default: ''
-        leg3_postcode:
-          type: string
-          description: |
-            Leg postcode or zipcode.
-
-            `leg3_country`, `leg3_city`, `leg3_postcode`, `leg3_street` are fields that form an `address`.
-
-            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg3_country` is required and at least one of `leg3_street`, `leg3_postcode`, `leg3_city`.
-          default: ''
-        leg3_street:
-          type: string
-          description: |
-            Leg street.
-
-            `leg3_country`, `leg3_city`, `leg3_postcode`, `leg3_street` are fields that form an `address`.
-
-            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg3_country` is required and at least one of `leg3_street`, `leg3_postcode`, `leg3_city`.
-          default: ''
-        leg3_coordinates:
-          type: string
-          description: |
-            Leg geographical coordinates formatted as 'lat <number> lon <number>'
-
-            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
-          pattern: '^$|^lat -?[0-9]+(\.[0-9]+)? lon -?[0-9]+(\.[0-9]+)?$'
-          default: ''
-        leg3_locode:
-          type: string
-          pattern: '^$|^[A-Z]{5}$'
-          description: |
-            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
-
-            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
-          default: ''
+          $ref: '#/components/schemas/ArrivalOnDate'
+        leg3_vessel_identification:
+          $ref: '#/components/schemas/VesselIdentification'
+        leg3_flight_number:
+          $ref: '#/components/schemas/FlightNumber'
         leg3_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg provided distance.
-
-            One of `address`, `leg3_coordinates`, `leg3_locode`, `leg3_distance_km` is required.
-          default: ''
-        leg4_airport_code:
-          $ref: '#/components/schemas/OptionalAirportCode'
+          $ref: '#/components/schemas/LegDistance'
         leg4_method:
           $ref: '#/components/schemas/Method'
-          description: Leg transport method
-          default: ''
+        leg4_destination:
+          $ref: '#/components/schemas/SourceDestination'
+        leg4_refrigerated:
+          $ref: '#/components/schemas/Refrigerated'
         leg4_fuel:
           $ref: '#/components/schemas/Fuel'
-        leg4_refrigerated:
-          description: |
-            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions. For road transport this value is also taken in consideration if
-            set to `true`, the appropriate refrigerated shipping method will be used.
-          type: string
-          default: "false"
-          enum:
-            - 'TRUE'
-            - 'true'
-            - 'FALSE'
-            - 'false'
         leg4_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
-        leg4_imo_number:
-          type: string
-          pattern: '^$|^[0-9]{7}$'
-          description: |
-            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
-
-            When an imo is provided, the leg's method is ignored.
-          default: ''
-        leg4_vessel_name:
-          type: string
-          description: |
-            The vessel's name. If an IMO is provided this property will be unused.
-
-            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
-          default: ''
-        leg4_flight_number:
-          type: string
-          description: |
-            Flight number in either ICAO or IATA format.
-
-            Requires `leg4_departure_on`.
-          default: ''
         leg4_departure_on:
-          description: |
-            The date of the departure from the source port.
-
-            Vessel tracking is only available for departures within the past 3 months.
-
-            If `leg4_departure_on` and `leg4_arrival_on` and one of `leg4_imo_number`, `leg4_vessel_name` is provided, vessel tracking will be attempted.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
+          $ref: '#/components/schemas/DepartureOnDate'
         leg4_arrival_on:
-          description: |
-            The date of the arrival to the destination port.
-
-            If `leg4_departure_on` and `leg4_arrival_on` and one of `leg4_imo_number`, `leg4_vessel_name` is provided, vessel tracking will be attempted.
-
-            We can only perform vessel tracking for shipments that finished more than 24 hours ago.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
-        leg4_country:
-          type: string
-          description:
-            Pick up 3-letter ISO 3166 country code.
-
-            `leg4_country`, `leg4_city`, `leg4_postcode`, `leg4_street` are fields that form an `address`.
-
-            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg4_country` is required and at least one of `leg4_street`, `leg4_postcode`, `leg4_city`.
-
-            Examples `GBR`, `ISR`.
-          default: ''
-        leg4_city:
-          type: string
-          description: |
-            Leg city.
-
-            `leg4_country`, `leg4_city`, `leg4_postcode`, `leg4_street` are fields that form an `address`.
-
-            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg4_country` is required and at least one of `leg4_street`, `leg4_postcode`, `leg4_city`.
-          default: ''
-        leg4_postcode:
-          type: string
-          description: |
-            Leg postcode or zipcode.
-
-            `leg4_country`, `leg4_city`, `leg4_postcode`, `leg4_street` are fields that form an `address`.
-
-            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg4_country` is required and at least one of `leg4_street`, `leg4_postcode`, `leg4_city`.
-          default: ''
-        leg4_street:
-          type: string
-          description: |
-            Leg street.
-
-            `leg4_country`, `leg4_city`, `leg4_postcode`, `leg4_street` are fields that form an `address`.
-
-            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg4_country` is required and at least one of `leg4_street`, `leg4_postcode`, `leg4_city`.
-          default: ''
-        leg4_coordinates:
-          type: string
-          description: |
-            Leg geographical coordinates formatted as 'lat <number> lon <number>'
-
-            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
-          pattern: '^$|^lat -?[0-9]+(\.[0-9]+)? lon -?[0-9]+(\.[0-9]+)?$'
-          default: ''
-        leg4_locode:
-          type: string
-          pattern: '^$|^[A-Z]{5}$'
-          description: |
-            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
-
-            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
-          default: ''
+          $ref: '#/components/schemas/ArrivalOnDate'
+        leg4_vessel_identification:
+          $ref: '#/components/schemas/VesselIdentification'
+        leg4_flight_number:
+          $ref: '#/components/schemas/FlightNumber'
         leg4_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg provided distance.
-
-            One of `address`, `leg4_coordinates`, `leg4_locode`, `leg4_distance_km` is required.
-          default: ''
-        leg5_airport_code:
-          $ref: '#/components/schemas/OptionalAirportCode'
+          $ref: '#/components/schemas/LegDistance'
         leg5_method:
           $ref: '#/components/schemas/Method'
-          description: Leg transport method
-          default: ''
+        leg5_destination:
+          $ref: '#/components/schemas/SourceDestination'
+        leg5_refrigerated:
+          $ref: '#/components/schemas/Refrigerated'
         leg5_fuel:
           $ref: '#/components/schemas/Fuel'
-        leg5_refrigerated:
-          description: |
-            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions. For road transport this value is also taken in consideration if
-            set to `true`, the appropriate refrigerated shipping method will be used.
-          type: string
-          default: "false"
-          enum:
-            - 'TRUE'
-            - 'true'
-            - 'FALSE'
-            - 'false'
         leg5_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
-        leg5_imo_number:
-          type: string
-          pattern: '^$|^[0-9]{7}$'
-          description: |
-            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
-
-            When an imo is provided, the leg's method is ignored.
-          default: ''
-        leg5_vessel_name:
-          type: string
-          description: |
-            The vessel's name. If an IMO is provided this property will be unused.
-
-            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
-          default: ''
-        leg5_flight_number:
-          type: string
-          description: |
-            Flight number in either ICAO or IATA format.
-
-            Requires `leg5_departure_on`.
-          default: ''
         leg5_departure_on:
-          description: |
-            The date of the departure from the source port.
-
-            Vessel tracking is only available for departures within the past 3 months.
-
-            If `leg5_departure_on` and `leg5_arrival_on` and one of `leg5_imo_number`, `leg5_vessel_name` is provided, vessel tracking will be attempted.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
+          $ref: '#/components/schemas/DepartureOnDate'
         leg5_arrival_on:
-          description: |
-            The date of the arrival to the destination port.
-
-            If `leg5_departure_on` and `leg5_arrival_on` and one of `leg5_imo_number`, `leg5_vessel_name` is provided, vessel tracking will be attempted.
-
-            We can only perform vessel tracking for shipments that finished more than 24 hours ago.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
-        leg5_country:
-          type: string
-          description:
-            Pick up 3-letter ISO 3166 country code.
-
-            `leg5_country`, `leg5_city`, `leg5_postcode`, `leg5_street` are fields that form an `address`.
-
-            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg5_country` is required and at least one of `leg5_street`, `leg5_postcode`, `leg5_city`.
-
-            Examples `GBR`, `ISR`.
-          default: ''
-        leg5_city:
-          type: string
-          description: |
-            Leg city.
-
-            `leg5_country`, `leg5_city`, `leg5_postcode`, `leg5_street` are fields that form an `address`.
-
-            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg5_country` is required and at least one of `leg5_street`, `leg5_postcode`, `leg5_city`.
-          default: ''
-        leg5_postcode:
-          type: string
-          description: |
-            Leg postcode or zipcode.
-
-            `leg5_country`, `leg5_city`, `leg5_postcode`, `leg5_street` are fields that form an `address`.
-
-            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg5_country` is required and at least one of `leg5_street`, `leg5_postcode`, `leg5_city`.
-          default: ''
-        leg5_street:
-          type: string
-          description: |
-            Leg street.
-
-            `leg5_country`, `leg5_city`, `leg5_postcode`, `leg5_street` are fields that form an `address`.
-
-            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg5_country` is required and at least one of `leg5_street`, `leg5_postcode`, `leg5_city`.
-          default: ''
-        leg5_coordinates:
-          type: string
-          description: |
-            Leg geographical coordinates formatted as 'lat <number> lon <number>'
-
-            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
-          pattern: '^$|^lat -?[0-9]+(\.[0-9]+)? lon -?[0-9]+(\.[0-9]+)?$'
-          default: ''
-        leg5_locode:
-          type: string
-          pattern: '^$|^[A-Z]{5}$'
-          description: |
-            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
-
-            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
-          default: ''
+          $ref: '#/components/schemas/ArrivalOnDate'
+        leg5_vessel_identification:
+          $ref: '#/components/schemas/VesselIdentification'
+        leg5_flight_number:
+          $ref: '#/components/schemas/FlightNumber'
         leg5_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg provided distance.
-
-            One of `address`, `leg5_coordinates`, `leg5_locode`, `leg5_distance_km` is required.
-          default: ''
-        leg6_airport_code:
-          $ref: '#/components/schemas/OptionalAirportCode'
+          $ref: '#/components/schemas/LegDistance'
         leg6_method:
           $ref: '#/components/schemas/Method'
-          description: Leg transport method
-          default: ''
+        leg6_destination:
+          $ref: '#/components/schemas/SourceDestination'
+        leg6_refrigerated:
+          $ref: '#/components/schemas/Refrigerated'
         leg6_fuel:
           $ref: '#/components/schemas/Fuel'
-        leg6_refrigerated:
-          description: |
-            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions. For road transport this value is also taken in consideration if
-            set to `true`, the appropriate refrigerated shipping method will be used.
-          type: string
-          default: "false"
-          enum:
-            - 'TRUE'
-            - 'true'
-            - 'FALSE'
-            - 'false'
         leg6_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
-        leg6_imo_number:
-          type: string
-          pattern: '^$|^[0-9]{7}$'
-          description: |
-            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
-
-            When an imo is provided, the leg's method is ignored.
-          default: ''
-        leg6_vessel_name:
-          type: string
-          description: |
-            The vessel's name. If an IMO is provided this property will be unused.
-
-            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
-          default: ''
-        leg6_flight_number:
-          type: string
-          description: |
-            Flight number in either ICAO or IATA format.
-
-            Requires `leg6_departure_on`.
-          default: ''
         leg6_departure_on:
-          description: |
-            The date of the departure from the source port.
-
-            Vessel tracking is only available for departures within the past 3 months.
-            
-            If `leg6_departure_on` and `leg6_arrival_on` and one of `leg6_imo_number`, `leg6_vessel_name` is provided, vessel tracking will be attempted.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
+          $ref: '#/components/schemas/DepartureOnDate'
         leg6_arrival_on:
-          description: |
-            The date of the arrival to the destination port.
-
-            If `leg6_departure_on` and `leg6_arrival_on` and one of `leg6_imo_number`, `leg6_vessel_name` is provided, vessel tracking will be attempted.
-
-            We can only perform vessel tracking for shipments that finished more than 24 hours ago.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
-        leg6_country:
-          type: string
-          description:
-            Pick up 3-letter ISO 3166 country code.
-
-            `leg6_country`, `leg6_city`, `leg6_postcode`, `leg6_street` are fields that form an `address`.
-
-            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg6_country` is required and at least one of `leg6_street`, `leg6_postcode`, `leg6_city`.
-
-            Examples `GBR`, `ISR`.
-          default: ''
-        leg6_city:
-          type: string
-          description: |
-            Leg city.
-
-            `leg6_country`, `leg6_city`, `leg6_postcode`, `leg6_street` are fields that form an `address`.
-
-            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg6_country` is required and at least one of `leg6_street`, `leg6_postcode`, `leg6_city`.
-          default: ''
-        leg6_postcode:
-          type: string
-          description: |
-            Leg postcode or zipcode.
-
-            `leg6_country`, `leg6_city`, `leg6_postcode`, `leg6_street` are fields that form an `address`.
-
-            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg6_country` is required and at least one of `leg6_street`, `leg6_postcode`, `leg6_city`.
-          default: ''
-        leg6_street:
-          type: string
-          description: |
-            Leg street.
-
-            `leg6_country`, `leg6_city`, `leg6_postcode`, `leg6_street` are fields that form an `address`.
-
-            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg6_country` is required and at least one of `leg6_street`, `leg6_postcode`, `leg6_city`.
-          default: ''
-        leg6_coordinates:
-          type: string
-          description: |
-            Leg geographical coordinates formatted as 'lat <number> lon <number>'
-
-            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
-          pattern: '^$|^lat -?[0-9]+(\.[0-9]+)? lon -?[0-9]+(\.[0-9]+)?$'
-          default: ''
-        leg6_locode:
-          type: string
-          pattern: '^$|^[A-Z]{5}$'
-          description: |
-            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
-
-            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
-          default: ''
+          $ref: '#/components/schemas/ArrivalOnDate'
+        leg6_vessel_identification:
+          $ref: '#/components/schemas/VesselIdentification'
+        leg6_flight_number:
+          $ref: '#/components/schemas/FlightNumber'
         leg6_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg provided distance.
-
-            One of `address`, `leg6_coordinates`, `leg6_locode`, `leg6_distance_km` is required.
-          default: ''
-        leg7_airport_code:
-          $ref: '#/components/schemas/OptionalAirportCode'
+          $ref: '#/components/schemas/LegDistance'
         leg7_method:
           $ref: '#/components/schemas/Method'
-          description: Leg transport method
-          default: ''
+        leg7_destination:
+          $ref: '#/components/schemas/SourceDestination'
+        leg7_refrigerated:
+          $ref: '#/components/schemas/Refrigerated'
         leg7_fuel:
           $ref: '#/components/schemas/Fuel'
-        leg7_refrigerated:
-          description: |
-            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions. For road transport this value is also taken in consideration if
-            set to `true`, the appropriate refrigerated shipping method will be used.
-          type: string
-          default: "false"
-          enum:
-            - 'TRUE'
-            - 'true'
-            - 'FALSE'
-            - 'false'
         leg7_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
-        leg7_imo_number:
-          type: string
-          pattern: '^$|^[0-9]{7}$'
-          description: |
-            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
-
-            When an imo is provided, the leg's method is ignored.
-          default: ''
-        leg7_vessel_name:
-          type: string
-          description: |
-            The vessel's name. If an IMO is provided this property will be unused.
-
-            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
-          default: ''
-        leg7_flight_number:
-          type: string
-          description: |
-            Flight number in either ICAO or IATA format.
-
-            Requires `leg7_departure_on`.
-          default: ''
         leg7_departure_on:
-          description: |
-            The date of the departure from the source port.
-
-            Vessel tracking is only available for departures within the past 3 months.
-
-            If `leg7_departure_on` and `leg7_arrival_on` and one of `leg7_imo_number`, `leg7_vessel_name` is provided, vessel tracking will be attempted.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
+          $ref: '#/components/schemas/DepartureOnDate'
         leg7_arrival_on:
-          description: |
-            The date of the arrival to the destination port.
-
-            If `leg7_departure_on` and `leg7_arrival_on` and one of `leg7_imo_number`, `leg7_vessel_name` is provided, vessel tracking will be attempted.
-
-            We can only perform vessel tracking for shipments that finished more than 24 hours ago.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
-        leg7_country:
-          type: string
-          description:
-            Pick up 3-letter ISO 3166 country code.
-
-            `leg7_country`, `leg7_city`, `leg7_postcode`, `leg7_street` are fields that form an `address`.
-
-            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg7_country` is required and at least one of `leg7_street`, `leg7_postcode`, `leg7_city`.
-
-            Examples `GBR`, `ISR`.
-          default: ''
-        leg7_city:
-          type: string
-          description: |
-            Leg city.
-
-            `leg7_country`, `leg7_city`, `leg7_postcode`, `leg7_street` are fields that form an `address`.
-
-            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg7_country` is required and at least one of `leg7_street`, `leg7_postcode`, `leg7_city`.
-          default: ''
-        leg7_postcode:
-          type: string
-          description: |
-            Leg postcode or zipcode.
-
-            `leg7_country`, `leg7_city`, `leg7_postcode`, `leg7_street` are fields that form an `address`.
-
-            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg7_country` is required and at least one of `leg7_street`, `leg7_postcode`, `leg7_city`.
-          default: ''
-        leg7_street:
-          type: string
-          description: |
-            Leg street.
-
-            `leg7_country`, `leg7_city`, `leg7_postcode`, `leg7_street` are fields that form an `address`.
-
-            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg7_country` is required and at least one of `leg7_street`, `leg7_postcode`, `leg7_city`.
-          default: ''
-        leg7_coordinates:
-          type: string
-          description: |
-            Leg geographical coordinates formatted as 'lat <number> lon <number>'
-
-            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
-          pattern: '^$|^lat -?[0-9]+(\.[0-9]+)? lon -?[0-9]+(\.[0-9]+)?$'
-          default: ''
-        leg7_locode:
-          type: string
-          pattern: '^$|^[A-Z]{5}$'
-          description: |
-            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
-
-            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
-          default: ''
+          $ref: '#/components/schemas/ArrivalOnDate'
+        leg7_vessel_identification:
+          $ref: '#/components/schemas/VesselIdentification'
+        leg7_flight_number:
+          $ref: '#/components/schemas/FlightNumber'
         leg7_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg provided distance.
-
-            One of `address`, `leg7_coordinates`, `leg7_locode`, `leg7_distance_km` is required.
-          default: ''
-        leg8_airport_code:
-          $ref: '#/components/schemas/OptionalAirportCode'
+          $ref: '#/components/schemas/LegDistance'
         leg8_method:
           $ref: '#/components/schemas/Method'
-          description: Leg transport method
-          default: ''
+        leg8_destination:
+          $ref: '#/components/schemas/SourceDestination'
+        leg8_refrigerated:
+          $ref: '#/components/schemas/Refrigerated'
         leg8_fuel:
           $ref: '#/components/schemas/Fuel'
-        leg8_refrigerated:
-          description: |
-            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions. For road transport this value is also taken in consideration if
-            set to `true`, the appropriate refrigerated shipping method will be used.
-          type: string
-          default: "false"
-          enum:
-            - 'TRUE'
-            - 'true'
-            - 'FALSE'
-            - 'false'
         leg8_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
-        leg8_imo_number:
-          type: string
-          pattern: '^$|^[0-9]{7}$'
-          description: |
-            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
-
-            When an imo is provided, the leg's method is ignored.
-          default: ''
-        leg8_vessel_name:
-          type: string
-          description: |
-            The vessel's name. If an IMO is provided this property will be unused.
-
-            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
-          default: ''
-        leg8_flight_number:
-          type: string
-          description: |
-            Flight number in either ICAO or IATA format.
-
-            Requires `leg8_departure_on`.
-          default: ''
         leg8_departure_on:
-          description: |
-            The date of the departure from the source port.
-
-            Vessel tracking is only available for departures within the past 3 months.
-
-            If `leg8_departure_on` and `leg8_arrival_on` and one of `leg8_imo_number`, `leg8_vessel_name` is provided, vessel tracking will be attempted.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
+          $ref: '#/components/schemas/DepartureOnDate'
         leg8_arrival_on:
-          description: |
-            The date of the arrival to the destination port.
-
-            If `leg8_departure_on` and `leg8_arrival_on` and one of `leg8_imo_number`, `leg8_vessel_name` is provided, vessel tracking will be attempted.
-
-            We can only perform vessel tracking for shipments that finished more than 24 hours ago.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
-        leg8_country:
-          type: string
-          description:
-            Pick up 3-letter ISO 3166 country code.
-
-            `leg8_country`, `leg8_city`, `leg8_postcode`, `leg8_street` are fields that form an `address`.
-
-            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg8_country` is required and at least one of `leg8_street`, `leg8_postcode`, `leg8_city`.
-
-            Examples `GBR`, `ISR`.
-          default: ''
-        leg8_city:
-          type: string
-          description: |
-            Leg city.
-
-            `leg8_country`, `leg8_city`, `leg8_postcode`, `leg8_street` are fields that form an `address`.
-
-            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg8_country` is required and at least one of `leg8_street`, `leg8_postcode`, `leg8_city`.
-          default: ''
-        leg8_postcode:
-          type: string
-          description: |
-            Leg postcode or zipcode.
-
-            `leg8_country`, `leg8_city`, `leg8_postcode`, `leg8_street` are fields that form an `address`.
-
-            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg8_country` is required and at least one of `leg8_street`, `leg8_postcode`, `leg8_city`.
-          default: ''
-        leg8_street:
-          type: string
-          description: |
-            Leg street.
-
-            `leg8_country`, `leg8_city`, `leg8_postcode`, `leg8_street` are fields that form an `address`.
-
-            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg8_country` is required and at least one of `leg8_street`, `leg8_postcode`, `leg8_city`.
-          default: ''
-        leg8_coordinates:
-          type: string
-          description: |
-            Leg geographical coordinates formatted as 'lat <number> lon <number>'
-
-            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
-          pattern: '^$|^lat -?[0-9]+(\.[0-9]+)? lon -?[0-9]+(\.[0-9]+)?$'
-          default: ''
-        leg8_locode:
-          type: string
-          pattern: '^$|^[A-Z]{5}$'
-          description: |
-            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
-
-            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
-          default: ''
+          $ref: '#/components/schemas/ArrivalOnDate'
+        leg8_vessel_identification:
+          $ref: '#/components/schemas/VesselIdentification'
+        leg8_flight_number:
+          $ref: '#/components/schemas/FlightNumber'
         leg8_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg provided distance.
-
-            One of `address`, `leg8_coordinates`, `leg8_locode`, `leg8_distance_km` is required.
-          default: ''
-        leg9_airport_code:
-          $ref: '#/components/schemas/OptionalAirportCode'
+          $ref: '#/components/schemas/LegDistance'
         leg9_method:
           $ref: '#/components/schemas/Method'
-          description: Leg transport method
-          default: ''
+        leg9_destination:
+          $ref: '#/components/schemas/SourceDestination'
+        leg9_refrigerated:
+          $ref: '#/components/schemas/Refrigerated'
         leg9_fuel:
           $ref: '#/components/schemas/Fuel'
-        leg9_refrigerated:
-          description: |
-            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions. For road transport this value is also taken in consideration if
-            set to `true`, the appropriate refrigerated shipping method will be used.
-          type: string
-          default: "false"
-          enum:
-            - 'TRUE'
-            - 'true'
-            - 'FALSE'
-            - 'false'
         leg9_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
-        leg9_imo_number:
-          type: string
-          pattern: '^$|^[0-9]{7}$'
-          description: |
-            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
-
-            When an imo is provided, the leg's method is ignored.
-          default: ''
-        leg9_vessel_name:
-          type: string
-          description: |
-            The vessel's name. If an IMO is provided this property will be unused.
-
-            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
-          default: ''
-        leg9_flight_number:
-          type: string
-          description: |
-            Flight number in either ICAO or IATA format.
-
-            Requires `leg9_departure_on`.
-          default: ''
         leg9_departure_on:
-          description: |
-            The date of the departure from the source port.
-
-            Vessel tracking is only available for departures within the past 3 months.
-
-            If `leg9_departure_on` and `leg9_arrival_on` and one of `leg9_imo_number`, `leg9_vessel_name` is provided, vessel tracking will be attempted.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
+          $ref: '#/components/schemas/DepartureOnDate'
         leg9_arrival_on:
-          description: |
-            The date of the arrival to the destination port.
-
-            If `leg9_departure_on` and `leg9_arrival_on` and one of `leg9_imo_number`, `leg9_vessel_name` is provided, vessel tracking will be attempted.
-
-            We can only perform vessel tracking for shipments that finished more than 24 hours ago.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
-        leg9_country:
-          type: string
-          description:
-            Pick up 3-letter ISO 3166 country code.
-
-            `leg9_country`, `leg9_city`, `leg9_postcode`, `leg9_street` are fields that form an `address`.
-
-            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg9_country` is required and at least one of `leg9_street`, `leg9_postcode`, `leg9_city`.
-
-            Examples `GBR`, `ISR`.
-          default: ''
-        leg9_city:
-          type: string
-          description: |
-            Leg city.
-
-            `leg9_country`, `leg9_city`, `leg9_postcode`, `leg9_street` are fields that form an `address`.
-
-            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg9_country` is required and at least one of `leg9_street`, `leg9_postcode`, `leg9_city`.
-          default: ''
-        leg9_postcode:
-          type: string
-          description: |
-            Leg postcode or zipcode.
-
-            `leg9_country`, `leg9_city`, `leg9_postcode`, `leg9_street` are fields that form an `address`.
-
-            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg9_country` is required and at least one of `leg9_street`, `leg9_postcode`, `leg9_city`.
-          default: ''
-        leg9_street:
-          type: string
-          description: |
-            Leg street.
-
-            `leg9_country`, `leg9_city`, `leg9_postcode`, `leg9_street` are fields that form an `address`.
-
-            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg9_country` is required and at least one of `leg9_street`, `leg9_postcode`, `leg9_city`.
-          default: ''
-        leg9_coordinates:
-          type: string
-          description: |
-            Leg geographical coordinates formatted as 'lat <number> lon <number>'
-
-            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
-          pattern: '^$|^lat -?[0-9]+(\.[0-9]+)? lon -?[0-9]+(\.[0-9]+)?$'
-          default: ''
-        leg9_locode:
-          type: string
-          pattern: '^$|^[A-Z]{5}$'
-          description: |
-            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
-
-            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
-          default: ''
+          $ref: '#/components/schemas/ArrivalOnDate'
+        leg9_vessel_identification:
+          $ref: '#/components/schemas/VesselIdentification'
+        leg9_flight_number:
+          $ref: '#/components/schemas/FlightNumber'
         leg9_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg provided distance.
-
-            One of `address`, `leg9_coordinates`, `leg9_locode`, `leg9_distance_km` is required.
-          default: ''
-        leg10_airport_code:
-          $ref: '#/components/schemas/OptionalAirportCode'
+          $ref: '#/components/schemas/LegDistance'
         leg10_method:
           $ref: '#/components/schemas/Method'
-          description: Leg transport method
-          default: ''
+        leg10_destination:
+          $ref: '#/components/schemas/SourceDestination'
+        leg10_refrigerated:
+          $ref: '#/components/schemas/Refrigerated'
         leg10_fuel:
           $ref: '#/components/schemas/Fuel'
-        leg10_refrigerated:
-          description: |
-            A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
-            result in lower emissions. For road transport this value is also taken in consideration if
-            set to `true`, the appropriate refrigerated shipping method will be used.
-          type: string
-          default: "false"
-          enum:
-            - 'TRUE'
-            - 'true'
-            - 'FALSE'
-            - 'false'
         leg10_trade_lane:
           $ref: '#/components/schemas/OptionalTradeLane'
-        leg10_imo_number:
-          type: string
-          pattern: '^$|^[0-9]{7}$'
-          description: |
-            The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
-
-            When an imo is provided, the leg's method is ignored.
-          default: ''
-        leg10_vessel_name:
-          type: string
-          description: |
-            The vessel's name. If an IMO is provided this property will be unused.
-
-            When a vessel name that corresponds to a single ship is provided, the leg's method is ignored.
-          default: ''
-        leg10_flight_number:
-          type: string
-          description: |
-            Flight number in either ICAO or IATA format.
-
-            Requires `leg10_departure_on`.
-          default: ''
         leg10_departure_on:
-          description: |
-            The date of the departure from the source port.
-
-            Vessel tracking is only available for departures within the past 3 months.
-            
-            If `leg10_departure_on` and `leg10_arrival_on` and one of `leg10_imo_number`, `leg10_vessel_name` is provided, vessel tracking will be attempted.
-          type: string
-          pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
+          $ref: '#/components/schemas/DepartureOnDate'
         leg10_arrival_on:
-          description: |
-            The date of the arrival to the destination port.
-
-            If `leg10_departure_on` and `leg10_arrival_on` and one of `leg10_imo_number`, `leg10_vessel_name` is provided, vessel tracking will be attempted.
-            
-            We can only perform vessel tracking for shipments that finished more than 24 hours ago.
-          type: string
-        leg10_country:
-          type: string
-          description:
-            Pick up 3-letter ISO 3166 country code.
-
-            `leg10_country`, `leg10_city`, `leg10_postcode`, `leg10_street` are fields that form an `address`.
-
-            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg10_country` is required and at least one of `leg10_street`, `leg10_postcode`, `leg10_city`.
-
-            Examples `GBR`, `ISR`.
-          default: ''
-        leg10_city:
-          type: string
-          description: |
-            Leg city.
-
-            `leg10_country`, `leg10_city`, `leg10_postcode`, `leg10_street` are fields that form an `address`.
-
-            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg10_country` is required and at least one of `leg10_street`, `leg10_postcode`, `leg10_city`.
-          default: ''
-        leg10_postcode:
-          type: string
-          description: |
-            Leg postcode or zipcode.
-
-            `leg10_country`, `leg10_city`, `leg10_postcode`, `leg10_street` are fields that form an `address`.
-
-            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg10_country` is required and at least one of `leg10_street`, `leg10_postcode`, `leg10_city`.
-          default: ''
-        leg10_street:
-          type: string
-          description: |
-            Leg street.
-
-            `leg10_country`, `leg10_city`, `leg10_postcode`, `leg10_street` are fields that form an `address`.
-
-            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
-
-            As part of an `address`, to ensure accuracy, `leg10_country` is required and at least one of `leg10_street`, `leg10_postcode`, `leg10_city`.
-          default: ''
-        leg10_coordinates:
-          type: string
-          description: |
-            Leg geographical coordinates formatted as 'lat <number> lon <number>'
-
-            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
-          pattern: '^$|^lat -?[0-9]+(\.[0-9]+)? lon -?[0-9]+(\.[0-9]+)?$'
-          default: ''
-        leg10_locode:
-          type: string
-          pattern: '^$|^[A-Z]{5}$'
-          description: |
-            UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
-
-            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
-          default: ''
+          $ref: '#/components/schemas/ArrivalOnDate'
+        leg10_vessel_identification:
+          $ref: '#/components/schemas/VesselIdentification'
+        leg10_flight_number:
+          $ref: '#/components/schemas/FlightNumber'
         leg10_distance_km:
-          type: string
-          pattern: '^$|^[0-9]+(\.[0-9]+)?$'
-          description: |
-            Leg provided distance.
+          $ref: '#/components/schemas/LegDistance'
+    TotalCo2:
+      type: string
+      pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+      description: Leg emission estimate in tCO2e.
+    EstimatedAdjustedDistance:
+      type: string
+      pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+      description: |
+        Leg estimated distance inclusive of distance adjustment factors in km.
+      default: ''
+    EstimatedDistance:
+      type: string
+      pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+      description: |
+        Leg estimated distance in km.
 
-            One of `address`, `leg10_coordinates`, `leg10_locode`, `leg10_distance_km` is required.
-          default: ''
+        Equivalent to `leg*_distance_km` when `leg*_distance_km` is provided.
+      default: ''
+    Refrigerated:
+      description: |
+        A container transport is either refrigerated or "dry" (not refrigerated). Dry transports
+        result in lower emissions. For road transport this value is also taken in consideration if
+        set to `true`, the appropriate refrigerated shipping method will be used.
+      type: string
+      default: "false"
+      enum:
+        - 'true'
+        - 'false'
+        - ''
+    ArrivalOnDate:
+      description: |
+        The date of arrival at the leg's destination.
+
+        Vessel tracking is only available for shipments that finished more than 24 hours ago. If `leg1_departure_on`
+        and `leg1_arrival_on` and `leg1_vessel_identification` is provided, vessel tracking will be attempted.
+      type: string
+      pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
+    DepartureOnDate:
+      description: |
+        The date of the departure from the previous leg's location.
+
+        Vessel tracking is only available for shipments that finished more than 24 hours ago. If `leg1_departure_on`
+        and `leg1_arrival_on` and `leg1_vessel_identification` is provided, vessel tracking will be attempted.
+      type: string
+      pattern: '^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$'
+    FlightNumber:
+      type: string
+      description: |
+        Flight number in either ICAO or IATA format.
+
+        Requires `leg1_departure_on`.
+      default: ''
+    VesselIdentification:
+      default: ''
+      type: string
+      description:
+        The vessel's [IMO number](https://en.wikipedia.org/wiki/IMO_number) *without* the `IMO` prefix.
+        
+        OR
+        
+        The vessel's name. If an IMO is provided this property will be unused.
+        
+        When an identifier is provided, the leg's method is ignored.
     Method:
+      default: ''
       description: |
         The transport method.
 
@@ -1776,7 +531,11 @@ components:
         - type: string
           x-lune-name: Container ship method
           enum:
-            - container_ship
+            - 'container_ship'
+            - 'sea'
+            - 'air'
+            - 'rail'
+            - 'road'
             - ''
     Fuel:
       description: |
@@ -1831,18 +590,47 @@ components:
           x-lune-name: No trade lane
           enum:
             - ''
-    OptionalAirportCode:
+    LegDistance:
+      type: string
+      pattern: '^$|^[0-9]+(\.[0-9]+)?$'
+      description: |
+        Shipment's distance for a given leg.
+      default: ''
+    SourceDestination:
+      description: |
+        Source location of shipment can be submitted in any of the formats defined below:
+        
+        - A comma-seperated address, ending with a country code. Where the country code is a 3-letter ISO 3166 country code.
+          Cannot be a country code alone, must have more than one address line.
+        
+          Examples: 
+               - Apple Lane, London, SW1A 2AA, GBR
+               - Ontario, CAN
+        
+        - A UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+        
+        - An IATA or ICAO airport code
+        
+        - Geographical coordinates formatted as 'lat <number> lon <number>'.
+      oneOf:
+        - type: string
+          x-lune-name: Address
+          pattern: '^$|([a-zA-Z0-9\s]+,)+\s*[a-zA-Z]{3}$'
+        - type: string
+          x-lune-name: Coordinates
+          pattern: '^$|^lat -?[0-9]+(\.[0-9]+)? lon -?[0-9]+(\.[0-9]+)?$'
+        - type: string
+          x-lune-name: UN LOCODE
+          pattern: '^$|^[A-Z]{5}$'
+        - $ref: '#/components/schemas/AirportCode'
+    AirportCode:
       description: IATA or ICAO airport code
       oneOf:
         - type: string
           x-lune-name: IATA airport code
           description: IATA Airport code
-          pattern: ^[A-Z]{3}$
+          pattern: '^[A-Z]{3}$'
         - type: string
           x-lune-name: ICAO airport code
           description: ICAO Airport code
-          pattern: ^[A-Z]{4}[A-Z]?$
-        - type: string
-          x-lune-name: No airport code
-          enum:
-            - ''
+          pattern: '^[A-Z]{4}?$'
