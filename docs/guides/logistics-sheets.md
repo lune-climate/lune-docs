@@ -70,8 +70,7 @@ Navigate to the [logistics spreadsheet calculation](https://dashboard.lune.co/ca
 Click on the 'Download CSV template' button to download the template.
 
 There are 4 templates, one for every transport mode we support: rail, sea, road & air. Templates contain sample data.
-Amend and/or delete rows to fit your data. Combine the different transport modes into a shipment's legs for more
-complex journeys.
+Amend and/or delete rows to fit your data. Combine the different transport modes into a shipment's legs for more complex journeys.
 
 Do not delete the header row.
 
