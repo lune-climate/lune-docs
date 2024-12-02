@@ -144,7 +144,7 @@ This cannot be a country code alone, you must provide more than one address line
 
 - A UN LOCODE. For a full list of options [https://unece.org/trade/cefact/unlocode-code-list-country-and-territory](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
 - An IATA or ICAO airport code
-- Geographical coordinates formatted as 'lat <number> lon <number>'.
+- Geographical coordinates formatted as `lat <number> lon <number>`.
 
 
     Example:
