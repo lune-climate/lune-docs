@@ -1511,6 +1511,38 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '503':
           $ref: '#/components/responses/ServiceUnavailable'
+  /estimates/passenger-transportation/{id}:
+    get:
+      summary: Get a passenger transportation emission estimate
+      description: Returns a passenger transportation emission estimate.
+      operationId: getPassengerTransportationEstimate
+      security:
+        - BearerAuth: []
+      tags:
+        - Emission estimates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The estimate's unique identifier
+          schema:
+            type: string
+            example: Vxg3b7MoBkrNQA328Rgpnvmw1J8a6Lqj
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PassengerTransportationEmissionEstimate'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFoundWithErrors'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
   /estimates/shipping/all:
     get:
       summary: List all shipping estimates
@@ -5554,11 +5586,25 @@ components:
             legs:
               type: array
               items:
-                $ref: '#/components/schemas/EmissionEstimate'
+                $ref: '#/components/schemas/PassengerTransportationLegEmissionEstimate'
             quote:
               $ref: '#/components/schemas/EstimateQuote'
             request:
               $ref: '#/components/schemas/PassengerTransportationEstimateRequest'
+    PassengerTransportationLegEmissionEstimate:
+      type: object
+      required:
+        - mass
+      properties:
+        mass:
+          $ref: '#/components/schemas/EstimateMass'
+        distance:
+          $ref: '#/components/schemas/Distance'
+        emission_factor:
+          description: This property is `null` for any estimate created before 01/12/2024
+          oneOf:
+            - $ref: '#/components/schemas/EmissionFactorWithGasEmissions'
+            - $ref: '#/components/schemas/NullEnum'
     CabinClass:
        description: Cabin of class to be used for the specified passengers.
 
