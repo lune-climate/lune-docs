@@ -1548,7 +1548,7 @@ paths:
       summary: List all shipping estimates
       description: |
         Returns single and multi-leg shipping estimates paginated in reverse order.
-      operationId: listAllShipingEstimates
+      operationId: listAllShippingEstimates
       security:
         - BearerAuth: []
       tags:
