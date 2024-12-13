@@ -7628,7 +7628,7 @@ components:
               $ref: '#/components/schemas/FlightEstimateRequest'
     TransactionDocumentEmissionEstimateLineItem:
       type: object
-      description: Transcation document line item estimate.
+      description: Transaction document line item estimate.
       allOf:
         - type: object
           required:
