@@ -1092,7 +1092,6 @@ paths:
       operationId: getOrderCertificate
       security:
         - BearerAuth: []
-        - AccessToken: []
       tags:
         - Orders
       parameters:
