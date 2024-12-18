@@ -52,7 +52,7 @@
     "worker-loader": "^3.0.8"
   },
   "devDependencies": {
-    "@algolia/client-search": "^5.17.1",
+    "@algolia/client-search": "^5.18.0",
     "@docusaurus/module-type-aliases": "^3.6.3",
     "@jest/globals": "^29.7.0",
     "@js-joda/core": "^5.6.3",
