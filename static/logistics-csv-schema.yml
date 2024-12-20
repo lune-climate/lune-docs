@@ -164,7 +164,7 @@ components:
 
             When set, the emission estimate is stored against the client account.
 
-            For details in regards to Client Accounts visit https://docs.lune.co/api-reference/client-accounts/client-account.
+            For details in regards to Client Accounts visit https://docs.lune.co/general-concepts/accounts#client-accounts
           default: ''
         client_account_handle:
           type: string
@@ -176,7 +176,7 @@ components:
 
             If a client account is already associated with the handle, the emission estimate is stored against the existing client account.
 
-            For details in regards to Client Accounts visit https://docs.lune.co/api-reference/client-accounts/client-account.
+            For details in regards to Client Accounts visit https://docs.lune.co/general-concepts/accounts#client-accounts
 
             Note: `client_account_id` takes precedence of `client_account_handle`.
           default: ''
